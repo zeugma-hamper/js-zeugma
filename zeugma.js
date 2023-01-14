@@ -13,7 +13,7 @@
     "ideal-pixhei": 2160
   };
 
-  glob.makeEvent = function(type, x, y) {
+  let makeEvent = function(type, x, y) {
     let pe = new PointerEvent(type, {
       pointerId: 1,
       bubbles: true,
@@ -102,7 +102,7 @@
      //console.log('got zeugma_pointer_move',screen_spot);
    if (screen_spot) {
       let el = document.elementFromPoint(screen_spot.x, screen_spot.y);
-      let pe = glob.makeEvent('mousemove', screen_spot.x, screen_spot.y);
+      let pe = makeEvent('mousemove', screen_spot.x, screen_spot.y);
 
       if (el)
         el.dispatchEvent(pe);
@@ -122,7 +122,7 @@
   // zeugma_click -- handle click events by converting them into generic 'click' events
   // this needs to support multiple pointers
 
-  glob.mouse_down_loc = {
+  mouse_down_loc = {
     x: 0,
     y: 0
   };
@@ -138,13 +138,13 @@
     let el = document.elementFromPoint(screen_spot.x, screen_spot.y);
 
     if (data.but_state) {
-      glob.mouse_down_loc.x = screen_spot.x;
-      glob.mouse_down_loc.y = screen_spot.y;
+      mouse_down_loc.x = screen_spot.x;
+      mouse_down_loc.y = screen_spot.y;
     } else {
-      if (Math.abs(screen_spot.x - glob.mouse_down_loc.x) < 12 && Math.abs(screen_spot.y - glob.mouse_down_loc.y) < 12) {
+      if (Math.abs(screen_spot.x - mouse_down_loc.x) < 12 && Math.abs(screen_spot.y - mouse_down_loc.y) < 12) {
         console.log('make a click');
 
-        let pe = glob.makeEvent('click', screen_spot.x, screen_spot.y);
+        let pe = makeEvent('click', screen_spot.x, screen_spot.y);
 
         if (el)
           el.dispatchEvent(pe);
@@ -153,7 +153,7 @@
 
       }
     }
-    let pe = glob.makeEvent(evt_type, screen_spot.x, screen_spot.y);
+    let pe = makeEvent(evt_type, screen_spot.x, screen_spot.y);
 
     if (el)
       el.dispatchEvent(pe);
@@ -165,7 +165,7 @@
 
   // animation loop to draw 2 cursors
 
-  glob.draw_a_frame = function() {
+  let draw_a_frame = function() {
     glob.cursor0.e.css({
       left: glob.cursor0.pos_x,
       top: glob.cursor0.pos_y
@@ -175,9 +175,9 @@
       top: glob.cursor1.pos_y
     });
 
-    window.requestAnimationFrame(glob.draw_a_frame);
+    window.requestAnimationFrame(draw_a_frame);
   }
 
-  window.requestAnimationFrame(glob.draw_a_frame);
+  window.requestAnimationFrame(draw_a_frame);
 
 });
