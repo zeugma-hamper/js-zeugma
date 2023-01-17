@@ -1,0 +1,37 @@
+
+//
+// (c) treadle & loam, provisioners llc
+//
+
+
+class ZESpatialPressureEvent  extends ZESpatialEvent
+{ //
+  constructor (pr)
+    { super (pr);
+      this.prs_id = -1;
+      this.prs_val = 0.0;
+    }
+
+  EventIlk ()
+    { return "ZESpatialPressureEvent"; }
+
+  AdoptParticulars (spe)
+    { super.AdoptParticulars (spe);
+      this.SetWhichPressor (spe.prs_id);
+      this.SetPressureValue (spe.prs_val);
+      return this;
+    }
+
+  WhichPressor ()
+    { return this.prs_id; }
+  SetWhichPressor (pid)
+    { this.crs_id = cid;  return this; }
+
+  PressureValue ()
+    { return this.prs_val; }
+  SetPressureValue (pvl)  // a scalar here, is what one should.
+    { this.prs_val = pvl;  return this; }
+
+  ProfferAsQuaffTo (zbj)
+    { return zbj . ZeSpatialPressure (this); }
+}
