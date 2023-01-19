@@ -53,3 +53,13 @@ export class ZESpatialEvent  extends ZeEvent
   ProfferAsQuaffTo (zbj)
     { return zbj . ZeSpatial (this); }
 }
+
+
+// faux-interface creamy goodness:
+ZESpatialEvent.Phage = (supah) => class extends supah
+{ ZESpatial (e)  // arg's an event
+    { if (this.PassTheBuckUpPhageHierarchy ())
+        return this.Ze (e);
+      return -1;
+    }
+}

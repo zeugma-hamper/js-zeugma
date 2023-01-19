@@ -27,6 +27,14 @@ zeu.squirt_zeugma_unto_global
 ///
 //
 
+import { base_class } from "./interface-ersatzer.js";
+zeu.base_class = base_class;
+
+
+//
+///
+//
+
 import { Vect } from "./Vect.js";
 import { Matrix44 } from "./Matrix44.js";
 zeu.Vect = Vect;
@@ -53,6 +61,9 @@ zeu.ZESpatialCaressEvent = ZESpatialCaressEvent;
 zeu.ZESpatialPressureEvent = ZESpatialPressureEvent;
 zeu.ZESpatialHardenEvent = ZESpatialHardenEvent;
 zeu.ZESpatialSoftenEvent = ZESpatialSoftenEvent;
+
+import { ZESpatialPhagy } from "/modules/zeugma/ZESpatialPhagy.js";
+zeu.ZESpatialPhagy = ZESpatialPhagy;
 
 
 //

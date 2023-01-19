@@ -66,6 +66,10 @@ export class ZeEvent  extends NonEvent
 }
 
 
-let veccy = new Vect (1.2, 3.33, -55.7) . Neg ();
-console.log ("Now then: I'm very dissapointed in you all.");
-console.log (veccy);
+// nota bene the faux-interface pattern hereinafter:
+ZeEvent.Phage = (supah) => class extends supah
+{ Ze (e)  // arg's an event
+    { return -1; }
+  PassTheBuckUpPhageHierarchy ()
+    { return false; }
+}

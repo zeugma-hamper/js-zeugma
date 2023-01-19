@@ -19,3 +19,13 @@ export class ZESpatialSoftenEvent  extends ZESpatialPressureEvent
   ProfferAsQuaffTo (zbj)
     { return zbj . ZeSpatialSoften (this); }
 }
+
+
+// the right faux-interface for the right occasion:
+ZESpatialSoftenEvent.Phage = (supah) => class extends supah
+{ ZESpatialSoften (e)  // arg's an event
+    { if (this.PassTheBuckUpPhageHierarchy ())
+        return this.ZESpatialPressure (e);
+      return -1;
+    }
+}

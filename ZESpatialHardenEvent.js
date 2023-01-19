@@ -19,3 +19,13 @@ export class ZESpatialHardenEvent  extends ZESpatialPressureEvent
   ProfferAsQuaffTo (zbj)
     { return zbj . ZeSpatialHarden (this); }
 }
+
+
+// well, it simply had to be faux-interface:
+ZESpatialHardenEvent.Phage = (supah) => class extends supah
+{ ZESpatialHarden (e)  // arg's an event
+    { if (this.PassTheBuckUpPhageHierarchy ())
+        return this.ZESpatialPressure (e);
+      return -1;
+    }
+}

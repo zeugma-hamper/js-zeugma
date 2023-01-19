@@ -19,3 +19,13 @@ export class ZESpatialVanishEvent  extends ZESpatialEvent
   ProfferAsQuaffTo (zbj)
     { return zbj . ZeSpatialVanish (this); }
 }
+
+
+// faux-interface excitement:
+ZESpatialVanishEvent.Phage = (supah) => class extends supah
+{ ZESpatialVanish (e)  // arg's an event
+    { if (this.PassTheBuckUpPhageHierarchy ())
+        return this.ZESpatial (e);
+      return -1;
+    }
+}
