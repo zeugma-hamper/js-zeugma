@@ -4,7 +4,7 @@
 //
 
 
-class Vect
+export class Vect
 { //
   constructor (eks, wye, zee)
     { this.x = eks;
@@ -218,6 +218,6 @@ class Vect
 
 //export {Vect};
 
-munt = "muntiful";
+let munt = "muntiful";
 
 console.log ("a beginning is a very delicate time...");

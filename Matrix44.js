@@ -3,7 +3,10 @@
 // (c) treadle & loam, provisioners llc
 //
 
-class Matrix44
+import { Vect } from "./Vect.js";
+
+
+export class Matrix44
 { //
   static i10 = 4;
 

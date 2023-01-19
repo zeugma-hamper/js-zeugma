@@ -4,7 +4,7 @@
 //
 
 
-class Zeubject  extends Object
+export class Zeubject  extends Object
 { //
   constructor ()
 	{ super ();

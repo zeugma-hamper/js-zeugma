@@ -4,6 +4,10 @@
 //
 
 
+import { Vect } from "./Vect.js";
+import { Zeubject } from "./Zeubject.js";
+
+
 class NonEvent  extends Zeubject
 { //
   constructor ()
@@ -13,7 +17,7 @@ class NonEvent  extends Zeubject
 }
 
 
-class ZeEvent  extends NonEvent
+export class ZeEvent  extends NonEvent
 { //
   constructor (pr)
     { super ();
@@ -62,6 +66,6 @@ class ZeEvent  extends NonEvent
 }
 
 
-veccy = new Vect (1.2, 3.33, -55.7) . Neg ();
+let veccy = new Vect (1.2, 3.33, -55.7) . Neg ();
 console.log ("Now then: I'm very dissapointed in you all.");
 console.log (veccy);

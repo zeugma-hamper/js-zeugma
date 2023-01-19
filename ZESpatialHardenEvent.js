@@ -4,7 +4,10 @@
 //
 
 
-class ZESpatialHardenEvent  extends ZESpatialPressureEvent
+import { ZESpatialPressureEvent } from "./ZESpatialPressureEvent.js";
+
+
+export class ZESpatialHardenEvent  extends ZESpatialPressureEvent
 { //
   constructor (pr)
     { super (pr); }

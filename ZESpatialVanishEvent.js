@@ -4,7 +4,10 @@
 //
 
 
-class ZESpatialVanishEvent  extends ZESpatialEvent
+import { ZESpatialEvent } from "./ZESpatialEvent.js";
+
+
+export class ZESpatialVanishEvent  extends ZESpatialEvent
 { //
   constructor (pr)
     { super (pr); }
