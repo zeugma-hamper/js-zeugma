@@ -37,11 +37,24 @@ zeu.base_class = base_class;
 
 import { Vect } from "./Vect.js";
 import { Matrix44 } from "./Matrix44.js";
+import { Geom } from "./Geom.js"
 zeu.Vect = Vect;
 zeu.Matrix44 = Matrix44;
+zeu.Geom = Geom;
 
 import { Zeubject } from "/modules/zeugma/Zeubject.js";
+import { PouchyThing } from "/modules/zeugma/PouchyThing.js";
 zeu.Zeubject = Zeubject;
+zeu.PouchyThing = PouchyThing;
+
+import { Limnable } from "/modules/zeugma/Limnable.js";
+import { LimnyThing } from "/modules/zeugma/LimnyThing.js";
+import { SpaceThing } from "/modules/zeugma/SpaceThing.js";
+import { PlatonicMaes } from "/modules/zeugma/PlatonicMaes.js";
+zeu.Limnable = Limnable;
+zeu.LimnyThing = LimnyThing;
+zeu.SpaceThing = SpaceThing;
+zeu.PlatonicMaes = PlatonicMaes;
 
 import { ZeEvent } from "/modules/zeugma/ZeEvent.js"
 import { ZESpatialEvent } from "/modules/zeugma/ZESpatialEvent.js"
