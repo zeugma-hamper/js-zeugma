@@ -15,5 +15,19 @@ class _ClassInheritochainer
     { return terfs . reduce ((c, erf) => erf (c), this.supah); }
 }
 
-// this will combine everything in one class
+// the pointy end of the stick follows, down at the bottom.
+//
+// usage goes, oh, a little something like this:
+//
+//   class Shosty extends base_class (Mahler) . and_interfaces (Soviet, Grumpy)
+//     { ... }
+//
+// while defining an interface follows a slightly wacky pattern, e.g.
+//
+//   let Soviet = (supcls) => class extends supcls
+//     { photo_posing_face ()  { return "scowl"; }
+//       gesture_to_stalin ()  { throw new Error ("nope; inheritor's job."); }
+//     }
+//
+
 export const base_class = (supah) => new _ClassInheritochainer (supah);
