@@ -12,8 +12,8 @@ export class ZESpatialEvent  extends ZeEvent
   constructor (pr)
     { super (pr);
       this.loc = new Vect (0.0, 0.0, 0.0);
-      this.aim = Vect.zAxis . Neg ();
-      this.ovr = Vect.xAxis;
+      this.aim = Vect.zaxis . Neg ();
+      this.ovr = Vect.xaxis;
     }
 
   EventIlk ()

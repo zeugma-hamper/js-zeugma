@@ -211,9 +211,9 @@ export class Vect
   static zerov = new Vect (0.0, 0.0, 0.0);
   static onesv = new Vect (1.0, 1.0, 1.0);
 
-  static xAxis = new Vect (1.0, 0.0, 0.0);
-  static yAxis = new Vect (0.0, 1.0, 0.0);
-  static zAxis = new Vect (0.0, 0.0, 1.0);
+  static xaxis = new Vect (1.0, 0.0, 0.0);
+  static yaxis = new Vect (0.0, 1.0, 0.0);
+  static zaxis = new Vect (0.0, 0.0, 1.0);
 }
 
 //export {Vect};
