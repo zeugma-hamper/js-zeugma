@@ -37,10 +37,12 @@ zeu.base_class = base_class;
 
 import { Vect } from "./Vect.js";
 import { Matrix44 } from "./Matrix44.js";
-import { Geom } from "./Geom.js"
+import { Geom } from "./Geom.js";
+import { MotherTime } from "./MotherTime.js";
 zeu.Vect = Vect;
 zeu.Matrix44 = Matrix44;
 zeu.Geom = Geom;
+zeu.MotherTime = MotherTime;
 
 import { Zeubject } from "/modules/zeugma/Zeubject.js";
 import { IContainMultitudes } from "/modules/zeugma/IContainMultitudes.js";
