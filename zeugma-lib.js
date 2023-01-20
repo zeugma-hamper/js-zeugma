@@ -43,8 +43,10 @@ zeu.Matrix44 = Matrix44;
 zeu.Geom = Geom;
 
 import { Zeubject } from "/modules/zeugma/Zeubject.js";
+import { IContainMultitudes } from "/modules/zeugma/IContainMultitudes.js";
 import { PouchyThing } from "/modules/zeugma/PouchyThing.js";
 zeu.Zeubject = Zeubject;
+zeu.IContainMultitudes = IContainMultitudes;
 zeu.PouchyThing = PouchyThing;
 
 import { Limnable } from "/modules/zeugma/Limnable.js";

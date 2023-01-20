@@ -4,7 +4,13 @@
 //
 
 
-export class Zeubject  extends Object
+import { base_class } from "./interface-ersatzer.js"
+
+import { IContainMultitudes } from "./IContainMultitudes.js"
+
+
+export class Zeubject
+       extends base_class (Object) . and_interfaces (IContainMultitudes)
 { //
   constructor ()
 	{ super ();
