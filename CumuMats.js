@@ -30,6 +30,13 @@ export class CumuMats
       this.rat_fresh = -1;
     }
 
+  FreshenVia (pm, nm, ipm, inm)
+    { this.pmat = pm;  this.nmat = nm.
+      this.ipmat = ipm;  this.inmat = inm;
+      return this;
+    }
+
+
   XformPointWorldToLocal (p)
     { if (ipmat == null  ||  inmat == null)
         return p . Dup ();
@@ -40,5 +47,20 @@ export class CumuMats
     { if (ipmat == null  ||  inmat == null)
         return p . Dup ();
       return pmat . TransformVect (p);
+    }
+
+
+  XformRayWorldToLocal (frm, aim)
+    { if (ipmat == null  ||  inmat == null)
+        return [from . Dup (), aim . Dup ()];
+      return [ipmat . TransformVect (frm),
+              inmat . TransformVect (aim)];
+    }
+
+  XformRayLocalToWorld (frm, aim)
+    { if (ipmat == null  ||  inmat == null)
+        return [from . Dup (), aim . Dup ()];
+      return [pmat . TransformVect (frm),
+              nmat . TransformVect (aim)];
     }
 }

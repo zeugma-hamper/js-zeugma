@@ -62,6 +62,9 @@ export class Matrix44
   Load (otha)
     { return this._SetGuts (new Float64Array (otha.m)); }
 
+  Dup ()
+    { return new Matrix44 () . Load (this); }
+
 
 //
 /// arithmetic...

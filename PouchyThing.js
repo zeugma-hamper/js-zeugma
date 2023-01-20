@@ -59,7 +59,7 @@ export class PouchyThing  extends Zeubject
   IndexForChild (z)
     { if (this.chirrens == null  ||  z == null)
         return -1;
-      return this.chirrens . indexOf ((el) => (el === z));
+      return this.chirrens . indexOf (z);
     }
 
   FindChild (nm)  // a string. it's the naem, you dig?
