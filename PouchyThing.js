@@ -49,7 +49,9 @@ export class PouchyThing  extends Zeubject
     }
 
   RemoveChild (z)
-    { let ind = this.IndexForChild (z);
+    { if (this.chirrens == null  ||  z == null)
+        return false;
+      let ind = this.IndexForChild (z);
       if (ind < 0)
         return false;
       this.chirrens . splice (ind, 1);
@@ -62,8 +64,8 @@ export class PouchyThing  extends Zeubject
       return this.chirrens . indexOf (z);
     }
 
-  FindChild (nm)  // a string. it's the naem, you dig?
-    { if (this.chirrens == null  ||  z == null)
+  FindChild (nm)  // a string. it's the name, you dig?
+    { if (this.chirrens == null)
         return null;
       return this.chirrens . find ((el) => (el . Name () == nm));
     }
