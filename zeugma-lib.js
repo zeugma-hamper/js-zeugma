@@ -51,6 +51,16 @@ zeu.Zeubject = Zeubject;
 zeu.IContainMultitudes = IContainMultitudes;
 zeu.PouchyThing = PouchyThing;
 
+import { IronLung } from "/modules/zeugma/IronLung.js";
+import { CommsSump } from "/modules/zeugma/CommsSump.js";
+import { EventAqueduct } from "/modules/zeugma/EventAqueduct.js";
+zeu.IronLung = IronLung;
+zeu.CommsSump = CommsSump;
+zeu.EventAqueduct = EventAqueduct;
+
+import { Loopervisor } from "/modules/zeugma/Loopervisor.js";
+zeu.Loopervisor = Loopervisor;
+
 import { CumuMats } from "/modules/zeugma/CumuMats.js";
 import { Grappler } from "/modules/zeugma/Grappler.js";
 import { GrapplerPile } from "/modules/zeugma/GrapplerPile.js";
