@@ -53,6 +53,8 @@ zeu.PouchyThing = PouchyThing;
 
 import { IronLung } from "/modules/zeugma/IronLung.js";
 import { CommsSump } from "/modules/zeugma/CommsSump.js";
+import { OSCSump } from "/modules/zeugma/OSCSump.js";
+import { ViveWandEventSynth } from "/modules/zeugma/ViveWandEventSynth.js";
 import { EventAqueduct } from "/modules/zeugma/EventAqueduct.js";
 zeu.IronLung = IronLung;
 zeu.CommsSump = CommsSump;

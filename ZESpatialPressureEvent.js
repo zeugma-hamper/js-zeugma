@@ -35,6 +35,12 @@ export class ZESpatialPressureEvent  extends ZESpatialEvent
   SetPressureValue (pvl)  // a scalar here, is what one should.
     { this.prs_val = pvl;  return this; }
 
+  SetPressorIDAndPressureValue (pid, pvl)
+    { this.prs_id = pid;
+      this.prs_val = pvl;
+      return this;
+    }
+
   ProfferAsQuaffTo (zbj)
     { return zbj . ZeSpatialPressure (this); }
 }
