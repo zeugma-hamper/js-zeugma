@@ -55,7 +55,7 @@ export class CommsSump  extends Zeubject
       return null;
     }
 
-  DispatchEventViaAddress (e, addr)
+  DispatchEventViaAddress (addr, e)
     { let ductarr = this.ducts_by_address . get (addr);
       if (ductarr != null)
         for (let duct of ductarr)

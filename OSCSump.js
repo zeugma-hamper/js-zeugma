@@ -39,10 +39,10 @@ export class OSCSump  extends CommsSump
       while (cnt-- >= 0  &&  this.oscerizer . HasMessage ())
         { let mess = this.oscerizer . NextMessage ();
           let addr = mess . Address ();
-          let args = mess . Payload ();
+          let args = this . RawExtractionViaAddress (addr, mess . Payload ());
           let evts = this . SynthesizeEventViaAddress (addr, args);
           for (let e of evts)
-            this . DispatchEventViaAddress (e, addr);
+            this . DispatchEventViaAddress (addr, e);
         }
       return this;
     }
