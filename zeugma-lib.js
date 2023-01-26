@@ -79,9 +79,11 @@ zeu.ScaleZoft = ScaleZoft;
 
 import { CumuMats } from "/modules/zeugma/CumuMats.js";
 import { Grappler } from "/modules/zeugma/Grappler.js";
+import { TrGrappler } from "/modules/zeugma/TrGrappler.js";
 import { GrapplerPile } from "/modules/zeugma/GrapplerPile.js";
 zeu.CumuMats = CumuMats;
 zeu.Grappler = Grappler;
+zeu.TrGrappler = TrGrappler;
 zeu.GrapplerPile = GrapplerPile;
 
 import { Limnable } from "/modules/zeugma/Limnable.js";
