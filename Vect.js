@@ -50,15 +50,19 @@ export class Vect
   SubAcc (v)
     { this.x -= v.x;  this.y -= v.y;  this.z -= v.z;  return this; }
 
-  Mul (sca)
+// the below used to be 'Mul()' and 'MulAcc()', but until we get
+// geometric algebra going that'd've been inaccurate naming. A vas
+// deferens between the idea of scaling and that of multiplication, see.
+  Sca (sca)
     { return new Vect (this.x * sca, this.y * sca, this.z * sca)}
-  MulAcc (sca)
+  ScaAcc (sca)
     { this.x *= sca;  this.y *= sca;  this.z *= sca;  return this; }
 
-  Div (sca)
-    { return new Vect (this.x / sca, this.y / sca, this.z / sca)}
-  DivAcc (sca)
-    { this.x /= sca;  this.y /= sca;  this.z /= sca;  return this; }
+// similarly below... except that maybe we'll just nix the whole thing.
+  // Div (sca)
+  //   { return new Vect (this.x / sca, this.y / sca, this.z / sca)}
+  // DivAcc (sca)
+  //   { this.x /= sca;  this.y /= sca;  this.z /= sca;  return this; }
 
   DistFrom (p)
     { return Math.sqrt (this.Sub (p) . AutoDot ()); }

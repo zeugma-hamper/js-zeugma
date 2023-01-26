@@ -69,11 +69,13 @@ import { LatchZoft } from "/modules/zeugma/LatchZoft.js";
 import { SumZoft } from "/modules/zeugma/SumZoft.js";
 import { DiffZoft } from "/modules/zeugma/DiffZoft.js";
 import { ProdZoft } from "/modules/zeugma/ProdZoft.js";
+import { ScaleZoft } from "/modules/zeugma/ScaleZoft.js";
 zeu.Zoft = Zoft;
 zeu.LatchZoft = LatchZoft;
 zeu.SumZoft = SumZoft;
 zeu.DiffZoft = DiffZoft;
 zeu.ProdZoft = ProdZoft;
+zeu.ScaleZoft = ScaleZoft;
 
 import { CumuMats } from "/modules/zeugma/CumuMats.js";
 import { Grappler } from "/modules/zeugma/Grappler.js";
