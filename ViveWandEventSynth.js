@@ -18,7 +18,7 @@ export class ViveWandEventSynth  extends Zeubject
 
   InterpretRawWandishWithMaesGeom (pntr_nm, bbits, crsdct,
                                    p, a, o,
-                                   maes, cam, hir)
+                                   maes, cam, hit)
     { let spatst = this.state_by_prov . get (pntr_nm);
       if (spatst == undefined)
         this.state_by_prov . set (pntr_nm, spatst = [ 0x00, false ]);

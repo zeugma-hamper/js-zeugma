@@ -64,6 +64,13 @@ zeu.EventAqueduct = EventAqueduct;
 import { Loopervisor } from "/modules/zeugma/Loopervisor.js";
 zeu.Loopervisor = Loopervisor;
 
+import { Zoft } from "/modules/zeugma/Zoft.js";
+import { LatchZoft } from "/modules/zeugma/LatchZoft.js";
+import { SumZoft } from "/modules/zeugma/SumZoft.js";
+zeu.Zoft = Zoft;
+zeu.LatchZoft = LatchZoft;
+zeu.SumZoft = SumZoft;
+
 import { CumuMats } from "/modules/zeugma/CumuMats.js";
 import { Grappler } from "/modules/zeugma/Grappler.js";
 import { GrapplerPile } from "/modules/zeugma/GrapplerPile.js";
