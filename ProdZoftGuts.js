@@ -24,22 +24,6 @@ export class ProdZoftGuts  extends BinarithZoftGuts
   _InstallMultiplierZoft (zft)
     { return this._InstallZoftB (zft); }
 
-  Inhale (ratch, thyme)
-    { if (this.IsFreshFor (ratch))
-        return 0;
-
-      let v, aval, bval;
-      if (this.zoft_a != null)
-        { this.zoft_a . Inhale (ratch, thyme);
-          aval = this.zoft_a . Val ();
-        }
-      if (this.zoft_b != null)
-        { this.zoft_b . Inhale (ratch, thyme);
-          bval = this.zoft_b . Val ();
-        }
-      v = Zoft.OffalMul (aval, bval);
-
-      this.PuppeteerHosts (v);
-      return 0;
-    }
+  BinOp ()
+    { return Zoft.OffalMul; }
 }
