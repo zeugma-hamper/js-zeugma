@@ -7,21 +7,21 @@
 import { BinarithZoftGuts } from "./BinarithZoftGuts.js"
 
 
-export class SumZoftGuts  extends BinarithZoftGuts
+export class DiffZoftGuts  extends BinarithZoftGuts
 { //
   constructor ()
     { super ();
       //
     }
 
-  SummandAZoft ()
+  MinuendZoft ()
     { return this.ZoftA (); }
-  SummandBZoft ()
+  SubtrahendZoft ()
     { return this.ZoftB (); }
 
-  _InstallSummandAZoft (zft)
+  _InstallMinuendZoft (zft)
     { return this._InstallZoftA (zft); }
-  _InstallSummandBZoft (zft)
+  _InstallSubtrahendZoft (zft)
     { return this._InstallZoftB (zft); }
 
   Inhale (ratch, thyme)
@@ -37,7 +37,7 @@ export class SumZoftGuts  extends BinarithZoftGuts
         { this.zoft_b . Inhale (ratch, thyme);
           bval = this.zoft_b . Val ();
         }
-      v = Zoft.OffalAdd (aval, bval);
+      v = Zoft.OffalSub (aval, bval);
 
       this.PuppeteerHosts (v);
       return 0;

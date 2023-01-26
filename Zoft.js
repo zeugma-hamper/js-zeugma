@@ -75,6 +75,70 @@ export class Zoft  extends Zeubject
         this.guts . Inhale (ratch, thyme);
       return 0;
     }
+//
+///
+//
+
+//
+  static OffalAdd (aval, bval)
+    { let v;
+      if (aval == null  &&  bval == null)
+        v = null;
+      else if (Number.isFinite (aval)  &&  Number.isFinite (bval))
+        v = aval + bval;
+      else if (aval == null)
+        v = bval;
+      else if (bval == null)
+        v = aval;
+      else
+        v = aval . Add (bval);
+      return v;
+    }
+
+  static OffalSub (aval, bval)
+    { let v;
+      if (aval == null  &&  bval == null)
+        v = null;
+      else if (Number.isFinite (aval)  &&  Number.isFinite (bval))
+        v = aval - bval;
+      else if (aval == null)
+        v = -bval;
+      else if (bval == null)
+        v = aval;
+      else
+        v = aval . Sub (bval);
+      return v;
+    }
+
+  static OffalMul (aval, bval)
+    { let v;
+      if (aval == null  ||  bval == null)
+        v = null;
+      else if (Number.isFinite (aval)  &&  Number.isFinite (bval))
+        v = aval * bval;
+      // else if (aval == null)
+      //   v = -bval;
+      // else if (bval == null)
+      //   v = aval;
+      else
+        v = aval . Mul (bval);
+      return v;
+    }
+
+  static OffalSca (aval, bval)
+    { let v;
+      if (aval == null  ||  bval == null)
+        v = null;
+      else if (Number.isFinite (aval)  &&  Number.isFinite (bval))
+        v = aval * bval;
+      // else if (aval == null)
+      //   v = -bval;
+      // else if (bval == null)
+      //   v = aval;
+      else
+        v = aval . Sca (bval);
+      return v;
+    }
 }
 
 
