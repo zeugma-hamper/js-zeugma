@@ -41,6 +41,7 @@ export class BinarithZoftGuts  extends ZoftGuts
       v = this.BinOp () (aval, bval);
 
       this.PuppeteerHosts (v);
+      this.SetRatchet (ratch);
       return 0;
     }
 }
