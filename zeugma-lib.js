@@ -125,6 +125,9 @@ zeu.ZESpatialSoftenEvent = ZESpatialSoftenEvent;
 import { ZESpatialPhagy } from "/modules/zeugma/ZESpatialPhagy.js";
 zeu.ZESpatialPhagy = ZESpatialPhagy;
 
+import { ZeWholeShebang } from "/modules/zeugma/ZeWholeShebang.js";
+zeu.ZeWholeShebang = ZeWholeShebang;
+
 
 //
 ///

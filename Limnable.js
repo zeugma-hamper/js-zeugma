@@ -6,6 +6,9 @@
 
 export const Limnable = (supah) => class extends supah
 { //
+  IsZeugmallyLimnable ()
+    { return true; }
+
   UnsecuredGrapplerPile ()
     { return null; }
 
@@ -13,7 +16,7 @@ export const Limnable = (supah) => class extends supah
     { return null; }
 
   DependCumuMatsFrom (cm_above)
-    { return null; }
+    { return cm_above; }
 
 
   QueryShouldDraw ()

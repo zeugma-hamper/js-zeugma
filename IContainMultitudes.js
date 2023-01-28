@@ -6,6 +6,9 @@
 
 export const IContainMultitudes = (supah) => class extends supah
 { //
+  IsZeugmallyPouchful ()
+    { return true; }
+
   CanHoldChildren ()
     { return false; }
 

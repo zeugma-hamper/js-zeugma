@@ -17,6 +17,12 @@ export class Zeubject
 	    this.rat_fresh = -1;
 	  }
 
+  IsZeugmallyLimnable ()
+    { return false; }
+  IsZeugmallyPouchful ()
+    { return false; }
+
+
   Name ()
     { return (this.name == null)  ?  ""  :  this.name; }
   SetName (nm)

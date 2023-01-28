@@ -6,8 +6,13 @@
 
 import { Zeubject } from "./Zeubject.js"
 
+import { base_class } from "./interface-ersatzer.js";
 
-export class PouchyThing  extends Zeubject
+import { IContainMultitudes } from "./IContainMultitudes.js";
+
+
+export class PouchyThing  extends base_class (Zeubject)
+                                . and_interfaces (IContainMultitudes)
 { //
   constructor ()
     { super ();
