@@ -23,12 +23,12 @@ export class IronLung  extends Zeubject
     { if (this.expirees.length  >  0)
         { for (let z of this.expirees)
             if (this.IndexOfBreathee (z)  >=  0)
-              this.RemoveNthBreathee (z);
+              this._RemoveNthBreathee (z);
           expirees = new Array ();
         }
       if (this.aspirants.length  >  0)
         { for (let z of this.aspirants)
-            this.AppendBreathee (z);
+            this._AppendBreathee (z);
           this.aspirants = new Array ();
         }
 
@@ -46,12 +46,12 @@ export class IronLung  extends Zeubject
       if (this.expirees.length  >  0)
         { for (let z of this.expirees)
             if (this.IndexOfBreathee (z)  >=  0)
-              this.RemoveNthBreathee (z);
+              this._RemoveNthBreathee (z);
           expirees = new Array ();
         }
       if (this.aspirants.length  >  0)
         { for (let z of this.aspirants)
-            this.AppendBreathee (z);
+            this._AppendBreathee (z);
           this.aspirants = new Array ();
         }
 
@@ -60,7 +60,7 @@ export class IronLung  extends Zeubject
 
 
   //
-  NumBreathee ()
+  NumBreathees ()
     { return this.breathees.length; }
   NthBreathee (ind)
     { return Zeubject.WeakCollNth (this.breathees, ind); }
@@ -105,7 +105,7 @@ export class IronLung  extends Zeubject
   //
   static Globals ()
     { return this.global_iron_lungs; }
-  static NumGlobal ()
+  static NumGlobals ()
     { return this.global_iron_lungs.length; }
   static NthGlobal (ind)
     { return Zeubject.CollNth (this.global_iron_lungs, ind); }

@@ -210,6 +210,10 @@ export class Vect
     }
 
 //
+  static NewFromArr (arr)
+    { return new Vect (arr[0], arr[1], arr[2]); }
+
+//
 ///
 //
   static zerov = new Vect (0.0, 0.0, 0.0);

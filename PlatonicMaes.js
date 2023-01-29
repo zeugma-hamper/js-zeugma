@@ -91,4 +91,53 @@ export class PlatonicMaes  extends SpaceThing
       layers . splice (ind, 1);
       return true;
     }
+
+//
+  static NewFromJSON (j)
+    { let ma = new PlatonicMaes ();
+      ma . SetName (j.name);
+      ma . SetLoc (Vect.NewFromArr (j.location));
+      ma . SetOver (Vect.NewFromArr (j.over));
+      ma . SetUp (Vect.NewFromArr (j.up));
+      ma . SetWidth (j.width);
+      ma . SetHeight (j.height);
+      return ma;
+    }
+
+//
+///
+//
+  static SampleMaesConfigJSON ()
+    { return [ { "name" : "front",
+                 "location" : [0.0, 2186.0, -2670.0],
+                 "over" : [1.0, 0.0, 0.0],
+                 "up" : [0.0, 1.0, 0.0],
+                 "width" : 7772.4,
+                 "height" : 4372.0,
+                 "ideal-pixwid" : 3840,
+                 "ideal-pixhei" : 2160
+               },
+
+               { "name" : "left",
+                 "location" : [-3886.2, 1502.0, 0.0],
+                 "over" : [0.0, 0.0, -1.0],
+                 "up" : [0.0, 1.0, 0.0],
+                 "width" : 5340.0,
+                 "height" : 3004.0,
+                 "ideal-pixwid" : 3840,
+                 "ideal-pixhei" : 2160
+               },
+
+               { "name" : "table",
+                 "location" : [0.0, 1028.0, -60.0],
+                 "over" : [1.0, 0.0, 0.0],
+                 "up" : [0.0, 0.422618, -0.906308],
+                 "width" : 1327.6,
+                 "height" : 746.8,
+                 "ideal-pixwid" : 3840,
+                 "ideal-pixhei" : 2160
+               }
+             ];
+    }
+
 }

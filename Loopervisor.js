@@ -28,6 +28,8 @@ export class Loopervisor  extends Zeubject
       this.active_aqueducts = new Array ();
       this.active_lungs = new Array ();
       this.active_toilers = new Array ();
+
+      this.target_loop_dur = 1.0 / 30.0;
     }
 
   RecentestRatchet ()
@@ -66,13 +68,25 @@ export class Loopervisor  extends Zeubject
     }
 
   SpinGloriously ()
-    {
+    { this.is_looping = true;
+      let selfesque = this;
+      let momty = this.constructor.momma_t;
+      let _SpinGlo = function ()
+        { let befo_t = momty . CurTime ();
+          selfesque.OneDelightfulTurn ();
+          let dt = momty . CurTime () - befo_t;
+          dt = selfesque.target_loop_dur - dt;
+          if (selfesque.is_looping)
+            setTimeout (_SpinGlo,
+                        (dt > 0)  ?  dt * 1000  :  0);
+        }
+      _SpinGlo ();
     }
 
   TargetLoopDur ()
     { return this.target_loop_dur; }
   SetTargetLoopDur (tld)
-    { this.target_loop_dur = rld;  return this; }
+    { this.target_loop_dur = tld;  return this; }
 
 
   Travail (ratch, thyme)
@@ -81,13 +95,28 @@ export class Loopervisor  extends Zeubject
       let ded_cnt = 0;
       for (let q = 0  ;  q < cnt  ;  ++q)
         if ((toi = this.NthToiler (q))  ==  null)
-          { ++ded_cnt; }
+          ++ded_cnt;
         else
-          { console.log(toi); toi . Travail (ratch, thyme); }
+          toi . Travail (ratch, thyme);
       if (ded_cnt > cnt / 2)
         { }  // cull nullified toilers from active_toilers
       return 0;
     }
+
+//
+  AssuredLungOfName (nm)
+    { let ell = this.FindLung (nm);
+      if (ell == null)
+        { (ell = new IronLung ()) . SetName (nm);
+          this.AppendLung (ell);
+        }
+      return ell;
+    }
+
+  AssuredZoftLung ()
+    { return this.AssuredLungOfName ("velvet-lung"); }
+  AssuredDefaultLung ()
+    { return this.AssuredLungOfName ("omni-lung"); }
 
 //
   NumSumps ()
