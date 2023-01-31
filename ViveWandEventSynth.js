@@ -42,8 +42,10 @@ export class ViveWandEventSynth  extends Zeubject
         { butts = bbits;  mask = 0x01;
           while (prevb ^ butts  !=  0)
             { let curstate = butts & mask;
-              if (prevb & mask  !=  curstate)
-                { let spev = ((curState > 0)
+              let oldstate = prevb & mask;
+              // if (prevb & mask  !=  curstate)  // what in the actual ass...
+              if (curstate != oldstate)
+                { let spev = ((curstate > 0)
                               ?  new ZESpatialHardenEvent (pntr_nm)
                               :  new ZESpatialSoftenEvent (pntr_nm));
                   spev . AdoptParticulars (smev);

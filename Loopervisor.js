@@ -30,6 +30,7 @@ export class Loopervisor  extends Zeubject
       this.active_toilers = new Array ();
 
       this.target_loop_dur = 1.0 / 30.0;
+      this.is_looping = false;
     }
 
   RecentestRatchet ()
@@ -37,9 +38,13 @@ export class Loopervisor  extends Zeubject
   RecentestTime ()
     { return this.recentest_time; }
 
+  ElapsedTime ()
+    { return this.constructor.momma_t . CurTime (); }
+
+
   FreshenTimestamps ()
     { this.grand_ratchet += 8;
-      this.recentest_time = this.constructor.momma_t . CurTime ();
+      this.recentest_time = this.ElapsedTime ();
       return this;
     }
 
@@ -68,9 +73,13 @@ export class Loopervisor  extends Zeubject
     }
 
   SpinGloriously ()
-    { this.is_looping = true;
+    { if (this.is_looping == true)
+        return this;
+
+      this.is_looping = true;
       let selfesque = this;
       let momty = this.constructor.momma_t;
+
       let _SpinGlo = function ()
         { let befo_t = momty . CurTime ();
           selfesque.OneDelightfulTurn ();
@@ -80,8 +89,18 @@ export class Loopervisor  extends Zeubject
             setTimeout (_SpinGlo,
                         (dt > 0)  ?  dt * 1000  :  0);
         }
+
       _SpinGlo ();
+      return this;
     }
+
+  BrakeSpin ()
+    { this.is_looping = false; }
+  BreakSpin ()
+    { this.BrakeSpin (); }
+
+  IsLooping ()
+    { return this.is_looping; }
 
   TargetLoopDur ()
     { return this.target_loop_dur; }
@@ -119,6 +138,8 @@ export class Loopervisor  extends Zeubject
     { return this.AssuredLungOfName ("omni-lung"); }
 
 //
+  Sumps ()
+    { return this.active_sumps; }
   NumSumps ()
     { return this.active_sumps.length; }
   NthSump (ind)
@@ -137,6 +158,8 @@ export class Loopervisor  extends Zeubject
     { return Zeubject.CollRemoveNth (this.active_sumps, ind); }
 
 
+  Aqueducts ()
+    { return this.active_aqueducts; }
   NumAqueducts ()
     { return this.active_aqueducts.length; }
   NthAqueduct (ind)
@@ -155,6 +178,8 @@ export class Loopervisor  extends Zeubject
     { return Zeubject.CollRemoveNth (this.active_aqueducts, ind); }
 
 
+  Lungs ()
+    { return this.active_lungs; }
   NumLungs ()
     { return this.active_lungs.length; }
   NthLung (ind)
@@ -173,6 +198,8 @@ export class Loopervisor  extends Zeubject
     { return Zeubject.CollRemoveNth (this.active_lungs, ind); }
 
 
+  Toilers ()
+    { return this.active_toilers; }
   NumToilers ()
     { return this.active_toilers.length; }
   NthToiler (ind)

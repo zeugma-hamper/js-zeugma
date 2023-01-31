@@ -17,7 +17,7 @@ export class ZESpatialHardenEvent  extends ZESpatialPressureEvent
 
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZeSpatialHarden (this); }
+    { return zbj . ZESpatialHarden (this); }
 }
 
 

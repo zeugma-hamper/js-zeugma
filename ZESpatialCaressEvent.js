@@ -36,7 +36,7 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
     { this.crs_val = cvl;  return this; }
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZeSpatialCaress (this); }
+    { return zbj . ZESpatialCaress (this); }
 }
 
 

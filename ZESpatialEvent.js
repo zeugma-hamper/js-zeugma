@@ -101,7 +101,7 @@ export class ZESpatialEvent  extends ZeEvent
     }
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZeSpatial (this); }
+    { return zbj . ZESpatial (this); }
 }
 
 

@@ -223,9 +223,3 @@ export class Vect
   static yaxis = new Vect (0.0, 1.0, 0.0);
   static zaxis = new Vect (0.0, 0.0, 1.0);
 }
-
-//export {Vect};
-
-let munt = "muntiful";
-
-console.log ("a beginning is a very delicate time...");

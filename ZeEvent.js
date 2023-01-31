@@ -28,7 +28,7 @@ export class ZeEvent  extends NonEvent
 	}
 
   AdoptParticulars (otha)
-    { prov = (otha.prov == null)  ?  null  :  new String (otha.prov);
+    { this.prov = (otha.prov == null)  ?  null  :  new String (otha.prov);
       this.tstamp = otha.tstamp;
       this.rat_fresh = otha.rat_fresh;
       this.fore_evt = otha.fore_evt;

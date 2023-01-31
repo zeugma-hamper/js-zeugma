@@ -4,7 +4,7 @@
 //
 
 
-let zeu = { };
+let zeu = new Map ();
 
 //
 ///
@@ -60,6 +60,11 @@ import { EventAqueduct } from "/modules/zeugma/EventAqueduct.js";
 zeu.IronLung = IronLung;
 zeu.CommsSump = CommsSump;
 zeu.EventAqueduct = EventAqueduct;
+
+import { OSCFaker } from "./OSCFaker.js"
+import { CheapOSCMessage } from "./CheapOSCMessage.js"
+zeu.OSCFaker = OSCFaker;
+zeu.CheapOSCMessage = CheapOSCMessage;
 
 import { Loopervisor } from "/modules/zeugma/Loopervisor.js";
 zeu.Loopervisor = Loopervisor;

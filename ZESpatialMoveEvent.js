@@ -17,7 +17,7 @@ export class ZESpatialMoveEvent  extends ZESpatialEvent
 
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZeSpatialMove (this); }
+    { return zbj . ZESpatialMove (this); }
 }
 
 

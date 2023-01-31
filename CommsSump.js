@@ -16,29 +16,37 @@ export class CommsSump  extends Zeubject
       this.ducts_by_address = new Map ();
     }
 
+  _InMapForAddressSetThingy (mapp, addr, ding)
+    { mapp . set (addr, ding);
+      return true;
+    }
+
   _InMapForAddressAppendThingy (mapp, addr, ding)
     { let arr = mapp . get (addr);
       if (arr == undefined)
-        mapp . set (arr = new Array ());
+        mapp . set (addr, arr = new Array ());
       if (arr . indexOf (ding)  >=  0)
-         return false;
+        return false;
       arr . push (ding);
       return true;
     }
 
   ForAddressAppendRawExtractor (addr, rawex)
-    { return
-        this._InMapForAddressAppendThingy (this.rawex_by_address, addr, rawex);
+    { let urn
+        = this._InMapForAddressSetThingy (this.rawex_by_address, addr, rawex);
+      return urn;
     }
 
   ForAddressAppendSynthFunc (addr, funq)
-    { return
-        this._InMapForAddressAppendThingy (this.synth_by_address, addr, funq);
+    { let urn
+        = this._InMapForAddressSetThingy (this.synth_by_address, addr, funq);
+      return urn;
     }
 
   ForAddressAppendAqueduct (addr, duct)
-    { return
-        this._InMapForAddressAppendThingy (this.ducts_by_address, addr, duct);
+    { let urn
+        = this._InMapForAddressAppendThingy (this.ducts_by_address, addr, duct);
+      return urn;
     }
 
   RawExtractionViaAddress (addr, payload)
@@ -48,11 +56,11 @@ export class CommsSump  extends Zeubject
       return payload;
     }
 
-  SynthesizeEventViaAddress (addr, argarr)
+  SynthesizeEventsViaAddress (addr, argarr)
     { let synther = this.synth_by_address . get (addr);
       if (synther != null)
         return synther (argarr);
-      return null;
+      return [];
     }
 
   DispatchEventViaAddress (addr, e)

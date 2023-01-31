@@ -39,7 +39,7 @@ export class PlatonicMaes  extends SpaceThing
 
   SetLoc (l)
     { this.loc = l;  return this; }
-  SetOver (u)
+  SetOver (o)
     { this.ovr = o;  return this; }
   SetUp (u)
     { this.upp = u;  return this; }

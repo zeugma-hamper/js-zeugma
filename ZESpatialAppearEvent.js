@@ -17,7 +17,7 @@ export class ZESpatialAppearEvent  extends ZESpatialEvent
 
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZeSpatialAppear (this); }
+    { return zbj . ZESpatialAppear (this); }
 }
 
 

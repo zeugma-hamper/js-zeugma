@@ -11,6 +11,8 @@ import { Loopervisor } from "./Loopervisor.js";
 import { EventAqueduct } from "./EventAqueduct.js";
 import { ViveWandEventSynth } from "./ViveWandEventSynth.js";
 
+import { OSCViveWandSump } from "./OSCViveWandSump.js";
+
 import { ZESpatialPhagy } from "./ZESpatialPhagy.js"
 import { RecursiveLimner } from "./RecursiveLimner.js"
 
@@ -20,6 +22,9 @@ import { base_class } from "./interface-ersatzer.js";
 export class ZeWholeShebang  extends base_class (Zeubject)
                            . and_interfaces (ZESpatialPhagy, RecursiveLimner)
 { //
+  static canonical_instance = null;
+
+  //
   constructor ()
     { super ();
       //
@@ -56,6 +61,57 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
 
+  DrawMaesLayers (ratch, thyme)
+    { if (this.NumMaeses ()  <  1)
+        return this;
+
+      let lay, cm = new CumuMats ();
+      for (let ma of this.maeses)
+        if (ma != null)
+          { let cnt = ma.NumLayers ();
+            for (let q = 0  ;  q < cnt  ;  ++q)
+              if ((lay = ma.NthLayer (q))  !=  null)
+                this.RecursivelyDraw (lay, ratch, cm, null);
+          }
+      return this;
+    }
+
+
+  AttendToIncomingComms ()
+    { for (let smp of this.looper . Sumps ())
+        if (smp != null)
+          smp . AttendToIncoming ();
+      return this;
+    }
+
+  SuspendIncomingCommsAttention ()
+    { for (let smp of this.looper . Sumps ())
+        if (smp != null)
+          smp . SuspendAttention ();
+      return this;
+    }
+
+
+  RunAndRun ()
+    { return this.RunAndRunWithFrameDur (0.0333333); }
+
+  RunAndRunWithFrameDur (fdur)
+    { this.looper . SetTargetLoopDur (fdur);
+      this.looper . SpinGloriously ();
+
+      if (this.auto_attend == true)
+        this.AttendToIncomingComms ();
+
+      return this;
+    }
+
+
+  Travail (ratch, thyme)
+    { this.DrawMaesLayers (ratch, thyme);
+      return 0;
+    }
+
+
   InstallSampleMaesConfig ()
     { let samp_maeses = PlatonicMaes.SampleMaesConfigJSON ();
       return this.PopulatefromMaesConfig (samp_maeses);
@@ -66,13 +122,20 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 ///
 //
 
-  NewDefaultInstance ()
+  static CanonicalInstance ()
+    { if (this.canonical_instance == null)
+        this.canonical_instance = this.NewDefaultInstance ();
+      return this.canonical_instance;
+    }
+
+  static NewDefaultInstance ()
     { let novo = new ZeWholeShebang ();
       novo . InstallSampleMaesConfig ();
 
       let loo = novo . Looper ();
       let zolu = loo . AssuredZoftLung ();
       let delu = loo . AssuredDefaultLung ();
+      Zoft.SetDefaultLung (zolu);
 
       let spaq = new EventAqueduct ();
       spaq . SetName ("spatial-aqueduct");
@@ -84,6 +147,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       owa . InstallSampleViveWandTransform ();
       // owa . ForAddressAppendRawExtractor ("/events/spatial");
       // the foregoing and its kin already happen in owa's constructor...
+      owa . ForAddressAppendAqueduct ("/events/spatial", spaq);
       loo . AppendSump (owa);
 
       return novo;

@@ -28,7 +28,7 @@ export class ZESpatialPressureEvent  extends ZESpatialEvent
   WhichPressor ()
     { return this.prs_id; }
   SetWhichPressor (pid)
-    { this.crs_id = cid;  return this; }
+    { this.prs_id = pid;  return this; }
 
   PressureValue ()
     { return this.prs_val; }
@@ -42,7 +42,7 @@ export class ZESpatialPressureEvent  extends ZESpatialEvent
     }
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZeSpatialPressure (this); }
+    { return zbj . ZESpatialPressure (this); }
 }
 
 

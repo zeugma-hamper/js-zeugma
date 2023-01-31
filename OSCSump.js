@@ -6,12 +6,14 @@
 
 import { CommsSump } from "./CommsSump.js"
 
+import { OSCFaker } from "./OSCFaker.js"
+
 
 export class OSCSump  extends CommsSump
 { //
   constructor ()
     { super ();
-      this.oscerizer = null;
+      this.oscerizer = new OSCFaker ();
       this.port = -1;
     }
 
@@ -22,6 +24,10 @@ export class OSCSump  extends CommsSump
 
 // note that all OSCish transactions below are essentially pseudocode,
 // pending selection and grafting of some particular OSC library.
+
+  Oscerizer ()
+    { return this.oscerizer; }
+
   AttendToIncoming ()
     { this.oscerizer . ReceiveContinuously ();
       return this;
@@ -40,7 +46,7 @@ export class OSCSump  extends CommsSump
         { let mess = this.oscerizer . NextMessage ();
           let addr = mess . Address ();
           let args = this . RawExtractionViaAddress (addr, mess . Payload ());
-          let evts = this . SynthesizeEventViaAddress (addr, args);
+          let evts = this . SynthesizeEventsViaAddress (addr, args);
           for (let e of evts)
             this . DispatchEventViaAddress (addr, e);
         }
