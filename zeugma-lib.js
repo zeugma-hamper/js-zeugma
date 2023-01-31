@@ -102,11 +102,14 @@ zeu.GrapplerPile = GrapplerPile;
 import { Limnable } from "/modules/zeugma/Limnable.js";
 import { LimnyThing } from "/modules/zeugma/LimnyThing.js";
 import { SpaceThing } from "/modules/zeugma/SpaceThing.js";
-import { PlatonicMaes } from "/modules/zeugma/PlatonicMaes.js";
 zeu.Limnable = Limnable;
 zeu.LimnyThing = LimnyThing;
 zeu.SpaceThing = SpaceThing;
+
+import { PlatonicMaes } from "/modules/zeugma/PlatonicMaes.js";
+import { Bolex } from "/modules/zeugma/Bolex.js";
 zeu.PlatonicMaes = PlatonicMaes;
+zeu.Bolex = Bolex;
 
 import { ZeEvent } from "/modules/zeugma/ZeEvent.js"
 import { ZESpatialEvent } from "/modules/zeugma/ZESpatialEvent.js"

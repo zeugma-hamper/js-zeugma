@@ -112,6 +112,16 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
 
+  PassTheBuckUpPhageHierarchy ()
+    { return true; }
+
+  ZESpatial (e)
+    { if (this.cherd != null)
+        e . ProfferAsQuaffTo (this.cherd);
+      return 0;
+    }
+
+
   InstallSampleMaesConfig ()
     { let samp_maeses = PlatonicMaes.SampleMaesConfigJSON ();
       return this.PopulatefromMaesConfig (samp_maeses);

@@ -104,6 +104,35 @@ export class PlatonicMaes  extends SpaceThing
       return ma;
     }
 
+  static ClosestAmong (mcoll, frm, aim, restrict_to_maes_extent)
+    { if (mcoll == null)
+        return;
+
+      let cls_hit = null;
+      let cls_maes = null;
+      let cls_DST = -1.0;
+      for (let ma of mcoll)
+        if (ma != null)
+          { let use_w = ma . Width ();
+            let use_h = ma . Height ();
+            let hit;
+            if (restrict_to_maes_extent == true)
+              hit = Geom.RayRectIntersection (frm, aim, ma . Loc (),
+                                              ma . Over (), ma . Up (),
+                                              use_w, use_h);
+            else
+              hit = Geom.RayPlaneIntersection (frm, aim, ma . Loc (),
+                                               ma . Over ()
+                                                      . Cross (ma . Up ()));
+            if (hit != null)
+              { let d = hit . Sub (frm) . AutoDot ();
+                if (cls_dst < 0.0  ||  d < cls_dst)
+                  { cls_dst = d;  cls_hit = hit;  cls_maes = ma; }
+              }
+          }
+      return (cls_maes == null)  ?  null  :  [ cls_maes, cls_hit ];
+    }
+
 //
 ///
 //

@@ -222,4 +222,8 @@ export class Vect
   static xaxis = new Vect (1.0, 0.0, 0.0);
   static yaxis = new Vect (0.0, 1.0, 0.0);
   static zaxis = new Vect (0.0, 0.0, 1.0);
+
+  static negxaxis = new Vect (-1.0, 0.0, 0.0);
+  static negyaxis = new Vect (0.0, -1.0, 0.0);
+  static negzaxis = new Vect (0.0, 0.0, -1.0);
 }
