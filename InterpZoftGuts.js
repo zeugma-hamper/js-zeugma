@@ -45,26 +45,48 @@ export class InterpZoftGuts  extends ZoftGuts
 
 //
 
-  CommenceInterp ()
+  IsReplete ()
+    { return this.replete; }
+
+  Commence ()
     { this.natal = true;
       this.replete = false;
       this.recent_time = 0.0;
       return this;
     }
 
-  FinishInterp ()
+  Pause ()
+    { this.recent_time = -Math.abs (this.recent_time);   return this; }
+
+  Continue ()
+    { this.recent_time = Math.abs (this.recent_time);   return this; }
+
+  Finish ()
     { this.recent_time = this.interp_time;  return this; }
 
-  ReverseInterp ()
+  Reverse ()
     { let tmp = this.z_pnt_a;
       this.z_pnt_a = this.z_pnt_b;
       this.z_pnt_b = tmp;
       if (this.replete)
-        this.CommenceInterp ();
+        this.Commence ();
       else
         this.recent_time = this.interp_time - this.recent_time;
       return this;
     }
+
+  ProceedTo (next_b)
+    { this.z_pnt_a . BecomeLike (this.z_pnt_b);
+      this.z_pnt_b . BecomeLike (Zoft.NewWith (next_b));
+      return this;
+    }
+
+
+  SetGoal (goal_zoft_or_val)
+    { this.ProceedTo (goal_zoft_or_val);  this.Commence ();  return this; }
+
+  Set (goal_zoft_or_val)
+    { return this.SetGoal (goal_zoft_or_val); }
 
 
   Inhale (ratch, thyme)

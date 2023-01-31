@@ -14,6 +14,11 @@ export class ZoftGuts
       this.zt_hosts = new Array ();
     }
 
+  Set (v)
+    { throw new Error ("alas, cannot use Set() when guts are of type " +
+                       this.constructor.name + "...");
+    }
+
   AppendHost (zft)
     { return Zeubject.WeakCollAppend (this.zt_hosts, zft); }
 

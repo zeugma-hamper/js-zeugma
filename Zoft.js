@@ -48,6 +48,13 @@ export class Zoft  extends Zeubject
   _SetVal (v)
     { this.val = v;  return this; }
 
+  Set (v)
+    { if (this.guts == null)
+        return this._SetVal (v);
+      this.guts . Set (v);
+      return this;
+    }
+
   Guts ()
     { return this.guts; }
   _SetGuts (g)
