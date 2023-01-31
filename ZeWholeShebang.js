@@ -140,12 +140,13 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
   static NewDefaultInstance ()
     { let novo = new ZeWholeShebang ();
-      novo . InstallSampleMaesConfig ();
 
       let loo = novo . Looper ();
       let zolu = loo . AssuredZoftLung ();
       let delu = loo . AssuredDefaultLung ();
       Zoft.SetDefaultLung (zolu);
+
+      novo . InstallSampleMaesConfig ();
 
       let spaq = new EventAqueduct ();
       spaq . SetName ("spatial-aqueduct");

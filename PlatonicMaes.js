@@ -14,40 +14,55 @@ export class PlatonicMaes  extends SpaceThing
   constructor ()
     { super ();
 
-      this.loc = Vect.zerov . Dup ();
-      this.ovr = Vect.xaxis . Dup ();
-      this.upp = Vect.yaxis . Dup ();
-      this.wid = 640.0;
-      this.hei = 360.0;
+      this.loc = Zoft.NewWith (Vect.zerov);
+      this.ovr = Zoft.NewWith (Vect.xaxis);
+      this.upp = Zoft.NewWith (Vect.yaxis);
+      this.wid = Zoft.NewWith (640.0);
+      this.hei = Zoft.NewWith (360.0);
 
       this.layers = new Array ();
     }
 
+//
   Loc ()
-    { return this.loc; }
+    { return this.loc . Val (); }
   Over ()
-    { return this.ovr; }
+    { return this.ovr . Val (); }
   Up ()
-    { return this.up; }
+    { return this.upp . Val (); }
   Norm ()
-    { return this.ovr . Cross (this.upp); }
+    { return this.ovr . Val () . Cross (this.upp . Val ()); }
 
   Width ()
-    { return this.wid; }
+    { return this.wid . Val (); }
   Height ()
+    { return this.hei . Val (); }
+
+//
+  LocZoft ()
+    { return this.loc; }
+  OverZoft ()
+    { return this.ovr; }
+  UpZoft ()
+    { return this.upp; }
+
+  WidthZoft ()
+    { return this.wid; }
+  HeightZoft ()
     { return this.hei; }
 
+//
   SetLoc (l)
-    { this.loc = l;  return this; }
+    { this.loc . Set (l);  return this; }
   SetOver (o)
-    { this.ovr = o;  return this; }
+    { this.ovr . Set (o);  return this; }
   SetUp (u)
-    { this.upp = u;  return this; }
+    { this.upp . Set (u);  return this; }
 
   SetWidth (w)
-    { this.wid = w;  return this; }
+    { this.wid . Set (w);  return this; }
   SetHeight (h)
-    { this.hei = h;  return this; }
+    { this.hei . Set (h);  return this; }
 
 
 
@@ -168,5 +183,5 @@ export class PlatonicMaes  extends SpaceThing
                }
              ];
     }
-
+//
 }
