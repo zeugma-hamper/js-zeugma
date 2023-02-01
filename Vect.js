@@ -77,19 +77,19 @@ export class Vect
       if (s == 0.0)
         return this;
       s = 1.0 / s;
-      return this . Mul (s);
+      return this . Sca (s);
     }
   NormSelf ()
     { let s = this . Mag ();
       if (s == 0.0)
         return this;
       s = 1.0 / s;
-      return MulAcc (s);
+      return ScaAcc (s);
     }
   NormSelfReturningMag ()
     { let s = this . Mag ();
       if (s != 0.0)
-        MulAcc (1.0 / s);
+        ScaAcc (1.0 / s);
       return s;
     }
 
@@ -102,10 +102,10 @@ export class Vect
 /// reflections
 //
   ReflectInPlane (pl_nrml)
-    { return this . Sub (pl_nrml . Mul (2.0 * this . Dot (pl_nrml))); }
+    { return this . Sub (pl_nrml . Sca (2.0 * this . Dot (pl_nrml))); }
   ReflectInPlane (pl_nrml, cntr)
     { let p = this . Sub (cntr);
-      return cntr . Add (p . Sub (pl_nrml . Mul (2.0 * p . Dot (pl_nrml))));
+      return cntr . Add (p . Sub (pl_nrml . Sca (2.0 * p . Dot (pl_nrml))));
     }
 
   ReflectInPlaneUnnormed (pl_nrml)
@@ -130,17 +130,17 @@ export class Vect
 //
 
   ProjectOnto (n)
-    { return n . Mul (n . Dot (this)); }
+    { return n . Sca (n . Dot (this)); }
   ProjectOntoUnnormed (nun)
     { let n = nun . Norm ();
-      return n . Mul (n . Dot (this));
+      return n . Sca (n . Dot (this));
     }
 
   RejectFrom (n)
-    { return this . Sub (n . Mul (n . Dot (this))); }
+    { return this . Sub (n . Sca (n . Dot (this))); }
   RejectFromUnnormed (nun)
     { let n = nun . Norm ();
-      return this . Sub (n . Mul (n . Dot (this)));
+      return this . Sub (n . Sca (n . Dot (this)));
     }
 
 

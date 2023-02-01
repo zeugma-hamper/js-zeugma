@@ -65,6 +65,26 @@ export class PlatonicMaes  extends SpaceThing
     { this.hei . Set (h);  return this; }
 
 
+  CornerBL ()
+    { return this.Loc () .
+               Add (this.Over () . Sca (-0.5 * this.Width ()) .
+                    Add (this.Up () . Sca (-0.5 * this.Height ())));
+    }
+  CornerTL ()
+    { return this.Loc () .
+               Add (this.Over () . Sca (-0.5 * this.Width ()) .
+                    Add (this.Up () . Sca (0.5 * this.Height ())));
+    }
+  CornerTR ()
+    { return this.Loc () .
+               Add (this.Over () . Sca (0.5 * this.Width ()) .
+                    Add (this.Up () . Sca (0.5 * this.Height ())));
+    }
+  CornerBR ()
+    { return this.Loc () .
+               Add (this.Over () . Sca (0.5 * this.Width ()) .
+                    Add (this.Up () . Sca (-0.5 * this.Height ())));
+    }
 
   NumLayers ()
     { return this.layers.length; }
@@ -117,6 +137,26 @@ export class PlatonicMaes  extends SpaceThing
       ma . SetWidth (j.width);
       ma . SetHeight (j.height);
       return ma;
+    }
+
+  static CameraFromMaes (m)
+    { let cam = new Bolex ();
+
+      let nrm = m . Over () . Cross (m . Up ()) . Norm ();
+      let dst = 0.8 * m . Width ();
+
+      cam . SetViewDist (dst);
+      cam . SetViewLoc (m . Loc () . Add (nrm . Sca (dst)));
+      cam . SetViewCOI (m . Loc ());
+      cam . SetViewUp (m . Up ());
+
+      cam . SetProjectionType (Bolex.ProjType.PERSPECTIVE);
+
+      cam . SetViewHorizAngle (2.0 * Math.atan (0.5 * m . Width () / dst));
+      cam . SetViewVertAngle (2.0 * Math.atan (0.5 * m . Height () / dst));
+
+      cam . SetNearAndFarClipDist (0.1, 10.0 * dst);
+      return cam;
     }
 
   static ClosestAmong (mcoll, frm, aim, restrict_to_maes_extent)
