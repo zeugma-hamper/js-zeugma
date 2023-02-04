@@ -27,4 +27,7 @@ export const Limnable = (supah) => class extends supah
     { return false; }
   QueryShouldCalcCumuMatsEvenIfNotDrawing ()
     { return false; }
+
+  DrawSelf (ratch, cm, adjc, bonus)
+    { return 0; }
 }

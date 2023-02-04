@@ -240,7 +240,7 @@ export class Matrix44
 
   LoadTranslation (trv)
     { this.LoadIdent ();
-      this.m[12] = tr . X ();  this.m[13] = tr . Y ();  this.m[14] = tr. Z ();
+      this.m[12] = trv . X ();  this.m[13] = trv . Y ();  this.m[14] = trv. Z ();
       return this;
     }
 

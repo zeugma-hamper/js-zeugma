@@ -9,7 +9,7 @@ import { base_class } from "./interface-ersatzer.js";
 
 export let RecursiveLimner = (supcls) => class extends supcls
 { //
-  RecursivelyDraw (zeub, ratch, cm_above, adjc_above)
+  RecursivelyDraw (zeub, ratch, cm_above, adjc_above, bonus)
     { if (zeub == null)
         return this;
 
@@ -17,14 +17,19 @@ export let RecursiveLimner = (supcls) => class extends supcls
       let adjc = adjc_above;
       if (zeub . IsZeugmallyLimnable ())
         { cm = zeub . DependCumuMatsFrom (cm_above);
-          zeub . DrawSelf (ratch, cm, adjc_above);
+          // accumulate adjustment colorness...
+          zeub . DrawSelf (ratch, cm, adjc, bonus);
         }
 
       if (zeub . IsZeugmallyPouchful ())
         { let cnt = zeub . NumChildren ();
+          let bon_inc = this.AdvanceLimnRecursionBonus (bonus);
           for (let q = 0  ;  q < cnt  ;  ++q)
-            this.RecursivelyDraw (zeub . NthChild (q), ratch, cm, adjc);
+            this.RecursivelyDraw (zeub . NthChild (q), ratch, cm, adjc, bon_inc);
         }
       return this;
     }
+
+  AdvanceLimnRecursionBonus (bon)
+    { return bon; }
 }

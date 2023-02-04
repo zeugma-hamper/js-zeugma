@@ -20,6 +20,8 @@ export class PlatonicMaes  extends SpaceThing
       this.wid = Zoft.NewWith (640.0);
       this.hei = Zoft.NewWith (360.0);
 
+      this.eigen_cam = null;
+
       this.layers = new Array ();
     }
 
@@ -86,6 +88,9 @@ export class PlatonicMaes  extends SpaceThing
                     Add (this.Up () . Sca (-0.5 * this.Height ())));
     }
 
+  Layers ()
+    { return this.layers; }
+
   NumLayers ()
     { return this.layers.length; }
 
@@ -104,7 +109,7 @@ export class PlatonicMaes  extends SpaceThing
   AppendLayer (z)
     { if (z == null)
         return false;
-      layers . push (z);
+      this.layers . push (z);
       return true;
     }
 
@@ -113,7 +118,7 @@ export class PlatonicMaes  extends SpaceThing
         return false;
       if (ind < 0)
         ind = 0;
-      else if (ind > layers.length)
+      else if (ind > this.layers.length)
         ind = this.layers.length
       this.layers . splice (ind, 0, z);
       return true;
@@ -123,9 +128,17 @@ export class PlatonicMaes  extends SpaceThing
     { let ind = this.IndexOfLayer (z);
       if (ind < 0)
         return false;
-      layers . splice (ind, 1);
+      this.layers . splice (ind, 1);
       return true;
     }
+
+  InstallCameraFromSelfGeom ()
+    { this.eigen_cam = this.constructor.CameraFromMaes (this); }
+
+  EigenCamera ()
+    { return this.eigen_cam; }
+  SetEigenCamera (ec)
+    { this.eigen_cam = ec;  return this; }
 
 //
   static NewFromJSON (j)

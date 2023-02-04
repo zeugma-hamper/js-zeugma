@@ -31,7 +31,7 @@ export class CumuMats
     }
 
   FreshenVia (pm, nm, ipm, inm)
-    { this.pmat = pm;  this.nmat = nm.
+    { this.pmat = pm;  this.nmat = nm;
       this.ipmat = ipm;  this.inmat = inm;
       return this;
     }

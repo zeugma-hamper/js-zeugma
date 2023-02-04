@@ -10,11 +10,12 @@ import { Loopervisor } from "./Loopervisor.js";
 
 import { EventAqueduct } from "./EventAqueduct.js";
 import { ViveWandEventSynth } from "./ViveWandEventSynth.js";
-
 import { OSCViveWandSump } from "./OSCViveWandSump.js";
+import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 
-import { ZESpatialPhagy } from "./ZESpatialPhagy.js"
-import { RecursiveLimner } from "./RecursiveLimner.js"
+import { NativeEventDialectCatcher } from "./NativeEventDialectCatcher.js";
+
+import { RecursiveLimner } from "./RecursiveLimner.js";
 
 import { base_class } from "./interface-ersatzer.js";
 
@@ -30,6 +31,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       //
       this.looper = new Loopervisor ();
       this.maeses = new Array ();
+      this.gcorr_by_maes = new Map ();
+      this.dcatcher_by_maes = new Map ();
       this.auto_attend = true;
     }
 
@@ -51,15 +54,54 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return Zeubject.CollAppend (this.maeses, ma); }
 
 
+  SetGraphicsCorrelateForMaes (m, g)
+    { this.gcorr_by_maes . set (m, g);  return this; }
+
+  GraphicsCorrelateForMaes (m)
+    { return this.gcorr_by_maes . get (m); }
+
+
+  SetDialectCatcherForMaes (m, dc)
+    { this.dcatcher_by_maes . set (m, dc);  return this; }
+
+  UnsecuredDialectCatcherForMaes (m)
+    { return this.dcatcher_by_maes . get (m); }
+
+  AssuredDialectCatcherForMaes (m)
+    { let dc = this.dcatcher_by_maes . get (m);
+      if (dc == null)
+        { dc = new NativeEventDialectCatcher (m, this);
+          this.dcatcher_by_maes . set (m, dc);
+        }
+      return dc;
+    }
+
+
   PopulatefromMaesConfig (mconf)
     { for (let descobj of mconf)
         { let ma = PlatonicMaes.NewFromJSON (descobj);
           if (ma != null)
-            this.AppendMaes (ma);
+            { this.AppendMaes (ma);
+              ma . InstallCameraFromSelfGeom ();
+            }
         }
       return this;
     }
 
+
+  static ViewAndProjMatrix (maes, cam)
+    { let mat = new Matrix44 () . LoadTranslation (maes . ViewLoc () . Neg ());
+      let vaim = cam . ViewAim ();
+      let vovr = vaim . Cross (cam . ViewUp ()) . Norm ();
+      let vupp = vovr . Cross (vaim) . Norm ();
+      let tmp = new Matrix44 () .
+        LoadBackwardCoordTransformPreNormedOverUp (vovr, vupp);
+      mat . MulSelfBy (tmp);
+      tmp . LoadScaleXYZ (1.0 / maes . Width (), 1.0 / maes . Height (),
+                          1.0 / cam . ViewDist ());
+      mat . MulSelfBy (tmp);
+      return mat;
+    }
 
   DrawMaesLayers (ratch, thyme)
     { if (this.NumMaeses ()  <  1)
@@ -68,10 +110,23 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       let lay, cm = new CumuMats ();
       for (let ma of this.maeses)
         if (ma != null)
-          { let cnt = ma.NumLayers ();
+          { let corr = this.GraphicsCorrelateForMaes (ma);
+            if (corr == null)
+              continue;
+            let ctx = corr . getContext ("2d");
+            if (ctx == null)
+              continue;
+
+            let cam = ma . EigenCamera ()
+            let vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
+            let bonus = [ corr, ctx, vpm ];
+
+            ctx . save ();
+            let cnt = ma.NumLayers ();
             for (let q = 0  ;  q < cnt  ;  ++q)
-              if ((lay = ma.NthLayer (q))  !=  null)
-                this.RecursivelyDraw (lay, ratch, cm, null);
+              if ((lay = ma . NthLayer (q))  !=  null)
+                this.RecursivelyDraw (lay, ratch, cm, null, bonus);
+            ctx . restore ();
           }
       return this;
     }
@@ -107,9 +162,21 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
 
   Travail (ratch, thyme)
-    { this.DrawMaesLayers (ratch, thyme);
+    { let self = this;
+      globalThis.requestAnimationFrame (() =>
+        { self.DrawMaesLayers (ratch, thyme); });
       return 0;
     }
+
+
+  NativeMouseMoveOnMaes (e, x, y, prv, ma)
+    { console.log (prv, " moyce: " + x + ", " + y);}
+
+  NativeMouseDownOnMaes (e, prv, ma)
+    { }
+
+  NativeMouseUpOnMaes (e, prv, ma)
+    { }
 
 
   PassTheBuckUpPhageHierarchy ()
@@ -160,6 +227,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       // the foregoing and its kin already happen in owa's constructor...
       owa . ForAddressAppendAqueduct ("/events/spatial", spaq);
       loo . AppendSump (owa);
+
+      loo . AppendToiler (novo);
 
       return novo;
     }

@@ -133,6 +133,9 @@ zeu.ZESpatialSoftenEvent = ZESpatialSoftenEvent;
 import { ZESpatialPhagy } from "/modules/zeugma/ZESpatialPhagy.js";
 zeu.ZESpatialPhagy = ZESpatialPhagy;
 
+import { Cursoresque } from "/modules/zeugma/Cursoresque.js";
+zeu.Cursoresque = Cursoresque;
+
 import { ZeWholeShebang } from "/modules/zeugma/ZeWholeShebang.js";
 zeu.ZeWholeShebang = ZeWholeShebang;
 

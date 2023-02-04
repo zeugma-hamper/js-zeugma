@@ -73,6 +73,17 @@ export class Bolex  extends SpaceThing
   ViewPlaneVertOffset ()
     { return this.z_view_pln_off . Val () . Y (); }
 
+  ViewPlaneWidth ()
+    { if (this.ProjectionTypeIsOrthographic ())
+        return this.ViewOrthoWid ();
+      return this.ViewDist () * 2.0 * Math.tan (0.5 * this.ViewHorizAngle ());
+    }
+  ViewPlaneHeight ()
+    { if (this.ProjectionTypeIsOrthographic ())
+        return this.ViewOrthoHei ();
+      return this.ViewDist () * 2.0 * Math.tan (0.5 * this.ViewVertAngle ());
+    }
+
   ProjectionType ()
     { return this.prj_typ; }
   ProjectionTypeIsPerspective ()
@@ -109,7 +120,7 @@ export class Bolex  extends SpaceThing
   ViewOrthoHeiZoft ()
     { return this.z_view_ortho_hei; }
 
-  ViewPlaneOffset ()
+  ViewPlaneOffsetZoft ()
     { return this.z_view_pln_off; }
 
   NearClipDistZoft ()
@@ -254,6 +265,9 @@ export class Bolex  extends SpaceThing
 
   ProjectionMatrix ()
     { let outm = new Matrix44 ();
-      return LoadProjectionMatrixInto (outm);
+      return this.LoadProjectionMatrixInto (outm);
     }
+
+  VPMatrix ()
+    { return this.ViewMatrix () . Mul (this.ProjectionMatrix ()); }
 }
