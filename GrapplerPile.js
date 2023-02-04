@@ -96,7 +96,7 @@ export class GrapplerPile  extends Grappler
       if (num < 1)
         return 0;
 
-      let g = graps[0];
+      let g = this.graps[0];
       g . Inhale (ratch, thyme)
       this.pnt_mat . Load (g . PntMat ());
       this.nrm_mat . Load (g . NrmMat ());

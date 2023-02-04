@@ -20,8 +20,8 @@ export class Zoft  extends Zeubject
         return LatchZoft.NewWith (zft_or_plainval);
 
       return new _EchtZoft ()
-        . BecomeLike (zft_or_plainval)
-        . _SetVal (zft_or_plainval . Val ());
+        . BecomeLike (zft_or_plainval);
+        //. _SetVal (zft_or_plainval . Val ());
     }
 
   static _PrivateNew ()
@@ -72,6 +72,7 @@ export class Zoft  extends Zeubject
       if (othaguts  ==  this.guts)
         return this;
       this._SetGuts (othaguts);
+      this._SetVal (zft . Val ());
       if (prevguts != null)
         prevguts . RemoveHost (this);
       return this;

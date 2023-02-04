@@ -33,7 +33,42 @@ export class Cursoresque  extends SpaceThing
     }
 
   DrawSelf (ratch, cm, adjc, bonus)
-    { let mm = cm.pmat . Mul (cm.ipmat);
+    { let lcnt = this.vs_lrg.length, scnt = this.vs_sml.length;
+      let vecarr = new Array ();
+      for (let zo of this.vs_lrg)
+        vecarr . push (zo . Val ());
+      for (let zo of this.vs_sml)
+        vecarr . push (zo . Val ());
+
+      let corr = bonus[0];
+      let cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
+      let mat = bonus[2] == null  ?  cyoom  :  cyoom . Mul (bonus[2]);
+      if (mat != null)
+        vecarr = mat . TransformVectArray (vecarr);
+      if (corr != null)
+        { let hlfw = 0.5 * corr.width;
+          let hlfh = 0.5 * corr.height;
+          for (let vec of vecarr)
+            { vec.x = hlfw * (vec.x / vec.z + 1.0);
+              vec.y = hlfh * (vec.y / vec.z + 1.0);
+            }
+        }
+      let ctx = bonus[1];
+      let q = 0;
+      if (ctx != null)
+        { ctx.fillStyle = "#80800080";
+          for (let vec of vecarr)
+            { if (q == 0  ||  q == lcnt)
+                ctx . moveTo (vec.x, vec.y);
+              else
+                ctx . lineTo (vec.x, vec.y);
+              ++q;
+              if (q == lcnt  ||  q == vecarr.length)
+                { ctx.closePath ();
+                  ctx.fill ();
+                }
+            }
+        }
       return 0;
     }
 }

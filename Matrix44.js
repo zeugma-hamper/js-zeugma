@@ -385,6 +385,21 @@ export class Matrix44
                       x * m.m02()  +  y * m.m12()  +  z * m.m22()  +  m.m32());
     }
 
+  TransformVectArray (varr)
+    { let outarr = new Array ();
+      if (varr != null)
+        for (let vec of varr)
+          outarr . push (this.TransformVect (vec));
+      return outarr;
+    }
+
+  TransformVectArrayInPlace (varr)
+    { if (varr != null)
+        for (let vec of varr)
+          this.TransformVectInPlace (vec);
+      return varr;
+    }
+
 //
 ///
 //

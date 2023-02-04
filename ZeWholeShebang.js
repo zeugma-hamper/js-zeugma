@@ -122,10 +122,11 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             let bonus = [ corr, ctx, vpm ];
 
             ctx . save ();
+            ctx . fillRect (0, 0, corr.width, corr.height);
             let cnt = ma.NumLayers ();
             for (let q = 0  ;  q < cnt  ;  ++q)
               if ((lay = ma . NthLayer (q))  !=  null)
-                this.RecursivelyDraw (lay, ratch, cm, null, bonus);
+                this.RecursivelyDraw (lay, ratch, thyme, cm, null, bonus);
             ctx . restore ();
           }
       return this;

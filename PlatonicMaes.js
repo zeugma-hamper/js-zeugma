@@ -55,16 +55,16 @@ export class PlatonicMaes  extends SpaceThing
 
 //
   SetLoc (l)
-    { this.loc . Set (l);  return this; }
+    { this.loc . Set (l);  this.loc . _SetVal (l);  return this; }
   SetOver (o)
-    { this.ovr . Set (o);  return this; }
+    { this.ovr . Set (o);  this.ovr . _SetVal (o);  return this; }
   SetUp (u)
-    { this.upp . Set (u);  return this; }
+    { this.upp . Set (u);  this.upp . _SetVal (u);  return this; }
 
   SetWidth (w)
-    { this.wid . Set (w);  return this; }
+    { this.wid . Set (w);  this.wid . _SetVal (w);  return this; }
   SetHeight (h)
-    { this.hei . Set (h);  return this; }
+    { this.hei . Set (h);  this.hei . _SetVal (h);  return this; }
 
 
   CornerBL ()

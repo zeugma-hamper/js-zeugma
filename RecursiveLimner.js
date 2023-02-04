@@ -9,12 +9,15 @@ import { base_class } from "./interface-ersatzer.js";
 
 export let RecursiveLimner = (supcls) => class extends supcls
 { //
-  RecursivelyDraw (zeub, ratch, cm_above, adjc_above, bonus)
+  RecursivelyDraw (zeub, ratch, thyme, cm_above, adjc_above, bonus)
     { if (zeub == null)
         return this;
 
       let cm = cm_above;
       let adjc = adjc_above;
+      if (zeub . OughtToInhale (ratch))
+        zeub . Inhale (ratch, thyme);
+
       if (zeub . IsZeugmallyLimnable ())
         { cm = zeub . DependCumuMatsFrom (cm_above);
           // accumulate adjustment colorness...
