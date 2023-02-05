@@ -9,10 +9,12 @@ import { Grappler } from "./Grappler.js"
 
 export class TrGrappler  extends Grappler
 { //
-  constructor (tr_vect)
+  constructor (tr_vect_or_zoft)
     { super ();
-      this.trans
-        = Zoft.NewWith ((tr_vect == undefined) ? Vect.zerov : tr_vect . Dup ());
+      if (tr_vect_or_zoft == undefined)
+        this.trans = Zoft.NewWith (Vect.zerov);
+      else
+        this.trans = Zoft.NewWith (tr_vect_or_zoft);
       this.pm = new Matrix44 ();
       this.ipm = new Matrix44 ();
     }

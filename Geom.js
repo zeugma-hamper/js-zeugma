@@ -18,14 +18,14 @@ export class Geom
 
   static PointOntoPlaneProjection (pnt, pl_cnt, pl_nrm)  // Vects all...
     { let n = pl_nrm . Norm ();
-      let prj = pnt . Sub (n . Mul (n . Dot (pnt . Sub (pl_cnt))));
+      let prj = pnt . Sub (n . Sca (n . Dot (pnt . Sub (pl_cnt))));
       return prj;
     }
 
 
   static PointOntoLineProjection (pnt, ln_pnt, ln_dir)
     { let d = ln_dir . Norm ();
-      let prj = ln_pnt . Add (d . Mul (d . Dot (pnt . Sub (ln_pnt))));
+      let prj = ln_pnt . Add (d . Sca (d . Dot (pnt . Sub (ln_pnt))));
       return prj;
     }
 
@@ -37,7 +37,7 @@ export class Geom
       t = (pl_pnt . Sub (frm)) . Dot (pl_nrm) / t;
       if (t  <  0.0)  // that'd be behind you, Chet.
         return null;
-      return frm . Add (aim . Mul (t));
+      return frm . Add (aim . Sca (t));
     }
 
 
@@ -46,7 +46,7 @@ export class Geom
       if (t  ==  0.0)
           return  null;
       t = (pl_pnt . Sub (ln_pnt)) . Dot (pl_nrm) / t;
-      return ln_pnt . Add (ln_dir . Mul (t));
+      return ln_pnt . Add (ln_dir . Sca (t));
     }
 
   static RayRectIntersection (frm, aim, cnt, ovr, upp, wid, hei) // vvvvvff
@@ -64,7 +64,7 @@ export class Geom
     }
 
 
-    static RayAnnulusIntersectionPolar (frm, aim, cnt, e0, e1, r1, r2)
+  static RayAnnulusIntersectionPolar (frm, aim, cnt, e0, e1, r1, r2)
     { let hit = RayPlaneIntersection (frm, aim, cnt, e0 . Cross (e1));
       if (hit == null)
         return null;
@@ -152,9 +152,9 @@ export class Geom
       if (solns[0] == null)
         return null;
       emit = [null, null];
-      emit[0] = frm . Add (aim . Mul (solns[0]));
+      emit[0] = frm . Add (aim . Sca (solns[0]));
       if (solns[1] != null)
-        emit[1] = frm . Add (aim . Mul (solns[0]));
+        emit[1] = frm . Add (aim . Sca (solns[0]));
       return emit;
     }
 
@@ -166,12 +166,12 @@ export class Geom
         return null;
       let emit = [null, null];
       if (solns[0] < 0.0)
-        { emit[0] = frm . Add (aim . Mul (solns[1]));
+        { emit[0] = frm . Add (aim . Sca (solns[1]));
           emit[1] = null;
         }
       else
-        { emit[0] = frm . Add (aim . Mul (solns[0]));
-          emit[1] = frm . Add (aim . Mul (solns[1]));
+        { emit[0] = frm . Add (aim . Sca (solns[0]));
+          emit[1] = frm . Add (aim . Sca (solns[1]));
         }
       return emit;
     }
@@ -182,7 +182,7 @@ export class Geom
       let u = upp . Norm ();
       let nrm = o . Cross (u);
       let t = (p . Sub (cnt)) . Dot (nrm);
-      let prj = p . Sub (nrm . Mul (t));
+      let prj = p . Sub (nrm . Sca (t));
 
       let pp = prj . Sub (cnt);
       t = 2.0 * pp . Dot (o);

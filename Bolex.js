@@ -247,10 +247,8 @@ export class Bolex  extends SpaceThing
           hei = this.ViewOrthoHei ();
         }
       else
-        { wid = 2.0 * vdst
-            * Math.tan (0.5 * Math.PI / 180.0 * this.ViewHorizAngle ());
-          hei = 2.0 * vdst
-            * Math.tan (0.5 * Math.PI / 180.0 * this.ViewVertAngle ());
+        { wid = 2.0 * vdst * Math.tan (0.5 * this.ViewHorizAngle ());
+          hei = 2.0 * vdst * Math.tan (0.5 * this.ViewVertAngle ());
         }
       let poff = this.ViewPlaneOffset ();
       pmat . LoadShear (0.0, poff . X () / vdst,
@@ -258,7 +256,7 @@ export class Bolex  extends SpaceThing
                         0.0, 0.0);
 
       let emm = new Matrix44 ();
-      emm . LoadScale (2.0 / wid, 2.0 / hei, -1.0 / vdst);
+      emm . LoadScaleXYZ (2.0 / wid, 2.0 / hei, -1.0 / vdst);
       pmat . MulSelfBy (emm);
       return pmat;
     }

@@ -6,6 +6,8 @@
 
 import { Zeubject } from "./Zeubject.js";
 
+import { Geom } from "./Geom.js";
+
 import { Loopervisor } from "./Loopervisor.js";
 
 import { EventAqueduct } from "./EventAqueduct.js";
@@ -34,6 +36,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.gcorr_by_maes = new Map ();
       this.dcatcher_by_maes = new Map ();
       this.auto_attend = true;
+      this.cursor_by_prov = new Map ();
     }
 
 
@@ -89,20 +92,6 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
 
-  static ViewAndProjMatrix (maes, cam)
-    { let mat = new Matrix44 () . LoadTranslation (maes . ViewLoc () . Neg ());
-      let vaim = cam . ViewAim ();
-      let vovr = vaim . Cross (cam . ViewUp ()) . Norm ();
-      let vupp = vovr . Cross (vaim) . Norm ();
-      let tmp = new Matrix44 () .
-        LoadBackwardCoordTransformPreNormedOverUp (vovr, vupp);
-      mat . MulSelfBy (tmp);
-      tmp . LoadScaleXYZ (1.0 / maes . Width (), 1.0 / maes . Height (),
-                          1.0 / cam . ViewDist ());
-      mat . MulSelfBy (tmp);
-      return mat;
-    }
-
   DrawMaesLayers (ratch, thyme)
     { if (this.NumMaeses ()  <  1)
         return this;
@@ -121,8 +110,10 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             let vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
             let bonus = [ corr, ctx, vpm ];
 
-            ctx . save ();
+//            ctx . clearRect (0, 0, corr.width, corr.height);
+            ctx . fillStyle = "rgba(40,40,40)";
             ctx . fillRect (0, 0, corr.width, corr.height);
+            ctx . save ();
             let cnt = ma.NumLayers ();
             for (let q = 0  ;  q < cnt  ;  ++q)
               if ((lay = ma . NthLayer (q))  !=  null)
@@ -161,6 +152,15 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       return this;
     }
 
+  SkidToAHalt ()
+    { if (this.auto_attend == true)
+        this . SuspendIncomingCommsAttention ();
+
+      this.looper . BrakeSpin ();
+
+      return this;
+    }
+
 
   Travail (ratch, thyme)
     { let self = this;
@@ -186,6 +186,28 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   ZESpatial (e)
     { if (this.cherd != null)
         e . ProfferAsQuaffTo (this.cherd);
+      return 0;
+    }
+  ZESpatialMove (e)
+    { let prv = e . Provenance ();
+      let cur = this.cursor_by_prov . get (prv);
+      let ma = this.FindMaes ("front");
+      if (cur == null)
+        { this.cursor_by_prov . set (prv, cur = new Cursoresque (200.0, 6));
+          if (ma != null)
+            { let lay = ma . FindLayer ("curseteria");
+              if (lay == null)
+                ma . AppendLayer (lay = new LimnyThing ()
+                                  . SetName ("curseteria"));
+              lay . AppendChild (cur);
+            }
+        }
+      if (ma == null)
+        return 0;
+      let hit = Geom.RayPlaneIntersection (e . Loc (), e . Aim (),
+                                           ma . Loc (), ma . Norm ());
+      if (hit != null)
+        cur . SetLoc (hit);
       return 0;
     }
 

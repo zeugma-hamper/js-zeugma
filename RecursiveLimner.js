@@ -28,7 +28,8 @@ export let RecursiveLimner = (supcls) => class extends supcls
         { let cnt = zeub . NumChildren ();
           let bon_inc = this.AdvanceLimnRecursionBonus (bonus);
           for (let q = 0  ;  q < cnt  ;  ++q)
-            this.RecursivelyDraw (zeub . NthChild (q), ratch, cm, adjc, bon_inc);
+            this.RecursivelyDraw (zeub . NthChild (q), ratch, thyme,
+                                  cm, adjc, bon_inc);
         }
       return this;
     }

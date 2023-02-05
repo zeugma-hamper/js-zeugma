@@ -37,5 +37,5 @@ export class OSCFaker  extends Zeubject
     { this.is_listening = true;   return this; }
 
   PauseReception ()
-    { this.is_listening == faldse;  return this; }
+    { this.is_listening == false;  return this; }
 }

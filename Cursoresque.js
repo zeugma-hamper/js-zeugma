@@ -29,8 +29,17 @@ export class Cursoresque  extends SpaceThing
                                                       * (1.0 + 3.0 * (q % 2))));
             ((w > 0) ? this.vs_lrg : this.vs_sml) . push (arm);
           }
-
+      this.tgrap = new TrGrappler ();
+      this.AppendGrappler (this.tgrap);
     }
+
+
+  Loc ()
+    { return this.tgrap . Translation (); }
+
+  SetLoc (ell)
+    { this.tgrap . SetTranslation (ell);  return this; }
+
 
   DrawSelf (ratch, cm, adjc, bonus)
     { let lcnt = this.vs_lrg.length, scnt = this.vs_sml.length;
@@ -49,8 +58,8 @@ export class Cursoresque  extends SpaceThing
         { let hlfw = 0.5 * corr.width;
           let hlfh = 0.5 * corr.height;
           for (let vec of vecarr)
-            { vec.x = hlfw * (vec.x / vec.z + 1.0);
-              vec.y = hlfh * (vec.y / vec.z + 1.0);
+            { vec.x = hlfw * (1.0 + vec.x / vec.z);
+              vec.y = hlfh * (1.0 - vec.y / vec.z);
             }
         }
       let ctx = bonus[1];
