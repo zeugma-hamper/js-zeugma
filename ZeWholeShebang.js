@@ -175,10 +175,34 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
 
+  FlyOnTheirTerms ()
+    { if (this.auto_attend == true)
+        this.AttendToIncomingComms ();
+
+      let self = this;
+      if (this.looper.is_looping == true)
+        return 0;
+      this.looper.is_looping = true;
+
+      let heave = function ()
+        { self.looper . OneDelightfulTurn ();
+          if (self.looper.is_looping == true)
+            globalThis.requestAnimationFrame (heave);
+          else
+            { if (self.auto_attend == true)
+                self . SuspendIncomingCommsAttention ();
+            }
+        }
+
+      globalThis.requestAnimationFrame (heave);
+      return 0;
+    }
+
   Travail (ratch, thyme)
-    { let self = this;
-      globalThis.requestAnimationFrame (() =>
-        { self.DrawMaesLayers (ratch, thyme); });
+    { // let self = this;
+      // globalThis.requestAnimationFrame (() =>
+      //   { self.DrawMaesLayers (ratch, thyme); });
+      this.DrawMaesLayers (ratch, thyme);
       return 0;
     }
 
@@ -242,7 +266,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       let cur = this.cursor_by_prov . get (prv);
       let ma = this.FindMaes ("front");
       if (cur == null)
-        { this.cursor_by_prov . set (prv, cur = new Cursoresque (200.0, 6));
+        { this.cursor_by_prov . set (prv, cur = new Cursoresque (140.0, 6));
           if (ma != null)
             { let lay = ma . FindLayer ("curseteria");
               if (lay == null)

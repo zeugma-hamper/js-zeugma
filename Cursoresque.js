@@ -68,9 +68,8 @@ export class Cursoresque  extends SpaceThing
         { ctx.fillStyle = "#80800080";
           for (let vec of vecarr)
             { if (q == 0  ||  q == lcnt)
-                ctx . moveTo (vec.x, vec.y);
-              else
-                ctx . lineTo (vec.x, vec.y);
+                ctx . beginPath ();
+              ctx . lineTo (vec.x, vec.y);
               ++q;
               if (q == lcnt  ||  q == vecarr.length)
                 { ctx.closePath ();
