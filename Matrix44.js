@@ -204,7 +204,9 @@ export class Matrix44
     }
 
   LoadScale (s)
-    { this.LoadZero ();
+    { if (arguments.length == 3)
+        return this.LoadScaleXYZ (arguments[0], arguments[1], arguments[2]);
+      this.LoadZero ();
       this.m[0] = this.m[5] = this.m[10] = s;  this.m[15] = 1.0;
       return this;
     }
@@ -232,9 +234,9 @@ export class Matrix44
 //
 /// matrix transformation: translatin'
 //
-  LoadTranslationXYZ (s0, s1, s2)
+  LoadTranslationXYZ (dx, dy, dz)
     { this.LoadIdent ();
-      this.m[12] = s0;  this.m[13] = s1;  this.m[14] = s2;
+      this.m[12] = dx;  this.m[13] = dy;  this.m[14] = dz;
       return this;
     }
 
