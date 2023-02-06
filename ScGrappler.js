@@ -1,0 +1,60 @@
+
+//
+// (c) treadle & loam, provisioners llc
+//
+
+
+import { Grappler } from "./Grappler.js"
+
+
+export class ScGrappler  extends Grappler
+{ //
+  constructor ()
+    { super ();
+      this.pm = new Matrix44 ();
+      this.ipm = new Matrix44 ();
+      this.nm = new Matrix44 ();
+      this.inm = new Matrix44 ();
+      this.z_sca = Zoft.NewWith (Vect.onesv);
+      this.z_cnt = Zoft.NewWith (Vect.zerov);
+    }
+
+  PntMat ()
+    { return this.pm; }
+  InvPntMat ()
+    { return this.ipm; }
+  NrmMat ()
+    { return this.nm; }
+  InvNrmMat ()
+    { return this.inm; }
+
+
+  Scale ()
+    { return this.z_sca . Val (); }
+  SetScale (sca_or_zoft)
+    { this.z_sca . BecomeLike (Zoft.NewWith (sca_or_zoft));  return this; }
+  ScaleZoft ()
+    { return this.z_sca; }
+
+  Center ()
+    { return this.z_cnt . Val (); }
+  SetCenter (cnt_or_zoft)
+    { this.z_cnt . BecomeLike (Zoft.NewWith (cnt_or_zoft));  return this; }
+  CenterZoft ()
+    { return this.z_cnt; }
+
+
+  Inhale (ratch, thyme)
+    { let s = this.z_sca . Val ();
+      let c = this.z_cnt . Val ();
+      this.pm . LoadScaleXYZAbout (s.x, s.y, s.z, c);
+      this.ipm . LoadScaleXYZAbout (s.x == 0.0  ?  1.0  :  1.0 / s.x,
+                                    s.y == 0.0  ?  1.0  :  1.0 / s.y,
+                                    s.z == 0.0  ?  1.0  :  1.0 / s.z,
+                                    c);
+      // unthinkable things about distorting normals in the case of
+      // anisotropic scaling...
+      return 0;
+    }
+//
+}

@@ -204,9 +204,7 @@ export class Matrix44
     }
 
   LoadScale (s)
-    { if (arguments.length == 3)
-        return this.LoadScaleXYZ (arguments[0], arguments[1], arguments[2]);
-      this.LoadZero ();
+    { this.LoadZero ();
       this.m[0] = this.m[5] = this.m[10] = s;  this.m[15] = 1.0;
       return this;
     }
@@ -223,7 +221,7 @@ export class Matrix44
   LoadScaleAbout (s, cnt)
     { let oms = 1.0 - s;
       this.LoadZero ();
-      this.m[0] = s0;  this.m[5] = s1;  this.m[10] = s2;  this.m[15] = 1.0;
+      this.m[0] = s;  this.m[5] = s;  this.m[10] = s;  this.m[15] = 1.0;
       this.m[12] = oms * cnt . X ();
       this.m[13] = oms * cnt . Y ();
       this.m[14] = oms * cnt . Z ();
