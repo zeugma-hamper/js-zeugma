@@ -55,6 +55,16 @@ export class ZESpatialEvent  extends ZeEvent
       return this;
     }
 
+  InjectParticularsInto (spe)
+    { super.InjectParticularsInto (spe);
+      spe.loc = this.Loc () . Dup ();
+      spe.aim = this.Aim () . Dup ();
+      spe.ovr = this.Over () . Dup ();
+      spe.CopyPressuresFrom (this);
+      spe.CopyCaressesFrom (this);
+      return this;
+    }
+
   Loc ()
     { return this.loc; }
   SetLoc (l)

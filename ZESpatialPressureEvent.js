@@ -25,6 +25,13 @@ export class ZESpatialPressureEvent  extends ZESpatialEvent
       return this;
     }
 
+  InjectParticularsInto (spe)
+    { super.InjectParticularsInto (spe);
+      spe.SetWhichPressor (this.prs_id);
+      spe.SetPressureValue (this.prs_val);
+      return this;
+    }
+
   WhichPressor ()
     { return this.prs_id; }
   SetWhichPressor (pid)

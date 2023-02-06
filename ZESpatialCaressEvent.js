@@ -25,6 +25,13 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
       return this;
     }
 
+  InjectParticularsInto (sce)
+    { super.InjectParticularsInto (sce);
+      sce.SetWhichCaressor (this.crs_id);
+      sce.SetCaressValue (this.crs_val);
+      return this;
+    }
+
   WhichCaressor ()
     { return this.crs_id; }
   SetWhichCaressor (cid)

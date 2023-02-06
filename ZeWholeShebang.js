@@ -37,11 +37,24 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.dcatcher_by_maes = new Map ();
       this.auto_attend = true;
       this.cursor_by_prov = new Map ();
+      this.generate_ze_events_from_mouse = true;
+      this.recentest_synth_spat_evt_by_prov = new Map ();
     }
 
 
   Looper ()
     { return this.looper; }
+
+
+  ShouldAutomaticallySwitchAttentionToInboundComms ()
+    { return this.auto_attend; }
+  SetShouldAutomaticallySwitchAttentionToInboundComms (tend)
+    { this.auto_attend = tend;  return this; }
+
+  ShouldGenerateZeEventsFromNativeMouse ()
+    { return this.generate_ze_events_from_mouse; }
+  SetShouldGenerateZeEventsFromNativeMouse (nera)
+    { this.generate_ze_events_from_mouse = nera;  return this; }
 
 
   Maeses ()
@@ -171,13 +184,49 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
 
   NativeMouseMoveOnMaes (e, x, y, prv, ma)
-    { console.log (prv, " moyce: " + x + ", " + y);}
+    { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
+        return 0;
 
-  NativeMouseDownOnMaes (e, prv, ma)
-    { }
+      let hit = ma . Loc () . Add (ma . Over () . Sca (x * ma . Width ())) .
+          Add (ma . Up () . Sca (y * ma . Height ()));
+      let frm = hit . Add (ma . Norm () . Sca (0.8 * ma . Width ()));
+      let aim = ma . Norm () . Neg ();
+      let ovr = aim . Cross (ma . Up ()) . Norm ();
 
-  NativeMouseUpOnMaes (e, prv, ma)
-    { }
+      let smev = new ZESpatialMoveEvent (prv);
+      smev . SetLoc (frm) . SetAim (aim) . SetOver (ovr);
+      let duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
+      if (duct != null)
+        duct . AppendDram (smev);
+      this.recentest_synth_spat_evt_by_prov . set (prv, smev);
+      return 0;
+    }
+
+  _NativePressureEventOnMaes (e, x, y, butt, prv, ma, evt_cls)
+    { let smev = this.recentest_synth_spat_evt_by_prov . get (prv);
+      let spev = new evt_cls (prv);
+      if (smev != null)
+        smev . InjectParticularsInto (spev);
+      spev . SetWhichPressor (butt);
+      let duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
+      if (duct != null)
+        duct . AppendDram (spev);
+      return 0;
+    }
+
+  NativeMouseDownOnMaes (e, x, y, butt, prv, ma)
+    { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
+        return 0;
+      return this._NativePressureEventOnMaes (e, x, y, butt, prv, ma,
+                                              ZESpatialHardenEvent);
+    }
+
+  NativeMouseUpOnMaes (e, x, y, butt, prv, ma)
+    { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
+        return 0;
+      return this._NativePressureEventOnMaes (e, x, y, butt, prv, ma,
+                                              ZESpatialSoftenEvent);
+    }
 
 
   PassTheBuckUpPhageHierarchy ()
@@ -210,6 +259,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
         cur . SetLoc (hit);
       return 0;
     }
+  ZESpatialHarden (e)
+    { console.log ("HARDEN! Truly, from provenance " + e . Provenance ()); }
 
 
   InstallSampleMaesConfig ()

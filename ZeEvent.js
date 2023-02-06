@@ -35,6 +35,14 @@ export class ZeEvent  extends NonEvent
       return this;
     }
 
+  InjectParticularsInto (trgt)
+    { trgt.prov = (this.prov == null)  ?  null  :  new String (this.prov);
+      trgt.tstamp = this.tstamp;
+      trgt.rat_fresh = this.rat_fresh;
+      trgt.fore_evt = this.fore_evt;
+      return this;
+    }
+
   Provenance ()
     { return this.prov; }
   SetProvenance (pr)
