@@ -195,9 +195,61 @@ export class ZeWholeShebang  extends base_class (Zeubject)
         }
 
       globalThis.requestAnimationFrame (heave);
+      return this;
+    }
+
+
+  ProvisionWindowAndMaesWithCanvas (whin, maes)
+    { let canv = whin.document . createElement ('canvas');
+      this.SetGraphicsCorrelateForMaes (maes, canv);
+      canv.width = whin.innerWidth;
+      canv.height = whin.innerHeight;
+      whin.document.body . appendChild (canv);
+      let gctx = canv . getContext ("2d");
+      if (gctx == null)
+        console.warn ("Well, that simply won't do. We can't have a null gctx.");
+
+      whin . addEventListener ('resize', () => {
+          canv.width = whin.innerWidth;
+          canv.height = whin.innerHeight;
+      });
+
+      let dcat = this.AssuredDialectCatcherForMaes (maes);
+      if (dcat != null)
+        dcat . HooverNativeEventsFrom (canv);
+
       return 0;
     }
 
+  BurstFromTheGround ()
+    { if (globalThis.window == undefined)
+        return 0;
+      let winny = globalThis.window;
+      let ur_maes = this.NthMaes (0);
+      if (ur_maes == null)
+        return null;
+
+      this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
+
+      // let dcat = this.AssuredDialectCatcherForMaes (ur_maes);
+      // let cnvs = this.GraphicsCorrelateForMaes (ur_maes);
+      // if (dcat != null  &&  cnvs != null)
+      //   dcat . HooverNativeEventsFrom (cnvs);
+
+      let ma, cnt = this.NumMaeses ();
+      for (let q = 1  ;  q < cnt  ;  ++q)
+        if ((ma = this.NthMaes (q))  !=  null)
+          { let parawin = winny . open ();
+            this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
+          }
+      return this;
+    }
+
+
+
+//
+///
+//
   Travail (ratch, thyme)
     { // let self = this;
       // globalThis.requestAnimationFrame (() =>
@@ -264,23 +316,35 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   ZESpatialMove (e)
     { let prv = e . Provenance ();
       let cur = this.cursor_by_prov . get (prv);
-      let ma = this.FindMaes ("front");
+
       if (cur == null)
-        { this.cursor_by_prov . set (prv, cur = new Cursoresque (140.0, 6));
-          if (ma != null)
-            { let lay = ma . FindLayer ("curseteria");
-              if (lay == null)
-                ma . AppendLayer (lay = new LimnyThing ()
-                                  . SetName ("curseteria"));
-              lay . AppendChild (cur);
-            }
+        { cur = new Cursoresque (140.0, 6);
+          this.cursor_by_prov . set (prv, cur);
+          for (let emm of this.maeses)
+            if (emm != null)
+              { let lay = emm . FindLayer ("curseteria");
+                if (lay == null)
+                  emm . AppendLayer (lay = new LimnyThing ()
+                                     . SetName ("curseteria"));
+                lay . AppendChild (cur);
+              }
         }
-      if (ma == null)
+
+      //let ma = this.FindMaes ("front");
+      let mah = PlatonicMaes.ClosestAmong (this.Maeses (),
+                                           e . Loc (), e . Aim (),
+                                           true);
+      if (mah == null)
         return 0;
-      let hit = Geom.RayPlaneIntersection (e . Loc (), e . Aim (),
-                                           ma . Loc (), ma . Norm ());
+      // let hit = Geom.RayPlaneIntersection (e . Loc (), e . Aim (),
+      //                                      ma . Loc (), ma . Norm ());
+      let emm = mah[0], hit = mah[1];
       if (hit != null)
         cur . SetLoc (hit);
+      if (emm  !=  cur . CurrentMaes ())
+        { cur . SetCurrentMaes (emm);
+          cur . AlignTo (emm . Over () . Norm (), emm . Up () . Norm ());
+        }
       return 0;
     }
   ZESpatialHarden (e)

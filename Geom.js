@@ -50,10 +50,10 @@ export class Geom
     }
 
   static RayRectIntersection (frm, aim, cnt, ovr, upp, wid, hei) // vvvvvff
-    { let pee = RayPlaneIntersection (frm, aim, cnt, ovr . Cross (upp));
+    { let pee = this.RayPlaneIntersection (frm, aim, cnt, ovr . Cross (upp));
       if (pee == null)
         return null;
-      p = pee . Sub (cnt);
+      let p = pee . Sub (cnt);
       let t = 2.0 * p . Dot (ovr);
       if (t < -wid  ||  t > wid)
         return null;

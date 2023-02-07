@@ -178,7 +178,7 @@ export class PlatonicMaes  extends SpaceThing
 
       let cls_hit = null;
       let cls_maes = null;
-      let cls_DST = -1.0;
+      let cls_dst = -1.0;
       for (let ma of mcoll)
         if (ma != null)
           { let use_w = ma . Width ();

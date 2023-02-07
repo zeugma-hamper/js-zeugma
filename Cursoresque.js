@@ -29,9 +29,18 @@ export class Cursoresque  extends SpaceThing
                                                       * (1.0 + 3.0 * (q % 2))));
             ((w > 0) ? this.vs_lrg : this.vs_sml) . push (arm);
           }
+      this.cgrap = new CoGrappler ();
       this.tgrap = new TrGrappler ();
+      this.AppendGrappler (this.cgrap);
       this.AppendGrappler (this.tgrap);
     }
+
+
+  CurrentMaes ()
+    { return this.cur_maes; }
+
+  SetCurrentMaes (ma)
+    { this.cur_maes = ma;  return this; }
 
 
   Loc ()
@@ -39,6 +48,10 @@ export class Cursoresque  extends SpaceThing
 
   SetLoc (ell)
     { this.tgrap . SetTranslation (ell);  return this; }
+
+
+  AlignTo (o, u)
+    { this.cgrap . SetViaPreNormedOverAndUp (o, u);  return this; }
 
 
   DrawSelf (ratch, cm, adjc, bonus)
