@@ -202,6 +202,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   ProvisionWindowAndMaesWithCanvas (whin, maes)
     { let canv = whin.document . createElement ('canvas');
       this.SetGraphicsCorrelateForMaes (maes, canv);
+      whin.document.body.style.margin = "0px";  // the horror... the horror...
       canv.width = whin.innerWidth;
       canv.height = whin.innerHeight;
       whin.document.body . appendChild (canv);
@@ -305,6 +306,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
 
+//
+//
   PassTheBuckUpPhageHierarchy ()
     { return true; }
 
@@ -313,6 +316,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
         e . ProfferAsQuaffTo (this.cherd);
       return 0;
     }
+
   ZESpatialMove (e)
     { let prv = e . Provenance ();
       let cur = this.cursor_by_prov . get (prv);
@@ -330,7 +334,6 @@ export class ZeWholeShebang  extends base_class (Zeubject)
               }
         }
 
-      //let ma = this.FindMaes ("front");
       let mah = PlatonicMaes.ClosestAmong (this.Maeses (),
                                            e . Loc (), e . Aim (),
                                            true);
@@ -347,10 +350,12 @@ export class ZeWholeShebang  extends base_class (Zeubject)
         }
       return 0;
     }
+
   ZESpatialHarden (e)
     { console.log ("HARDEN! Truly, from provenance " + e . Provenance ()); }
 
-
+//
+//
   InstallSampleMaesConfig ()
     { let samp_maeses = PlatonicMaes.SampleMaesConfigJSON ();
       return this.PopulatefromMaesConfig (samp_maeses);
