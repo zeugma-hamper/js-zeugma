@@ -27,7 +27,7 @@ export class ViveWandEventSynth  extends Zeubject
       smev . SetLoc (p) . SetAim (a) . SetOver (o);
       let butts = bbits, mask = 0x01;
       while (butts != 0)
-        { if (butts & mask  !=  0)
+        { if ((butts & mask)  !=  0)
             { smev . SetPressureFor (mask, 1.0);
               butts ^= mask;
             }
@@ -40,7 +40,7 @@ export class ViveWandEventSynth  extends Zeubject
       let prevb = spatst[0];
       if (prevb != bbits)
         { butts = bbits;  mask = 0x01;
-          while (prevb ^ butts  !=  0)
+          while ((prevb ^ butts)  !=  0)
             { let curstate = butts & mask;
               let oldstate = prevb & mask;
               // if (prevb & mask  !=  curstate)  // what in the actual ass...
