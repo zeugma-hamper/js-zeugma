@@ -35,6 +35,8 @@ export class ScGrappler  extends Grappler
     { this.z_sca . BecomeLike (Zoft.NewWith (sca_or_zoft));  return this; }
   ScaleZoft ()
     { return this.z_sca; }
+  InstallScale (scz)
+    { this.z_sca . BecomeLike (scz);  return this; }
 
   Center ()
     { return this.z_cnt . Val (); }
@@ -42,6 +44,8 @@ export class ScGrappler  extends Grappler
     { this.z_cnt . BecomeLike (Zoft.NewWith (cnt_or_zoft));  return this; }
   CenterZoft ()
     { return this.z_cnt; }
+  InstallCenter (cnz)
+    { this.z_cnt . BecomeLike (cnz);  return this; }
 
 
   Inhale (ratch, thyme)

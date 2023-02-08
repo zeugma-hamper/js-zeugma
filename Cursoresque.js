@@ -4,12 +4,12 @@
 //
 
 
-import { SpaceThing } from "./SpaceThing.js";
+import { Alignifer } from "./Alignifer.js";
 
 import { SinuZoft } from "./SinuZoft.js";
 
 
-export class Cursoresque  extends SpaceThing
+export class Cursoresque  extends Alignifer
 { //
   constructor (sz, nv)
     { super ();
@@ -29,10 +29,6 @@ export class Cursoresque  extends SpaceThing
                                                       * (1.0 + 3.0 * (q % 2))));
             ((w > 0) ? this.vs_lrg : this.vs_sml) . push (arm);
           }
-      this.cgrap = new CoGrappler ();
-      this.tgrap = new TrGrappler ();
-      this.AppendGrappler (this.cgrap);
-      this.AppendGrappler (this.tgrap);
     }
 
 
@@ -41,17 +37,6 @@ export class Cursoresque  extends SpaceThing
 
   SetCurrentMaes (ma)
     { this.cur_maes = ma;  return this; }
-
-
-  Loc ()
-    { return this.tgrap . Translation (); }
-
-  SetLoc (ell)
-    { this.tgrap . SetTranslation (ell);  return this; }
-
-
-  AlignTo (o, u)
-    { this.cgrap . SetViaPreNormedOverAndUp (o, u);  return this; }
 
 
   DrawSelf (ratch, cm, adjc, bonus)

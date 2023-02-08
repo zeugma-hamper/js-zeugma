@@ -202,10 +202,13 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   ProvisionWindowAndMaesWithCanvas (whin, maes)
     { let canv = whin.document . createElement ('canvas');
       this.SetGraphicsCorrelateForMaes (maes, canv);
+
       whin.document.body.style.margin = "0px";  // the horror... the horror...
+
       canv.width = whin.innerWidth;
       canv.height = whin.innerHeight;
       whin.document.body . appendChild (canv);
+
       let gctx = canv . getContext ("2d");
       if (gctx == null)
         console.warn ("Well, that simply won't do. We can't have a null gctx.");
@@ -346,7 +349,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
         cur . SetLoc (hit);
       if (emm  !=  cur . CurrentMaes ())
         { cur . SetCurrentMaes (emm);
-          cur . AlignTo (emm . Over () . Norm (), emm . Up () . Norm ());
+          //cur . AlignTo (emm . Over () . Norm (), emm . Up () . Norm ());
+          cur . AlignToMaes (emm);
         }
       return 0;
     }
