@@ -4,13 +4,16 @@
 //
 
 
-import { MotherTime } from "./MotherTime.js"
+import { MotherTime } from "./MotherTime.js";
 
-import { Zeubject } from "./Zeubject.js"
+import { Zeubject } from "./Zeubject.js";
 
-import { IronLung } from "./IronLung.js"
-import { CommsSump } from "./CommsSump.js"
-import { EventAqueduct } from "./EventAqueduct.js"
+import { ZeColl } from "./ZeColl.js";
+import { ZeWeakColl } from "./ZeWeakColl.js";
+
+import { IronLung } from "./IronLung.js";
+import { CommsSump } from "./CommsSump.js";
+import { EventAqueduct } from "./EventAqueduct.js";
 
 
 export class Loopervisor  extends Zeubject
@@ -143,19 +146,19 @@ export class Loopervisor  extends Zeubject
   NumSumps ()
     { return this.active_sumps.length; }
   NthSump (ind)
-    { return Zeubject.CollNth (this.active_sumps, ind); }
+    { return ZeColl.Nth (this.active_sumps, ind); }
   FindSump (nm)
-    { return Zeubject.CollFindByName (this.active_sumps, nm); }
+    { return ZeColl.FindByName (this.active_sumps, nm); }
   IndexOfSump (ea)
-    { return Zeubject.CollIndexOf (this.active_sumps, ea); }
+    { return ZeColl.IndexOf (this.active_sumps, ea); }
   AppendSump (ea)
-    { return Zeubject.CollAppend (this.active_sumps, ea); }
+    { return ZeColl.Append (this.active_sumps, ea); }
   InsertSump (ea, ind)
-    { return Zeubject.CollInsert (this.active_sumps, ind); }
+    { return ZeColl.Insert (this.active_sumps, ind); }
   RemoveSump (ea)
-    { return Zeubject.CollRemove (this.active_sumps, ea); }
+    { return ZeColl.Remove (this.active_sumps, ea); }
   RemoveNthSump (ind)
-    { return Zeubject.CollRemoveNth (this.active_sumps, ind); }
+    { return ZeColl.RemoveNth (this.active_sumps, ind); }
 
 
   Aqueducts ()
@@ -163,19 +166,19 @@ export class Loopervisor  extends Zeubject
   NumAqueducts ()
     { return this.active_aqueducts.length; }
   NthAqueduct (ind)
-    { return Zeubject.CollNth (this.active_aqueducts, ind); }
+    { return ZeColl.Nth (this.active_aqueducts, ind); }
   FindAqueduct (nm)
-    { return Zeubject.CollFindByName (this.active_aqueducts, nm); }
+    { return ZeColl.FindByName (this.active_aqueducts, nm); }
   IndexOfAqueduct (ea)
-    { return Zeubject.CollIndexOf (this.active_aqueducts, ea); }
+    { return ZeColl.IndexOf (this.active_aqueducts, ea); }
   AppendAqueduct (ea)
-    { return Zeubject.CollAppend (this.active_aqueducts, ea); }
+    { return ZeColl.Append (this.active_aqueducts, ea); }
   InsertAqueduct (ea, ind)
-    { return Zeubject.CollInsert (this.active_aqueducts, ind); }
+    { return ZeColl.Insert (this.active_aqueducts, ind); }
   RemoveAqueduct (ea)
-    { return Zeubject.CollRemove (this.active_aqueducts, ea); }
+    { return ZeColl.Remove (this.active_aqueducts, ea); }
   RemoveNthAqueduct (ind)
-    { return Zeubject.CollRemoveNth (this.active_aqueducts, ind); }
+    { return ZeColl.RemoveNth (this.active_aqueducts, ind); }
 
 
   Lungs ()
@@ -183,19 +186,19 @@ export class Loopervisor  extends Zeubject
   NumLungs ()
     { return this.active_lungs.length; }
   NthLung (ind)
-    { return Zeubject.CollNth (this.active_lungs, ind); }
+    { return ZeColl.Nth (this.active_lungs, ind); }
   FindLung (nm)
-    { return Zeubject.CollFindByName (this.active_lungs, nm); }
+    { return ZeColl.FindByName (this.active_lungs, nm); }
   IndexOfLung (ea)
-    { return Zeubject.CollIndexOf (this.active_lungs, ea); }
+    { return ZeColl.IndexOf (this.active_lungs, ea); }
   AppendLung (ea)
-    { return Zeubject.CollAppend (this.active_lungs, ea); }
+    { return ZeColl.Append (this.active_lungs, ea); }
   InsertLung (ea, ind)
-    { return Zeubject.CollInsert (this.active_lungs, ind); }
+    { return ZeColl.Insert (this.active_lungs, ind); }
   RemoveLung (ea)
-    { return Zeubject.CollRemove (this.active_lungs, ea); }
+    { return ZeColl.Remove (this.active_lungs, ea); }
   RemoveNthLung (ind)
-    { return Zeubject.CollRemoveNth (this.active_lungs, ind); }
+    { return ZeColl.RemoveNth (this.active_lungs, ind); }
 
 
   Toilers ()
@@ -203,17 +206,17 @@ export class Loopervisor  extends Zeubject
   NumToilers ()
     { return this.active_toilers.length; }
   NthToiler (ind)
-    { return Zeubject.WeakCollNth (this.active_toilers, ind); }
+    { return ZeWeakColl.Nth (this.active_toilers, ind); }
   FindToiler (nm)
-    { return Zeubject.WeakCollFindByName (this.active_toilers, nm); }
+    { return ZeWeakColl.FindByName (this.active_toilers, nm); }
   IndexOfToiler (ea)
-    { return Zeubject.WeakCollIndexOf (this.active_toilers, ea); }
+    { return ZeWeakColl.IndexOf (this.active_toilers, ea); }
   AppendToiler (ea)
-    { return Zeubject.WeakCollAppend (this.active_toilers, ea); }
+    { return ZeWeakColl.Append (this.active_toilers, ea); }
   InsertToiler (ea, ind)
-    { return Zeubject.WeakCollInsert (this.active_toilers, ind); }
+    { return ZeWeakColl.Insert (this.active_toilers, ind); }
   RemoveToiler (ea)
-    { return Zeubject.WeakCollRemove (this.active_toilers, ea); }
+    { return ZeWeakColl.Remove (this.active_toilers, ea); }
   RemoveNthToiler (ind)
-    { return Zeubject.WeakCollRemoveNth (this.active_toilers, ind); }
+    { return ZeWeakColl.RemoveNth (this.active_toilers, ind); }
 }

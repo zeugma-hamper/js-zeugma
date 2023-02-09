@@ -6,6 +6,8 @@
 
 import { Zeubject } from "./Zeubject.js";
 
+import { ZeColl } from "./ZeColl.js";
+
 import { Geom } from "./Geom.js";
 
 import { Loopervisor } from "./Loopervisor.js";
@@ -63,11 +65,11 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   NumMaeses ()
     { return this.maeses.length; }
   NthMaes (ind)
-    { return Zeubject.CollNth (this.maeses, ind); }
+    { return ZeColl.Nth (this.maeses, ind); }
   FindMaes (nm)
-    { return Zeubject.CollFindByName (this.maeses, nm); }
+    { return ZeColl.FindByName (this.maeses, nm); }
   AppendMaes (ma)
-    { return Zeubject.CollAppend (this.maeses, ma); }
+    { return ZeColl.Append (this.maeses, ma); }
 
 
   SetGraphicsCorrelateForMaes (m, g)
@@ -342,14 +344,12 @@ export class ZeWholeShebang  extends base_class (Zeubject)
                                            true);
       if (mah == null)
         return 0;
-      // let hit = Geom.RayPlaneIntersection (e . Loc (), e . Aim (),
-      //                                      ma . Loc (), ma . Norm ());
+
       let emm = mah[0], hit = mah[1];
       if (hit != null)
         cur . SetLoc (hit);
       if (emm  !=  cur . CurrentMaes ())
         { cur . SetCurrentMaes (emm);
-          //cur . AlignTo (emm . Over () . Norm (), emm . Up () . Norm ());
           cur . AlignToMaes (emm);
         }
       return 0;

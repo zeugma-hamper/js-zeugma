@@ -4,7 +4,10 @@
 //
 
 
-import { Zeubject } from "./Zeubject.js"
+import { Zeubject } from "./Zeubject.js";
+
+import { ZeColl } from "./ZeColl.js";
+import { ZeWeakColl } from "./ZeWeakColl.js";
 
 
 export class IronLung  extends Zeubject
@@ -63,13 +66,13 @@ export class IronLung  extends Zeubject
   NumBreathees ()
     { return this.breathees.length; }
   NthBreathee (ind)
-    { return Zeubject.WeakCollNth (this.breathees, ind); }
+    { return ZeWeakColl.Nth (this.breathees, ind); }
   FindBreathee (nm)
-    { return Zeubject.WeakCollFindByName (this.breathees, nm); }
+    { return ZeWeakColl.FindByName (this.breathees, nm); }
   IndexOfBreathee (z)
-    { return Zeubject.WeakCollIndexOf (this.breathees, z); }
+    { return ZeWeakColl.IndexOf (this.breathees, z); }
   _AppendBreathee (z)
-    { return Zeubject.WeakCollAppend (this.breathees, z); }
+    { return ZeWeakColl.Append (this.breathees, z); }
   AppendBreathee (z, record_self_in_breathee)
     { if (z == null
           ||  this.aspirants . indexOf (z)  >=  0
@@ -83,9 +86,9 @@ export class IronLung  extends Zeubject
       return true;
     }
   InsertBreathee (z, ind)
-    { return Zeubject.WeakCollInsert (this.breathees, z, ind); }
+    { return ZeWeakColl.Insert (this.breathees, z, ind); }
   _RemoveBreathee (z)
-    { let urn = Zeubject.WeakCollRemove (this.breathees, z);
+    { let urn = ZeWeakColl.Remove (this.breathees, z);
       if (urn  &&  z . Breather () != null)
         z . SetBreather (null);
       return urn;
@@ -108,19 +111,19 @@ export class IronLung  extends Zeubject
   static NumGlobals ()
     { return this.global_iron_lungs.length; }
   static NthGlobal (ind)
-    { return Zeubject.CollNth (this.global_iron_lungs, ind); }
+    { return ZeColl.Nth (this.global_iron_lungs, ind); }
   static FindGlobal (nm)
-    { return Zeubject.CollFindByName (this.global_iron_lungs, nm); }
+    { return ZeColl.FindByName (this.global_iron_lungs, nm); }
   static IndexOfGlobal (irlu)
-    { return Zeubject.CollIndexOf (this.global_iron_lungs, irlu); }
+    { return ZeColl.IndexOf (this.global_iron_lungs, irlu); }
   static AppendGlobal (irlu)
-    { return Zeubject.CollAppend (this.global_iron_lungs, irlu); }
+    { return ZeColl.Append (this.global_iron_lungs, irlu); }
   static InsertGlobal (irlu, ind)
-    { return Zeubject.CollInsert (this.global_iron_lungs, irlu, ind); }
+    { return ZeColl.Insert (this.global_iron_lungs, irlu, ind); }
   static RemoveGlobal (irlu)
-    { return Zeubject.CollRemove (this.global_iron_lungs, irlu); }
+    { return ZeColl.Remove (this.global_iron_lungs, irlu); }
   static RemoveNthGlobal (ind)
-    { return Zeubject.CollRemoveNth (this.global_iron_lungs, ind); }
+    { return ZeColl.RemoveNth (this.global_iron_lungs, ind); }
 
 //
 ///

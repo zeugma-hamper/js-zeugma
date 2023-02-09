@@ -26,6 +26,8 @@ export class LimnyThing
       this.cumu_mats = null;
       this.adj_iro = null;
       this.cumu_adjc = null;
+
+      this.pixler = null;
     }
 
   CurrentCumuMats ()

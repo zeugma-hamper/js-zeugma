@@ -44,6 +44,11 @@ zeu.Matrix44 = Matrix44;
 zeu.Geom = Geom;
 zeu.MotherTime = MotherTime;
 
+import { ZeColl } from "/modules/zeugma/ZeColl.js";
+import { ZeWeakColl } from "/modules/zeugma/ZeWeakColl.js";
+zeu.ZeColl = ZeColl;
+zeu.ZeWeakColl = ZeWeakColl;
+
 import { Zeubject } from "/modules/zeugma/Zeubject.js";
 import { IContainMultitudes } from "/modules/zeugma/IContainMultitudes.js";
 import { PouchyThing } from "/modules/zeugma/PouchyThing.js";

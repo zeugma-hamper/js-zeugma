@@ -6,6 +6,8 @@
 
 import { Zeubject } from "./Zeubject.js"
 
+import { ZeWeakColl } from "./ZeWeakColl.js";
+
 
 export class ZoftGuts
 { //
@@ -20,10 +22,10 @@ export class ZoftGuts
     }
 
   AppendHost (zft)
-    { return Zeubject.WeakCollAppend (this.zt_hosts, zft); }
+    { return ZeWeakColl.Append (this.zt_hosts, zft); }
 
   RemoveHost (zft)
-    { return Zeubject.WeakCollRemove (this.zt_hosts, zft); }
+    { return ZeWeakColl.Remove (this.zt_hosts, zft); }
 
   Hosts ()
     { let zft, out_arr = new Array ();

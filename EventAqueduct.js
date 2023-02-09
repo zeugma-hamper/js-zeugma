@@ -6,6 +6,8 @@
 
 import { Zeubject } from "./Zeubject.js"
 
+import { ZeColl } from "./ZeColl.js"
+
 
 export class EventAqueduct  extends Zeubject
 { //
@@ -34,19 +36,19 @@ export class EventAqueduct  extends Zeubject
 
   //
   NumPhages ()  { return this.phages.length; }
-  NthPhage (ind)  { return Zeubject.CollNth (this.phages, ind); }
-  FindPhage (nm)  { return Zeubject.CollFindByName (this.phages, nm); }
-  IndexOfPhage (ph)  { return Zeubject.CollIndexOf (this.phages, ph); }
-  AppendPhage (ph)  { return Zeubject.CollAppend (this.phages, ph); }
-  InsertPhage (ph, ind)  { return Zeubject.CollInsert (this.phages, ph, ind); }
-  RemovePhage (ph)  { return Zeubject.CollRemove (this.phages, ph); }
+  NthPhage (ind)  { return ZeColl.Nth (this.phages, ind); }
+  FindPhage (nm)  { return ZeColl.FindByName (this.phages, nm); }
+  IndexOfPhage (ph)  { return ZeColl.IndexOf (this.phages, ph); }
+  AppendPhage (ph)  { return ZeColl.Append (this.phages, ph); }
+  InsertPhage (ph, ind)  { return ZeColl.Insert (this.phages, ph, ind); }
+  RemovePhage (ph)  { return ZeColl.Remove (this.phages, ph); }
 
   //
   NumDrams ()  { return this.drams.length; }
-  NthDram (ind)  { return Zeubject.CollNth (this.drams, ind); }
-  FindDram (nm)  { return Zeubject.CollFindByName (this.drams, nm); }
-  IndexOfDram (ev)  { return Zeubject.CollIndexOf (this.drams, ev); }
-  AppendDram (ev)  { return Zeubject.CollAppend (this.drams, ev); }
-  InsertDram (ev, ind)  { return Zeubject.CollInsert (this.drams, ev, ind); }
-  RemoveDram (ev)  { return Zeubject.CollRemove (this.drams, ev); }
+  NthDram (ind)  { return ZeColl.Nth (this.drams, ind); }
+  FindDram (nm)  { return ZeColl.FindByName (this.drams, nm); }
+  IndexOfDram (ev)  { return ZeColl.IndexOf (this.drams, ev); }
+  AppendDram (ev)  { return ZeColl.Append (this.drams, ev); }
+  InsertDram (ev, ind)  { return ZeColl.Insert (this.drams, ev, ind); }
+  RemoveDram (ev)  { return ZeColl.Remove (this.drams, ev); }
 }
