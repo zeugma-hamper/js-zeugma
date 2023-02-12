@@ -100,12 +100,14 @@ import { Grappler } from "/modules/zeugma/Grappler.js";
 import { CoGrappler } from "/modules/zeugma/CoGrappler.js";
 import { TrGrappler } from "/modules/zeugma/TrGrappler.js";
 import { ScGrappler } from "/modules/zeugma/ScGrappler.js";
+import { RoGrappler } from "/modules/zeugma/RoGrappler.js";
 import { GrapplerPile } from "/modules/zeugma/GrapplerPile.js";
 zeu.CumuMats = CumuMats;
 zeu.Grappler = Grappler;
 zeu.CoGrappler = CoGrappler;
 zeu.TrGrappler = TrGrappler;
 zeu.ScGrappler = ScGrappler;
+zeu.RoGrappler = RoGrappler;
 zeu.GrapplerPile = GrapplerPile;
 
 import { Limnable } from "/modules/zeugma/Limnable.js";
