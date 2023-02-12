@@ -29,6 +29,9 @@ export class Cursoresque  extends Alignifer
                                                       * (1.0 + 3.0 * (q % 2))));
             ((w > 0) ? this.vs_lrg : this.vs_sml) . push (arm);
           }
+      // let rog = new RoGrappler () . SetName ("schpin");
+      // this.PrependGrappler (rog);
+      // rog . InstallAngle (LoopZoft.NewWith (0.0, Math.PI / 2.5, 5.0));
     }
 
 

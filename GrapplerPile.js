@@ -55,7 +55,7 @@ export class GrapplerPile  extends Grappler
   PrependGrappler (g)
     { if (g == null)
         return false;
-      this.graps . slice (0, 0, g);
+      this.graps . splice (0, 0, g);
       return true;
     }
   InsertGrappler (g, ind)
@@ -65,7 +65,7 @@ export class GrapplerPile  extends Grappler
         ind = 0;
       else if (ind > this.graps.length)
         ind = this.graps.length;
-      this.graps . slice (ind, 0, g);
+      this.graps . splice (ind, 0, g);
       return true;
     }
   RemoveGrappler (g)

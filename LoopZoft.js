@@ -14,8 +14,9 @@ export class LoopZoft  extends Zoft
   static NewWith (strt, dxdt, ldur)
     { let z = Zoft._PrivateNew ();
       let g = new LoopZoftGuts ();
-      g . _InstallSummandAZoft (Zoft.NewWith (a));
-      g . _InstallSummandBZoft (Zoft.NewWith (b));
+      g . _InstallStartZoft (Zoft.NewWith (strt));
+      g . _InstallDXDTZoft (Zoft.NewWith (dxdt));
+      g . _InstallLoopDurZoft (Zoft.NewWith (ldur));
       z . _SetGuts (g);
       return z;
     }
