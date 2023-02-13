@@ -369,8 +369,15 @@ export class Matrix44
 //
 /// and all for a little bit of vector transformation...
 //
+
+// note that, in the following two functions, doing "v = v . Val ()"
+// means that the argument may be either a Vect or a Zoft (or, in the
+// fullness of time, any other object that yields a Vect when Val() is
+// called on it).
+
   TransformVect (v)
     { let m = this;
+      v = v . Val ();
       let x = v.X (),  y = v.Y (),  z = v.Z ();
       return new Vect (x * m.m00()  +  y * m.m10()  +  z * m.m20()  +  m.m30(),
                        x * m.m01()  +  y * m.m11()  +  z * m.m21()  +  m.m31(),
@@ -379,6 +386,7 @@ export class Matrix44
 
   TransformVectInPlace (v)
     { let m = this;
+      v = v . Val ();
       let x = v.X (),  y = v.Y (),  z = v.Z ();
       return v . Set (x * m.m00()  +  y * m.m10()  +  z * m.m20()  +  m.m30(),
                       x * m.m01()  +  y * m.m11()  +  z * m.m21()  +  m.m31(),

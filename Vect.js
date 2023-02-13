@@ -16,6 +16,9 @@ export class Vect
   Y ()  { return this.y; }
   Z ()  { return this.z; }
 
+  Val ()
+    { return this; }
+
   Dup ()
     { return new Vect (this.x, this.y, this.z); }
 
