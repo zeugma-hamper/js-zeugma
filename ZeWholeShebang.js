@@ -125,8 +125,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             let vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
             let bonus = [ corr, ctx, vpm ];
 
-//            ctx . clearRect (0, 0, corr.width, corr.height);
-            ctx . fillStyle = "rgba(40,40,40)";
+            ctx . fillStyle = ma . BackgroundColor () . AsCSSString ();
             ctx . fillRect (0, 0, corr.width, corr.height);
             ctx . save ();
             let cnt = ma.NumLayers ();

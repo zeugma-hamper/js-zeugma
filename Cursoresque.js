@@ -30,9 +30,9 @@ export class Cursoresque  extends PolygonPile
             }
         }
       let rog = new RoGrappler () . SetName ("schpin");
-      this.PrependGrappler (rog);
-      //rog . InstallAngle (LoopZoft.NewWith (0.0, Math.PI / 2.5, 5.0));
+      //this.PrependGrappler (rog);
       rog . InstallAngle (SinuZoft.NewWith (Math.PI, 0.5));
+      //rog . InstallAngle (LoopZoft.NewWith (0.0, Math.PI / 2.5, 5.0));
     }
 
   CurrentMaes ()

@@ -6,7 +6,9 @@
 
 import { Vect } from "./Vect.js";
 
-import { SpaceThing } from "./SpaceThing.js"
+import { ZeColor } from "./ZeColor.js";
+
+import { SpaceThing } from "./SpaceThing.js";
 
 
 export class PlatonicMaes  extends SpaceThing
@@ -21,6 +23,8 @@ export class PlatonicMaes  extends SpaceThing
       this.hei = Zoft.NewWith (360.0);
 
       this.eigen_cam = null;
+
+      this.bg_iro = Zoft.NewWith (new ZeColor (40.0/255.0, 1.0));
 
       this.layers = new Array ();
     }
@@ -86,6 +90,20 @@ export class PlatonicMaes  extends SpaceThing
     { return this.Loc () .
                Add (this.Over () . Sca (0.5 * this.Width ()) .
                     Add (this.Up () . Sca (-0.5 * this.Height ())));
+    }
+
+
+  BackgroundColor ()
+    { return this.bg_iro . Val (); }
+  BackgroundColorZoft ()
+    { return this.bg_iro; }
+  SetBackgroundColor (col)
+    { this.bg_iro . Set (col); }
+  InstallBackgroundColor (bgc_zo)
+    { if (bgc_zo == null  ||  bgc_zo === this.bg_iro)
+        return this;
+      this.bg_iro . BecomeLike (bgc_zo);
+      return this;
     }
 
   Layers ()

@@ -35,14 +35,16 @@ zeu.base_class = base_class;
 ///
 //
 
-import { Vect } from "./Vect.js";
-import { Matrix44 } from "./Matrix44.js";
-import { Geom } from "./Geom.js";
-import { MotherTime } from "./MotherTime.js";
+import { Vect } from "/modules/zeugma/Vect.js";
+import { Matrix44 } from "/modules/zeugma/Matrix44.js";
+import { Geom } from "/modules/zeugma/Geom.js";
+import { MotherTime } from "/modules/zeugma/MotherTime.js";
+import { ZeColor } from "/modules/zeugma/ZeColor.js";
 zeu.Vect = Vect;
 zeu.Matrix44 = Matrix44;
 zeu.Geom = Geom;
 zeu.MotherTime = MotherTime;
+zeu.ZeColor = ZeColor;
 
 import { ZeColl } from "/modules/zeugma/ZeColl.js";
 import { ZeWeakColl } from "/modules/zeugma/ZeWeakColl.js";
@@ -66,8 +68,8 @@ zeu.IronLung = IronLung;
 zeu.CommsSump = CommsSump;
 zeu.EventAqueduct = EventAqueduct;
 
-import { OSCFaker } from "./OSCFaker.js"
-import { CheapOSCMessage } from "./CheapOSCMessage.js"
+import { OSCFaker } from "/modules/zeugma/OSCFaker.js"
+import { CheapOSCMessage } from "/modules/zeugma/CheapOSCMessage.js"
 zeu.OSCFaker = OSCFaker;
 zeu.CheapOSCMessage = CheapOSCMessage;
 
