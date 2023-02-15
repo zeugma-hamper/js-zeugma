@@ -124,6 +124,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             let cam = ma . EigenCamera ()
             let vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
             let bonus = [ corr, ctx, vpm ];
+            let adjc = ma . AdjustmentColor ();
 
             ctx . fillStyle = ma . BackgroundColor () . AsCSSString ();
             ctx . fillRect (0, 0, corr.width, corr.height);
@@ -131,7 +132,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             let cnt = ma.NumLayers ();
             for (let q = 0  ;  q < cnt  ;  ++q)
               if ((lay = ma . NthLayer (q))  !=  null)
-                this.RecursivelyDraw (lay, ratch, thyme, cm, null, bonus);
+                this.RecursivelyDraw (lay, ratch, thyme, cm, adjc, bonus);
             ctx . restore ();
           }
       return this;

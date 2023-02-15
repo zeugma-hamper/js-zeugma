@@ -25,6 +25,7 @@ export class PlatonicMaes  extends SpaceThing
       this.eigen_cam = null;
 
       this.bg_iro = Zoft.NewWith (new ZeColor (40.0/255.0, 1.0));
+      this.adj_iro = Zoft.NewWith (ZeColor.white);
 
       this.layers = new Array ();
     }
@@ -100,11 +101,23 @@ export class PlatonicMaes  extends SpaceThing
   SetBackgroundColor (col)
     { this.bg_iro . Set (col); }
   InstallBackgroundColor (bgc_zo)
-    { if (bgc_zo == null  ||  bgc_zo === this.bg_iro)
-        return this;
-      this.bg_iro . BecomeLike (bgc_zo);
+    { if (bgc_zo != null  &&  bgc_zo !== this.bg_iro)
+        this.bg_iro . BecomeLike (bgc_zo);
       return this;
     }
+
+  AdjustmentColor ()
+    { return this.adj_iro . Val (); }
+  AdjustmentColorZoft ()
+    { return this.adj_iro; }
+  SetAdjustmentColor (col)
+    { this.adj_iro . Set (col); }
+  InstallAdjustmentColor (ajc_zo)
+    { if (ajc_zo != null  &&  ajc_zo !== this.adj_iro)
+        this.adj_iro . BecomeLike (ajc_zo);
+      return this;
+    }
+
 
   Layers ()
     { return this.layers; }

@@ -18,6 +18,9 @@ export const Limnable = (supah) => class extends supah
   DependCumuMatsFrom (cm_above)
     { return cm_above; }
 
+  CurrentAdjColor ()
+    { return ZeColor.white; }
+
 
   QueryShouldDraw ()
     { return true; }

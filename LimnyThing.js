@@ -27,11 +27,16 @@ export class LimnyThing
       this.adj_iro = null;
       this.cumu_adjc = null;
 
-      this.pixler = null;
+//      this.pixler = null;
     }
 
   CurrentCumuMats ()
     { return this.cumu_mats; }
   DependCumuMatsFrom (cm_above)
     { return (this.cumu_mats = cm_above); }
+
+  CurrentAdjColor ()
+    { return this.adj_iro == null  ?  ZeColor.white  :  this.adj_iro . Val (); }
+
+//  Pixler ()
 }

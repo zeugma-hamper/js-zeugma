@@ -51,7 +51,10 @@ export class PolygonPile  extends Alignifer
       let polys = this.TransformedVertexArrays (cm, bonus[2], bonus[0]);
       if (ctx == null)
         return 0;
-      ctx.fillStyle = "#80800080";
+      let c = new ZeColor (0.5, 0.5, 0.0, 0.5);
+      c . MulSelfBy (adjc);
+      //ctx.fillStyle = "#80800080";
+      ctx.fillStyle = c . AsCSSString ();
         for (let vecarr of polys)
           { let q = 0;
             for (let vec of vecarr)

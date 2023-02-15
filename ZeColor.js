@@ -30,6 +30,9 @@ export class ZeColor
   Val ()
     { return this; }
 
+  Dup ()
+    { return new ZeColor (this.r, this.g, this.b, this.a); }
+
 
   R ()  { return this.r; }
   G ()  { return this.g; }
@@ -54,11 +57,11 @@ export class ZeColor
 
 
   SetGray (gra)
-    { this.r = this.g = this.b = gra;  this.a = 1.0; }
+    { this.r = this.g = this.b = gra;  this.a = 1.0;  return this; }
   SetGrayNoAlpha (gra)
-    { this.r = this.g = this.b = gra; }
+    { this.r = this.g = this.b = gra;  return this; }
   SetGrayAlpha (gra, alp)
-    { this.r = this.g = this.b = gra;  this.a = alp; }
+    { this.r = this.g = this.b = gra;  this.a = alp;  return this; }
 
 
   Add (otha)
@@ -73,9 +76,10 @@ export class ZeColor
   AddToSelf (otha)
     { this.r += otha.r;  this.g += otha.g;
       this.b += otha.b;  this.a += otha.a;
+      return this;
     }
   AddToSelfNoAlpha (otha)
-    { this.r += otha.r;  this.g += otha.g;  this.b += otha.b; }
+    { this.r += otha.r;  this.g += otha.g;  this.b += otha.b;  return this; }
 
 
   Sub (otha)
@@ -90,9 +94,10 @@ export class ZeColor
   SubFromSelf (otha)
     { this.r -= otha.r;  this.g -= otha.g;
       this.b -= otha.b;  this.a -= otha.a;
+      return this;
     }
   SubFromSelfNoAlpha (otha)
-    { this.r -= otha.r;  this.g -= otha.g;  this.b -= otha.b; }
+    { this.r -= otha.r;  this.g -= otha.g;  this.b -= otha.b;  return this; }
 
   Sca (s)
     { return new ZeColor (s * this.r, s * this.g, s * this.b, s * this.a ); }
@@ -100,9 +105,9 @@ export class ZeColor
     { return new ZeColor (s * this.r, s * this.g, s * this.b, this.a ); }
 
   ScaSelf (s)
-    { this.r *= s;  this.g *= s;  this.b *= s;  this.a *= s; }
+    { this.r *= s;  this.g *= s;  this.b *= s;  this.a *= s;  return this; }
   ScaSelfNoAlpha (s)
-    { this.r *= s;  this.g *= s;  this.b *= s; }
+    { this.r *= s;  this.g *= s;  this.b *= s;  return this; }
 
 
   Mul (otha)
@@ -117,9 +122,10 @@ export class ZeColor
   MulSelfBy (otha)
     { this.r *= otha.r;  this.g *= otha.g;
       this.b *= otha.b;  this.a *= otha.a;
+      return this;
     }
   MulSelfByNoAlpha (otha)
-    { this.r *= otha.r;  this.g *= otha.g;  this.b *= otha.b; }
+    { this.r *= otha.r;  this.g *= otha.g;  this.b *= otha.b;  return this;}
 
 
 // oy.

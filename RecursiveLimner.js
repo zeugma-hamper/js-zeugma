@@ -20,7 +20,7 @@ export let RecursiveLimner = (supcls) => class extends supcls
 
       if (zeub . IsZeugmallyLimnable ())
         { cm = zeub . DependCumuMatsFrom (cm_above);
-          // accumulate adjustment colorness...
+          adjc = adjc . Dup () . MulSelfBy (zeub . CurrentAdjColor ());
           zeub . DrawSelf (ratch, cm, adjc, bonus);
         }
 
