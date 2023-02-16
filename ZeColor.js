@@ -45,7 +45,7 @@ export class ZeColor
     }
 
   Set (otha)
-    { return this.SetRGBA (otha.r, otha.g, otha.b, otha.a = 1.0); }
+    { return this.SetRGBA (otha.r, otha.g, otha.b, otha.a); }
 
 
   SetRGB (arr, gee, bee)

@@ -8,9 +8,14 @@ import { PolygonPile } from "./PolygonPile.js";
 
 import { SinuZoft } from "./SinuZoft.js";
 
+import { ZeColor } from "./ZeColor.js";
+
 
 export class Cursoresque  extends PolygonPile
 { //
+  static default_cuss_hue = new ZeColor (0.5, 0.5, 0.0, 0.5);
+
+  //
   constructor (sz, nv)
     { super ();
 
@@ -21,7 +26,7 @@ export class Cursoresque  extends PolygonPile
             { let theeta = Math.PI * (2.0 * q / nv + w);
               let radial = (Vect.xaxis . Sca (Math.cos (theeta))
                             . Add (Vect.yaxis . Sca (Math.sin (theeta))))
-                  . Sca (0.5 * (1.0 + w));
+                  . Sca (0.5 * (2.0 - w));
               let arm = SinuZoft.NewWith (radial . Sca (sz * 0.065),
                                           0.8  +  0.11 * Math.random (),
                                           radial . Sca (sz * 0.24
@@ -29,10 +34,7 @@ export class Cursoresque  extends PolygonPile
               vs . push (arm);
             }
         }
-      let rog = new RoGrappler () . SetName ("schpin");
-      //this.PrependGrappler (rog);
-      rog . InstallAngle (SinuZoft.NewWith (Math.PI, 0.5));
-      //rog . InstallAngle (LoopZoft.NewWith (0.0, Math.PI / 2.5, 5.0));
+      this.SetFillColor (Cursoresque.default_cuss_hue);
     }
 
   CurrentMaes ()

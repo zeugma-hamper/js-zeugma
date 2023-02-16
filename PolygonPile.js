@@ -8,13 +8,51 @@ import { Alignifer } from "./Alignifer.js";
 
 import { SinuZoft } from "./SinuZoft.js";
 
+import { ZeColor } from "./ZeColor.js";
+
 
 export class PolygonPile  extends Alignifer
 { //
+  static default_fill_color = new ZeColor (0.5, 1.0);
+
+  //
   constructor (sz, nv)
     { super ();
       this.poly_arr = new Array ();
+      this.fill_iro = PolygonPile.default_fill_color;
+      this.strk_iro = null;
+      this.closed = true;
     }
+
+  IsClosed ()
+    { return this.closed; }
+  SetIsClosed (ic)
+    { this.closed = ic;  return this; }
+
+  FillColor ()
+    { return (this.fill_iro == null)  ?  null  :  this.fill_iro . Val (); }
+  SetFillColor (fc)
+    { if (fc == null  ||  fc === this.fill_iro)
+        return this;
+      if (this.fill_iro == null)
+        this.fill_iro = fc;
+      else
+        this.fill_iro . Set (fc);
+      return this;
+    }
+
+  StrokeColor ()
+    { return (this.strk_iro == null)  ?  null  :  this.strk_iro . Val (); }
+  SetStrokeColor (sc)
+    { if (sc == null  ||  sc === this.strk_iro)
+        return this;
+      if (this.strk_iro == null)
+        this.strk_iro = sc;
+      else
+        this.strk_iro . Set (sc);
+      return this;
+    }
+
 
   NumPolys ()
     { return this.poly_arr.length; }
@@ -51,21 +89,31 @@ export class PolygonPile  extends Alignifer
       let polys = this.TransformedVertexArrays (cm, bonus[2], bonus[0]);
       if (ctx == null)
         return 0;
-      let c = new ZeColor (0.5, 0.5, 0.0, 0.5);
-      c . MulSelfBy (adjc);
-      //ctx.fillStyle = "#80800080";
-      ctx.fillStyle = c . AsCSSString ();
-        for (let vecarr of polys)
-          { let q = 0;
-            for (let vec of vecarr)
-              { if (q == 0)
-                  ctx . beginPath ();
-                ctx . lineTo (vec.x, vec.y);
-                ++q;
-              }
-            ctx.closePath ();
-            ctx.fill ();
-          }
+      if (this.fill_iro != null)
+        { let fc = this.fill_iro . Val ();
+          fc . MulSelfBy (adjc);
+          ctx.fillStyle = fc . AsCSSString ();
+        }
+      if (this.strk_iro != null)
+        { let sc = this.strk_iro . Val ();
+          sc . MulSelfBy (adjc);
+          ctx.strokeStyle = sc . AsCSSString ();
+        }
+      for (let poly of polys)
+        { let q = 0;
+          for (let vec of poly)
+            { if (q == 0)
+                ctx . beginPath ();
+              ctx . lineTo (vec.x, vec.y);
+              ++q;
+            }
+          if (this.closed)
+            ctx . closePath ();
+          if (this.fill_iro != null)
+            ctx . fill ();
+          if (this.strk_iro != null)
+            ctx . stroke ();
+        }
       return 0;
     }
 //
