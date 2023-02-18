@@ -6,8 +6,6 @@
 
 import { Alignifer } from "./Alignifer.js";
 
-import { SinuZoft } from "./SinuZoft.js";
-
 import { ZeColor } from "./ZeColor.js";
 
 
@@ -32,9 +30,9 @@ export class PolygonPile  extends Alignifer
   FillColor ()
     { return (this.fill_iro == null)  ?  null  :  this.fill_iro . Val (); }
   SetFillColor (fc)
-    { if (fc == null  ||  fc === this.fill_iro)
+    { if (fc === this.fill_iro)
         return this;
-      if (this.fill_iro == null)
+      if (this.fill_iro == null  ||  fc == null)
         this.fill_iro = fc;
       else
         this.fill_iro . Set (fc);
@@ -44,9 +42,9 @@ export class PolygonPile  extends Alignifer
   StrokeColor ()
     { return (this.strk_iro == null)  ?  null  :  this.strk_iro . Val (); }
   SetStrokeColor (sc)
-    { if (sc == null  ||  sc === this.strk_iro)
+    { if (sc === this.strk_iro)
         return this;
-      if (this.strk_iro == null)
+      if (this.strk_iro == null  ||  sc == null)
         this.strk_iro = sc;
       else
         this.strk_iro . Set (sc);
@@ -67,36 +65,25 @@ export class PolygonPile  extends Alignifer
       return parr;
     }
 
-  TransformedVertexArrays (cm, vp_mat, corr)
-    { let outarr = new Array ();
-      let hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
-      let hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
-      let cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
-      let mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
-      for (let verts of this.poly_arr)
-        { let vecarr = mat . TransformVectArray (verts);
-          for (let vec of vecarr)
-            { vec.x = hlfw * (1.0 + vec.x / vec.z);
-              vec.y = hlfh * (1.0 - vec.y / vec.z);
-            }
-          outarr . push (vecarr);
-        }
-      return outarr;
-    }
-
   DrawSelf (ratch, cm, adjc, bonus)
     { let ctx = bonus[1];
-      let polys = this.TransformedVertexArrays (cm, bonus[2], bonus[0]);
+      if (ctx == null)
+        return 0;
+
+      let polys = this.CanvasProjectVertexArrays (cm, bonus[2], bonus[0],
+                                                  this.poly_arr);
       if (ctx == null)
         return 0;
       if (this.fill_iro != null)
         { let fc = this.fill_iro . Val ();
-          fc . MulSelfBy (adjc);
+          if (adjc != null)
+            fc . MulSelfBy (adjc);
           ctx.fillStyle = fc . AsCSSString ();
         }
       if (this.strk_iro != null)
         { let sc = this.strk_iro . Val ();
-          sc . MulSelfBy (adjc);
+          if (adjc != null)
+            sc . MulSelfBy (adjc);
           ctx.strokeStyle = sc . AsCSSString ();
         }
       for (let poly of polys)
@@ -118,4 +105,3 @@ export class PolygonPile  extends Alignifer
     }
 //
 }
-

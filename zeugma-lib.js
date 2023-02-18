@@ -117,11 +117,13 @@ import { LimnyThing } from "/modules/zeugma/LimnyThing.js";
 import { SpaceThing } from "/modules/zeugma/SpaceThing.js";
 import { Alignifer } from "/modules/zeugma/Alignifer.js";
 import { PolygonPile } from "/modules/zeugma/PolygonPile.js";
+import { ImageSplatter } from "/modules/zeugma/ImageSplatter.js";
 zeu.Limnable = Limnable;
 zeu.LimnyThing = LimnyThing;
 zeu.SpaceThing = SpaceThing;
 zeu.Alignifer = Alignifer;
 zeu.PolygonPile = PolygonPile;
+zeu.ImageSplatter = ImageSplatter;
 
 import { PlatonicMaes } from "/modules/zeugma/PlatonicMaes.js";
 import { Bolex } from "/modules/zeugma/Bolex.js";
