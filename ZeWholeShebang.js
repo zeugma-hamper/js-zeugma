@@ -206,6 +206,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.SetGraphicsCorrelateForMaes (maes, canv);
 
       whin.document.body.style.margin = "0px";  // the horror... the horror...
+      whin.document.body.style.overflow = "hidden";  // more horror...
 
       canv.width = whin.innerWidth;
       canv.height = whin.innerHeight;
