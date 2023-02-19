@@ -28,7 +28,7 @@ export class ZeEvent  extends NonEvent
 	}
 
   AdoptParticulars (otha)
-    { this.prov = (otha.prov == null)  ?  null  :  new String (otha.prov);
+    { this.prov = otha.prov;
       this.tstamp = otha.tstamp;
       this.rat_fresh = otha.rat_fresh;
       this.fore_evt = otha.fore_evt;
@@ -36,7 +36,7 @@ export class ZeEvent  extends NonEvent
     }
 
   InjectParticularsInto (trgt)
-    { trgt.prov = (this.prov == null)  ?  null  :  new String (this.prov);
+    { trgt.prov = this.prov;
       trgt.tstamp = this.tstamp;
       trgt.rat_fresh = this.rat_fresh;
       trgt.fore_evt = this.fore_evt;

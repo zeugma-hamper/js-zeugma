@@ -28,6 +28,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
                            . and_interfaces (ZESpatialPhagy, RecursiveLimner)
 { //
   static canonical_instance = null;
+  static global_html_pointer_id = 1088801;
 
   //
   constructor ()
@@ -36,11 +37,14 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.looper = new Loopervisor ();
       this.maeses = new Array ();
       this.gcorr_by_maes = new Map ();
+      this.winda_by_maes = new Map ();
       this.dcatcher_by_maes = new Map ();
       this.auto_attend = true;
       this.cursor_by_prov = new Map ();
       this.generate_ze_events_from_mouse = true;
       this.recentest_synth_spat_evt_by_prov = new Map ();
+      this.should_synthesize_html_pointer_events = false;
+      this.html_pointer_id_by_prov = new Map ();
     }
 
 
@@ -57,6 +61,18 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return this.generate_ze_events_from_mouse; }
   SetShouldGenerateZeEventsFromNativeMouse (nera)
     { this.generate_ze_events_from_mouse = nera;  return this; }
+
+  ShouldSynthesizeHTMLPointerEvents ()
+    { return this.should_synthesize_html_pointer_events; }
+  SetShouldSynthesizeHTMLPointerEvents (shpe)
+    { this.should_synthesize_html_pointer_events = shpe;  return this; }
+
+  HTMLPointerIDForProv (prv)
+    { let pntr_id = this.html_pointer_id_by_prov . get (prv);
+      if (pntr_id == null)
+        this.html_pointer_id_by_prov . set (prv, this.global_html_pointer_id++);
+      return pntr_id;
+    }
 
 
   Maeses ()
@@ -77,6 +93,13 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
   GraphicsCorrelateForMaes (m)
     { return this.gcorr_by_maes . get (m); }
+
+
+  SetWindowForMaes (m, w)
+    { this.winda_by_maes . set (m, w);  return this; }
+
+  WindowForMaes (m)
+    { return this.winda_by_maes . get (m); }
 
 
   SetDialectCatcherForMaes (m, dc)
@@ -204,6 +227,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   ProvisionWindowAndMaesWithCanvas (whin, maes)
     { let canv = whin.document . createElement ('canvas');
       this.SetGraphicsCorrelateForMaes (maes, canv);
+      this.SetWindowForMaes (maes, whin);
 
       whin.document.body.style.margin = "0px";  // the horror... the horror...
       whin.document.body.style.overflow = "hidden";  // more horror...
@@ -220,6 +244,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
           canv.width = whin.innerWidth;
           canv.height = whin.innerHeight;
       });
+
+whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
 
       let dcat = this.AssuredDialectCatcherForMaes (maes);
       if (dcat != null)
@@ -324,7 +350,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
   ZESpatialMove (e)
-    { let prv = e . Provenance ();
+    { const prv = e . Provenance ();
       let cur = this.cursor_by_prov . get (prv);
 
       if (cur == null)
@@ -346,13 +372,31 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       if (mah == null)
         return 0;
 
-      let emm = mah[0], hit = mah[1];
+      const [emm, hit] = mah;
       if (hit != null)
         cur . SetLoc (hit);
       if (emm  !=  cur . CurrentMaes ())
         { cur . SetCurrentMaes (emm);
           cur . AlignToMaes (emm);
         }
+
+      if (this.ShouldSynthesizeHTMLPointerEvents ())
+        { let pntrid = this.HTMLPointerIDForProv (prv);
+          let canv = this.GraphicsCorrelateForMaes (emm);
+          let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
+          x = 0.5  +  x / emm . Width ();
+          y = 0.5  -  y / emm . Height ();
+          if (canv != null)
+            { x *= (canv.width - 1.0);  y *= (canv.height - 1.0); }
+          let optns = { pointerId: pntrid, clientX: x, clientY: y };
+          let pevt = new PointerEvent ('pointermove', optns);
+          pevt['zeugma_evt'] = e;
+          let wnd = this.WindowForMaes (emm);
+          if (wnd != null)
+            wnd . dispatchEvent (pevt);
+        }
+
       return 0;
     }
 

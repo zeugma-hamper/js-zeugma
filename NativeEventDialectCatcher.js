@@ -35,8 +35,8 @@ export class NativeEventDialectCatcher  extends Zeubject
     }
 
   static PropoXY (e, hel)
-    { return [ -0.5 + e.offsetX / (hel.width - 1.0),
-               0.5 - e.offsetY / (hel.height - 1.0) ];
+    { return [ -0.5 + e.clientX / (hel.width - 1.0),
+               0.5 - e.clientY / (hel.height - 1.0) ];
     }
 
   NativeMouseMove (e)
