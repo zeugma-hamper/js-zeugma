@@ -264,11 +264,6 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
 
       this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
 
-      // let dcat = this.AssuredDialectCatcherForMaes (ur_maes);
-      // let cnvs = this.GraphicsCorrelateForMaes (ur_maes);
-      // if (dcat != null  &&  cnvs != null)
-      //   dcat . HooverNativeEventsFrom (cnvs);
-
       let ma, cnt = this.NumMaeses ();
       for (let q = 1  ;  q < cnt  ;  ++q)
         if ((ma = this.NthMaes (q))  !=  null)
@@ -304,6 +299,7 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
 
       let smev = new ZESpatialMoveEvent (prv);
       smev . SetLoc (frm) . SetAim (aim) . SetOver (ovr);
+      smev . SetForebearEvent (e);
       let duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
       if (duct != null)
         duct . AppendDram (smev);
@@ -317,6 +313,7 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
       if (smev != null)
         smev . InjectParticularsInto (spev);
       spev . SetWhichPressor (butt);
+      spev . SetForebearEvent (e);
       let duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
       if (duct != null)
         duct . AppendDram (spev);
@@ -383,15 +380,18 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
       if (this.ShouldSynthesizeHTMLPointerEvents ())
         { let pntrid = this.HTMLPointerIDForProv (prv);
           let canv = this.GraphicsCorrelateForMaes (emm);
+
           let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
           let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
           x = 0.5  +  x / emm . Width ();
           y = 0.5  -  y / emm . Height ();
           if (canv != null)
             { x *= (canv.width - 1.0);  y *= (canv.height - 1.0); }
+
           let optns = { pointerId: pntrid, clientX: x, clientY: y };
           let pevt = new PointerEvent ('pointermove', optns);
           pevt['zeugma_evt'] = e;
+
           let wnd = this.WindowForMaes (emm);
           if (wnd != null)
             wnd . dispatchEvent (pevt);
