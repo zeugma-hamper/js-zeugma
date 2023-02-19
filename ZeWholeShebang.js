@@ -346,6 +346,16 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
       return 0;
     }
 
+  CanvasXY (hit, emm, canv)
+    { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+      let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
+      x = 0.5  +  x / emm . Width ();
+      y = 0.5  -  y / emm . Height ();
+      if (canv != null)
+        { x *= (canv.width - 1.0);  y *= (canv.height - 1.0); }
+      return [x, y];
+    }
+
   ZESpatialMove (e)
     { const prv = e . Provenance ();
       let cur = this.cursor_by_prov . get (prv);
@@ -436,7 +446,7 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
       spaq . AppendPhage (novo);
       loo . AppendAqueduct (spaq);
 
-      let owa = new OSCViveWandSump ();
+      let owa = new OSCViveWandSump (novo);
       owa . SetName ("wand-sump");
       owa . InstallSampleViveWandTransform ();
       // owa . ForAddressAppendRawExtractor ("/events/spatial");

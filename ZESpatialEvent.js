@@ -16,6 +16,7 @@ export class ZESpatialEvent  extends ZeEvent
       this.ovr = Vect.xaxis;
       this.pressures = null;
       this.caresses = null;
+      this.maes_and_hit = null;
     }
 
   EventIlk ()
@@ -52,6 +53,7 @@ export class ZESpatialEvent  extends ZeEvent
       this.ovr = spe . Over () . Dup ();
       this.CopyPressuresFrom (spe);
       this.CopyCaressesFrom (spe);
+      this.maes_and_hit = spe . MaesAndHit ();
       return this;
     }
 
@@ -62,6 +64,7 @@ export class ZESpatialEvent  extends ZeEvent
       spe.ovr = this.Over () . Dup ();
       spe.CopyPressuresFrom (this);
       spe.CopyCaressesFrom (this);
+      spe.maes_and_hit = this.MaesAndHit ();
       return this;
     }
 
@@ -109,6 +112,11 @@ export class ZESpatialEvent  extends ZeEvent
       this.caresses . set (id, cr);
       return this;
     }
+
+  MaesAndHit ()
+    { return (this.maes_and_hit == null)  ?  null  :  this.maes_and_hit; }
+  SetMaesAndHit (mah)
+    { this.maes_and_hit = mah;  return this; }
 
   ProfferAsQuaffTo (zbj)
     { return zbj . ZESpatial (this); }

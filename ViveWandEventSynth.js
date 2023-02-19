@@ -19,6 +19,10 @@ export class ViveWandEventSynth  extends Zeubject
   InterpretRawWandishWithMaesGeom (pntr_nm, bbits, crsdct,
                                    p, a, o,
                                    maes, cam, hit)
+    { }
+
+  InterpretRawWandishWithMaesArray (pntr_nm, bbits, crsdct,
+                                    p, a, o, maes_src)
     { let spatst = this.state_by_prov . get (pntr_nm);
       if (spatst == undefined)
         this.state_by_prov . set (pntr_nm, spatst = [ 0x00, false ]);
@@ -32,6 +36,20 @@ export class ViveWandEventSynth  extends Zeubject
               butts ^= mask;
             }
           mask <<= 1;
+        }
+
+      if (maes_src != null)
+        { let mah = PlatonicMaes.ClosestAmong (maes_src . Maeses (), p, a, true);
+          smev . SetMaesAndHit (mah);
+          if (mah != null)
+            { const [ma, ht] = mah;
+              const canv = maes_src . GraphicsCorrelateForMaes (ma);
+              if (canv != null)
+                { const canvxy = maes_src . CanvasXY (ht, ma, canv);
+                  smev.clientX = canvxy[0];
+                  smev.clientY = canvxy[1];
+                }
+            }
         }
 
       let out_evs = new Array ();
@@ -50,6 +68,10 @@ export class ViveWandEventSynth  extends Zeubject
                               :  new ZESpatialSoftenEvent (pntr_nm));
                   spev . AdoptParticulars (smev);
                   spev . SetPressorIDAndPressureValue (mask, 0.0 + curstate);
+                  if (smev.clientX != undefined)
+                    { spev.clientX = smev.clientX;
+                      spev.clientY = smev.clientY;
+                    }
                   out_evs . push (spev);
 
                   prevb ^= (prevb & mask);

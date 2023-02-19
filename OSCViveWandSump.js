@@ -11,7 +11,7 @@ import { ViveWandEventSynth } from "./ViveWandEventSynth.js"
 
 export class OSCViveWandSump  extends OSCSump
 { //
-  constructor ()
+  constructor (maes_source)
     { super ();
       this.point_mat = null;
       this.direc_mat = null;
@@ -25,9 +25,10 @@ export class OSCViveWandSump  extends OSCSump
 
       this.ForAddressAppendSynthFunc
         ("/events/spatial",
-         (args) => { return (self.synth_obj . InterpretRawWandish
+         (args) => { return (self.synth_obj . InterpretRawWandishWithMaesArray
                                (args[0], args[1], args[2],
-                                args[3], args[4], args[5]));
+                                args[3], args[4], args[5],
+                                maes_source));
                    }
         );
     }
