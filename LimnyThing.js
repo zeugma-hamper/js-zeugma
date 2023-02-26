@@ -35,8 +35,18 @@ export class LimnyThing
   DependCumuMatsFrom (cm_above)
     { return (this.cumu_mats = cm_above); }
 
-  CurrentAdjColor ()
+  AdjColor ()
     { return this.adj_iro == null  ?  ZeColor.white  :  this.adj_iro . Val (); }
+  AdjColorZoft ()
+    { return this.adj_iro; }
+  InstallAdjColor (ac_zo)
+    { if (ac_zo == null)
+        this.adj_iro = null;
+      else if (this.adj_iro == null)
+        this.adj_iro = Zoft.NewWith (ac_zo);
+      else this.adj_iro . BecomeLike (Zoft.NewWith (ac_zo));
+      return this;
+    }
 
 //  Pixler ()
 }

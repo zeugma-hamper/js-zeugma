@@ -51,6 +51,15 @@ export class RoGrappler  extends Grappler
   PhaseZoft ()
     { return this.z_phas; }
 
+  SetAxis (ax)
+    { this.z_axis . Set (ax);  return this; }
+  SetAngle (an)
+    { this.z_angl . Set (an);  return this; }
+  SetCenter (ce)
+    { this.z_cent . Set (ce);  return this; }
+  SetPhase (ph)
+    { this.z_phas . Set (ph);  return this; }
+
   InstallAxis (ax_zo)
     { this.z_axis . BecomeLike (ax_zo);  return this; }
   InstallAngle (an_zo)

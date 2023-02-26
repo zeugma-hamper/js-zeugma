@@ -19,9 +19,16 @@ export let RecursiveLimner = (supcls) => class extends supcls
         zeub . Inhale (ratch, thyme);
 
       if (zeub . IsZeugmallyLimnable ())
-        { cm = zeub . DependCumuMatsFrom (cm_above);
-          adjc = adjc . Dup () . MulSelfBy (zeub . CurrentAdjColor ());
+        { let ctx = bonus[1];
+          if (ctx != null)
+            ctx . save ();
+
+          cm = zeub . DependCumuMatsFrom (cm_above);
+          adjc = adjc . Dup () . MulSelfBy (zeub . AdjColor ());
           zeub . DrawSelf (ratch, cm, adjc, bonus);
+
+          if (ctx != null)
+            ctx . restore ();
         }
 
       if (zeub . IsZeugmallyPouchful ())

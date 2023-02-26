@@ -18,8 +18,19 @@ export const Limnable = (supah) => class extends supah
   DependCumuMatsFrom (cm_above)
     { return cm_above; }
 
-  CurrentAdjColor ()
+
+  AdjColor ()
     { return ZeColor.white; }
+  AdjColorZoft ()
+    { return null; }
+  SetAdjColor (ac)
+    { let ziro = this.AdjColorZoft ();
+      if (ziro != null)
+        ziro . Set (ac);
+      return this;
+    }
+  InstallAdjColor (ac_zo)
+    { return this; }
 
 
   QueryShouldDraw ()
@@ -32,7 +43,7 @@ export const Limnable = (supah) => class extends supah
     { return false; }
 
 
-  CanvasProjectVertexArrays (cm, vp_mat, corr, vtx)
+  CanvasProjectVertex (cm, vp_mat, corr, vtx)
     { let hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
       let hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
       let cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
@@ -71,6 +82,16 @@ export const Limnable = (supah) => class extends supah
           outarr . push (vecarr);
         }
       return outarr;
+    }
+
+  CanvasProjectSixDOFRotationAngle (cm, vp_mat, corr)
+    { let pr = this.CanvasProjectVertexArray (cm, vp_mat, corr,
+                                              [Vect.zerov, Vect.xaxis]);
+      let proj_xax = pr[1] . Sub (pr[0])
+      if (proj_xax . IsZero ())
+        return 0.0;
+      let ang = Vect.xaxis . AngleWith (proj_xax);
+      return (proj_xax . Y ()  >  0.0)  ?  ang  :  -ang;
     }
 
 

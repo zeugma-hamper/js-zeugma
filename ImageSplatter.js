@@ -60,11 +60,20 @@ export class ImageSplatter  extends Alignifer
         { hw = 0.5;  hh = this.asp_rat; }
       let tl = new Vect (-hw, hh, 0.0);
       let br = tl . Neg ();
-      let crnrs = this.CanvasProjectVertexArray (cm, bonus[2], bonus[0],
-                                                 [tl, br]);
-      let x = crnrs[0].x, y = crnrs[0].y;
-      let w = Math.abs (crnrs[1].x - x);
-      let h = Math.abs (crnrs[1].y - y);
+      let tr = new Vect (hw, hh, 0.0);
+      let bl = tr . Neg ();
+      let crn = this.CanvasProjectVertexArray (cm, bonus[2], bonus[0],
+                                               [tl, bl, br, tr]);
+      let x = crn[0].x, y = crn[0].y;
+      let w = crn[3] . DistFrom (crn[0]);
+      let h = crn[1] . DistFrom (crn[0]);
+      let cnt = crn[0] . Add (crn[1]) . Add (crn[2]) . Add (crn[3]) . Sca (0.25);
+
+      let ang = this.CanvasProjectSixDOFRotationAngle (cm, bonus[2], bonus[0]);
+      ctx . translate (cnt.x, cnt.y);
+      ctx . rotate (ang);
+      ctx . translate (-cnt.x, -cnt.y);
+
       if (this.back_iro != null)
         { let bc = this.back_iro . Val ();
           if (adjc != null)

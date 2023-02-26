@@ -106,18 +106,6 @@ export class PlatonicMaes  extends SpaceThing
       return this;
     }
 
-  AdjustmentColor ()
-    { return this.adj_iro . Val (); }
-  AdjustmentColorZoft ()
-    { return this.adj_iro; }
-  SetAdjustmentColor (col)
-    { this.adj_iro . Set (col); }
-  InstallAdjustmentColor (ajc_zo)
-    { if (ajc_zo != null  &&  ajc_zo !== this.adj_iro)
-        this.adj_iro . BecomeLike (ajc_zo);
-      return this;
-    }
-
 
   Layers ()
     { return this.layers; }

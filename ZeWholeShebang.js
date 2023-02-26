@@ -147,12 +147,12 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             let cam = ma . EigenCamera ()
             let vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
             let bonus = [ corr, ctx, vpm ];
-            let adjc = ma . AdjustmentColor ();
+            let adjc = ma . AdjColor ();
 
             ctx . fillStyle = ma . BackgroundColor () . AsCSSString ();
             ctx . fillRect (0, 0, corr.width, corr.height);
             ctx . save ();
-            let cnt = ma.NumLayers ();
+            let cnt = ma . NumLayers ();
             for (let q = 0  ;  q < cnt  ;  ++q)
               if ((lay = ma . NthLayer (q))  !=  null)
                 this.RecursivelyDraw (lay, ratch, thyme, cm, adjc, bonus);
@@ -299,6 +299,7 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
 
       let smev = new ZESpatialMoveEvent (prv);
       smev . SetLoc (frm) . SetAim (aim) . SetOver (ovr);
+      smev . SetMaesAndHit ([ma, hit]);
       smev . SetForebearEvent (e);
       let duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
       if (duct != null)
@@ -311,7 +312,9 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
     { let smev = this.recentest_synth_spat_evt_by_prov . get (prv);
       let spev = new evt_cls (prv);
       if (smev != null)
-        smev . InjectParticularsInto (spev);
+        { smev . InjectParticularsInto (spev);
+          spev . SetMaesAndHit (smev . MaesAndHit ());
+        }
       spev . SetWhichPressor (butt);
       spev . SetForebearEvent (e);
       let duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
@@ -373,13 +376,10 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
               }
         }
 
-      let mah = PlatonicMaes.ClosestAmong (this.Maeses (),
-                                           e . Loc (), e . Aim (),
-                                           true);
-      if (mah == null)
+      if (e.maes_and_hit == null)
         return 0;
 
-      const [emm, hit] = mah;
+      const [emm, hit] = e.maes_and_hit;
       if (hit != null)
         cur . SetLoc (hit);
       if (emm  !=  cur . CurrentMaes ())
