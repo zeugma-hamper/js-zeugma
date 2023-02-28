@@ -11,7 +11,7 @@ import { ZeColor } from "./ZeColor.js";
 
 export class ImageSplatter  extends Alignifer
 { //
-  static default_back_color = new ZeColor (0.25, 0.1);
+  static default_back_color = new ZeColor (0.25, 0.0);
 
   //
   constructor (im)
@@ -77,7 +77,7 @@ export class ImageSplatter  extends Alignifer
       if (this.back_iro != null)
         { let bc = this.back_iro . Val ();
           if (adjc != null)
-            bc . MulSelfBy (adjc);
+            bc = bc . Mul (adjc);
           ctx.fillStyle = bc . AsCSSString ();
           ctx . fillRect (x, y, w, h);
         }
@@ -88,7 +88,7 @@ export class ImageSplatter  extends Alignifer
       if (this.brdr_iro != null)
         { let bc = this.brdr_iro . Val ();
           if (adjc != null)
-            bc . MulSelfBy (adjc);
+            bc = bc . Mul (adjc);
           ctx.strokeStyle = bc . AsCSSString ();
           ctx . strokeRect (x, y, w, h);
         }

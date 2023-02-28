@@ -77,13 +77,13 @@ export class PolygonPile  extends Alignifer
       if (this.fill_iro != null)
         { let fc = this.fill_iro . Val ();
           if (adjc != null)
-            fc = fc . Dup () . MulSelfBy (adjc);
+            fc = fc . Mul (adjc);
           ctx.fillStyle = fc . AsCSSString ();
         }
       if (this.strk_iro != null)
         { let sc = this.strk_iro . Val ();
           if (adjc != null)
-            sc = sc . Dup () . MulSelfBy (adjc);
+            sc = sc . Mul (adjc);
           ctx.strokeStyle = sc . AsCSSString ();
         }
       for (let poly of polys)
