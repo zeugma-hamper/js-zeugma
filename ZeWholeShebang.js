@@ -28,7 +28,6 @@ export class ZeWholeShebang  extends base_class (Zeubject)
                            . and_interfaces (ZESpatialPhagy, RecursiveLimner)
 { //
   static canonical_instance = null;
-  static global_html_pointer_id = 1088801;
 
   //
   constructor ()
@@ -45,6 +44,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.recentest_synth_spat_evt_by_prov = new Map ();
       this.should_synthesize_html_pointer_events = false;
       this.html_pointer_id_by_prov = new Map ();
+      this.global_html_pointer_id = 1088801;
     }
 
 
@@ -70,7 +70,9 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   HTMLPointerIDForProv (prv)
     { let pntr_id = this.html_pointer_id_by_prov . get (prv);
       if (pntr_id == null)
-        this.html_pointer_id_by_prov . set (prv, this.global_html_pointer_id++);
+        { pntr_id = this.global_html_pointer_id++;
+          this.html_pointer_id_by_prov . set (prv, pntr_id);
+        }
       return pntr_id;
     }
 
