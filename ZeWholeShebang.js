@@ -43,6 +43,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.generate_ze_events_from_mouse = true;
       this.recentest_synth_spat_evt_by_prov = new Map ();
       this.should_synthesize_html_pointer_events = false;
+      this.should_synthesize_even_for_native_originated_events = false;
       this.html_pointer_id_by_prov = new Map ();
       this.global_html_pointer_id = 1088801;
     }
@@ -66,6 +67,13 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return this.should_synthesize_html_pointer_events; }
   SetShouldSynthesizeHTMLPointerEvents (shpe)
     { this.should_synthesize_html_pointer_events = shpe;  return this; }
+
+  ShouldSynthesizeEvenForNativeOriginatedEvents ()
+    { return this.should_synthesize_even_for_native_originated_events; }
+  SetShouldSynthesizeEvenForNativeOriginatedEvents (sefnoe)
+    { this.should_synthesize_even_for_native_originated_events = sefnoe;
+      return this;
+    }
 
   HTMLPointerIDForProv (prv)
     { let pntr_id = this.html_pointer_id_by_prov . get (prv);
@@ -418,7 +426,10 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
         }
 
       let wnd = this.WindowForMaes (emm);
-      if (this.ShouldSynthesizeHTMLPointerEvents ()  &&  wnd != null)
+      if (this.ShouldSynthesizeHTMLPointerEvents ()
+          &&  wnd != null
+          &&  (e . ForebearEvent ()  ==  null
+               ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
         { let pntrid = this.HTMLPointerIDForProv (prv);
 
           let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
@@ -430,6 +441,7 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
 
           let optns = { pointerId: pntrid, clientX: x, clientY: y };
           let pevt = new PointerEvent ('pointermove', optns);
+          pevt['prov'] = prv;
           pevt['zeugma_evt'] = e;
 
           wnd . dispatchEvent (pevt);
