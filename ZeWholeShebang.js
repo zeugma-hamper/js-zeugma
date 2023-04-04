@@ -244,7 +244,6 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   ProvisionWindowAndMaesWithCanvas (whin, maes)
     { let canv = whin.document . createElement ('canvas');
       this.SetGraphicsCorrelateForMaes (maes, canv);
-      this.SetWindowForMaes (maes, whin);
 
       whin.document.body.style.margin = "0px";  // the horror... the horror...
       whin.document.body.style.overflow = "hidden";  // more horror...
@@ -262,35 +261,15 @@ export class ZeWholeShebang  extends base_class (Zeubject)
           canv.height = whin.innerHeight;
       });
 
-whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
-
-      let dcat = this.AssuredDialectCatcherForMaes (maes);
-      if (dcat != null)
-        dcat . HooverNativeEventsFrom (canv);
-
+whin . addEventListener ('pointermove',
+                         (e) =>
+                           { globalThis.winpvt = e; }
+                        );
       return 0;
     }
 
-  BurstFromTheGround ()
-    { if (globalThis.window == undefined)
-        return 0;
-      let winny = globalThis.window;
-      let ur_maes = this.NthMaes (0);
-      if (ur_maes == null)
-        return null;
 
-      this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
-
-      let ma, cnt = this.NumMaeses ();
-      for (let q = 1  ;  q < cnt  ;  ++q)
-        if ((ma = this.NthMaes (q))  !=  null)
-          { let parawin = winny . open ();
-            this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
-          }
-      return this;
-    }
-
-  BurstFromTheGroundCanvasslessly ()
+  _BurstFromTheGround (canvasslessly)
     { if (globalThis.window == undefined)
         return 0;
       let winny = globalThis.window;
@@ -299,17 +278,25 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
         return null;
 
       this.AssociateWindowAndMaes (winny, ur_maes);
-      //this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
+      if (! canvasslessly)
+        this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
 
       let ma, cnt = this.NumMaeses ();
       for (let q = 1  ;  q < cnt  ;  ++q)
         if ((ma = this.NthMaes (q))  !=  null)
           { let parawin = winny . open ();
-            this.AssociateWindowAndMaes (parawin, ma);
-            //this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
+            this.AssociateWindowAndMaes (winny, ur_maes);
+            if (canvasslessly)
+              this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
           }
       return this;
     }
+
+  BurstFromTheGround ()
+    { return this._BurstFromTheGround (false); }
+
+  BurstFromTheGroundCanvasslessly ()
+    { return this._BurstFromTheGround (true); }
 
 
 
