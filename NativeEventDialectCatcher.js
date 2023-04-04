@@ -35,8 +35,12 @@ export class NativeEventDialectCatcher  extends Zeubject
     }
 
   static PropoXY (e, hel)
-    { return [ -0.5 + e.clientX / (hel.width - 1.0),
-               0.5 - e.clientY / (hel.height - 1.0) ];
+    { if (hel.innerWidth != undefined)  // if hel's the window itself...
+        return [ -0.5 + e.clientX / (hel.innerWidth - 1.0),
+                  0.5 - e.clientY / (hel.innerHeight - 1.0) ];
+      else  // otherwise it'd damn well better be a canvas.
+        return [ -0.5 + e.clientX / (hel.width - 1.0),
+                  0.5 - e.clientY / (hel.height - 1.0) ];
     }
 
   NativeMouseMove (e)

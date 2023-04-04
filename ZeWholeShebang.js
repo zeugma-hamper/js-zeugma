@@ -226,6 +226,13 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
 
+  AssociateWindowAndMaes (whin, maes)
+    { this.SetWindowForMaes (maes, whin);
+      let dcat = this.AssuredDialectCatcherForMaes (maes);
+      if (dcat != null)
+        dcat . HooverNativeEventsFrom (whin);
+    }
+
   ProvisionWindowAndMaesWithCanvas (whin, maes)
     { let canv = whin.document . createElement ('canvas');
       this.SetGraphicsCorrelateForMaes (maes, canv);
@@ -271,6 +278,27 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
         if ((ma = this.NthMaes (q))  !=  null)
           { let parawin = winny . open ();
             this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
+          }
+      return this;
+    }
+
+  BurstFromTheGroundCanvasslessly ()
+    { if (globalThis.window == undefined)
+        return 0;
+      let winny = globalThis.window;
+      let ur_maes = this.NthMaes (0);
+      if (ur_maes == null)
+        return null;
+
+      this.AssociateWindowAndMaes (winny, ur_maes);
+      //this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
+
+      let ma, cnt = this.NumMaeses ();
+      for (let q = 1  ;  q < cnt  ;  ++q)
+        if ((ma = this.NthMaes (q))  !=  null)
+          { let parawin = winny . open ();
+            this.AssociateWindowAndMaes (parawin, ma);
+            //this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
           }
       return this;
     }
@@ -389,24 +417,22 @@ whin.addEventListener('pointermove',(e)=>{globalThis.winpvt=e;});
           cur . AlignToMaes (emm);
         }
 
-      if (this.ShouldSynthesizeHTMLPointerEvents ())
+      let wnd = this.WindowForMaes (emm);
+      if (this.ShouldSynthesizeHTMLPointerEvents ()  &&  wnd != null)
         { let pntrid = this.HTMLPointerIDForProv (prv);
-          let canv = this.GraphicsCorrelateForMaes (emm);
 
           let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
           let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
           x = 0.5  +  x / emm . Width ();
           y = 0.5  -  y / emm . Height ();
-          if (canv != null)
-            { x *= (canv.width - 1.0);  y *= (canv.height - 1.0); }
+          x *= (wnd.innerWidth - 1.0);
+          y *= (wnd.innerHeight - 1.0);
 
           let optns = { pointerId: pntrid, clientX: x, clientY: y };
           let pevt = new PointerEvent ('pointermove', optns);
           pevt['zeugma_evt'] = e;
 
-          let wnd = this.WindowForMaes (emm);
-          if (wnd != null)
-            wnd . dispatchEvent (pevt);
+          wnd . dispatchEvent (pevt);
         }
 
       return 0;
