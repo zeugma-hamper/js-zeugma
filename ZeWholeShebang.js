@@ -56,6 +56,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
       this.should_deploy_stanalone_html_cursors = false;
       this.html_cursor_by_prov_by_window = new Map ();
+      this.html_cursor_window_by_prov = new Map ();
     }
 
 
@@ -454,24 +455,44 @@ whin . addEventListener ('pointermove',
     { if (zev == null)
         return this;
 
-      if (w == null)
-        return this;
-
-      let crsr_by_prov = this.html_cursor_by_prov_by_window . get (w);
-      if (crsr_by_prov == null)
-        this.html_cursor_by_prov_by_window . set (w, crsr_by_prov = new Map ());
       const prv = zev . Provenance ();
-      let cusser = crsr_by_prov . get (prv);
-      if (cusser == null)
-        { crsr_by_prov . set (prv, cusser = this.ExtrudeNewHTMLCursor (zev, w))
-          w.document.body . appendChild (cusser);
+      let prev_win = this.html_cursor_window_by_prov . get (prv);
+
+      let cusser = null;
+      if (w != null)
+        { let crsr_by_prov = this.html_cursor_by_prov_by_window . get (w);
+          if (crsr_by_prov == null)
+            this.html_cursor_by_prov_by_window . set
+              (w, crsr_by_prov = new Map ());
+
+          cusser = crsr_by_prov . get (prv);
+          if (cusser == null)
+            crsr_by_prov . set (prv,
+                                cusser = this.ExtrudeNewHTMLCursor (zev, w));
+
+          if (w  !=  prev_win)
+            w.document.body . appendChild (cusser);
+
+          cusser.style.left = "" + (x - cusser.halfWid) + "px";
+          cusser.style.top = "" + (y - cusser.halfHei) + "px";
         }
 
-      cusser.style.left = "" + (x - cusser.halfWid) + "px";
-      cusser.style.top = "" + (y - cusser.halfHei) + "px";
+      if (w  !=  prev_win)  // noting that w might in fact be null...
+        { this.html_cursor_window_by_prov . set (prv, w);
+          if (prev_win != null)
+            { let otha_assoc
+                = this.html_cursor_by_prov_by_window . get (prev_win)
+              if (otha_assoc != null)
+                { let otha_cuss = otha_assoc . get (prv);
+                  if (otha_cuss != null)
+                    otha_cuss . remove ();
+                }
+            }
+        }
 
       return this;
     }
+
 
   ZESpatialMove (e)
     { const prv = e . Provenance ();
