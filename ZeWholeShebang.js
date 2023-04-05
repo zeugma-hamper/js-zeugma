@@ -34,18 +34,28 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { super ();
       //
       this.looper = new Loopervisor ();
+
       this.maeses = new Array ();
+
       this.gcorr_by_maes = new Map ();
       this.winda_by_maes = new Map ();
       this.dcatcher_by_maes = new Map ();
+
       this.auto_attend = true;
+
       this.cursor_by_prov = new Map ();
-      this.generate_ze_events_from_mouse = true;
+
+      this.should_generate_ze_events_from_mouse = true;
       this.recentest_synth_spat_evt_by_prov = new Map ();
+
       this.should_synthesize_html_pointer_events = false;
       this.should_synthesize_even_for_native_originated_events = false;
+
       this.html_pointer_id_by_prov = new Map ();
       this.global_html_pointer_id = 1088801;
+
+      this.should_deploy_stanalone_html_cursors = false;
+      this.html_cursor_by_prov_by_window = new Map ();
     }
 
 
@@ -59,9 +69,9 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { this.auto_attend = tend;  return this; }
 
   ShouldGenerateZeEventsFromNativeMouse ()
-    { return this.generate_ze_events_from_mouse; }
+    { return this.should_generate_ze_events_from_mouse; }
   SetShouldGenerateZeEventsFromNativeMouse (nera)
-    { this.generate_ze_events_from_mouse = nera;  return this; }
+    { this.should_generate_ze_events_from_mouse = nera;  return this; }
 
   ShouldSynthesizeHTMLPointerEvents ()
     { return this.should_synthesize_html_pointer_events; }
@@ -74,6 +84,11 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { this.should_synthesize_even_for_native_originated_events = sefnoe;
       return this;
     }
+
+  ShouldDeployStandaloneHTMLCursors ()
+    { return this.should_deploy_stanalone_html_cursors; }
+  SetShouldDeployStandaloneHTMLCursors (dshc)
+    { this.should_deploy_stanalone_html_cursors = dshc;  return this; }
 
   HTMLPointerIDForProv (prv)
     { let pntr_id = this.html_pointer_id_by_prov . get (prv);
@@ -285,8 +300,8 @@ whin . addEventListener ('pointermove',
       for (let q = 1  ;  q < cnt  ;  ++q)
         if ((ma = this.NthMaes (q))  !=  null)
           { let parawin = winny . open ();
-            this.AssociateWindowAndMaes (winny, ur_maes);
-            if (canvasslessly)
+            this.AssociateWindowAndMaes (parawin, ma);
+            if (! canvasslessly)
               this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
           }
       return this;
@@ -384,8 +399,8 @@ whin . addEventListener ('pointermove',
       return [x, y];
     }
 
-  ZESpatialMove (e)
-    { const prv = e . Provenance ();
+  CountenanceCursorVitality (zev)
+    { const prv = zev . Provenance ();
       let cur = this.cursor_by_prov . get (prv);
 
       if (cur == null)
@@ -401,10 +416,10 @@ whin . addEventListener ('pointermove',
               }
         }
 
-      if (e.maes_and_hit == null)
+      if (zev.maes_and_hit == null)
         return 0;
+      const [emm, hit] = zev.maes_and_hit;
 
-      const [emm, hit] = e.maes_and_hit;
       if (hit != null)
         cur . SetLoc (hit);
       if (emm  !=  cur . CurrentMaes ())
@@ -412,26 +427,84 @@ whin . addEventListener ('pointermove',
           cur . AlignToMaes (emm);
         }
 
-      let wnd = this.WindowForMaes (emm);
-      if (this.ShouldSynthesizeHTMLPointerEvents ()
-          &&  wnd != null
-          &&  (e . ForebearEvent ()  ==  null
-               ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
-        { let pntrid = this.HTMLPointerIDForProv (prv);
+      return this;
+    }
 
-          let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+
+  ExtrudeNewHTMLCursor (zev, wnd)
+    { let cusser = wnd.document . createElement ("div");
+      let canvoo = wnd.document . createElement ("div");
+      cusser . appendChild (canvoo);
+
+      cusser.style.position = "absolute";
+      cusser.style.width = "60px";
+      cusser.style.height = "60px";
+      cusser.halfWid = cusser.halfHei = 30;
+      cusser["style"]["pointer-events"] = "none";
+      cusser.style.zIndex = 1073741824;  // that'd be 2^30, Mildred.
+
+      canvoo.style.width = "100%";
+      canvoo.style.height = "100%";
+      canvoo.style.backgroundColor = "#20ff2050";
+
+      return cusser;
+    }
+
+  CountenanceStandaloneHTMLCursorBrio (zev, w, x, y)
+    { if (zev == null)
+        return this;
+
+      if (w == null)
+        return this;
+
+      let crsr_by_prov = this.html_cursor_by_prov_by_window . get (w);
+      if (crsr_by_prov == null)
+        this.html_cursor_by_prov_by_window . set (w, crsr_by_prov = new Map ());
+      const prv = zev . Provenance ();
+      let cusser = crsr_by_prov . get (prv);
+      if (cusser == null)
+        { crsr_by_prov . set (prv, cusser = this.ExtrudeNewHTMLCursor (zev, w))
+          w.document.body . appendChild (cusser);
+        }
+
+      cusser.style.left = "" + (x - cusser.halfWid) + "px";
+      cusser.style.top = "" + (y - cusser.halfHei) + "px";
+
+      return this;
+    }
+
+  ZESpatialMove (e)
+    { const prv = e . Provenance ();
+      this.CountenanceCursorVitality (e);
+
+      if (e.maes_and_hit == null)
+        return 0;
+      const [emm, hit] = e.maes_and_hit;
+      let wnd = this.WindowForMaes (emm);
+
+      if (wnd != null)
+        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
           let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
           x = 0.5  +  x / emm . Width ();
           y = 0.5  -  y / emm . Height ();
           x *= (wnd.innerWidth - 1.0);
           y *= (wnd.innerHeight - 1.0);
 
-          let optns = { pointerId: pntrid, clientX: x, clientY: y };
-          let pevt = new PointerEvent ('pointermove', optns);
-          pevt['prov'] = prv;
-          pevt['zeugma_evt'] = e;
+          if (this.ShouldDeployStandaloneHTMLCursors ())
+            this.CountenanceStandaloneHTMLCursorBrio (e, wnd, x, y);
 
-          wnd . dispatchEvent (pevt);
+          if (this.ShouldSynthesizeHTMLPointerEvents ()
+              &&  (e . ForebearEvent ()  ==  null
+                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+            { let pntrid = this.HTMLPointerIDForProv (prv);
+
+              let optns = { pointerId: pntrid, clientX: x, clientY: y };
+              let pevt = new PointerEvent ('pointermove', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+
+              wnd . dispatchEvent (pevt);
+            }
         }
 
       return 0;
