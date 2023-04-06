@@ -332,6 +332,9 @@ whin . addEventListener ('pointermove',
     { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
         return 0;
 
+      if (e.zeugma_evt != undefined)
+        return 0;
+
       let hit = ma . Loc () . Add (ma . Over () . Sca (x * ma . Width ())) .
           Add (ma . Up () . Sca (y * ma . Height ()));
       let frm = hit . Add (ma . Norm () . Sca (0.8 * ma . Width ()));
@@ -367,12 +370,16 @@ whin . addEventListener ('pointermove',
   NativeMouseDownOnMaes (e, x, y, butt, prv, ma)
     { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
         return 0;
+      if (e.zeugma_evt != undefined)
+        return 0;
       return this._NativePressureEventOnMaes (e, x, y, butt, prv, ma,
                                               ZESpatialHardenEvent);
     }
 
   NativeMouseUpOnMaes (e, x, y, butt, prv, ma)
     { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
+        return 0;
+      if (e.zeugma_evt != undefined)
         return 0;
       return this._NativePressureEventOnMaes (e, x, y, butt, prv, ma,
                                               ZESpatialSoftenEvent);
@@ -519,8 +526,18 @@ whin . addEventListener ('pointermove',
                    ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
             { let pntrid = this.HTMLPointerIDForProv (prv);
 
-              let optns = { pointerId: pntrid, clientX: x, clientY: y };
-              let pevt = new PointerEvent ('pointermove', optns);
+              let optns = { bubbles: true, view: wnd,
+                            clientX: x, clientY: y,
+                            screenX: x, screenY: y };
+              //let pevt = new PointerEvent ('pointermove', optns);
+              let pevt = new MouseEvent ('mousemove', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+
+              wnd . dispatchEvent (pevt);
+
+              optns = { pointerId: pntrid, clientX: x, clientY: y };
+              pevt = new PointerEvent ('pointermove', optns);
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
@@ -532,7 +549,92 @@ whin . addEventListener ('pointermove',
     }
 
   ZESpatialHarden (e)
-    { console.log ("HARDEN! Truly, from provenance " + e . Provenance ()); }
+    { const prv = e . Provenance ();
+      // this.CountenanceCursorVitality (e);
+
+      if (e.maes_and_hit == null)
+        return 0;
+      const [emm, hit] = e.maes_and_hit;
+      let wnd = this.WindowForMaes (emm);
+
+      if (wnd != null)
+        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
+          x = 0.5  +  x / emm . Width ();
+          y = 0.5  -  y / emm . Height ();
+          x *= (wnd.innerWidth - 1.0);
+          y *= (wnd.innerHeight - 1.0);
+
+          if (this.ShouldSynthesizeHTMLPointerEvents ()
+              &&  (e . ForebearEvent ()  ==  null
+                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+            { let pntrid = this.HTMLPointerIDForProv (prv);
+
+              let optns = { bubbles: true, view: wnd,
+                            clientX: x, clientY: y,
+                            screenX: x, screenY: y, button: 0 };
+//              let pevt = new PointerEvent ('pointerdown', optns);
+              let pevt = new MouseEvent ('mousedown', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+
+              wnd . dispatchEvent (pevt);
+
+              optns = { pointerId: pntrid, clientX: x, clientY: y };
+              pevt = new PointerEvent ('pointerdown', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+
+              wnd . dispatchEvent (pevt);
+            }
+        }
+
+      return 0;
+    }
+
+  ZESpatialSoften (e)
+    { const prv = e . Provenance ();
+      // this.CountenanceCursorVitality (e);
+
+      if (e.maes_and_hit == null)
+        return 0;
+      const [emm, hit] = e.maes_and_hit;
+      let wnd = this.WindowForMaes (emm);
+
+      if (wnd != null)
+        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
+          x = 0.5  +  x / emm . Width ();
+          y = 0.5  -  y / emm . Height ();
+          x *= (wnd.innerWidth - 1.0);
+          y *= (wnd.innerHeight - 1.0);
+
+          if (this.ShouldSynthesizeHTMLPointerEvents ()
+              &&  (e . ForebearEvent ()  ==  null
+                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+            { let pntrid = this.HTMLPointerIDForProv (prv);
+
+              let optns = { bubbles: true, view: wnd,
+                            clientX: x, clientY: y,
+                            screenX: x, screenY: y, button: 0 };
+//              let pevt = new PointerEvent ('pointerup', optns);
+              let pevt = new MouseEvent ('mouseup', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+
+              wnd . dispatchEvent (pevt);
+
+              optns = { pointerId: pntrid, clientX: x, clientY: y };
+              pevt = new PointerEvent ('pointerup', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+
+              wnd . dispatchEvent (pevt);
+            }
+        }
+
+      return 0;
+    }
 
 //
 //
