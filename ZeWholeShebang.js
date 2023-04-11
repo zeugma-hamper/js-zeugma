@@ -57,6 +57,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.should_deploy_stanalone_html_cursors = false;
       this.html_cursor_by_prov_by_window = new Map ();
       this.html_cursor_window_by_prov = new Map ();
+
+      this.html_target_by_prov_by_window = new Map ();
     }
 
 
@@ -501,6 +503,37 @@ whin . addEventListener ('pointermove',
     }
 
 
+  WrestleWithDerivedSpatialEvents (prov, cur_trgt, wnd, opts, zevt)
+    { let tgt_by_prv = this.html_target_by_prov_by_window . get (wnd);
+      if (tgt_by_prv == null)
+        this.html_target_by_prov_by_window . set (wnd, tgt_by_prv = new Map ());
+
+      let prev_tgt = tgt_by_prv . get (prov);
+      if (prev_tgt == cur_trgt)
+        return this;
+
+      // first, break the news to the freshly jilted:
+      if (prev_tgt != null)
+        { let leav_evt = new MouseEvent ('mouseleave', opts);
+          leav_evt['prov'] = prov;
+          leav_evt['zeugma_evt'] = zevt;
+          prev_tgt . dispatchEvent (leav_evt);
+        }
+
+      // and to the newly exalted:
+      if (cur_trgt != null)
+        { let entr_evt = new MouseEvent ('mouseenter', opts);
+          entr_evt['prov'] = prov;
+          entr_evt['zeugma_evt'] = zevt;
+          cur_trgt . dispatchEvent (entr_evt);
+        }
+
+      // and, nimoy to kelley, remember:
+      tgt_by_prv . set (prov, cur_trgt);
+      return this;
+    }
+
+
   ZESpatialMove (e)
     { const prv = e . Provenance ();
       this.CountenanceCursorVitality (e);
@@ -526,22 +559,26 @@ whin . addEventListener ('pointermove',
                    ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
             { let pntrid = this.HTMLPointerIDForProv (prv);
 
-              let optns = { bubbles: true, view: wnd,
-                            clientX: x, clientY: y,
-                            screenX: x, screenY: y };
-              //let pevt = new PointerEvent ('pointermove', optns);
-              let pevt = new MouseEvent ('mousemove', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
+              let tahgit = wnd.document . elementFromPoint (x, y);
+              let optns = { view: wnd,
+                            clientX: x, clientY: y };
+              this.WrestleWithDerivedSpatialEvents (prv, tahgit, wnd, optns, e);
 
-              wnd . dispatchEvent (pevt);
+              if (tahgit != null)
+                { optns = { bubbles: true, view: wnd,
+                            clientX: x, clientY: y };
 
-              optns = { pointerId: pntrid, clientX: x, clientY: y };
-              pevt = new PointerEvent ('pointermove', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
+                  let pevt = new MouseEvent ('mousemove', optns);
+                  pevt['prov'] = prv;
+                  pevt['zeugma_evt'] = e;
+                  tahgit . dispatchEvent (pevt);
 
-              wnd . dispatchEvent (pevt);
+                  optns = { pointerId: pntrid, clientX: x, clientY: y };
+                  pevt = new PointerEvent ('pointermove', optns);
+                  pevt['prov'] = prv;
+                  pevt['zeugma_evt'] = e;
+                  tahgit . dispatchEvent (pevt);
+                }
             }
         }
 
