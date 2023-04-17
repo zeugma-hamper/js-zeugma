@@ -503,7 +503,7 @@ whin . addEventListener ('pointermove',
     }
 
 
-  WrestleWithDerivedSpatialEvents (prov, cur_trgt, wnd, opts, zevt)
+  WrestleWithDerivedSpatialEvents (prov, cur_trgt, wnd, opts, pntrid, zevt)
     { let tgt_by_prv = this.html_target_by_prov_by_window . get (wnd);
       if (tgt_by_prv == null)
         this.html_target_by_prov_by_window . set (wnd, tgt_by_prv = new Map ());
@@ -512,9 +512,17 @@ whin . addEventListener ('pointermove',
       if (prev_tgt == cur_trgt)
         return this;
 
+      let pntr_opts = Object.assign ({}, opts);
+      pntr_opts.pointerId = pntrid;
+
       // first, break the news to the freshly jilted:
       if (prev_tgt != null)
         { let leav_evt = new MouseEvent ('mouseleave', opts);
+          leav_evt['prov'] = prov;
+          leav_evt['zeugma_evt'] = zevt;
+          prev_tgt . dispatchEvent (leav_evt);
+
+          leav_evt = new PointerEvent ('pointerleave', pntr_opts);
           leav_evt['prov'] = prov;
           leav_evt['zeugma_evt'] = zevt;
           prev_tgt . dispatchEvent (leav_evt);
@@ -523,6 +531,11 @@ whin . addEventListener ('pointermove',
       // and to the newly exalted:
       if (cur_trgt != null)
         { let entr_evt = new MouseEvent ('mouseenter', opts);
+          entr_evt['prov'] = prov;
+          entr_evt['zeugma_evt'] = zevt;
+          cur_trgt . dispatchEvent (entr_evt);
+
+          entr_evt = new PointerEvent ('pointerenter', pntr_opts);
           entr_evt['prov'] = prov;
           entr_evt['zeugma_evt'] = zevt;
           cur_trgt . dispatchEvent (entr_evt);
@@ -550,7 +563,7 @@ whin . addEventListener ('pointermove',
           y = 0.5  -  y / emm . Height ();
           x *= (wnd.innerWidth - 1.0);
           y *= (wnd.innerHeight - 1.0);
-
+//x -= 75;  y -= 150;
           if (this.ShouldDeployStandaloneHTMLCursors ())
             this.CountenanceStandaloneHTMLCursorBrio (e, wnd, x, y);
 
@@ -562,7 +575,8 @@ whin . addEventListener ('pointermove',
               let tahgit = wnd.document . elementFromPoint (x, y);
               let optns = { view: wnd,
                             clientX: x, clientY: y };
-              this.WrestleWithDerivedSpatialEvents (prv, tahgit, wnd, optns, e);
+              this.WrestleWithDerivedSpatialEvents (prv, tahgit, wnd, optns,
+                                                    pntrid, e);
 
               if (tahgit != null)
                 { optns = { bubbles: true, view: wnd,
@@ -573,7 +587,8 @@ whin . addEventListener ('pointermove',
                   pevt['zeugma_evt'] = e;
                   tahgit . dispatchEvent (pevt);
 
-                  optns = { pointerId: pntrid, clientX: x, clientY: y };
+                  optns = { bubbles: true, view: wnd,
+                            pointerId: pntrid, clientX: x, clientY: y };
                   pevt = new PointerEvent ('pointermove', optns);
                   pevt['prov'] = prv;
                   pevt['zeugma_evt'] = e;
@@ -609,20 +624,23 @@ whin . addEventListener ('pointermove',
 
               let optns = { bubbles: true, view: wnd,
                             clientX: x, clientY: y,
-                            screenX: x, screenY: y, button: 0 };
+                            button: e . WhichPressor () };
 //              let pevt = new PointerEvent ('pointerdown', optns);
               let pevt = new MouseEvent ('mousedown', optns);
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              wnd . dispatchEvent (pevt);
+              let tahgit = wnd.document . elementFromPoint (x, y);
+              tahgit . dispatchEvent (pevt);
 
-              optns = { pointerId: pntrid, clientX: x, clientY: y };
+              optns = { bubbles: true, view: wnd,
+                        pointerId: pntrid, clientX: x, clientY: y,
+                        button: e . WhichPressor () };
               pevt = new PointerEvent ('pointerdown', optns);
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              wnd . dispatchEvent (pevt);
+              tahgit . dispatchEvent (pevt);
             }
         }
 
@@ -653,20 +671,23 @@ whin . addEventListener ('pointermove',
 
               let optns = { bubbles: true, view: wnd,
                             clientX: x, clientY: y,
-                            screenX: x, screenY: y, button: 0 };
+                            button: e . WhichPressor () };
 //              let pevt = new PointerEvent ('pointerup', optns);
               let pevt = new MouseEvent ('mouseup', optns);
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              wnd . dispatchEvent (pevt);
+              let tahgit = wnd.document . elementFromPoint (x, y);
+              tahgit . dispatchEvent (pevt);
 
-              optns = { pointerId: pntrid, clientX: x, clientY: y };
+              optns = { bubbles: true, view: wnd,
+                        pointerId: pntrid, clientX: x, clientY: y,
+                        button: e . WhichPressor () };
               pevt = new PointerEvent ('pointerup', optns);
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              wnd . dispatchEvent (pevt);
+              tahgit . dispatchEvent (pevt);
             }
         }
 
