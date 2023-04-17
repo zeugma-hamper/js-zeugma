@@ -49,8 +49,10 @@ export const Limnable = (supah) => class extends supah
       let cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
       let mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
       let vec = mat . TransformVect (vtx);
-      vec.x = hlfw * (1.0 + vec.x / vec.z);
-      vec.y = hlfh * (1.0 - vec.y / vec.z);
+      if (vec.z != 0.0)
+        { vec.x = hlfw * (1.0 + vec.x / vec.z);
+          vec.y = hlfh * (1.0 - vec.y / vec.z);
+        }
       return vec;
     }
 
@@ -61,9 +63,10 @@ export const Limnable = (supah) => class extends supah
       let mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
       let outarr = mat . TransformVectArray (varr);
       for (let vec of outarr)
-        { vec.x = hlfw * (1.0 + vec.x / vec.z);
-          vec.y = hlfh * (1.0 - vec.y / vec.z);
-        }
+        if (vec.z != 0.0)
+          { vec.x = hlfw * (1.0 + vec.x / vec.z);
+            vec.y = hlfh * (1.0 - vec.y / vec.z);
+          }
       return outarr;
     }
 
@@ -76,9 +79,10 @@ export const Limnable = (supah) => class extends supah
       for (let verts of varrs)
         { let vecarr = mat . TransformVectArray (verts);
           for (let vec of vecarr)
-            { vec.x = hlfw * (1.0 + vec.x / vec.z);
-              vec.y = hlfh * (1.0 - vec.y / vec.z);
-            }
+            if (vec.z != 0.0)
+              { vec.x = hlfw * (1.0 + vec.x / vec.z);
+                vec.y = hlfh * (1.0 - vec.y / vec.z);
+              }
           outarr . push (vecarr);
         }
       return outarr;

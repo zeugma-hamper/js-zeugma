@@ -57,6 +57,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.should_deploy_stanalone_html_cursors = false;
       this.html_cursor_by_prov_by_window = new Map ();
       this.html_cursor_window_by_prov = new Map ();
+      this.null_cumumats = new CumuMats ();
 
       this.html_target_by_prov_by_window = new Map ();
     }
@@ -229,13 +230,19 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
 
   FlyOnTheirTerms ()
-    { if (this.auto_attend == true)
+    { if (this.Looper () . IsLooping ())
+        return this;
+
+      if (this.auto_attend == true)
         this.AttendToIncomingComms ();
 
       let self = this;
-      if (this.looper.is_looping == true)
-        return 0;
       this.looper.is_looping = true;
+
+      let helpernub = new Zeubject ();
+      helpernub.Travail = function (ratch, thyme)
+        { return self . CanvaslessTravail (ratch, thyme); }
+      this.looper . AppendToiler (helpernub);
 
       let heave = function ()
         { self.looper . OneDelightfulTurn ();
@@ -244,6 +251,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
           else
             { if (self.auto_attend == true)
                 self . SuspendIncomingCommsAttention ();
+              self.looper . RemoveToiler (helpernub);
             }
         }
 
@@ -327,6 +335,29 @@ whin . addEventListener ('pointermove',
       //   { self.DrawMaesLayers (ratch, thyme); });
       this.DrawMaesLayers (ratch, thyme);
       return 0;
+    }
+
+  CanvaslessTravail (ratch, thyme)
+    { // anything besides the following?
+
+      // render cursors
+      if (this.should_deploy_stanalone_html_cursors)
+        { //
+          for (let cursors_by_prov
+               of this.html_cursor_by_prov_by_window . values ())
+            if (cursors_by_prov != null)
+              for (let crsr of cursors_by_prov . values ())
+                if (crsr != null)
+                  { let gctx = crsr.canvoo . getContext ("2d");
+                    gctx . reset ();
+                    gctx . translate (0.5 * crsr.canvoo.width,
+                                      0.5 * crsr.canvoo.height);
+                    crsr.zeug_crsr . DrawSelf (ratch,
+                                               this.null_cumumats,
+                                               null,
+                                               [crsr.canvoo, gctx, null])
+                  }
+        }
     }
 
 
@@ -443,8 +474,10 @@ whin . addEventListener ('pointermove',
 
   ExtrudeNewHTMLCursor (zev, wnd)
     { let cusser = wnd.document . createElement ("div");
-      let canvoo = wnd.document . createElement ("div");
+      let canvoo = wnd.document . createElement ("canvas");
       cusser . appendChild (canvoo);
+      cusser.canvoo = canvoo;
+      cusser.zeug_crsr = new Cursoresque (30.0, 6);
 
       cusser.style.position = "absolute";
       cusser.style.width = "60px";
@@ -453,9 +486,11 @@ whin . addEventListener ('pointermove',
       cusser["style"]["pointer-events"] = "none";
       cusser.style.zIndex = 1073741824;  // that'd be 2^30, Mildred.
 
-      canvoo.style.width = "100%";
-      canvoo.style.height = "100%";
-      canvoo.style.backgroundColor = "#20ff2050";
+      // canvoo.style.width = "100%";
+      // canvoo.style.height = "100%";
+      canvoo.width = 60.0;
+      canvoo.height = 60.0;
+      // canvoo.style.backgroundColor = "#20ff2050";
 
       return cusser;
     }
