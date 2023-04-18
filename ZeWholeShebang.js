@@ -350,7 +350,11 @@ whin . addEventListener ('pointermove',
               for (let crsr of cursors_by_prov . values ())
                 if (crsr != null)
                   { let gctx = crsr.canvoo . getContext ("2d");
-                    gctx . reset ();
+                    // gctx . reset ();  // oops... reset's "experimental"...
+                    gctx . resetTransform ();
+                    gctx . clearRect (0, 0,
+                                      crsr.canvoo.width,
+                                      crsr.canvoo.height);
                     gctx . translate (0.5 * crsr.canvoo.width,
                                       0.5 * crsr.canvoo.height);
                     crsr.zeug_crsr . DrawSelf (ratch,
