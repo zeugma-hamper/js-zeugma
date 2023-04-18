@@ -24,6 +24,7 @@ import { RecursiveLimner } from "./RecursiveLimner.js";
 import { base_class } from "./interface-ersatzer.js";
 
 
+
 export class ZeWholeShebang  extends base_class (Zeubject)
                            . and_interfaces (ZESpatialPhagy, RecursiveLimner)
 { //
