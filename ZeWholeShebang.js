@@ -613,6 +613,12 @@ whin . addEventListener ('pointermove',
             { let pntrid = this.HTMLPointerIDForProv (prv);
 
               let tahgit = wnd.document . elementFromPoint (x, y);
+              if (tahgit == null)
+                { console.warn ("in ZESpatialMove() -- tahgit is null, with "
+                                + "window = " + wnd + " at (x,y) = ("
+                                + x + ", " + y + ")...");
+                  tahgit = wnd;
+                }
               let optns = { view: wnd,
                             clientX: x, clientY: y };
               this.WrestleWithDerivedSpatialEvents (prv, tahgit, wnd, optns,
@@ -671,6 +677,12 @@ whin . addEventListener ('pointermove',
               pevt['zeugma_evt'] = e;
 
               let tahgit = wnd.document . elementFromPoint (x, y);
+              if (tahgit == null)
+                { console.warn ("in ZESpatialHarden() -- tahgit is null, with "
+                                + "window = " + wnd + " at (x,y) = ("
+                                + x + ", " + y + ")...");
+                  tahgit = wnd;
+                }
               tahgit . dispatchEvent (pevt);
 
               optns = { bubbles: true, view: wnd,
@@ -718,6 +730,8 @@ whin . addEventListener ('pointermove',
               pevt['zeugma_evt'] = e;
 
               let tahgit = wnd.document . elementFromPoint (x, y);
+              if (tahgit == null)
+                tahgit = wnd;
               tahgit . dispatchEvent (pevt);
 
               optns = { bubbles: true, view: wnd,
