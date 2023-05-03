@@ -82,6 +82,8 @@ const horque = function ()
 
   ycra . InstallAdjColor (sc);
 
+  sheb . FlyOnTheirTerms ();
+
   console.log ("prithee.");
 };
 
