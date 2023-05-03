@@ -2,14 +2,30 @@
   "name": "js-zeugma",
   "version": "0.5.0",
   "description": "high-fiber zeugmatic profundities",
-  "main": "modules/zeugma/zeugma-lib.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeugma-hamper/js-zeugma-diaper"
   },
-  "author": "Borton Fweems",
-  "license": "MIT",
+  "main": "modules/zeugma/zeugma-lib.js",
+  "files": [
+    "modules",
+    "*.md"
+  ],
+  "scripts": {
+    "shovel": "node shovel.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier modules apps --check",
+    "lint": "eslint modules apps --max-warnings=0",
+    "autofix": "npm run format -- --write && npm run lint -- --fix"
+  },
   "dependencies": {
     "osc": "^2.4.4",
     "socket.io": "^4.6.1"
-  }
+  },
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "prettier": "2.8.8"
+  },
+  "author": "Borton Fweems",
+  "license": "MIT"
 }

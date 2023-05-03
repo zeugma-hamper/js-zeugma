@@ -1,41 +1,45 @@
-
 //
 // (c) treadle & loam, provisioners llc
 //
 
+import { Zeubject } from "./Zeubject.js";
 
-import { Zeubject } from "./Zeubject.js"
+export class OSCFaker extends Zeubject {
+  //
+  constructor() {
+    super();
+    this.schtream = new Array();
+    this.is_listening = true;
+  }
 
+  MessageCount() {
+    return this.schtream.length;
+  }
 
-export class OSCFaker  extends Zeubject
-{ //
-  constructor ()
-    { super ();
-      this.schtream = new Array ();
-      this.is_listening = true;
-    }
+  HasMessage() {
+    return this.MessageCount() > 0;
+  }
 
-  MessageCount ()
-    { return this.schtream.length; }
+  AppendMessage(mess) {
+    if (this.is_listening == true) this.schtream.push(mess);
+    return this;
+  }
 
-  HasMessage ()
-    { return this.MessageCount ()  >  0; }
+  NextMessage() {
+    return this.schtream.shift();
+  }
 
-  AppendMessage (mess)
-    { if (this.is_listening == true)
-        this.schtream . push (mess);
-      return this;
-    }
+  PeekNextMessage() {
+    return this.schtream[0];
+  }
 
-  NextMessage ()
-    { return this.schtream . shift (); }
+  ReceiveContinuously() {
+    this.is_listening = true;
+    return this;
+  }
 
-  PeekNextMessage ()
-    { return this.schtream[0]; }
-
-  ReceiveContinuously ()
-    { this.is_listening = true;   return this; }
-
-  PauseReception ()
-    { this.is_listening == false;  return this; }
+  PauseReception() {
+    this.is_listening = false;
+    return this;
+  }
 }

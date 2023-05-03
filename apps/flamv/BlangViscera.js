@@ -1,99 +1,112 @@
-
 //
 // (c) treadle & loam, provisioners llc
 //
 
+import {
+  CheapOSCMessage,
+  SinuZoft,
+  ZeColor,
+  ZeWholeShebang,
+} from "../../modules/zeugma/zeugma-lib.js";
 
-globalThis.forsty = new Image ();
-forsty.src = "/images/flamv/forster-fry-smaller.png";
+import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
-globalThis.steiny = new Image ();
-steiny.src = "/images/flamv/stein-picabia-smaller.png";
+globalThis.socky = io();
 
+globalThis.forsty = new Image();
+globalThis.forsty.src = "/images/flamv/forster-fry-smaller.png";
 
-const horque = function ()
-{ globalThis.sheb = ZeWholeShebang.CanonicalInstance ();
-  sheb . BurstFromTheGroundCanvasslessly ();
+globalThis.steiny = new Image();
+globalThis.steiny.src = "/images/flamv/stein-picabia-smaller.png";
 
-  console.log (socky);
-  let fake_osc = sheb . Looper () . FindSump ("wand-sump") . Oscerizer ();
-  socky . on ("/zeugmatic-osc", function (m)
-                  { fake_osc . AppendMessage (new CheapOSCMessage (m)); });
+const horque = function () {
+  globalThis.sheb = ZeWholeShebang.CanonicalInstance();
+  globalThis.sheb.BurstFromTheGroundCanvasslessly();
 
-  let spaq = sheb . Looper () . FindAqueduct ("spatial-aqueduct");
-  //spaq . AppendPhage (foim);
+  console.log(globalThis.socky);
+  const fake_osc = globalThis.sheb.Looper().FindSump("wand-sump").Oscerizer();
+  globalThis.socky.on("/zeugmatic-osc", function (m) {
+    fake_osc.AppendMessage(new CheapOSCMessage(m));
+  });
 
-  let tbma = sheb . FindMaes ("table");
-  let sc = SinuZoft . NewWith (new ZeColor (0.0, 0.5, 0.5, 0.0),
-                               .666, new ZeColor (1.0, 0.5, 0.5));
-  if (tbma != null)
-    tbma . InstallAdjColor (sc);
+  // const spaq = globalThis.sheb.Looper().FindAqueduct("spatial-aqueduct");
+  //spaq.AppendPhage(foim);
 
-  let Ingressication = function (ev)
-    { this.style.borderColor = "red";
-      this.style.borderWidth = "10px";
-      globalThis.lastentr = ev;
-    }
+  const tbma = globalThis.sheb.FindMaes("table");
+  const sc = SinuZoft.NewWith(
+    new ZeColor(0.0, 0.5, 0.5, 0.0),
+    0.666,
+    new ZeColor(1.0, 0.5, 0.5)
+  );
+  if (tbma != null) tbma.InstallAdjColor(sc);
 
-  let Jigglification = function (ev)
-    { globalThis.lastmove = ev; }
+  const Ingressication = function (ev) {
+    this.style.borderColor = "red";
+    this.style.borderWidth = "10px";
+    globalThis.lastentr = ev;
+  };
 
-  let Egressication = function (ev)
-    { this.style.borderColor = "red";
-      this.style.borderWidth = "0px";
-      globalThis.lastleav = ev;
-    }
+  const Jigglification = function (ev) {
+    globalThis.lastmove = ev;
+  };
 
-  let Stankication = function (ev)
-    { this.style.borderColor = "blue";
-      this.style.borderWidth = "2px";
-    }
+  const Egressication = function (ev) {
+    this.style.borderColor = "red";
+    this.style.borderWidth = "0px";
+    globalThis.lastleav = ev;
+  };
 
-  let Plodderizer  = function (ev)
-    { if (ev.zeugma_evt == undefined)
-        return null;
-      let q = 666;
-      ++q;
-      return this;
-    }
+  const Stankication = function (_ev) {
+    this.style.borderColor = "blue";
+    this.style.borderWidth = "2px";
+  };
 
-  let dawky = globalThis?.window?.document;
-  let bahdy = dawky?.body;
+  /* eslint no-unused-vars: 0 */
+  const Plodderizer = function (ev) {
+    if (ev.zeugma_evt == undefined) return null;
+    let q = 666;
+    ++q;
+    return this;
+  };
+
+  const dawky = globalThis?.window?.document;
+  const bahdy = dawky?.body;
   let strippy;
 
-  let Moundify = function (immy)
-    { strippy.appendChild (immy);
-      immy.style.width = "auto";
-      immy.style.height = "400px";
-      immy.style.borderStyle = "solid";
-      immy . addEventListener ("mousemove", Jigglification);
-      immy . addEventListener ("mouseenter", Ingressication);
-      immy . addEventListener ("mouseleave", Egressication);
-    }
+  const Moundify = function (immy) {
+    strippy.appendChild(immy);
+    immy.style.width = "auto";
+    immy.style.height = "400px";
+    immy.style.borderStyle = "solid";
+    immy.addEventListener("mousemove", Jigglification);
+    immy.addEventListener("mouseenter", Ingressication);
+    immy.addEventListener("mouseleave", Egressication);
+  };
 
-  if (dawky != null)
-    { strippy = dawky . createElement ('div');
-      strippy.style.position = "absolute";
-      strippy.style.left = "50px";
-      strippy.style.top = "100px";
-      bahdy . appendChild (strippy);
-      Moundify (steiny);
-      steiny . addEventListener ("mousemove", Plodderizer);
-      steiny . addEventListener ("pointerleave", Stankication);
-      Moundify (forsty);
-      forsty . addEventListener ("mousedown", Stankication);
-    }
+  if (dawky != null) {
+    strippy = dawky.createElement("div");
+    strippy.style.position = "absolute";
+    strippy.style.left = "50px";
+    strippy.style.top = "100px";
+    bahdy.appendChild(strippy);
+    Moundify(globalThis.steiny);
+    globalThis.steiny.addEventListener("mousemove", Plodderizer);
+    globalThis.steiny.addEventListener("pointerleave", Stankication);
+    Moundify(globalThis.forsty);
+    globalThis.forsty.addEventListener("mousedown", Stankication);
+  }
 
-  globalThis.window . addEventListener ("mousemove", (ev) =>
-    { let q = 1;
-      ++q;
-    } );
+  /* eslint no-unused-vars: 0 */
+  globalThis.window.addEventListener("mousemove", (_ev) => {
+    let q = 1;
+    ++q;
+  });
 
-  console.log ("honk.");
+  console.log("honk.");
 };
 
 //
 /// now: do unto.
 //
 
-setTimeout (horque, 1000);
+setTimeout(horque, 1000);

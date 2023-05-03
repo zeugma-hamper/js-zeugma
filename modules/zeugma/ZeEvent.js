@@ -1,83 +1,96 @@
-
 //
 // (c) treadle & loam, provisioners llc
 //
 
-
-import { Vect } from "./Vect.js";
 import { Zeubject } from "./Zeubject.js";
 
-
-class NonEvent  extends Zeubject
-{ //
-  constructor ()
-    { super (); }
-  EventIlk ()
-    { return ""; }
+class NonEvent extends Zeubject {
+  //
+  constructor() {
+    super();
+  }
+  EventIlk() {
+    return "";
+  }
 }
 
+export class ZeEvent extends NonEvent {
+  //
+  constructor(pr) {
+    super();
+    this.prov = pr;
+    this.tstamp = -1.0;
+    // this.tratch = -1;  // use Zeubject's rat_fresh, no?
+    this.fore_evt = null;
+  }
 
-export class ZeEvent  extends NonEvent
-{ //
-  constructor (pr)
-    { super ();
-      this.prov = pr;
-      this.tstamp = -1.0;
-      // this.tratch = -1;  // use Zeubject's rat_fresh, no?
-      this.fore_evt = null;
-	}
+  AdoptParticulars(otha) {
+    this.prov = otha.prov;
+    this.tstamp = otha.tstamp;
+    this.rat_fresh = otha.rat_fresh;
+    this.fore_evt = otha.fore_evt;
+    return this;
+  }
 
-  AdoptParticulars (otha)
-    { this.prov = otha.prov;
-      this.tstamp = otha.tstamp;
-      this.rat_fresh = otha.rat_fresh;
-      this.fore_evt = otha.fore_evt;
-      return this;
-    }
+  InjectParticularsInto(trgt) {
+    trgt.prov = this.prov;
+    trgt.tstamp = this.tstamp;
+    trgt.rat_fresh = this.rat_fresh;
+    trgt.fore_evt = this.fore_evt;
+    return this;
+  }
 
-  InjectParticularsInto (trgt)
-    { trgt.prov = this.prov;
-      trgt.tstamp = this.tstamp;
-      trgt.rat_fresh = this.rat_fresh;
-      trgt.fore_evt = this.fore_evt;
-      return this;
-    }
+  Provenance() {
+    return this.prov;
+  }
+  SetProvenance(pr) {
+    this.prov = pr;
+    return this;
+  }
 
-  Provenance ()
-    { return this.prov; }
-  SetProvenance (pr)
-    { this.prov = pr;  return this; }
+  Timestamp() {
+    return this.tstamp;
+  }
+  SetTimestamp(ts) {
+    this.tstamp = ts;
+    return this;
+  }
 
-  Timestamp ()
-    { return this.tstamp; }
-  SetTimestamp (ts)
-    { this.tstamp = ts;  return this; }
+  TimeRatchet() {
+    return this.rat_fresh;
+  }
+  SetTimeRatchet(tr) {
+    this.rat_fresh = tr;
+    return this;
+  }
 
-  TimeRatchet ()
-    { return this.rat_fresh; }
-  SetTimeRatchet (tr)
-    { this.rat_fresh = tr;  return this; }
+  ForebearEvent() {
+    return this.fore_evt;
+  }
+  SetForebearEvent(fe) {
+    this.fore_evt = fe;
+    return this;
+  }
 
-  ForebearEvent ()
-    { return this.fore_evt; }
-  SetForebearEvent (fe)
-    { this.fore_evt = fe;  return this; }
+  EventIlk() {
+    return "ZeEvent";
+  }
+  EventSuperIlk() {
+    return super.EventIlk();
+  }
 
-  EventIlk ()
-    { return "ZeEvent"; }
-  EventSuperIlk ()
-    { return super . EventIlk (); }
-
-
-  ProfferAsQuaffTo (zbj)
-    { return zbj . Ze (this); }
+  ProfferAsQuaffTo(zbj) {
+    return zbj.Ze(this);
+  }
 }
-
 
 // nota bene the faux-interface pattern hereinafter:
-ZeEvent.Phage = (supah) => class extends supah
-{ Ze (e)  // arg's an event
-    { return -1; }
-  PassTheBuckUpPhageHierarchy ()
-    { return false; }
-}
+ZeEvent.Phage = (supah) =>
+  class extends supah {
+    Ze(_event) {
+      return -1;
+    }
+    PassTheBuckUpPhageHierarchy() {
+      return false;
+    }
+  };
