@@ -10,7 +10,9 @@ import { Zeubject } from "./Zeubject.js";
 
 export class Loopervisor extends Zeubject {
   //
-  static momma_t = new MotherTime();
+  static initClass() {
+    this.momma_t = new MotherTime();
+  }
 
   //
   constructor() {
@@ -247,3 +249,4 @@ export class Loopervisor extends Zeubject {
     return ZeWeakColl.RemoveNth(this.active_toilers, ind);
   }
 }
+Loopervisor.initClass();

@@ -9,10 +9,12 @@ import { Zoft } from "./Zoft.js";
 
 export class Bolex extends SpaceThing {
   //
-  static ProjType = {
-    PERSPECTIVE: "perspective",
-    ORTHOGRAPHIC: "orthographic",
-  };
+  static get ProjType() {
+    return {
+      PERSPECTIVE: "perspective",
+      ORTHOGRAPHIC: "orthographic",
+    };
+  }
   //
 
   constructor() {

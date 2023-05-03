@@ -7,12 +7,14 @@ import { Zeubject } from "./Zeubject.js";
 
 export class Zoft extends Zeubject {
   //
-  static default_lung = null;
+  static get default_lung() {
+    return this._default_lung;
+  }
   static DefaultLung() {
-    return this.default_lung;
+    return this._default_lung;
   }
   static SetDefaultLung(pulmo) {
-    this.default_lung = pulmo;
+    this._default_lung = pulmo;
   }
 
   static NewWith(zft_or_plainval) {

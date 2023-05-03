@@ -11,8 +11,6 @@ import { base_class } from "./interface-ersatzer.js";
 export class LimnyThing extends base_class(PouchyThing).and_interfaces(
   Limnable
 ) {
-  //
-  static breather_of_record = null;
   static BreatherOfRecord() {
     return this.breather_of_record;
   }

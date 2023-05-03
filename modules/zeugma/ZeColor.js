@@ -226,8 +226,19 @@ export class ZeColor {
   ///
   //
 
-  static white = new ZeColor();
-  static black = new ZeColor(0.0);
-  static trnsp_wht = new ZeColor(1.0, 0.0);
-  static trnsp_black = new ZeColor(0.0, 0.0);
+  static get white() {
+    return new ZeColor();
+  }
+
+  static get black() {
+    return new ZeColor(0.0);
+  }
+
+  static get trnsp_wht() {
+    return new ZeColor(1.0, 0.0);
+  }
+
+  static get trnsp_black() {
+    return new ZeColor(0.0, 0.0);
+  }
 }

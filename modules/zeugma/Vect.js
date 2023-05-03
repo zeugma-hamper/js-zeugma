@@ -260,14 +260,30 @@ export class Vect {
   //
   ///
   //
-  static zerov = new Vect(0.0, 0.0, 0.0);
-  static onesv = new Vect(1.0, 1.0, 1.0);
+  static get zerov() {
+    return new Vect(0.0, 0.0, 0.0);
+  }
+  static get onesv() {
+    return new Vect(1.0, 1.0, 1.0);
+  }
 
-  static xaxis = new Vect(1.0, 0.0, 0.0);
-  static yaxis = new Vect(0.0, 1.0, 0.0);
-  static zaxis = new Vect(0.0, 0.0, 1.0);
+  static get xaxis() {
+    return new Vect(1.0, 0.0, 0.0);
+  }
+  static get yaxis() {
+    return new Vect(0.0, 1.0, 0.0);
+  }
+  static get zaxis() {
+    return new Vect(0.0, 0.0, 1.0);
+  }
 
-  static negxaxis = new Vect(-1.0, 0.0, 0.0);
-  static negyaxis = new Vect(0.0, -1.0, 0.0);
-  static negzaxis = new Vect(0.0, 0.0, -1.0);
+  static get negxaxis() {
+    return new Vect(-1.0, 0.0, 0.0);
+  }
+  static get negyaxis() {
+    return new Vect(0.0, -1.0, 0.0);
+  }
+  static get negzaxis() {
+    return new Vect(0.0, 0.0, -1.0);
+  }
 }

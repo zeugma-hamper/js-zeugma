@@ -26,9 +26,6 @@ export class ZeWholeShebang extends base_class(Zeubject).and_interfaces(
   RecursiveLimner
 ) {
   //
-  static canonical_instance = null;
-
-  //
   constructor() {
     super();
     //

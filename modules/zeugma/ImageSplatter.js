@@ -8,7 +8,9 @@ import { ZeColor } from "./ZeColor.js";
 
 export class ImageSplatter extends Alignifer {
   //
-  static default_back_color = new ZeColor(0.25, 0.0);
+  static get default_back_color() {
+    return new ZeColor(0.25, 0.0);
+  }
 
   //
   constructor(im) {

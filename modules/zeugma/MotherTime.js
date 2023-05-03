@@ -4,7 +4,9 @@
 
 export class MotherTime {
   //
-  static OOAT = 1.0 / 1000.0;
+  static get OOAT() {
+    return 1.0 / 1000.0;
+  }
 
   static MILLISECS_OF_NOW() {
     return Date.now();

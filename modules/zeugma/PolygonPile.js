@@ -7,7 +7,9 @@ import { ZeColor } from "./ZeColor.js";
 
 export class PolygonPile extends Alignifer {
   //
-  static default_fill_color = new ZeColor(0.5, 1.0);
+  static get default_fill_color() {
+    return new ZeColor(0.5, 1.0);
+  }
 
   //
   constructor(_sz, _nv) {

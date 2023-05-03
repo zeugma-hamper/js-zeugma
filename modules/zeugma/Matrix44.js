@@ -6,7 +6,9 @@ import { Vect } from "./Vect.js";
 
 export class Matrix44 {
   //
-  static i10 = 4;
+  static initClass() {
+    this.i10 = 4;
+  }
 
   constructor() {
     //super ();
@@ -650,6 +652,11 @@ export class Matrix44 {
   //
   ///
   //
-  static idmat = new Matrix44();
-  static zeromat = new Matrix44().LoadZero();
+  static get idmat() {
+    return new Matrix44();
+  }
+  static get zeromat() {
+    return new Matrix44().LoadZero();
+  }
 }
+Matrix44.initClass();

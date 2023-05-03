@@ -10,7 +10,9 @@ import { ZeColor } from "./ZeColor.js";
 
 export class Cursoresque extends PolygonPile {
   //
-  static default_cuss_hue = new ZeColor(0.5, 0.5, 0.0, 0.5);
+  static get default_cuss_hue() {
+    return new ZeColor(0.5, 0.5, 0.0, 0.5);
+  }
 
   //
   constructor(sz, nv) {
