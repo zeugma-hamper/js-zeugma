@@ -1,170 +1,84 @@
-
 //
 // (c) treadle & loam, provisioners llc
 //
 
+export {
+  squirt_all_properties_from_unto,
+  squirt_all_properties_from_unto_global,
+} from "./omni-squirter.js";
 
-let zeu = new Map ();
+import { squirt_all_properties_from_unto_global } from "./omni-squirter.js";
 
-//
-///
-//
+export const squirt_zeugma_unto_global = squirt_all_properties_from_unto_global;
 
-import { squirt_all_properties_from_unto,
-         squirt_all_properties_from_unto_global } from "./omni-squirter.js";
+export { base_class } from "./interface-ersatzer.js";
 
-zeu.squirt_all_properties_from_unto
-  = squirt_all_properties_from_unto;
+export { Vect } from "./Vect.js";
+export { Matrix44 } from "./Matrix44.js";
+export { Geom } from "./Geom.js";
+export { MotherTime } from "./MotherTime.js";
+export { ZeColor } from "./ZeColor.js";
 
-zeu.squirt_all_properties_from_unto_global
-  = squirt_all_properties_from_unto_global;
+export { ZeColl } from "./ZeColl.js";
+export { ZeWeakColl } from "./ZeWeakColl.js";
 
-zeu.squirt_zeugma_unto_global
-  = function ()  { squirt_all_properties_from_unto_global (zeu); };
+export { Zeubject } from "./Zeubject.js";
+export { IContainMultitudes } from "./IContainMultitudes.js";
+export { PouchyThing } from "./PouchyThing.js";
 
+export { IronLung } from "./IronLung.js";
+export { CommsSump } from "./CommsSump.js";
+export { OSCSump } from "./OSCSump.js";
+export { OSCViveWandSump } from "./OSCViveWandSump.js";
+export { ViveWandEventSynth } from "./ViveWandEventSynth.js";
+export { EventAqueduct } from "./EventAqueduct.js";
 
+export { OSCFaker } from "./OSCFaker.js";
+export { CheapOSCMessage } from "./CheapOSCMessage.js";
 
-//
-///
-//
+export { Loopervisor } from "./Loopervisor.js";
 
-import { base_class } from "./interface-ersatzer.js";
-zeu.base_class = base_class;
+export { Zoft } from "./Zoft.js";
+export { LatchZoft } from "./LatchZoft.js";
+export { SumZoft } from "./SumZoft.js";
+export { DiffZoft } from "./DiffZoft.js";
+export { ProdZoft } from "./ProdZoft.js";
+export { ScaleZoft } from "./ScaleZoft.js";
+export { LoopZoft } from "./LoopZoft.js";
+export { SinuZoft } from "./SinuZoft.js";
+export { InterpZoft } from "./InterpZoft.js";
+export { ZoftInterpFuncs } from "./ZoftInterpFuncs.js";
 
+export { CumuMats } from "./CumuMats.js";
+export { Grappler } from "./Grappler.js";
+export { CoGrappler } from "./CoGrappler.js";
+export { TrGrappler } from "./TrGrappler.js";
+export { ScGrappler } from "./ScGrappler.js";
+export { RoGrappler } from "./RoGrappler.js";
+export { GrapplerPile } from "./GrapplerPile.js";
 
-//
-///
-//
+export { Limnable } from "./Limnable.js";
+export { LimnyThing } from "./LimnyThing.js";
+export { SpaceThing } from "./SpaceThing.js";
+export { Alignifer } from "./Alignifer.js";
+export { PolygonPile } from "./PolygonPile.js";
+export { ImageSplatter } from "./ImageSplatter.js";
 
-import { Vect } from "./Vect.js";
-import { Matrix44 } from "./Matrix44.js";
-import { Geom } from "./Geom.js";
-import { MotherTime } from "./MotherTime.js";
-import { ZeColor } from "./ZeColor.js";
-zeu.Vect = Vect;
-zeu.Matrix44 = Matrix44;
-zeu.Geom = Geom;
-zeu.MotherTime = MotherTime;
-zeu.ZeColor = ZeColor;
+export { PlatonicMaes } from "./PlatonicMaes.js";
+export { Bolex } from "./Bolex.js";
 
-import { ZeColl } from "./ZeColl.js";
-import { ZeWeakColl } from "./ZeWeakColl.js";
-zeu.ZeColl = ZeColl;
-zeu.ZeWeakColl = ZeWeakColl;
+export { ZeEvent } from "./ZeEvent.js";
+export { ZESpatialEvent } from "./ZESpatialEvent.js";
+export { ZESpatialAppearEvent } from "./ZESpatialAppearEvent.js";
+export { ZESpatialVanishEvent } from "./ZESpatialVanishEvent.js";
+export { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";
+export { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
+export { ZESpatialPressureEvent } from "./ZESpatialPressureEvent.js";
+export { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
+export { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
 
-import { Zeubject } from "./Zeubject.js";
-import { IContainMultitudes } from "./IContainMultitudes.js";
-import { PouchyThing } from "./PouchyThing.js";
-zeu.Zeubject = Zeubject;
-zeu.IContainMultitudes = IContainMultitudes;
-zeu.PouchyThing = PouchyThing;
+export { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 
-import { IronLung } from "./IronLung.js";
-import { CommsSump } from "./CommsSump.js";
-import { OSCSump } from "./OSCSump.js";
-import { OSCViveWandSump } from "./OSCViveWandSump.js";
-import { ViveWandEventSynth } from "./ViveWandEventSynth.js";
-import { EventAqueduct } from "./EventAqueduct.js";
-zeu.IronLung = IronLung;
-zeu.CommsSump = CommsSump;
-zeu.OSCSump = OSCSump;
-zeu.OSCViveWandSump = OSCViveWandSump;
-zeu.ViveWandEventSynth = ViveWandEventSynth;
-zeu.EventAqueduct = EventAqueduct;
+export { Cursoresque } from "./Cursoresque.js";
 
-import { OSCFaker } from "./OSCFaker.js"
-import { CheapOSCMessage } from "./CheapOSCMessage.js"
-zeu.OSCFaker = OSCFaker;
-zeu.CheapOSCMessage = CheapOSCMessage;
-
-import { Loopervisor } from "./Loopervisor.js";
-zeu.Loopervisor = Loopervisor;
-
-import { Zoft } from "./Zoft.js";
-import { LatchZoft } from "./LatchZoft.js";
-import { SumZoft } from "./SumZoft.js";
-import { DiffZoft } from "./DiffZoft.js";
-import { ProdZoft } from "./ProdZoft.js";
-import { ScaleZoft } from "./ScaleZoft.js";
-import { LoopZoft } from "./LoopZoft.js";
-import { SinuZoft } from "./SinuZoft.js";
-import { InterpZoft } from "./InterpZoft.js";
-import { ZoftInterpFuncs } from "./ZoftInterpFuncs.js";
-zeu.Zoft = Zoft;
-zeu.LatchZoft = LatchZoft;
-zeu.SumZoft = SumZoft;
-zeu.DiffZoft = DiffZoft;
-zeu.ProdZoft = ProdZoft;
-zeu.ScaleZoft = ScaleZoft;
-zeu.LoopZoft = LoopZoft;
-zeu.SinuZoft = SinuZoft;
-zeu.InterpZoft = InterpZoft;
-zeu.ZoftInterpFuncs = ZoftInterpFuncs;
-
-import { CumuMats } from "./CumuMats.js";
-import { Grappler } from "./Grappler.js";
-import { CoGrappler } from "./CoGrappler.js";
-import { TrGrappler } from "./TrGrappler.js";
-import { ScGrappler } from "./ScGrappler.js";
-import { RoGrappler } from "./RoGrappler.js";
-import { GrapplerPile } from "./GrapplerPile.js";
-zeu.CumuMats = CumuMats;
-zeu.Grappler = Grappler;
-zeu.CoGrappler = CoGrappler;
-zeu.TrGrappler = TrGrappler;
-zeu.ScGrappler = ScGrappler;
-zeu.RoGrappler = RoGrappler;
-zeu.GrapplerPile = GrapplerPile;
-
-import { Limnable } from "./Limnable.js";
-import { LimnyThing } from "./LimnyThing.js";
-import { SpaceThing } from "./SpaceThing.js";
-import { Alignifer } from "./Alignifer.js";
-import { PolygonPile } from "./PolygonPile.js";
-import { ImageSplatter } from "./ImageSplatter.js";
-zeu.Limnable = Limnable;
-zeu.LimnyThing = LimnyThing;
-zeu.SpaceThing = SpaceThing;
-zeu.Alignifer = Alignifer;
-zeu.PolygonPile = PolygonPile;
-zeu.ImageSplatter = ImageSplatter;
-
-import { PlatonicMaes } from "./PlatonicMaes.js";
-import { Bolex } from "./Bolex.js";
-zeu.PlatonicMaes = PlatonicMaes;
-zeu.Bolex = Bolex;
-
-import { ZeEvent } from "./ZeEvent.js"
-import { ZESpatialEvent } from "./ZESpatialEvent.js"
-import { ZESpatialAppearEvent } from "./ZESpatialAppearEvent.js";
-import { ZESpatialVanishEvent } from "./ZESpatialVanishEvent.js";
-import { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";
-import { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
-import { ZESpatialPressureEvent } from "./ZESpatialPressureEvent.js";
-import { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
-import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
-zeu.ZeEvent = ZeEvent;
-zeu.ZESpatialEvent = ZESpatialEvent
-zeu.ZESpatialAppearEvent = ZESpatialAppearEvent;
-zeu.ZESpatialVanishEvent = ZESpatialVanishEvent;
-zeu.ZESpatialMoveEvent = ZESpatialMoveEvent;
-zeu.ZESpatialCaressEvent = ZESpatialCaressEvent;
-zeu.ZESpatialPressureEvent = ZESpatialPressureEvent;
-zeu.ZESpatialHardenEvent = ZESpatialHardenEvent;
-zeu.ZESpatialSoftenEvent = ZESpatialSoftenEvent;
-
-import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
-zeu.ZESpatialPhagy = ZESpatialPhagy;
-
-import { Cursoresque } from "./Cursoresque.js";
-zeu.Cursoresque = Cursoresque;
-
-import { ZeWholeShebang } from "./ZeWholeShebang.js";
-zeu.ZeWholeShebang = ZeWholeShebang;
-
-
-//
-///
-//
-
-export default zeu;
+export { ZeWholeShebang } from "./ZeWholeShebang.js";
