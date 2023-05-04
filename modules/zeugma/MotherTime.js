@@ -12,7 +12,7 @@ export class MotherTime
     { return Date.now (); }
 
   static AbsoluteTime ()
-    { return OOAT * MILLISECS_OF_NOW (); }
+    { return this.OOAT * this.MILLISECS_OF_NOW (); }
 
   constructor ()
     { this.secs_per_sec = 1.0;
@@ -93,7 +93,7 @@ export class MotherTime
 
 
   TimeFlowRate ()
-    { return secs_per_sec; }
+    { return this.secs_per_sec; }
 
   SetTimeFlowRate (sps)
     { const cur = this.CurTime ();

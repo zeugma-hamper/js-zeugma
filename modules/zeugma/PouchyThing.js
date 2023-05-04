@@ -47,7 +47,7 @@ export class PouchyThing  extends base_class (Zeubject)
         return false;
       if (this.chirrens == null)
         this.chirrens = new Array ();
-      else if (chirrens . includes (z))
+      else if (this.chirrens . includes (z))
         return false;
       this.chirrens . splice (ind, 0, z);
       return true;

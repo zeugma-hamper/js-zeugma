@@ -143,5 +143,5 @@ export class ZeColor
   static white = new ZeColor ();
   static black = new ZeColor (0.0);
   static trnsp_wht = new ZeColor (1.0, 0.0);
-  static trnsp_wht = new ZeColor (0.0, 0.0);
+  static trnsp_blk = new ZeColor (0.0, 0.0);
 }

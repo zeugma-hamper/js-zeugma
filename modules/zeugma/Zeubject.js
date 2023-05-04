@@ -13,9 +13,9 @@ export class Zeubject
        extends base_class (Object) . and_interfaces (IContainMultitudes)
 { //
   constructor ()
-	  { super ();
-	    this.rat_fresh = -1;
-	  }
+    { super ();
+      this.rat_fresh = -1;
+    }
 
   IsZeugmallyLimnable ()
     { return false; }
@@ -38,7 +38,7 @@ export class Zeubject
     { if (ratch < 0)
         return true;
       if (this.rat_fresh >= ratch)
-      	return false;
+        return false;
       this.rat_fresh = ratch;
       return true;
     }

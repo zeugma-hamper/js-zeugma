@@ -38,29 +38,29 @@ export class CumuMats
 
 
   XformPointWorldToLocal (p)
-    { if (ipmat == null  ||  inmat == null)
+    { if (this.ipmat == null  ||  this.inmat == null)
         return p . Dup ();
-      return ipmat . TransformVect (p);
+      return this.ipmat . TransformVect (p);
     }
 
   XformPointLocalToWorld (p)
-    { if (ipmat == null  ||  inmat == null)
+    { if (this.ipmat == null  ||  this.inmat == null)
         return p . Dup ();
-      return pmat . TransformVect (p);
+      return this.pmat . TransformVect (p);
     }
 
 
   XformRayWorldToLocal (frm, aim)
-    { if (ipmat == null  ||  inmat == null)
-        return [from . Dup (), aim . Dup ()];
-      return [ipmat . TransformVect (frm),
-              inmat . TransformVect (aim)];
+    { if (this.ipmat == null  ||  this.inmat == null)
+        return [frm . Dup (), aim . Dup ()];
+      return [this.ipmat . TransformVect (frm),
+              this.inmat . TransformVect (aim)];
     }
 
   XformRayLocalToWorld (frm, aim)
-    { if (ipmat == null  ||  inmat == null)
-        return [from . Dup (), aim . Dup ()];
-      return [pmat . TransformVect (frm),
-              nmat . TransformVect (aim)];
+    { if (this.ipmat == null  ||  this.inmat == null)
+        return [frm . Dup (), aim . Dup ()];
+      return [this.pmat . TransformVect (frm),
+              this.nmat . TransformVect (aim)];
     }
 }

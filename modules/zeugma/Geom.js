@@ -65,7 +65,7 @@ export class Geom
 
 
   static RayAnnulusIntersectionPolar (frm, aim, cnt, e0, e1, r1, r2)
-    { const hit = RayPlaneIntersection (frm, aim, cnt, e0 . Cross (e1));
+    { const hit = this.RayPlaneIntersection (frm, aim, cnt, e0 . Cross (e1));
       if (hit == null)
         return null;
       const h = hit . Sub (cnt);
@@ -77,7 +77,7 @@ export class Geom
     }
 
   static RayAnnulusIntersection (frm, aim, cnt, e0, e1, r1, r2)
-    { const hit = RayPlaneIntersection (frm, aim, cnt, e0 . Cross (e1));
+    { const hit = this.RayPlaneIntersection (frm, aim, cnt, e0 . Cross (e1));
       if (hit == null)
         return null;
       const arr_sq = (hit . Sub (cnt)) . AutoDot ();
@@ -87,14 +87,15 @@ export class Geom
     }
 
   static RayDiskIntersectionPolar (frm, aim, cnt, e0, e1, r)
-    { return RayAnnulusIntersectionPolar (frm, aim, cnt, e0, e1, 0.0, r); }
+    { return this.RayAnnulusIntersectionPolar (frm, aim, cnt, e0, e1, 0.0, r); }
 
   static RayDiskIntersection (frm, aim, cnt, e0, e1, r)
-    { return RayAnnulusIntersection (frm, aim, cnt, e0, e1, 0.0, r); }
+    { return this.RayAnnulusIntersection (frm, aim, cnt, e0, e1, 0.0, r); }
 
 
   static LineAnnulusIntersectionPolar (ln_pnt, ln_dir, cnt, e0, e1, r1, r2)
-    { const hit = LinePlaneIntersection (ln_pnt, ln_dir, cnt, e0 . Cross (e1));
+    { const hit = this.LinePlaneIntersection (ln_pnt, ln_dir, cnt,
+                                              e0 . Cross (e1));
       if (hit == null)
         return null;
       const h = hit . Sub (cnt);
@@ -106,7 +107,8 @@ export class Geom
     }
 
   static LineAnnulusIntersection (ln_pnt, ln_dir, cnt, e0, e1, r1, r2)
-    { const hit = LinePlaneIntersection (ln_pnt, ln_dir, cnt, e0 . Cross (e1));
+    { const hit = this.LinePlaneIntersection (ln_pnt, ln_dir, cnt,
+                                              e0 . Cross (e1));
       if (hit == null)
         return null;
       const arr_sq = (hit . Sub (cnt)) . AutoDot ();
@@ -116,12 +118,14 @@ export class Geom
     }
 
   static LineDiskIntersectionPolar (ln_pnt, ln_dir, cnt, e0, e1, r)
-    { return LineAnnulusIntersectionPolar (ln_pnt, ln_dir,
-                                           cnt, e0, e1, 0.0, r);
+    { return this.LineAnnulusIntersectionPolar (ln_pnt, ln_dir,
+                                                cnt, e0, e1, 0.0, r);
     }
 
   static LineDiskIntersection (ln_pnt, ln_dir, cnt, e0, e1, r)
-    { return LineAnnulusIntersection (ln_pnt, ln_dir, cnt, e0, e1, 0.0, r); }
+    { return this.LineAnnulusIntersection (ln_pnt, ln_dir, cnt,
+                                           e0, e1, 0.0, r);
+    }
 
 
   static _RaySphereIntersectionSolutions (frm, aim, cnt, rad)
@@ -148,10 +152,10 @@ export class Geom
 
   static RaySphereIntersections (frm, aim, cnt, rad)
     { const solns
-        = _RaySphereIntersectionSolutions (frm, aim, cnt, rad);
+        = this._RaySphereIntersectionSolutions (frm, aim, cnt, rad);
       if (solns[0] == null)
         return null;
-      emit = [null, null];
+      const emit = [null, null];
       emit[0] = frm . Add (aim . Sca (solns[0]));
       if (solns[1] != null)
         emit[1] = frm . Add (aim . Sca (solns[0]));
@@ -160,7 +164,7 @@ export class Geom
 
   static RaySphereForwardIntersections (frm, aim, cnt, rad)
     { const solns
-        = _RaySphereIntersectionSolutions (frm, aim, cnt, rad);
+        = this._RaySphereIntersectionSolutions (frm, aim, cnt, rad);
       if (solns[0] == null
           ||  (solns[0] < 0.0  &&  (solns[1] == null || solns[1] < 0.0)))
         return null;

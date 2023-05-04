@@ -773,7 +773,7 @@ whin . addEventListener ('pointermove',
 
       const loo = novo . Looper ();
       const zolu = loo . AssuredZoftLung ();
-      const delu = loo . AssuredDefaultLung ();
+      loo . AssuredDefaultLung ();  // for the glorious side effect of creation
       Zoft.SetDefaultLung (zolu);
 
       novo . InstallSampleMaesConfig ();

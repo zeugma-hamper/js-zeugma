@@ -70,7 +70,7 @@ export class Matrix44
 /// arithmetic...
 //
   Neg ()
-    { const m = this.m, arr = new Float64Array (16);
+    { const arr = new Float64Array (16);
       for (let q = 15  ;  q >= 0  ;  --q)
         arr[q] = -this.m[q];
       return new Matrix44 () . _SetGuts (arr);

@@ -27,7 +27,7 @@ export class IronLung  extends Zeubject
         { for (const z of this.expirees)
             if (this.IndexOfBreathee (z)  >=  0)
               this._RemoveNthBreathee (z);
-          expirees = new Array ();
+          this.expirees = new Array ();
         }
       if (this.aspirants.length  >  0)
         { for (const z of this.aspirants)
@@ -51,7 +51,7 @@ export class IronLung  extends Zeubject
         { for (const z of this.expirees)
             if (this.IndexOfBreathee (z)  >=  0)
               this._RemoveNthBreathee (z);
-          expirees = new Array ();
+          this.expirees = new Array ();
         }
       if (this.aspirants.length  >  0)
         { for (const z of this.aspirants)

@@ -8,9 +8,9 @@ export class Vect
 { //
   constructor (eks, wye, zee)
     { this.x = eks;
-	    this.y = wye;
-	    this.z = zee;
-	  }
+      this.y = wye;
+      this.z = zee;
+    }
 
   X ()  { return this.x; }
   Y ()  { return this.y; }
@@ -87,12 +87,12 @@ export class Vect
       if (s == 0.0)
         return this;
       s = 1.0 / s;
-      return ScaAcc (s);
+      return this.ScaAcc (s);
     }
   NormSelfReturningMag ()
     { const s = this . Mag ();
       if (s != 0.0)
-        ScaAcc (1.0 / s);
+        this.ScaAcc (1.0 / s);
       return s;
     }
 
@@ -104,28 +104,31 @@ export class Vect
 //
 /// reflections
 //
-  ReflectInPlane (pl_nrml)
-    { return this . Sub (pl_nrml . Sca (2.0 * this . Dot (pl_nrml))); }
   ReflectInPlane (pl_nrml, cntr)
-    { const p = this . Sub (cntr);
+    { if (! cntr)
+        return this . Sub (pl_nrml . Sca (2.0 * this . Dot (pl_nrml)));
+      const p = this . Sub (cntr);
       return cntr . Add (p . Sub (pl_nrml . Sca (2.0 * p . Dot (pl_nrml))));
     }
 
-  ReflectInPlaneUnnormed (pl_nrml)
-    { return ReflectInPlane (pl_nrml . Norm ()); }
   ReflectInPlaneUnnormed (pl_nrml, cntr)
-    { return ReflectInPlane (pl_nrml . Norm (), cntr); }
+    { if (! cntr)
+        return this.ReflectInPlane (pl_nrml . Norm ());
+      return this.ReflectInPlane (pl_nrml . Norm (), cntr);
+    }
 
 
-  ReflectSelfInPlane (pl_nrml)
-    { return Set (ReflectInPlane (pl_nrml)); }
   ReflectSelfInPlane (pl_nrml, cntr)
-    { return Set (ReflectInPlane (pl_nrml, cntr)); }
+    { if (! cntr)
+        return Set (this.ReflectInPlane (pl_nrml));
+      return Set (this.ReflectInPlane (pl_nrml, cntr));
+    }
 
-  ReflectSelfInPlaneUnnormed (pl_nrml)
-    { return Set (ReflectInPlane (pl_nrml . Norm ())); }
   ReflectSelfInPlaneUnnormed (pl_nrml, cntr)
-    { return Set (ReflectInPlane (pl_nrml . Norm (), cntr)); }
+    { if (! cntr)
+        return Set (this.ReflectInPlane (pl_nrml . Norm ()));
+      return Set (this.ReflectInPlane (pl_nrml . Norm (), cntr));
+    }
 
 
 //
@@ -185,7 +188,7 @@ export class Vect
       return Set (t1, t2, t3);
     }
   RotateSelf (axis, rad_ang)
-    { return RotateSelfPreNormed (axis . Norm (), rad_ang); }
+    { return this.RotateSelfPreNormed (axis . Norm (), rad_ang); }
 
   RotatePreNormed (axis, rad_ang)
     { const out = this.Dup ();
@@ -197,7 +200,7 @@ export class Vect
     }
 
   RotateAbout (axis, rad_ang, cent)
-    { return cent . Add (Sub (cent) . Rotate (axis, rad_ang)); }
+    { return cent . Add (this . Sub (cent) . Rotate (axis, rad_ang)); }
   RotateSelfAbout (axis, rad_ang, cent)
     { this.SubAcc (cent);
       this.RotateSelf (axis, rad_ang);
@@ -205,7 +208,7 @@ export class Vect
     }
 
   RotateAboutPreNormed (axis, rad_ang, cent)
-    { return cent . Add (Sub (cent) . RotatePreNormed (axis, rad_ang)); }
+    { return cent . Add (this . Sub (cent) . RotatePreNormed (axis, rad_ang)); }
   RotateSelfAboutPreNormed (axis, rad_ang, cent)
     { this.SubAcc (cent);
       this.RotateSelfPreNormed (axis, rad_ang);

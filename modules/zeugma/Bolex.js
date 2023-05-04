@@ -48,7 +48,8 @@ export class Bolex  extends SpaceThing
     { return this.z_view_upp . Val (); }
   ViewCOI ()
     { return this.z_view_loc . Val ()
-               . Add (view_aim . Val () . Mul (view_dist . Val ()));
+               . Add (this.z_view_aim . Val ()
+               . Mul (this.z_view_dist . Val ()));
     }
 
   ViewDist ()
