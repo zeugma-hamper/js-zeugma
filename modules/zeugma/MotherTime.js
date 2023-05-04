@@ -39,7 +39,7 @@ export class MotherTime
   DeltaTime ()
     { if (this.chrono_freeze)
         return 0.0;
-      let dt = this._ElapsedOffset ();
+      const dt = this._ElapsedOffset ();
       this.nowesque_time += dt;
       return dt;
     }
@@ -73,7 +73,7 @@ export class MotherTime
   SetTimePausedness (bool_tp)
     { if (this.chrono_freeze == bool_tp)
         return this.nowesque_time;
-      let cur = this.CurTime ();
+      const cur = this.CurTime ();
       this.chrono_freeze = bool_tp;
       if (! bool_tp)
         this.prev_millisecs = this.constructor.MILLISECS_OF_NOW ();
@@ -96,22 +96,22 @@ export class MotherTime
     { return secs_per_sec; }
 
   SetTimeFlowRate (sps)
-    { let cur = this.CurTime ();
+    { const cur = this.CurTime ();
       this.secs_per_sec = sps;
       return cur;
     }
 
 
   _ElapsedOffset ()
-    { let cur_msecs = this.constructor.MILLISECS_OF_NOW ();
-      let diff_time = this.secs_per_sec * this.constructor.OOAT
-          * (cur_msecs - this.prev_millisecs);
+    { const cur_msecs = this.constructor.MILLISECS_OF_NOW ();
+      const diff_time = this.secs_per_sec * this.constructor.OOAT
+        * (cur_msecs - this.prev_millisecs);
       this.prev_millisecs = cur_msecs;
       return diff_time;
     }
 
   _ElapsedOffsetGlance ()
-    { let cur_msecs = this.constructor.MILLISECS_OF_NOW ();
+    { const cur_msecs = this.constructor.MILLISECS_OF_NOW ();
       return this.secs_per_sec * this.constructor.OOAT
         * (cur_msecs - this.prev_millisecs);
     }

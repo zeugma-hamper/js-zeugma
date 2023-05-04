@@ -12,8 +12,8 @@ import { DiffZoftGuts } from "./DiffZoftGuts.js"
 export class DiffZoft  extends Zoft
 { //
   static NewWith (a, b)
-    { let z = Zoft._PrivateNew ();
-      let g = new DiffZoftGuts ();
+    { const z = Zoft._PrivateNew ();
+      const g = new DiffZoftGuts ();
       g . _InstallMinuendZoft (Zoft.NewWith (a));
       g . _InstallSubtrahendZoft (Zoft.NewWith (b));
       z . _SetGuts (g);

@@ -48,11 +48,12 @@ export class LoopZoftGuts  extends ZoftGuts
       this.z_start . Inhale (ratch, thyme);
       this.z_dxdt . Inhale (ratch, thyme);
       this.z_loop_dur . Inhale (ratch, thyme);
-      let dt = thyme - this.prev_time;
+      const dt = thyme - this.prev_time;
       this.prev_time = thyme;
       this.loop_time += dt;
 
-      let v, dur = this.z_loop_dur . Val ();
+      let v;
+      const dur = this.z_loop_dur . Val ();
       if (dur <= 0.0  ||  this.loop_time <= dur)
         v = Zoft.OffalAdd (this.prev_val,
                            Zoft.OffalSca (this.z_dxdt . Val (), dt));

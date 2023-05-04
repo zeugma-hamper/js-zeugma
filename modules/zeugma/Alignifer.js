@@ -17,15 +17,15 @@ export class Alignifer  extends SpaceThing
       this.upp = Vect.yaxis;
       this.nrm = Vect.zaxis;
 
-      let cog = new CoGrappler ();
+      const cog = new CoGrappler ();
       cog . SetName ("alignment");
       this.AppendGrappler (cog);
 
-      let scg = new ScGrappler () . InstallScale (this.z_sca);
+      const scg = new ScGrappler () . InstallScale (this.z_sca);
       scg . SetName ("scale");
       this.AppendGrappler (scg);
 
-      let trg = new TrGrappler () . InstallTranslation (this.z_loc);
+      const trg = new TrGrappler () . InstallTranslation (this.z_loc);
       trg . SetName ("loc");
       this.AppendGrappler (trg);
     }
@@ -38,22 +38,22 @@ export class Alignifer  extends SpaceThing
     { return this.FindGrappler ("loc"); }
 
   ScaleGrapplerScaZoft ()
-    { let scg = this.ScaleGrappler ();
+    { const scg = this.ScaleGrappler ();
       return (scg != null)  ?  scg . ScaleZoft ()  :  null;
     }
   ScaleGrapplerCntZoft ()
-    { let scg = this.ScaleGrappler ();
+    { const scg = this.ScaleGrappler ();
       return (scg != null)  ?  scg . CenterZoft ()  :  null;
     }
 
   LocGrapplerZoft ()
-    { let trg = this.LocGrappler ();
+    { const trg = this.LocGrappler ();
       return (trg != null)  ?  trg . TranslationZoft ()  :  null;
     }
 
 
   InstallLocGrapplerZoft (lgzo)
-    { let trg = this.LocGrappler ();
+    { const trg = this.LocGrappler ();
       if (trg == null)
         return false;
       trg . InstallTranslation (lgzo);
@@ -62,7 +62,7 @@ export class Alignifer  extends SpaceThing
     }
 
   InstallScaleGrapplerZoft (sgzo)
-    { let scg = this . ScaleGrappler ();
+    { const scg = this . ScaleGrappler ();
       if (scg == null)
         return false;
       scg . InstallScale (sgzo);
@@ -103,10 +103,10 @@ export class Alignifer  extends SpaceThing
 
 
   AlignOverUp (ov, up)
-    { let o = ov . Norm (),  u = up . Norm ();
-      let n = o . Cross (u);
+    { const o = ov . Norm (),  u = up . Norm ();
+      const n = o . Cross (u);
 
-      let cgr = this.AlignmentGrappler ();
+      const cgr = this.AlignmentGrappler ();
       if (cgr != null)
         cgr . SetViaNormalizedBasisVectors (o, u, n);
 

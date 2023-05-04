@@ -52,17 +52,17 @@ export class Loopervisor  extends Zeubject
     }
 
   OnceMoreUntoTheBreath ()
-    { for (let ump of this.active_sumps)
+    { for (const ump of this.active_sumps)
         if (ump != null)
           ump . ProcessSump ();
 
-      for (let qued of this.active_aqueducts)
+      for (const qued of this.active_aqueducts)
         if (qued != null)
           qued . DrainReservoir ();
 
       this.FreshenTimestamps ();
 
-      for (let ung of this.active_lungs)
+      for (const ung of this.active_lungs)
         if (ung != null)
           ung . Inhale (this.grand_ratchet, this.recentest_time);
 
@@ -80,11 +80,11 @@ export class Loopervisor  extends Zeubject
         return this;
 
       this.is_looping = true;
-      let selfesque = this;
-      let momty = this.constructor.momma_t;
+      const selfesque = this;
+      const momty = this.constructor.momma_t;
 
-      let _SpinGlo = function ()
-        { let befo_t = momty . CurTime ();
+      const _SpinGlo = function ()
+        { const befo_t = momty . CurTime ();
           selfesque.OneDelightfulTurn ();
           let dt = momty . CurTime () - befo_t;
           dt = selfesque.target_loop_dur - dt;
@@ -112,7 +112,7 @@ export class Loopervisor  extends Zeubject
 
 
   Travail (ratch, thyme)
-    { let cnt = this.active_toilers.length;
+    { const cnt = this.active_toilers.length;
       let toi = null;
       let ded_cnt = 0;
       for (let q = 0  ;  q < cnt  ;  ++q)

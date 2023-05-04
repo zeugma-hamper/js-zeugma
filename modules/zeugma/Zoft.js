@@ -38,7 +38,7 @@ export class Zoft  extends Zeubject
                          + " with 'new'; use 'NewWith()' instead. Won't you?");
       this.val = null;
       // this.guts = null;
-      let lng = this.constructor.DefaultLung ();
+      const lng = this.constructor.DefaultLung ();
       if (lng != null)
         lng . AppendBreathee (this);
     }
@@ -67,7 +67,7 @@ export class Zoft  extends Zeubject
   BecomeLike (zft)
     { if (zft == null  ||  zft == this)
         return this;
-      let prevguts = this.guts,
+      const prevguts = this.guts,
         othaguts = zft . Guts ();
       if (othaguts  ==  this.guts)
         return this;

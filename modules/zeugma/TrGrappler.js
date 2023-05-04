@@ -35,7 +35,7 @@ export class TrGrappler  extends Grappler
     { return this.ipm; }
 
   Inhale (ratch, thyme)
-    { let tr = this.trans . Val ();
+    { const tr = this.trans . Val ();
       this.pm . LoadTranslation (tr);
       this.ipm . LoadTranslationXYZ (-tr.x, -tr.y, -tr.z);
       return 0;

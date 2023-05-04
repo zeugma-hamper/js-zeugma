@@ -24,7 +24,7 @@ export const Limnable = (supah) => class extends supah
   AdjColorZoft ()
     { return null; }
   SetAdjColor (ac)
-    { let ziro = this.AdjColorZoft ();
+    { const ziro = this.AdjColorZoft ();
       if (ziro != null)
         ziro . Set (ac);
       return this;
@@ -44,11 +44,11 @@ export const Limnable = (supah) => class extends supah
 
 
   CanvasProjectVertex (cm, vp_mat, corr, vtx)
-    { let hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
-      let hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
-      let cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
-      let mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
-      let vec = mat . TransformVect (vtx);
+    { const hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
+      const hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
+      const cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
+      const mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
+      const vec = mat . TransformVect (vtx);
       if (vec.z != 0.0)
         { vec.x = hlfw * (1.0 + vec.x / vec.z);
           vec.y = hlfh * (1.0 - vec.y / vec.z);
@@ -57,12 +57,12 @@ export const Limnable = (supah) => class extends supah
     }
 
   CanvasProjectVertexArray (cm, vp_mat, corr, varr)
-    { let hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
-      let hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
-      let cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
-      let mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
-      let outarr = mat . TransformVectArray (varr);
-      for (let vec of outarr)
+    { const hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
+      const hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
+      const cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
+      const mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
+      const outarr = mat . TransformVectArray (varr);
+      for (const vec of outarr)
         if (vec.z != 0.0)
           { vec.x = hlfw * (1.0 + vec.x / vec.z);
             vec.y = hlfh * (1.0 - vec.y / vec.z);
@@ -71,14 +71,14 @@ export const Limnable = (supah) => class extends supah
     }
 
   CanvasProjectVertexArrays (cm, vp_mat, corr, varrs)
-    { let outarr = new Array ();
-      let hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
-      let hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
-      let cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
-      let mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
-      for (let verts of varrs)
-        { let vecarr = mat . TransformVectArray (verts);
-          for (let vec of vecarr)
+    { const outarr = new Array ();
+      const hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
+      const hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
+      const cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
+      const mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
+      for (const verts of varrs)
+        { const vecarr = mat . TransformVectArray (verts);
+          for (const vec of vecarr)
             if (vec.z != 0.0)
               { vec.x = hlfw * (1.0 + vec.x / vec.z);
                 vec.y = hlfh * (1.0 - vec.y / vec.z);
@@ -89,12 +89,12 @@ export const Limnable = (supah) => class extends supah
     }
 
   CanvasProjectSixDOFRotationAngle (cm, vp_mat, corr)
-    { let pr = this.CanvasProjectVertexArray (cm, vp_mat, corr,
-                                              [Vect.zerov, Vect.xaxis]);
-      let proj_xax = pr[1] . Sub (pr[0])
+    { const pr = this.CanvasProjectVertexArray (cm, vp_mat, corr,
+                                                [Vect.zerov, Vect.xaxis]);
+      const proj_xax = pr[1] . Sub (pr[0])
       if (proj_xax . IsZero ())
         return 0.0;
-      let ang = Vect.xaxis . AngleWith (proj_xax);
+      const ang = Vect.xaxis . AngleWith (proj_xax);
       return (proj_xax . Y ()  >  0.0)  ?  ang  :  -ang;
     }
 

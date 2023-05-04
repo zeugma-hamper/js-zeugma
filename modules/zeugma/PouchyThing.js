@@ -56,7 +56,7 @@ export class PouchyThing  extends base_class (Zeubject)
   RemoveChild (z)
     { if (this.chirrens == null  ||  z == null)
         return false;
-      let ind = this.IndexForChild (z);
+      const ind = this.IndexForChild (z);
       if (ind < 0)
         return false;
       this.chirrens . splice (ind, 1);

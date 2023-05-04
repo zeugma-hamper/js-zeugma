@@ -60,18 +60,18 @@ export class PolygonPile  extends Alignifer
       return this.poly_arr[ind];
     }
   NewPoly ()
-    { let parr = new Array ();
+    { const parr = new Array ();
       this.poly_arr . push (parr);
       return parr;
     }
 
   DrawSelf (ratch, cm, adjc, bonus)
-    { let ctx = bonus[1];
+    { const ctx = bonus[1];
       if (ctx == null)
         return 0;
 
-      let polys = this.CanvasProjectVertexArrays (cm, bonus[2], bonus[0],
-                                                  this.poly_arr);
+      const polys = this.CanvasProjectVertexArrays (cm, bonus[2], bonus[0],
+                                                    this.poly_arr);
       if (ctx == null)
         return 0;
       if (this.fill_iro != null)
@@ -86,9 +86,9 @@ export class PolygonPile  extends Alignifer
             sc = sc . Mul (adjc);
           ctx.strokeStyle = sc . AsCSSString ();
         }
-      for (let poly of polys)
+      for (const poly of polys)
         { let q = 0;
-          for (let vec of poly)
+          for (const vec of poly)
             { if (q == 0)
                 ctx . beginPath ();
               ctx . lineTo (vec.x, vec.y);

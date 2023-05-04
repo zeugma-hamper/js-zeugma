@@ -90,7 +90,7 @@ export class Vect
       return ScaAcc (s);
     }
   NormSelfReturningMag ()
-    { let s = this . Mag ();
+    { const s = this . Mag ();
       if (s != 0.0)
         ScaAcc (1.0 / s);
       return s;
@@ -107,7 +107,7 @@ export class Vect
   ReflectInPlane (pl_nrml)
     { return this . Sub (pl_nrml . Sca (2.0 * this . Dot (pl_nrml))); }
   ReflectInPlane (pl_nrml, cntr)
-    { let p = this . Sub (cntr);
+    { const p = this . Sub (cntr);
       return cntr . Add (p . Sub (pl_nrml . Sca (2.0 * p . Dot (pl_nrml))));
     }
 
@@ -135,14 +135,14 @@ export class Vect
   ProjectOnto (n)
     { return n . Sca (n . Dot (this)); }
   ProjectOntoUnnormed (nun)
-    { let n = nun . Norm ();
+    { const n = nun . Norm ();
       return n . Sca (n . Dot (this));
     }
 
   RejectFrom (n)
     { return this . Sub (n . Sca (n . Dot (this))); }
   RejectFromUnnormed (nun)
-    { let n = nun . Norm ();
+    { const n = nun . Norm ();
       return this . Sub (n . Sca (n . Dot (this)));
     }
 
@@ -153,34 +153,34 @@ export class Vect
   RotateSelfPreNormed (axis, rad_ang)
     { if (axis . IsZero ())
         return this;
-      let a = axis;
+      const a = axis;
 
-      let co = Math.cos (rad_ang);
-      let si = Math.sin (rad_ang);
-      let omc = 1.0 - co;
+      const co = Math.cos (rad_ang);
+      const si = Math.sin (rad_ang);
+      const omc = 1.0 - co;
 
-      let m00 = co  +  a.x * a.x * omc;
-      let m11 = co  +  a.y * a.y * omc;
-      let m22 = co  +  a.z * a.z * omc;
+      const m00 = co  +  a.x * a.x * omc;
+      const m11 = co  +  a.y * a.y * omc;
+      const m22 = co  +  a.z * a.z * omc;
 
       let t1 = a.x * a.y * omc;
-      let t3, t2 = a.z * si;
-      let m10 = t1 - t2;
-      let m01 = t1 + t2;
+      let t2 = a.z * si;
+      const m10 = t1 - t2;
+      const m01 = t1 + t2;
 
       t1 = a.x * a.z * omc;
       t2 = a.y * si;
-      let m20 = t1 - t2;
-      let m02 = t1 + t2;
+      const m20 = t1 - t2;
+      const m02 = t1 + t2;
 
       t1 = a.y * a.z * omc;
       t2 = a.x * si;
-      let m21 = t1 - t2;
-      let m12 = t1 + t2;
+      const m21 = t1 - t2;
+      const m12 = t1 + t2;
 
-      t1 = m00 * this.x  +  m10 * this.y  +  m20 * this.z;
-      t2 = m01 * this.x  +  m11 * this.y  +  m21 * this.z;
-      t3 = m02 * this.x  +  m12 * this.y  +  m22 * this.z;
+      t1       = m00 * this.x  +  m10 * this.y  +  m20 * this.z;
+      t2       = m01 * this.x  +  m11 * this.y  +  m21 * this.z;
+      const t3 = m02 * this.x  +  m12 * this.y  +  m22 * this.z;
 
       return Set (t1, t2, t3);
     }
@@ -188,11 +188,11 @@ export class Vect
     { return RotateSelfPreNormed (axis . Norm (), rad_ang); }
 
   RotatePreNormed (axis, rad_ang)
-    { let out = this.Dup ();
+    { const out = this.Dup ();
       return out . RotateSelfPreNormed (axis, rad_ang);
     }
   Rotate (axis, rad_ang)
-    { let out = this.Dup ();
+    { const out = this.Dup ();
       return out . RotateSelf (axis, rad_ang);
     }
 

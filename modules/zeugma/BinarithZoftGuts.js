@@ -29,7 +29,7 @@ export class BinarithZoftGuts  extends ZoftGuts
     { if (this.IsFreshFor (ratch))
         return 0;
 
-      let v, aval, bval;
+      let aval, bval;
       if (this.zoft_a != null)
         { this.zoft_a . Inhale (ratch, thyme);
           aval = this.zoft_a . Val ();
@@ -38,7 +38,7 @@ export class BinarithZoftGuts  extends ZoftGuts
         { this.zoft_b . Inhale (ratch, thyme);
           bval = this.zoft_b . Val ();
         }
-      v = this.BinOp () (aval, bval);
+      const v = this.BinOp () (aval, bval);
 
       this.PuppeteerHosts (v);
       this.SetRatchet (ratch);

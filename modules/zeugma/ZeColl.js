@@ -47,7 +47,7 @@ export class ZeColl
   static Remove (coll, z)
     { if (coll == null  ||  z == null)
         return false;
-      let ind = coll . indexOf (z);
+      const ind = coll . indexOf (z);
       if (ind < 0)
         return false;
       coll . splice (ind, 1);

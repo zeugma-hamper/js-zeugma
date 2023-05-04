@@ -27,7 +27,7 @@ export class ViveWandEventSynth  extends Zeubject
       if (spatst == undefined)
         this.state_by_prov . set (pntr_nm, spatst = [ 0x00, false ]);
 
-      let smev = new ZESpatialMoveEvent (pntr_nm);
+      const smev = new ZESpatialMoveEvent (pntr_nm);
       smev . SetLoc (p) . SetAim (a) . SetOver (o);
       let butts = bbits, mask = 0x01;
       while (butts != 0)
@@ -39,7 +39,8 @@ export class ViveWandEventSynth  extends Zeubject
         }
 
       if (maes_src != null)
-        { let mah = PlatonicMaes.ClosestAmong (maes_src . Maeses (), p, a, true);
+        { const mah = PlatonicMaes.ClosestAmong (maes_src . Maeses (),
+                                                 p, a, true);
           smev . SetMaesAndHit (mah);
           if (mah != null)
             { const [ma, ht] = mah;
@@ -52,20 +53,20 @@ export class ViveWandEventSynth  extends Zeubject
             }
         }
 
-      let out_evs = new Array ();
+      const out_evs = new Array ();
       out_evs . push (smev);
 
       let prevb = spatst[0];
       if (prevb != bbits)
         { butts = bbits;  mask = 0x01;
           while ((prevb ^ butts)  !=  0)
-            { let curstate = butts & mask;
-              let oldstate = prevb & mask;
+            { const curstate = butts & mask;
+              const oldstate = prevb & mask;
               // if (prevb & mask  !=  curstate)  // what in the actual ass...
               if (curstate != oldstate)
-                { let spev = ((curstate > 0)
-                              ?  new ZESpatialHardenEvent (pntr_nm)
-                              :  new ZESpatialSoftenEvent (pntr_nm));
+                { const spev = ((curstate > 0)
+                                ?  new ZESpatialHardenEvent (pntr_nm)
+                                :  new ZESpatialSoftenEvent (pntr_nm));
                   spev . AdoptParticulars (smev);
                   spev . SetPressorIDAndPressureValue (mask, 0.0 + curstate);
                   if (smev.clientX != undefined)

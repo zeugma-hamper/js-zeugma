@@ -17,7 +17,7 @@ export class OSCViveWandSump  extends OSCSump
       this.direc_mat = null;
       this.synth_obj = new ViveWandEventSynth ();
 
-      let self = this;
+      const self = this;
       this.ForAddressAppendRawExtractor
         ("/events/spatial",
          (oscarr) => { return self.OSCToWandArgs (oscarr); }
@@ -46,11 +46,11 @@ export class OSCViveWandSump  extends OSCSump
   OSCToWandArgs (oscarr)
     { if (oscarr.length != 11)
         return null;
-      let prv = oscarr[0];
-      let butts = oscarr[1].low;   // good god...
-      let pos = new Vect (oscarr[2], oscarr[3], oscarr[4]);
-      let aim = new Vect (oscarr[5], oscarr[6], oscarr[7]);
-      let ovr = new Vect (oscarr[8], oscarr[9], oscarr[10]);
+      const prv = oscarr[0];
+      const butts = oscarr[1].low;   // good god...
+      const pos = new Vect (oscarr[2], oscarr[3], oscarr[4]);
+      const aim = new Vect (oscarr[5], oscarr[6], oscarr[7]);
+      const ovr = new Vect (oscarr[8], oscarr[9], oscarr[10]);
 
       if (this.point_mat != null  &&  this.direc_mat != null)
         { this.point_mat . TransformVectInPlace (pos);
@@ -58,15 +58,15 @@ export class OSCViveWandSump  extends OSCSump
           this.direc_mat . TransformVectInPlace (ovr);
         }
 
-      let retarr = [prv, butts, null,  // that'd be the caresses, Irv.
-                    pos, aim, ovr];
+      const retarr = [prv, butts, null,  // that'd be the caresses, Irv.
+                      pos, aim, ovr];
       return retarr;
     }
 
 
 //
   InstallSampleViveWandTransform ()
-    { let xforms = this.constructor . SampleViveWandTransformJSON ();
+    { const xforms = this.constructor . SampleViveWandTransformJSON ();
       this.SetPointMat (xforms.point_mat);
       this.SetDirectionMat (xforms.direc_mat);
     }

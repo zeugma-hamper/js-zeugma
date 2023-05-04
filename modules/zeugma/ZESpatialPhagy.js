@@ -17,7 +17,7 @@ import { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
 import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
 
 
-export let ZESpatialPhagy
+export const ZESpatialPhagy
   = ((supah) => base_class (supah)
        . and_interfaces (ZeEvent.Phage,
                          ZESpatialEvent.Phage,

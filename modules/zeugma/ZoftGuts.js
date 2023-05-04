@@ -28,8 +28,9 @@ export class ZoftGuts
     { return ZeWeakColl.Remove (this.zt_hosts, zft); }
 
   Hosts ()
-    { let zft, out_arr = new Array ();
-      for (let wkel of this.zt_hosts)
+    { let zft;
+      const out_arr = new Array ();
+      for (const wkel of this.zt_hosts)
         if (wkel != null  &&  (zft = wkel . deref ()) != null)
           out_arr . push (zft);
       return out_arr;
@@ -45,7 +46,7 @@ export class ZoftGuts
 
   PuppeteerHosts (val)
     { let zft;
-      for (let wkel of this.zt_hosts)
+      for (const wkel of this.zt_hosts)
         if (wkel != null  &&  (zft = wkel . deref ()) != null)
           zft . _SetVal (val);
       return this;

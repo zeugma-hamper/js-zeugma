@@ -70,7 +70,7 @@ export class Matrix44
 /// arithmetic...
 //
   Neg ()
-    { let m = this.m, arr = new Float64Array (16);
+    { const m = this.m, arr = new Float64Array (16);
       for (let q = 15  ;  q >= 0  ;  --q)
         arr[q] = -this.m[q];
       return new Matrix44 () . _SetGuts (arr);
@@ -84,7 +84,7 @@ export class Matrix44
 
 
   Add (otha)
-    { let m = this, o = otha;
+    { const m = this, o = otha;
       return new Matrix44 () . Load16
         ( m.m[0]+o.m[0],   m.m[1]+o.m[1],   m.m[2]+o.m[2],   m.m[3]+o.m[3],
           m.m[4]+o.m[4],   m.m[5]+o.m[5],   m.m[6]+o.m[6],   m.m[7]+o.m[7],
@@ -94,7 +94,7 @@ export class Matrix44
     }
 
   AddToSelf (otha)
-    { let m = this, o = otha;
+    { const m = this, o = otha;
       m.m[0]+=o.m[0];   m.m[1]+=o.m[1];   m.m[2]+=o.m[2];   m.m[3]+=o.m[3];
       m.m[4]+=o.m[4];   m.m[5]+=o.m[5];   m.m[6]+=o.m[6];   m.m[7]+=o.m[7];
       m.m[8]+=o.m[8];   m.m[9]+=o.m[9];   m.m[10]+=o.m[10]; m.m[11]+=o.m[11];
@@ -103,7 +103,7 @@ export class Matrix44
     }
 
   Sub (otha)
-    { let m = this, o = otha;
+    { const m = this, o = otha;
       return new Matrix44 () . Load16
         ( m.m[0]-o.m[0],   m.m[1]-o.m[1],   m.m[2]-o.m[2],   m.m[3]-o.m[3],
           m.m[4]-o.m[4],   m.m[5]-o.m[5],   m.m[6]-o.m[6],   m.m[7]-o.m[7],
@@ -113,7 +113,7 @@ export class Matrix44
     }
 
   SubFromSelf (otha)
-    { let m = this, o = otha;
+    { const m = this, o = otha;
       m.m[0]-=o.m[0];   m.m[1]-=o.m[1];   m.m[2]-=o.m[2];   m.m[3]-=o.m[3];
       m.m[4]-=o.m[4];   m.m[5]-=o.m[5];   m.m[6]-=o.m[6];   m.m[7]-=o.m[7];
       m.m[8]-=o.m[8];   m.m[9]-=o.m[9];   m.m[10]-=o.m[10]; m.m[11]-=o.m[11];
@@ -123,7 +123,7 @@ export class Matrix44
 
 
   Mul (otha)
-    { let m = this, o = otha;
+    { const m = this, o = otha;
       return new Matrix44 () . Load16
         ( m.m00() * o.m00()  +  m.m01() * o.m10()
            +  m.m02() * o.m20()  +  m.m03() * o.m30(),
@@ -170,7 +170,7 @@ export class Matrix44
     { return this.Load (otha . Mul (this)); }
 
   Transpose ()
-    { let m = this;
+    { const m = this;
       return new Matrix44 () . Load16
         ( m . m00 (),  m . m10 (),  m . m20 (),  m . m30 (),
           m . m01 (),  m . m11 (),  m . m21 (),  m . m31 (),
@@ -180,7 +180,8 @@ export class Matrix44
     }
 
   TransposeSelf ()
-    { let t, m = this;
+    { let t;
+      const m = this;
       t = m.m[1];  m.m[1] = m.m[4];  m.m[4] = t;  // 01 <--> 10
 
       t = m.m[2];  m.m[2] = m.m[8];  m.m[8] = t;  // 02 <--> 20
@@ -219,7 +220,7 @@ export class Matrix44
     }
 
   LoadScaleAbout (s, cnt)
-    { let oms = 1.0 - s;
+    { const oms = 1.0 - s;
       this.LoadZero ();
       this.m[0] = s;  this.m[5] = s;  this.m[10] = s;  this.m[15] = 1.0;
       this.m[12] = oms * cnt . X ();
@@ -251,9 +252,9 @@ export class Matrix44
   LoadRotationPreNormed (axs, ang)
     { if (axs . IsZero ())
         return this.LoadIdent ();
-      let co = Math.cos (ang);
-      let si = Math.sin (ang);
-      let omc = 1.0 - co;
+      const co = Math.cos (ang);
+      const si = Math.sin (ang);
+      const omc = 1.0 - co;
 
       this.LoadZero ();
 
@@ -286,7 +287,7 @@ export class Matrix44
 
   LoadRotationAboutPrenormed (axs, ang, cnt)
     { this.LoadTranslation (cnt . Neg ());
-      let emm = new Matrix44 () . LoadRotationPreNormed (axs, ang);
+      const emm = new Matrix44 () . LoadRotationPreNormed (axs, ang);
       this.MulSelfBy (emm);
       emm . LoadTranslation (cnt);
       return this.MulSelfBy (emm);
@@ -309,8 +310,8 @@ export class Matrix44
 
   LoadShearAbout (x_by_y, x_by_z,  y_by_x, y_by_z,  z_by_x, z_by_y,  cnt)
     { this.LoadTranslation (cnt . Neg ());
-      let emm = new Matrix44 ()
-          . LoadShear (x_by_y, x_by_z,  y_by_x, y_by_z,  z_by_x, z_by_y);
+      const emm = new Matrix44 ()
+        . LoadShear (x_by_y, x_by_z,  y_by_x, y_by_z,  z_by_x, z_by_y);
       this.MulSelfBy (emm);
       emm . LoadTranslation (cnt);
       return this.MulSelfBy (emm);
@@ -376,34 +377,34 @@ export class Matrix44
 // called on it).
 
   TransformVect (v)
-    { let m = this;
+    { const m = this;
       v = v . Val ();
-      let x = v.X (),  y = v.Y (),  z = v.Z ();
+      const x = v.X (),  y = v.Y (),  z = v.Z ();
       return new Vect (x * m.m00()  +  y * m.m10()  +  z * m.m20()  +  m.m30(),
                        x * m.m01()  +  y * m.m11()  +  z * m.m21()  +  m.m31(),
                        x * m.m02()  +  y * m.m12()  +  z * m.m22()  +  m.m32());
     }
 
   TransformVectInPlace (v)
-    { let m = this;
+    { const m = this;
       v = v . Val ();
-      let x = v.X (),  y = v.Y (),  z = v.Z ();
+      const x = v.X (),  y = v.Y (),  z = v.Z ();
       return v . Set (x * m.m00()  +  y * m.m10()  +  z * m.m20()  +  m.m30(),
                       x * m.m01()  +  y * m.m11()  +  z * m.m21()  +  m.m31(),
                       x * m.m02()  +  y * m.m12()  +  z * m.m22()  +  m.m32());
     }
 
   TransformVectArray (varr)
-    { let outarr = new Array ();
+    { const outarr = new Array ();
       if (varr != null)
-        for (let vec of varr)
+        for (const vec of varr)
           outarr . push (this.TransformVect (vec));
       return outarr;
     }
 
   TransformVectArrayInPlace (varr)
     { if (varr != null)
-        for (let vec of varr)
+        for (const vec of varr)
           this.TransformVectInPlace (vec);
       return varr;
     }

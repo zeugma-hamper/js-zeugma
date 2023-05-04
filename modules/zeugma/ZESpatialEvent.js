@@ -23,25 +23,25 @@ export class ZESpatialEvent  extends ZeEvent
     { return "ZESpatialEvent"; }
 
   CopyPressuresFrom (spe)
-    { let sures = spe . Pressures ();
+    { const sures = spe . Pressures ();
       if (sures == null)
         { this.pressures = null;
           return this;
         }
       this.pressures = new Map ();
-      for (let p of sures . entries ())
+      for (const p of sures . entries ())
           this . SetPressureFor (p[0], p[1]);
       return this;
     }
 
   CopyCaressesFrom (spe)
-    { let esses = spe . Caresses ();
+    { const esses = spe . Caresses ();
       if (esses == null)
         { this.caresses = null;
           return this;
         }
       this.caresses = new Map ();
-      for (let c of esses . entries ())
+      for (const c of esses . entries ())
           this . SetCaressFor (c[0], c[1]);
       return this;
     }
@@ -88,7 +88,7 @@ export class ZESpatialEvent  extends ZeEvent
   PressureFor (id)
     { if (this.pressures == null)
         return 0.0;
-      let pr = this.pressures . get (id);
+      const pr = this.pressures . get (id);
       return (pr == undefined)  ?  0.0  :  pr;
     }
   SetPressureFor (id, pr)
@@ -103,7 +103,7 @@ export class ZESpatialEvent  extends ZeEvent
   CaressFor (id)
     { if (this.caresses == null)
         return 0.0;
-      let cr = this.caresses . get (id);
+      const cr = this.caresses . get (id);
       return (cr == undefined)  ?  0.0  :  cr;
     }
   SetCaressFor (id, cr)

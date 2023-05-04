@@ -69,7 +69,7 @@ export class GrapplerPile  extends Grappler
       return true;
     }
   RemoveGrappler (g)
-    { let ind = this.graps . indexOf (g);
+    { const ind = this.graps . indexOf (g);
       if (ind < 0)
         return false;
       this.graps . splice (ind, 1);
@@ -92,7 +92,7 @@ export class GrapplerPile  extends Grappler
     }
 
   Inhale (ratch, thyme)
-    { let num = this.GrapplerCount ();
+    { const num = this.GrapplerCount ();
       if (num < 1)
         return 0;
 

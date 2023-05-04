@@ -5,7 +5,7 @@
 
 
 export function squirt_all_properties_from_unto (from, unto)
-{ let erties = Object.getOwnPropertyNames (from);
+{ const erties = Object.getOwnPropertyNames (from);
   for (const p of erties)
     Object.defineProperty (unto, p, { value: from[p], writable: false });
 // do the foregoing rather than the following ...

@@ -12,8 +12,8 @@ import { InterpZoftGuts } from "./InterpZoftGuts.js"
 export class InterpZoft  extends Zoft
 { //
   static NewWith (a, b)
-    { let z = Zoft._PrivateNew ();
-      let g = new InterpZoftGuts ();
+    { const z = Zoft._PrivateNew ();
+      const g = new InterpZoftGuts ();
       g . _InstallPointAZoft (Zoft.NewWith (a));
       g . _InstallPointBZoft (Zoft.NewWith (b));
       z . _SetGuts (g);

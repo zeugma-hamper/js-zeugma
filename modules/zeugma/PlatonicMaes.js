@@ -144,7 +144,7 @@ export class PlatonicMaes  extends SpaceThing
     }
 
   RemoveLayer (z)
-    { let ind = this.IndexOfLayer (z);
+    { const ind = this.IndexOfLayer (z);
       if (ind < 0)
         return false;
       this.layers . splice (ind, 1);
@@ -161,7 +161,7 @@ export class PlatonicMaes  extends SpaceThing
 
 //
   static NewFromJSON (j)
-    { let ma = new PlatonicMaes ();
+    { const ma = new PlatonicMaes ();
       ma . SetName (j.name);
       ma . SetLoc (Vect.NewFromArr (j.location));
       ma . SetOver (Vect.NewFromArr (j.over));
@@ -172,10 +172,10 @@ export class PlatonicMaes  extends SpaceThing
     }
 
   static CameraFromMaes (m)
-    { let cam = new Bolex ();
+    { const cam = new Bolex ();
 
-      let nrm = m . Over () . Cross (m . Up ()) . Norm ();
-      let dst = 0.8 * m . Width ();
+      const nrm = m . Over () . Cross (m . Up ()) . Norm ();
+      const dst = 0.8 * m . Width ();
 
       cam . SetViewDist (dst);
       cam . SetViewLoc (m . Loc () . Add (nrm . Sca (dst)));
@@ -198,10 +198,10 @@ export class PlatonicMaes  extends SpaceThing
       let cls_hit = null;
       let cls_maes = null;
       let cls_dst = -1.0;
-      for (let ma of mcoll)
+      for (const ma of mcoll)
         if (ma != null)
-          { let use_w = ma . Width ();
-            let use_h = ma . Height ();
+          { const use_w = ma . Width ();
+            const use_h = ma . Height ();
             let hit;
             if (restrict_to_maes_extent == true)
               hit = Geom.RayRectIntersection (frm, aim, ma . Loc (),
@@ -212,7 +212,7 @@ export class PlatonicMaes  extends SpaceThing
                                                ma . Over ()
                                                       . Cross (ma . Up ()));
             if (hit != null)
-              { let d = hit . Sub (frm) . AutoDot ();
+              { const d = hit . Sub (frm) . AutoDot ();
                 if (cls_dst < 0.0  ||  d < cls_dst)
                   { cls_dst = d;  cls_hit = hit;  cls_maes = ma; }
               }

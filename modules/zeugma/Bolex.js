@@ -176,12 +176,12 @@ export class Bolex  extends SpaceThing
     { this.z_view_pln_off = Zoft.NewWith (off);  return this; }
 
   SetViewPlaneHorizOffset (hoff)
-    { let off = Vect.NewWith (hoff, this.ViewPlaneOffset () . Y (), 0.0);
+    { const off = Vect.NewWith (hoff, this.ViewPlaneOffset () . Y (), 0.0);
       return this.SetViewPlaneOffset (off);
     }
 
   SetViewPlaneVertOffset (voff)
-    { let off = Vect.NewWith (this.ViewPlaneOffset () . X (), voff, 0.0);
+    { const off = Vect.NewWith (this.ViewPlaneOffset () . X (), voff, 0.0);
       return this.SetViewPlaneOffset (off);
     }
 
@@ -216,31 +216,31 @@ export class Bolex  extends SpaceThing
 
       vmat . LoadTranslation (this.z_view_loc . Val () . Neg ());
 
-      let aim = this.z_view_aim . Val () . Norm ();
+      const aim = this.z_view_aim . Val () . Norm ();
       let uup = this.z_view_upp . Val () . Norm ();
       if (aim . Dot (uup)  >  0.9999999)
         throw new Error (
             "well, heck: camera's aim and up vectors can't be parallel."
         );
 
-      let ovr = aim . Cross (uup) . Norm ();
+      const ovr = aim . Cross (uup) . Norm ();
       uup = ovr . Cross (aim);
 
-      let cootr = new Matrix44 () .
+      const cootr = new Matrix44 () .
             LoadBackwardCoordTransformPreNormed (ovr, uup, aim . Neg ());
       vmat . MulSelfBy (cootr);
       return vmat;
     }
 
   ViewMatrix ()
-    { let outm = new Matrix44 ();
+    { const outm = new Matrix44 ();
       return this.LoadViewMatrixInto (outm);
     }
 
   LoadProjectionMatrixInto (pmat)
     { if (pmat == null)
         return pmat;
-      let vdst = this.ViewDist ();
+      const vdst = this.ViewDist ();
       let wid, hei;
       if (this.ProjectionTypeIsOrthographic ())
         { wid = this.ViewOrthoWid ();
@@ -250,19 +250,19 @@ export class Bolex  extends SpaceThing
         { wid = 2.0 * vdst * Math.tan (0.5 * this.ViewHorizAngle ());
           hei = 2.0 * vdst * Math.tan (0.5 * this.ViewVertAngle ());
         }
-      let poff = this.ViewPlaneOffset ();
+      const poff = this.ViewPlaneOffset ();
       pmat . LoadShear (0.0, poff . X () / vdst,
                         0.0, poff . Y () / vdst,
                         0.0, 0.0);
 
-      let emm = new Matrix44 ();
+      const emm = new Matrix44 ();
       emm . LoadScaleXYZ (2.0 / wid, 2.0 / hei, -1.0 / vdst);
       pmat . MulSelfBy (emm);
       return pmat;
     }
 
   ProjectionMatrix ()
-    { let outm = new Matrix44 ();
+    { const outm = new Matrix44 ();
       return this.LoadProjectionMatrixInto (outm);
     }
 

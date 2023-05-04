@@ -71,15 +71,15 @@ export class RoGrappler  extends Grappler
 
 
   Inhale (ratch, thyme)
-    { let ax = this.z_axis . Val ();
-      let an = this.z_angl . Val ();
-      let ce = this.z_cent . Val ();
-      let ph = this.z_phas . Val ();
+    { const ax = this.z_axis . Val ();
+      const an = this.z_angl . Val ();
+      const ce = this.z_cent . Val ();
+      const ph = this.z_phas . Val ();
 
       this.nm . LoadRotationPreNormed (ax, an + ph);
       this.inm = this.nm . Transpose ();
 
-      let shimmy = new Matrix44 ();
+      const shimmy = new Matrix44 ();
       shimmy.m[12] = -ce.x;  shimmy.m[13] = -ce.y;  shimmy.m[14] = -ce.z;
       this.pm = shimmy . Mul (this.nm);
       this.ipm = shimmy . Mul (this.inm);

@@ -49,8 +49,8 @@ export class ScGrappler  extends Grappler
 
 
   Inhale (ratch, thyme)
-    { let s = this.z_sca . Val ();
-      let c = this.z_cnt . Val ();
+    { const s = this.z_sca . Val ();
+      const c = this.z_cnt . Val ();
       this.pm . LoadScaleXYZAbout (s.x, s.y, s.z, c);
       this.ipm . LoadScaleXYZAbout (s.x == 0.0  ?  1.0  :  1.0 / s.x,
                                     s.y == 0.0  ?  1.0  :  1.0 / s.y,

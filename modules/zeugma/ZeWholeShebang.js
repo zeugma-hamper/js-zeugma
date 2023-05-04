@@ -149,8 +149,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
 
   PopulatefromMaesConfig (mconf)
-    { for (let descobj of mconf)
-        { let ma = PlatonicMaes.NewFromJSON (descobj);
+    { for (const descobj of mconf)
+        { const ma = PlatonicMaes.NewFromJSON (descobj);
           if (ma != null)
             { this.AppendMaes (ma);
               ma . InstallCameraFromSelfGeom ();
@@ -164,25 +164,26 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { if (this.NumMaeses ()  <  1)
         return this;
 
-      let lay, cm = new CumuMats ();
-      for (let ma of this.maeses)
+      let lay;
+      const cm = new CumuMats ();
+      for (const ma of this.maeses)
         if (ma != null)
-          { let corr = this.GraphicsCorrelateForMaes (ma);
+          { const corr = this.GraphicsCorrelateForMaes (ma);
             if (corr == null)
               continue;
-            let ctx = corr . getContext ("2d");
+            const ctx = corr . getContext ("2d");
             if (ctx == null)
               continue;
 
-            let cam = ma . EigenCamera ()
-            let vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
-            let bonus = [ corr, ctx, vpm ];
-            let adjc = ma . AdjColor ();
+            const cam = ma . EigenCamera ()
+            const vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
+            const bonus = [ corr, ctx, vpm ];
+            const adjc = ma . AdjColor ();
 
             ctx . fillStyle = ma . BackgroundColor () . AsCSSString ();
             ctx . fillRect (0, 0, corr.width, corr.height);
             ctx . save ();
-            let cnt = ma . NumLayers ();
+            const cnt = ma . NumLayers ();
             for (let q = 0  ;  q < cnt  ;  ++q)
               if ((lay = ma . NthLayer (q))  !=  null)
                 this.RecursivelyDraw (lay, ratch, thyme, cm, adjc, bonus);
@@ -193,14 +194,14 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
 
   AttendToIncomingComms ()
-    { for (let smp of this.looper . Sumps ())
+    { for (const smp of this.looper . Sumps ())
         if (smp != null)
           smp . AttendToIncoming ();
       return this;
     }
 
   SuspendIncomingCommsAttention ()
-    { for (let smp of this.looper . Sumps ())
+    { for (const smp of this.looper . Sumps ())
         if (smp != null)
           smp . SuspendAttention ();
       return this;
@@ -237,15 +238,15 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       if (this.auto_attend == true)
         this.AttendToIncomingComms ();
 
-      let self = this;
+      const self = this;
       this.looper.is_looping = true;
 
-      let helpernub = new Zeubject ();
+      const helpernub = new Zeubject ();
       helpernub.Travail = function (ratch, thyme)
         { return self . CanvaslessTravail (ratch, thyme); }
       this.looper . AppendToiler (helpernub);
 
-      let heave = function ()
+      const heave = function ()
         { self.looper . OneDelightfulTurn ();
           if (self.looper.is_looping == true)
             globalThis.requestAnimationFrame (heave);
@@ -263,13 +264,13 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
   AssociateWindowAndMaes (whin, maes)
     { this.SetWindowForMaes (maes, whin);
-      let dcat = this.AssuredDialectCatcherForMaes (maes);
+      const dcat = this.AssuredDialectCatcherForMaes (maes);
       if (dcat != null)
         dcat . HooverNativeEventsFrom (whin);
     }
 
   ProvisionWindowAndMaesWithCanvas (whin, maes)
-    { let canv = whin.document . createElement ('canvas');
+    { const canv = whin.document . createElement ('canvas');
       this.SetGraphicsCorrelateForMaes (maes, canv);
 
       whin.document.body.style.margin = "0px";  // the horror... the horror...
@@ -279,7 +280,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       canv.height = whin.innerHeight;
       whin.document.body . appendChild (canv);
 
-      let gctx = canv . getContext ("2d");
+      const gctx = canv . getContext ("2d");
       if (gctx == null)
         console.warn ("Well, that simply won't do. We can't have a null gctx.");
 
@@ -299,8 +300,8 @@ whin . addEventListener ('pointermove',
   _BurstFromTheGround (canvasslessly)
     { if (globalThis.window == undefined)
         return 0;
-      let winny = globalThis.window;
-      let ur_maes = this.NthMaes (0);
+      const winny = globalThis.window;
+      const ur_maes = this.NthMaes (0);
       if (ur_maes == null)
         return null;
 
@@ -308,10 +309,11 @@ whin . addEventListener ('pointermove',
       if (! canvasslessly)
         this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
 
-      let ma, cnt = this.NumMaeses ();
+      let ma;
+      const cnt = this.NumMaeses ();
       for (let q = 1  ;  q < cnt  ;  ++q)
         if ((ma = this.NthMaes (q))  !=  null)
-          { let parawin = winny . open ();
+          { const parawin = winny . open ();
             this.AssociateWindowAndMaes (parawin, ma);
             if (! canvasslessly)
               this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
@@ -344,12 +346,12 @@ whin . addEventListener ('pointermove',
       // render cursors
       if (this.should_deploy_stanalone_html_cursors)
         { //
-          for (let cursors_by_prov
+          for (const cursors_by_prov
                of this.html_cursor_by_prov_by_window . values ())
             if (cursors_by_prov != null)
-              for (let crsr of cursors_by_prov . values ())
+              for (const crsr of cursors_by_prov . values ())
                 if (crsr != null)
-                  { let gctx = crsr.canvoo . getContext ("2d");
+                  { const gctx = crsr.canvoo . getContext ("2d");
                     // gctx . reset ();  // oops... reset's "experimental"...
                     gctx . resetTransform ();
                     gctx . clearRect (0, 0,
@@ -373,17 +375,17 @@ whin . addEventListener ('pointermove',
       if (e.zeugma_evt != undefined)
         return 0;
 
-      let hit = ma . Loc () . Add (ma . Over () . Sca (x * ma . Width ())) .
-          Add (ma . Up () . Sca (y * ma . Height ()));
-      let frm = hit . Add (ma . Norm () . Sca (0.8 * ma . Width ()));
-      let aim = ma . Norm () . Neg ();
-      let ovr = aim . Cross (ma . Up ()) . Norm ();
+      const hit = ma . Loc () . Add (ma . Over () . Sca (x * ma . Width ())) .
+        Add (ma . Up () . Sca (y * ma . Height ()));
+      const frm = hit . Add (ma . Norm () . Sca (0.8 * ma . Width ()));
+      const aim = ma . Norm () . Neg ();
+      const ovr = aim . Cross (ma . Up ()) . Norm ();
 
-      let smev = new ZESpatialMoveEvent (prv);
+      const smev = new ZESpatialMoveEvent (prv);
       smev . SetLoc (frm) . SetAim (aim) . SetOver (ovr);
       smev . SetMaesAndHit ([ma, hit]);
       smev . SetForebearEvent (e);
-      let duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
+      const duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
       if (duct != null)
         duct . AppendDram (smev);
       this.recentest_synth_spat_evt_by_prov . set (prv, smev);
@@ -391,15 +393,15 @@ whin . addEventListener ('pointermove',
     }
 
   _NativePressureEventOnMaes (e, x, y, butt, prv, ma, evt_cls)
-    { let smev = this.recentest_synth_spat_evt_by_prov . get (prv);
-      let spev = new evt_cls (prv);
+    { const smev = this.recentest_synth_spat_evt_by_prov . get (prv);
+      const spev = new evt_cls (prv);
       if (smev != null)
         { smev . InjectParticularsInto (spev);
           spev . SetMaesAndHit (smev . MaesAndHit ());
         }
       spev . SetWhichPressor (butt);
       spev . SetForebearEvent (e);
-      let duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
+      const duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
       if (duct != null)
         duct . AppendDram (spev);
       return 0;
@@ -452,7 +454,7 @@ whin . addEventListener ('pointermove',
       if (cur == null)
         { cur = new Cursoresque (140.0, 6);
           this.cursor_by_prov . set (prv, cur);
-          for (let emm of this.maeses)
+          for (const emm of this.maeses)
             if (emm != null)
               { let lay = emm . FindLayer ("curseteria");
                 if (lay == null)
@@ -478,8 +480,8 @@ whin . addEventListener ('pointermove',
 
 
   ExtrudeNewHTMLCursor (zev, wnd)
-    { let cusser = wnd.document . createElement ("div");
-      let canvoo = wnd.document . createElement ("canvas");
+    { const cusser = wnd.document . createElement ("div");
+      const canvoo = wnd.document . createElement ("canvas");
       cusser . appendChild (canvoo);
       cusser.canvoo = canvoo;
       cusser.zeug_crsr = new Cursoresque (30.0, 6);
@@ -505,7 +507,7 @@ whin . addEventListener ('pointermove',
         return this;
 
       const prv = zev . Provenance ();
-      let prev_win = this.html_cursor_window_by_prov . get (prv);
+      const prev_win = this.html_cursor_window_by_prov . get (prv);
 
       let cusser = null;
       if (w != null)
@@ -529,10 +531,10 @@ whin . addEventListener ('pointermove',
       if (w  !=  prev_win)  // noting that w might in fact be null...
         { this.html_cursor_window_by_prov . set (prv, w);
           if (prev_win != null)
-            { let otha_assoc
+            { const otha_assoc
                 = this.html_cursor_by_prov_by_window . get (prev_win)
               if (otha_assoc != null)
-                { let otha_cuss = otha_assoc . get (prv);
+                { const otha_cuss = otha_assoc . get (prv);
                   if (otha_cuss != null)
                     otha_cuss . remove ();
                 }
@@ -548,11 +550,11 @@ whin . addEventListener ('pointermove',
       if (tgt_by_prv == null)
         this.html_target_by_prov_by_window . set (wnd, tgt_by_prv = new Map ());
 
-      let prev_tgt = tgt_by_prv . get (prov);
+      const prev_tgt = tgt_by_prv . get (prov);
       if (prev_tgt == cur_trgt)
         return this;
 
-      let pntr_opts = Object.assign ({}, opts);
+      const pntr_opts = Object.assign ({}, opts);
       pntr_opts.pointerId = pntrid;
 
       // first, break the news to the freshly jilted:
@@ -594,7 +596,7 @@ whin . addEventListener ('pointermove',
       if (e.maes_and_hit == null)
         return 0;
       const [emm, hit] = e.maes_and_hit;
-      let wnd = this.WindowForMaes (emm);
+      const wnd = this.WindowForMaes (emm);
 
       if (wnd != null)
         { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
@@ -610,7 +612,7 @@ whin . addEventListener ('pointermove',
           if (this.ShouldSynthesizeHTMLPointerEvents ()
               &&  (e . ForebearEvent ()  ==  null
                    ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
-            { let pntrid = this.HTMLPointerIDForProv (prv);
+            { const pntrid = this.HTMLPointerIDForProv (prv);
 
               let tahgit = wnd.document . elementFromPoint (x, y);
               if (tahgit == null)
@@ -653,7 +655,7 @@ whin . addEventListener ('pointermove',
       if (e.maes_and_hit == null)
         return 0;
       const [emm, hit] = e.maes_and_hit;
-      let wnd = this.WindowForMaes (emm);
+      const wnd = this.WindowForMaes (emm);
 
       if (wnd != null)
         { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
@@ -666,7 +668,7 @@ whin . addEventListener ('pointermove',
           if (this.ShouldSynthesizeHTMLPointerEvents ()
               &&  (e . ForebearEvent ()  ==  null
                    ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
-            { let pntrid = this.HTMLPointerIDForProv (prv);
+            { const pntrid = this.HTMLPointerIDForProv (prv);
 
               let optns = { bubbles: true, view: wnd,
                             clientX: x, clientY: y,
@@ -706,7 +708,7 @@ whin . addEventListener ('pointermove',
       if (e.maes_and_hit == null)
         return 0;
       const [emm, hit] = e.maes_and_hit;
-      let wnd = this.WindowForMaes (emm);
+      const wnd = this.WindowForMaes (emm);
 
       if (wnd != null)
         { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
@@ -719,7 +721,7 @@ whin . addEventListener ('pointermove',
           if (this.ShouldSynthesizeHTMLPointerEvents ()
               &&  (e . ForebearEvent ()  ==  null
                    ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
-            { let pntrid = this.HTMLPointerIDForProv (prv);
+            { const pntrid = this.HTMLPointerIDForProv (prv);
 
               let optns = { bubbles: true, view: wnd,
                             clientX: x, clientY: y,
@@ -751,7 +753,7 @@ whin . addEventListener ('pointermove',
 //
 //
   InstallSampleMaesConfig ()
-    { let samp_maeses = PlatonicMaes.SampleMaesConfigJSON ();
+    { const samp_maeses = PlatonicMaes.SampleMaesConfigJSON ();
       return this.PopulatefromMaesConfig (samp_maeses);
     }
 //
@@ -767,21 +769,21 @@ whin . addEventListener ('pointermove',
     }
 
   static NewDefaultInstance ()
-    { let novo = new ZeWholeShebang ();
+    { const novo = new ZeWholeShebang ();
 
-      let loo = novo . Looper ();
-      let zolu = loo . AssuredZoftLung ();
-      let delu = loo . AssuredDefaultLung ();
+      const loo = novo . Looper ();
+      const zolu = loo . AssuredZoftLung ();
+      const delu = loo . AssuredDefaultLung ();
       Zoft.SetDefaultLung (zolu);
 
       novo . InstallSampleMaesConfig ();
 
-      let spaq = new EventAqueduct ();
+      const spaq = new EventAqueduct ();
       spaq . SetName ("spatial-aqueduct");
       spaq . AppendPhage (novo);
       loo . AppendAqueduct (spaq);
 
-      let owa = new OSCViveWandSump (novo);
+      const owa = new OSCViveWandSump (novo);
       owa . SetName ("wand-sump");
       owa . InstallSampleViveWandTransform ();
       // owa . ForAddressAppendRawExtractor ("/events/spatial");

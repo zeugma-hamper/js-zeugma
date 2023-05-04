@@ -56,21 +56,21 @@ export class CoGrappler  extends Grappler
     }
 
   SetViaPreNormedOverAndUp (o, u)
-    { let n = o . Cross (u);
+    { const n = o . Cross (u);
       return this.SetViaNormalizedBasisVectors (o, u, n);
     }
   SetViaOverAndUp (o, u)
     { return this.SetViaPreNormedOverAndUp (o . Norm (), u . Norm ()); }
 
   SetViaPreNormedOverAndNorm (o, n)
-    { let u = n . Cross (o);
+    { const u = n . Cross (o);
       return this.SetViaNormalizedBasisVectors (o, u, n);
     }
   SetViaOverAndNorm (o, n)
     { return this.SetViaPreNormedOverAndNorm (o . Norm (), n . Norm ()); }
 
   SetViaPreNormedUpAndNorm (u, n)
-    { let o = u . Cross (n);
+    { const o = u . Cross (n);
       return this.SetViaNormalizedBasisVectors (o, u, n);
     }
   SetViaUpAndNorm (u, n)

@@ -32,41 +32,41 @@ export class CommsSump  extends Zeubject
     }
 
   ForAddressAppendRawExtractor (addr, rawex)
-    { let urn
+    { const urn
         = this._InMapForAddressSetThingy (this.rawex_by_address, addr, rawex);
       return urn;
     }
 
   ForAddressAppendSynthFunc (addr, funq)
-    { let urn
+    { const urn
         = this._InMapForAddressSetThingy (this.synth_by_address, addr, funq);
       return urn;
     }
 
   ForAddressAppendAqueduct (addr, duct)
-    { let urn
+    { const urn
         = this._InMapForAddressAppendThingy (this.ducts_by_address, addr, duct);
       return urn;
     }
 
   RawExtractionViaAddress (addr, payload)
-    { let rawex = this.rawex_by_address . get (addr);
+    { const rawex = this.rawex_by_address . get (addr);
       if (rawex != null)
         return rawex (payload);
       return payload;
     }
 
   SynthesizeEventsViaAddress (addr, argarr)
-    { let synther = this.synth_by_address . get (addr);
+    { const synther = this.synth_by_address . get (addr);
       if (synther != null)
         return synther (argarr);
       return [];
     }
 
   DispatchEventViaAddress (addr, e)
-    { let ductarr = this.ducts_by_address . get (addr);
+    { const ductarr = this.ducts_by_address . get (addr);
       if (ductarr != null)
-        for (let duct of ductarr)
+        for (const duct of ductarr)
           duct . AppendDram (e);
       return this;
     }

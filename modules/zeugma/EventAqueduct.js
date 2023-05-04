@@ -18,7 +18,7 @@ export class EventAqueduct  extends Zeubject
     }
 
   DrainReservoir ()
-    { for (let evt of this.drams)
+    { for (const evt of this.drams)
         if (evt != null)
           this.FlowToPhages (evt);
       this.drams = new Array ();
@@ -27,7 +27,7 @@ export class EventAqueduct  extends Zeubject
 
   FlowToPhages (e)
     { let urn = 0;
-      for (let ph of this.phages)
+      for (const ph of this.phages)
         if (ph != null)
           if ((urn = e . ProfferAsQuaffTo (ph))  >  1)
             return urn;

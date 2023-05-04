@@ -24,18 +24,19 @@ export class IronLung  extends Zeubject
 
   Inhale (ratch, thyme)
     { if (this.expirees.length  >  0)
-        { for (let z of this.expirees)
+        { for (const z of this.expirees)
             if (this.IndexOfBreathee (z)  >=  0)
               this._RemoveNthBreathee (z);
           expirees = new Array ();
         }
       if (this.aspirants.length  >  0)
-        { for (let z of this.aspirants)
+        { for (const z of this.aspirants)
             this._AppendBreathee (z);
           this.aspirants = new Array ();
         }
 
-      let z, cnt = this.NumBreathees ();
+      let z;
+      const cnt = this.NumBreathees ();
       let ded_cnt = 0;
       for (let q = 0  ;  q < cnt  ;  ++q)
         if ((z = this.NthBreathee (q))  ==  null)
@@ -47,13 +48,13 @@ export class IronLung  extends Zeubject
         { }  // COMPACT!
 
       if (this.expirees.length  >  0)
-        { for (let z of this.expirees)
+        { for (const z of this.expirees)
             if (this.IndexOfBreathee (z)  >=  0)
               this._RemoveNthBreathee (z);
           expirees = new Array ();
         }
       if (this.aspirants.length  >  0)
-        { for (let z of this.aspirants)
+        { for (const z of this.aspirants)
             this._AppendBreathee (z);
           this.aspirants = new Array ();
         }
@@ -88,7 +89,7 @@ export class IronLung  extends Zeubject
   InsertBreathee (z, ind)
     { return ZeWeakColl.Insert (this.breathees, z, ind); }
   _RemoveBreathee (z)
-    { let urn = ZeWeakColl.Remove (this.breathees, z);
+    { const urn = ZeWeakColl.Remove (this.breathees, z);
       if (urn  &&  z . Breather () != null)
         z . SetBreather (null);
       return urn;

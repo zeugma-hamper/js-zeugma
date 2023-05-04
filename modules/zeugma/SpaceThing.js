@@ -39,7 +39,7 @@ export class SpaceThing  extends LimnyThing
     }
 
   FindGrappler (nm)
-    { let gp = this.UnsecuredGrapplerPile ();
+    { const gp = this.UnsecuredGrapplerPile ();
       return (gp != null)  ?  gp . FindGrappler (nm)  :  null;
     }
 

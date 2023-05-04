@@ -65,7 +65,7 @@ export class InterpZoftGuts  extends ZoftGuts
     { this.recent_time = this.interp_time;  return this; }
 
   Reverse ()
-    { let tmp = this.z_pnt_a;
+    { const tmp = this.z_pnt_a;
       this.z_pnt_a = this.z_pnt_b;
       this.z_pnt_b = tmp;
       if (this.replete)
@@ -113,8 +113,8 @@ export class InterpZoftGuts  extends ZoftGuts
       t = this.interp_func (t);
       if (t > 1.0)
         t = 1.0;
-      let v = Zoft.OffalAdd (Zoft.OffalSca (this.z_pnt_a . Val (), (1.0 - t)),
-                             Zoft.OffalSca (this.z_pnt_b . Val (), t));
+      const v = Zoft.OffalAdd (Zoft.OffalSca (this.z_pnt_a . Val (), (1.0 - t)),
+                               Zoft.OffalSca (this.z_pnt_b . Val (), t));
       this.PuppeteerHosts (v);
       this.SetRatchet (ratch);
       return 0;

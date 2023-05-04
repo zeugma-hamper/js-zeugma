@@ -7,7 +7,7 @@
 import { base_class } from "./interface-ersatzer.js";
 
 
-export let RecursiveLimner = (supcls) => class extends supcls
+export const RecursiveLimner = (supcls) => class extends supcls
 { //
   RecursivelyDraw (zeub, ratch, thyme, cm_above, adjc_above, bonus)
     { if (zeub == null)
@@ -19,7 +19,7 @@ export let RecursiveLimner = (supcls) => class extends supcls
         zeub . Inhale (ratch, thyme);
 
       if (zeub . IsZeugmallyLimnable ())
-        { let ctx = bonus[1];
+        { const ctx = bonus[1];
           if (ctx != null)
             ctx . save ();
 
@@ -32,8 +32,8 @@ export let RecursiveLimner = (supcls) => class extends supcls
         }
 
       if (zeub . IsZeugmallyPouchful ())
-        { let cnt = zeub . NumChildren ();
-          let bon_inc = this.AdvanceLimnRecursionBonus (bonus);
+        { const cnt = zeub . NumChildren ();
+          const bon_inc = this.AdvanceLimnRecursionBonus (bonus);
           for (let q = 0  ;  q < cnt  ;  ++q)
             this.RecursivelyDraw (zeub . NthChild (q), ratch, thyme,
                                   cm, adjc, bon_inc);

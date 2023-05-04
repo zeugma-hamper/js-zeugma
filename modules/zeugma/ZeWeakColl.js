@@ -23,8 +23,8 @@ export class ZeWeakColl
   static FindByName (coll, nm)
     { if (coll == null)
         return null;
-      let fndr = (el) => { el = el . deref ();
-                           return (el != null  &&  el . Name () == nm); };
+      const fndr = (el) => { el = el . deref ();
+                             return (el != null  &&  el . Name () == nm); };
       return coll . find (fndr);
     }
 
@@ -55,7 +55,7 @@ export class ZeWeakColl
   static Remove (coll, z)
     { if (coll == null  ||  z == null)
         return false;
-      let ind = this.IndexOf (coll, z);
+      const ind = this.IndexOf (coll, z);
       if (ind < 0)
         return false;
       coll . splice (ind, 1);

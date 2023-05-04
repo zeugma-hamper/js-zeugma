@@ -43,11 +43,11 @@ export class OSCSump  extends CommsSump
         return this;
       let cnt = this.oscerizer . MessageCount ();
       while (cnt-- >= 0  &&  this.oscerizer . HasMessage ())
-        { let mess = this.oscerizer . NextMessage ();
-          let addr = mess . Address ();
-          let args = this . RawExtractionViaAddress (addr, mess . Payload ());
-          let evts = this . SynthesizeEventsViaAddress (addr, args);
-          for (let e of evts)
+        { const mess = this.oscerizer . NextMessage ();
+          const addr = mess . Address ();
+          const args = this . RawExtractionViaAddress (addr, mess . Payload ());
+          const evts = this . SynthesizeEventsViaAddress (addr, args);
+          for (const e of evts)
             this . DispatchEventViaAddress (addr, e);
         }
       return this;

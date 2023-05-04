@@ -24,7 +24,7 @@ export class NativeEventDialectCatcher  extends Zeubject
     }
 
   HooverNativeEventsFrom (html_elem)
-    { let self = this;
+    { const self = this;
       this.helem = html_elem;
       html_elem . addEventListener ("mousemove",
                                     (e) => { self . NativeMouseMove (e); });
@@ -44,7 +44,7 @@ export class NativeEventDialectCatcher  extends Zeubject
     }
 
   NativeMouseMove (e)
-    { let xy = this.constructor.PropoXY (e, this.helem);
+    { const xy = this.constructor.PropoXY (e, this.helem);
       if (this.concentrator != null)
         this.concentrator . NativeMouseMoveOnMaes (e, xy[0], xy[1], this.prov,
                                                    this.from_maes);
@@ -52,8 +52,8 @@ export class NativeEventDialectCatcher  extends Zeubject
     }
 
   NativeMouseDown (e)
-    { let xy = this.constructor.PropoXY (e, this.helem);
-      let b = e.button;
+    { const xy = this.constructor.PropoXY (e, this.helem);
+      const b = e.button;
       if (this.concentrator != null)
         this.concentrator . NativeMouseDownOnMaes (e, xy[0], xy[1], b, this.prov,
                                                    this.from_maes);
@@ -61,8 +61,8 @@ export class NativeEventDialectCatcher  extends Zeubject
     }
 
   NativeMouseUp (e)
-    { let xy = this.constructor.PropoXY (e, this.helem);
-      let b = e.button;
+    { const xy = this.constructor.PropoXY (e, this.helem);
+      const b = e.button;
       if (this.concentrator != null)
         this.concentrator . NativeMouseUpOnMaes (e, xy[0], xy[1], b, this.prov,
                                                  this.from_maes);
