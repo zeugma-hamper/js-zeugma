@@ -4,7 +4,7 @@
 //
 
 
-import { ZoftGuts } from "./ZoftGuts.js"
+import { ZoftGuts } from "./ZoftGuts.js";
 
 
 export class LatchZoftGuts  extends ZoftGuts

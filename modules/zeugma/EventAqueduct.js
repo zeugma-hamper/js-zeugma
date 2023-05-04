@@ -4,9 +4,9 @@
 //
 
 
-import { Zeubject } from "./Zeubject.js"
+import { Zeubject } from "./Zeubject.js";
 
-import { ZeColl } from "./ZeColl.js"
+import { ZeColl } from "./ZeColl.js";
 
 
 export class EventAqueduct  extends Zeubject

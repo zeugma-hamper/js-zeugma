@@ -4,9 +4,8 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
-
-import { SumZoftGuts } from "./SumZoftGuts.js"
+import { Zoft } from "./Zoft.js";
+import { SumZoftGuts } from "./SumZoftGuts.js";
 
 
 export class SumZoft  extends Zoft

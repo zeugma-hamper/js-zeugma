@@ -4,7 +4,7 @@
 //
 
 
-import { LatchZoft } from "./Zoft.js"
+import { LatchZoft } from "./Zoft.js";
 
 export { LatchZoft };
 

@@ -28,4 +28,4 @@ ZESpatialVanishEvent.Phage = (supah) => class extends supah
         return this.ZESpatial (e);
       return -1;
     }
-}
+};

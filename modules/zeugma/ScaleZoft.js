@@ -4,9 +4,8 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
-
-import { ScaleZoftGuts } from "./ScaleZoftGuts.js"
+import { Zoft } from "./Zoft.js";
+import { ScaleZoftGuts } from "./ScaleZoftGuts.js";
 
 
 export class ScaleZoft  extends Zoft

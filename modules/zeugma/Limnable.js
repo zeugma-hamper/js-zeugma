@@ -4,11 +4,11 @@
 //
 
 
-import { Matrix44 } from "./Matrix44.js"
+import { Matrix44 } from "./Matrix44.js";
 
-import { Vect } from "./Vect.js"
+import { Vect } from "./Vect.js";
 
-import { ZeColor } from "./ZeColor.js"
+import { ZeColor } from "./ZeColor.js";
 
 
 
@@ -99,7 +99,7 @@ export const Limnable = (supah) => class extends supah
   CanvasProjectSixDOFRotationAngle (cm, vp_mat, corr)
     { const pr = this.CanvasProjectVertexArray (cm, vp_mat, corr,
                                                 [Vect.zerov, Vect.xaxis]);
-      const proj_xax = pr[1] . Sub (pr[0])
+      const proj_xax = pr[1] . Sub (pr[0]);
       if (proj_xax . IsZero ())
         return 0.0;
       const ang = Vect.xaxis . AngleWith (proj_xax);
@@ -109,4 +109,4 @@ export const Limnable = (supah) => class extends supah
 
   DrawSelf (ratch, cm, adjc, bonus)
     { return 0; }
-}
+};

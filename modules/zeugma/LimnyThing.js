@@ -4,14 +4,14 @@
 //
 
 
-import { base_class } from "./interface-ersatzer.js"
+import { base_class } from "./interface-ersatzer.js";
 
-import { PouchyThing } from "./PouchyThing.js"
-import { Limnable } from "./Limnable.js"
+import { PouchyThing } from "./PouchyThing.js";
+import { Limnable } from "./Limnable.js";
 
-import { Zoft } from "./Zoft.js"
+import { Zoft } from "./Zoft.js";
 
-import { ZeColor } from "./ZeColor.js"
+import { ZeColor } from "./ZeColor.js";
 
 
 export class LimnyThing

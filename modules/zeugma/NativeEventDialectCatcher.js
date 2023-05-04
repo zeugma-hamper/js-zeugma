@@ -10,7 +10,7 @@ import { Loopervisor } from "./Loopervisor.js";
 
 import { EventAqueduct } from "./EventAqueduct.js";
 
-import { ZESpatialPhagy } from "./ZESpatialPhagy.js"
+import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 
 
 export class NativeEventDialectCatcher  extends Zeubject

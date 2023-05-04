@@ -43,4 +43,4 @@ export const RecursiveLimner = (supcls) => class extends supcls
 
   AdvanceLimnRecursionBonus (bon)
     { return bon; }
-}
+};

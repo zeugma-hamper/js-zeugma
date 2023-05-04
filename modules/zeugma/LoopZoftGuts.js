@@ -4,8 +4,8 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
-import { ZoftGuts } from "./ZoftGuts.js"
+import { Zoft } from "./Zoft.js";
+import { ZoftGuts } from "./ZoftGuts.js";
 
 
 export class LoopZoftGuts  extends ZoftGuts

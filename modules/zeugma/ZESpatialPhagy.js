@@ -6,8 +6,8 @@
 
 import { base_class } from "./interface-ersatzer.js";
 
-import { ZeEvent } from "./ZeEvent.js"
-import { ZESpatialEvent } from "./ZESpatialEvent.js"
+import { ZeEvent } from "./ZeEvent.js";
+import { ZESpatialEvent } from "./ZESpatialEvent.js";
 import { ZESpatialAppearEvent } from "./ZESpatialAppearEvent.js";
 import { ZESpatialVanishEvent } from "./ZESpatialVanishEvent.js";
 import { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";

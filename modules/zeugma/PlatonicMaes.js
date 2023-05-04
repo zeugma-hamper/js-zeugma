@@ -144,7 +144,7 @@ export class PlatonicMaes  extends SpaceThing
       if (ind < 0)
         ind = 0;
       else if (ind > this.layers.length)
-        ind = this.layers.length
+        ind = this.layers.length;
       this.layers . splice (ind, 0, z);
       return true;
     }

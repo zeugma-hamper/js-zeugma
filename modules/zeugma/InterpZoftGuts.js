@@ -4,7 +4,7 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
+import { Zoft } from "./Zoft.js";
 import { ZoftGuts } from "./ZoftGuts.js";
 import { ZoftInterpFuncs } from "./ZoftInterpFuncs.js";
 

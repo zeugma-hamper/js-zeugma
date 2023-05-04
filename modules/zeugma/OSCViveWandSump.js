@@ -4,13 +4,13 @@
 //
 
 
-import { OSCSump } from "./OSCSump.js"
+import { OSCSump } from "./OSCSump.js";
 
-import { ViveWandEventSynth } from "./ViveWandEventSynth.js"
+import { ViveWandEventSynth } from "./ViveWandEventSynth.js";
 
-import { Matrix44 } from "./Matrix44.js"
+import { Matrix44 } from "./Matrix44.js";
 
-import { Vect } from "./Vect.js"
+import { Vect } from "./Vect.js";
 
 
 

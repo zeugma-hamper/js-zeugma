@@ -28,4 +28,4 @@ ZESpatialHardenEvent.Phage = (supah) => class extends supah
         return this.ZESpatialPressure (e);
       return -1;
     }
-}
+};

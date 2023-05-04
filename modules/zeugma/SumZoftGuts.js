@@ -4,8 +4,8 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
-import { BinarithZoftGuts } from "./BinarithZoftGuts.js"
+import { Zoft } from "./Zoft.js";
+import { BinarithZoftGuts } from "./BinarithZoftGuts.js";
 
 
 export class SumZoftGuts  extends BinarithZoftGuts

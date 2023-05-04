@@ -189,7 +189,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             if (ctx == null)
               continue;
 
-            const cam = ma . EigenCamera ()
+            const cam = ma . EigenCamera ();
             const vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
             const bonus = [ corr, ctx, vpm ];
             const adjc = ma . AdjColor ();
@@ -257,7 +257,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
       const helpernub = new Zeubject ();
       helpernub.Travail = function (ratch, thyme)
-        { return self . CanvaslessTravail (ratch, thyme); }
+        { return self . CanvaslessTravail (ratch, thyme); };
       this.looper . AppendToiler (helpernub);
 
       const heave = function ()
@@ -269,7 +269,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
                 self . SuspendIncomingCommsAttention ();
               self.looper . RemoveToiler (helpernub);
             }
-        }
+        };
 
       globalThis.requestAnimationFrame (heave);
       return this;
@@ -376,7 +376,7 @@ whin . addEventListener ('pointermove',
                     crsr.zeug_crsr . DrawSelf (ratch,
                                                this.null_cumumats,
                                                null,
-                                               [crsr.canvoo, gctx, null])
+                                               [crsr.canvoo, gctx, null]);
                   }
         }
     }
@@ -546,7 +546,7 @@ whin . addEventListener ('pointermove',
         { this.html_cursor_window_by_prov . set (prv, w);
           if (prev_win != null)
             { const otha_assoc
-                = this.html_cursor_by_prov_by_window . get (prev_win)
+                = this.html_cursor_by_prov_by_window . get (prev_win);
               if (otha_assoc != null)
                 { const otha_cuss = otha_assoc . get (prv);
                   if (otha_cuss != null)

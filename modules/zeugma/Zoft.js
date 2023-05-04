@@ -4,9 +4,9 @@
 //
 
 
-import { Zeubject } from "./Zeubject.js"
+import { Zeubject } from "./Zeubject.js";
 
-import { LatchZoftGuts } from "./LatchZoftGuts.js"
+import { LatchZoftGuts } from "./LatchZoftGuts.js";
 
 
 export class Zoft  extends Zeubject

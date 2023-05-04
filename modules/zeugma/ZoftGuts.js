@@ -4,7 +4,7 @@
 //
 
 
-import { Zeubject } from "./Zeubject.js"
+import { Zeubject } from "./Zeubject.js";
 
 import { ZeWeakColl } from "./ZeWeakColl.js";
 

@@ -35,4 +35,4 @@ export const IContainMultitudes = (supah) => class extends supah
 
   FindChild (nm)
     { return null; }
-}
+};

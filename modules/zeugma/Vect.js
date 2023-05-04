@@ -44,12 +44,12 @@ export class Vect
     { this.x = -this.x;  this.y = -this.y;  this.z = -this.z;  return this; }
 
   Add (v)
-    { return new Vect (this.x + v.x, this.y + v.y, this.z + v.z)}
+    { return new Vect (this.x + v.x, this.y + v.y, this.z + v.z); }
   AddAcc (v)
     { this.x += v.x;  this.y += v.y;  this.z += v.z;  return this; }
 
   Sub (v)
-    { return new Vect (this.x - v.x, this.y - v.y, this.z - v.z)}
+    { return new Vect (this.x - v.x, this.y - v.y, this.z - v.z); }
   SubAcc (v)
     { this.x -= v.x;  this.y -= v.y;  this.z -= v.z;  return this; }
 
@@ -57,7 +57,7 @@ export class Vect
 // geometric algebra going that'd've been inaccurate naming. A vas
 // deferens between the idea of scaling and that of multiplication, see.
   Sca (sca)
-    { return new Vect (this.x * sca, this.y * sca, this.z * sca)}
+    { return new Vect (this.x * sca, this.y * sca, this.z * sca); }
   ScaAcc (sca)
     { this.x *= sca;  this.y *= sca;  this.z *= sca;  return this; }
 

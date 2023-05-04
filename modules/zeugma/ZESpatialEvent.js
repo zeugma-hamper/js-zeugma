@@ -132,4 +132,4 @@ ZESpatialEvent.Phage = (supah) => class extends supah
         return this.Ze (e);
       return -1;
     }
-}
+};

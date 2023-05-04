@@ -89,10 +89,10 @@ zeu.OSCViveWandSump = OSCViveWandSump;
 zeu.ViveWandEventSynth = ViveWandEventSynth;
 zeu.EventAqueduct = EventAqueduct;
 
-import { OSCFaker } from "./OSCFaker.js"
-export { OSCFaker } from "./OSCFaker.js"
-import { CheapOSCMessage } from "./CheapOSCMessage.js"
-export { CheapOSCMessage } from "./CheapOSCMessage.js"
+import { OSCFaker } from "./OSCFaker.js";
+export { OSCFaker } from "./OSCFaker.js";
+import { CheapOSCMessage } from "./CheapOSCMessage.js";
+export { CheapOSCMessage } from "./CheapOSCMessage.js";
 zeu.OSCFaker = OSCFaker;
 zeu.CheapOSCMessage = CheapOSCMessage;
 
@@ -179,10 +179,10 @@ export { Bolex } from "./Bolex.js";
 zeu.PlatonicMaes = PlatonicMaes;
 zeu.Bolex = Bolex;
 
-import { ZeEvent } from "./ZeEvent.js"
-export { ZeEvent } from "./ZeEvent.js"
-import { ZESpatialEvent } from "./ZESpatialEvent.js"
-export { ZESpatialEvent } from "./ZESpatialEvent.js"
+import { ZeEvent } from "./ZeEvent.js";
+export { ZeEvent } from "./ZeEvent.js";
+import { ZESpatialEvent } from "./ZESpatialEvent.js";
+export { ZESpatialEvent } from "./ZESpatialEvent.js";
 import { ZESpatialAppearEvent } from "./ZESpatialAppearEvent.js";
 export { ZESpatialAppearEvent } from "./ZESpatialAppearEvent.js";
 import { ZESpatialVanishEvent } from "./ZESpatialVanishEvent.js";
@@ -198,7 +198,7 @@ export { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
 import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
 export { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
 zeu.ZeEvent = ZeEvent;
-zeu.ZESpatialEvent = ZESpatialEvent
+zeu.ZESpatialEvent = ZESpatialEvent;
 zeu.ZESpatialAppearEvent = ZESpatialAppearEvent;
 zeu.ZESpatialVanishEvent = ZESpatialVanishEvent;
 zeu.ZESpatialMoveEvent = ZESpatialMoveEvent;

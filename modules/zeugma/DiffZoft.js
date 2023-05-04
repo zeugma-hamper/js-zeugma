@@ -4,9 +4,9 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
+import { Zoft } from "./Zoft.js";
 
-import { DiffZoftGuts } from "./DiffZoftGuts.js"
+import { DiffZoftGuts } from "./DiffZoftGuts.js";
 
 
 export class DiffZoft  extends Zoft

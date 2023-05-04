@@ -4,9 +4,9 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
+import { Zoft } from "./Zoft.js";
 
-import { ProdZoftGuts } from "./ProdZoftGuts.js"
+import { ProdZoftGuts } from "./ProdZoftGuts.js";
 
 
 export class ProdZoft  extends Zoft

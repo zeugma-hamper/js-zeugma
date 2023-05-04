@@ -4,9 +4,8 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
-
-import { SinuZoftGuts } from "./SinuZoftGuts.js"
+import { Zoft } from "./Zoft.js";
+import { SinuZoftGuts } from "./SinuZoftGuts.js";
 
 
 export class SinuZoft  extends Zoft

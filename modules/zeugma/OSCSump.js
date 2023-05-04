@@ -4,9 +4,9 @@
 //
 
 
-import { CommsSump } from "./CommsSump.js"
+import { CommsSump } from "./CommsSump.js";
 
-import { OSCFaker } from "./OSCFaker.js"
+import { OSCFaker } from "./OSCFaker.js";
 
 
 export class OSCSump  extends CommsSump

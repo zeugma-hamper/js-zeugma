@@ -81,4 +81,4 @@ ZeEvent.Phage = (supah) => class extends supah
     { return -1; }
   PassTheBuckUpPhageHierarchy ()
     { return false; }
-}
+};

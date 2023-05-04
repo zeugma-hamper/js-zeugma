@@ -4,9 +4,9 @@
 //
 
 
-import { Matrix44 } from "./Matrix44.js"
+import { Matrix44 } from "./Matrix44.js";
 
-import { Zeubject } from "./Zeubject.js"
+import { Zeubject } from "./Zeubject.js";
 
 
 export class Grappler  extends Zeubject

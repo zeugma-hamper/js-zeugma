@@ -4,13 +4,13 @@
 //
 
 
-import { Grappler } from "./Grappler.js"
+import { Grappler } from "./Grappler.js";
 
-import { Matrix44 } from "./Matrix44.js"
+import { Matrix44 } from "./Matrix44.js";
 
-import { Zoft } from "./Zoft.js"
+import { Zoft } from "./Zoft.js";
 
-import { Vect } from "./Vect.js"
+import { Vect } from "./Vect.js";
 
 
 export class RoGrappler  extends Grappler

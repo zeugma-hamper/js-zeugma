@@ -4,9 +4,9 @@
 //
 
 
-import { base_class } from "./interface-ersatzer.js"
+import { base_class } from "./interface-ersatzer.js";
 
-import { IContainMultitudes } from "./IContainMultitudes.js"
+import { IContainMultitudes } from "./IContainMultitudes.js";
 
 
 export class Zeubject

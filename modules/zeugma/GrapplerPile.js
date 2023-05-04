@@ -4,9 +4,9 @@
 //
 
 
-import { Grappler } from "./Grappler.js"
+import { Grappler } from "./Grappler.js";
 
-import { Matrix44 } from "./Matrix44.js"
+import { Matrix44 } from "./Matrix44.js";
 
 
 export class GrapplerPile  extends Grappler
@@ -99,7 +99,7 @@ export class GrapplerPile  extends Grappler
         return 0;
 
       let g = this.graps[0];
-      g . Inhale (ratch, thyme)
+      g . Inhale (ratch, thyme);
       this.pnt_mat . Load (g . PntMat ());
       this.nrm_mat . Load (g . NrmMat ());
       this.inv_pnt_mat . Load (g . InvPntMat ());

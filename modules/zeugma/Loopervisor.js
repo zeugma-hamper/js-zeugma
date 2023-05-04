@@ -91,7 +91,7 @@ export class Loopervisor  extends Zeubject
           if (selfesque.is_looping)
             setTimeout (_SpinGlo,
                         (dt > 0)  ?  dt * 1000  :  0);
-        }
+        };
 
       _SpinGlo ();
       return this;
