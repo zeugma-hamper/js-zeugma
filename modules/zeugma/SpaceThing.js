@@ -4,11 +4,13 @@
 //
 
 
-import { Vect } from "./Vect.js";
+import { LimnyThing } from "./LimnyThing.js";
 
 import { GrapplerPile } from "./GrapplerPile.js";
 
-import { LimnyThing } from "./LimnyThing.js";
+import { CumuMats } from "./CumuMats.js";
+
+import { Vect } from "./Vect.js";
 
 
 export class SpaceThing  extends LimnyThing

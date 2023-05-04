@@ -6,6 +6,8 @@
 
 import { Alignifer } from "./Alignifer.js";
 
+import { Vect } from "./Vect.js";
+
 import { ZeColor } from "./ZeColor.js";
 
 

@@ -11,6 +11,7 @@ import { base_class } from "./interface-ersatzer.js";
 import { IContainMultitudes } from "./IContainMultitudes.js";
 
 
+
 export class PouchyThing  extends base_class (Zeubject)
                                 . and_interfaces (IContainMultitudes)
 { //

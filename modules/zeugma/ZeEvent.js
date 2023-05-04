@@ -4,8 +4,9 @@
 //
 
 
-import { Vect } from "./Vect.js";
 import { Zeubject } from "./Zeubject.js";
+
+import { Vect } from "./Vect.js";
 
 
 class NonEvent  extends Zeubject

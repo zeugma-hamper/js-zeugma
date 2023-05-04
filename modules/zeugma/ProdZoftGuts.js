@@ -6,6 +6,8 @@
 
 import { BinarithZoftGuts } from "./BinarithZoftGuts.js"
 
+import { Zoft } from "./Zoft.js"
+
 
 export class ProdZoftGuts  extends BinarithZoftGuts
 { //

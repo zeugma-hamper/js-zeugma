@@ -6,6 +6,14 @@
 
 import { SpaceThing } from "./SpaceThing.js";
 
+import { CoGrappler } from "./CoGrappler.js";
+import { ScGrappler } from "./ScGrappler.js";
+import { TrGrappler } from "./TrGrappler.js";
+
+import { Zoft } from "./Zoft.js";
+
+import { Vect } from "./Vect.js";
+
 
 export class Alignifer  extends SpaceThing
 { //

@@ -8,6 +8,8 @@ import { PolygonPile } from "./PolygonPile.js";
 
 import { SinuZoft } from "./SinuZoft.js";
 
+import { Vect } from "./Vect.js";
+
 import { ZeColor } from "./ZeColor.js";
 
 

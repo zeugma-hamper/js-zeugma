@@ -8,13 +8,27 @@ import { Zeubject } from "./Zeubject.js";
 
 import { ZeColl } from "./ZeColl.js";
 
+import { PlatonicMaes } from "./PlatonicMaes.js";
+
+import { Cursoresque } from "./Cursoresque.js";
+
+import { LimnyThing } from "./LimnyThing.js";
+
+import { Zoft } from "./Zoft.js";
+
 import { Geom } from "./Geom.js";
+import { Matrix44 } from "./Matrix44.js";
+import { CumuMats } from "./CumuMats.js";
+import { Vect } from "./Vect.js";
 
 import { Loopervisor } from "./Loopervisor.js";
 
 import { EventAqueduct } from "./EventAqueduct.js";
-import { ViveWandEventSynth } from "./ViveWandEventSynth.js";
 import { OSCViveWandSump } from "./OSCViveWandSump.js";
+
+import { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";
+import { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
+import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
 import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 
 import { NativeEventDialectCatcher } from "./NativeEventDialectCatcher.js";

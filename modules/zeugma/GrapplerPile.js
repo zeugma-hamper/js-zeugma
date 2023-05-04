@@ -6,6 +6,8 @@
 
 import { Grappler } from "./Grappler.js"
 
+import { Matrix44 } from "./Matrix44.js"
+
 
 export class GrapplerPile  extends Grappler
 { //

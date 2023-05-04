@@ -6,7 +6,11 @@
 
 import { Zeubject } from "./Zeubject.js";
 
-import { ZESpatialPhagy } from "./ZESpatialPhagy.js";  // git us all the events
+import { PlatonicMaes } from "./PlatonicMaes.js";
+
+import { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";
+import { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
+import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
 
 
 export class ViveWandEventSynth  extends Zeubject

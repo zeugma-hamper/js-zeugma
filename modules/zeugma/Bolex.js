@@ -6,9 +6,11 @@
 
 import { SpaceThing } from "./SpaceThing.js";
 
+import { Matrix44 } from "./Matrix44.js";
+
 import { Zoft } from "./Zoft.js";
 
-import { Matrix44 } from "./Matrix44.js";
+import { Vect } from "./Vect.js";
 
 
 export class Bolex  extends SpaceThing

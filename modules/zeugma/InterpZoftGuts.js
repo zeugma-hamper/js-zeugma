@@ -4,9 +4,9 @@
 //
 
 
+import { Zoft } from "./Zoft.js"
 import { ZoftGuts } from "./ZoftGuts.js";
-
-import  { ZoftInterpFuncs } from "./ZoftInterpFuncs.js";
+import { ZoftInterpFuncs } from "./ZoftInterpFuncs.js";
 
 
 export class InterpZoftGuts  extends ZoftGuts

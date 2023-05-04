@@ -6,6 +6,8 @@
 
 import { ZESpatialEvent } from "./ZESpatialEvent.js";
 
+import { Vect } from "./Vect.js";
+
 
 export class ZESpatialCaressEvent  extends ZESpatialEvent
 { //

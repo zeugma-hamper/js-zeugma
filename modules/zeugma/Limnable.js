@@ -4,6 +4,14 @@
 //
 
 
+import { Matrix44 } from "./Matrix44.js"
+
+import { Vect } from "./Vect.js"
+
+import { ZeColor } from "./ZeColor.js"
+
+
+
 export const Limnable = (supah) => class extends supah
 { //
   IsZeugmallyLimnable ()

@@ -4,11 +4,17 @@
 //
 
 
+import { SpaceThing } from "./SpaceThing.js";
+
+import { Bolex } from "./Bolex.js";
+
+import { Zoft } from "./Zoft.js";
+
+import { Geom } from "./Geom.js";
+
 import { Vect } from "./Vect.js";
 
 import { ZeColor } from "./ZeColor.js";
-
-import { SpaceThing } from "./SpaceThing.js";
 
 
 export class PlatonicMaes  extends SpaceThing
