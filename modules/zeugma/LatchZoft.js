@@ -4,18 +4,9 @@
 //
 
 
-import { Zoft } from "./Zoft.js"
+import { LatchZoft } from "./Zoft.js"
 
-import { LatchZoftGuts } from "./LatchZoftGuts.js"
+export { LatchZoft };
 
-
-export class LatchZoft  extends Zoft
-{ //
-  static NewWith (plain_val)
-    { const z = Zoft._PrivateNew ();
-      const g = new LatchZoftGuts (plain_val);
-      z . _SetGuts (g);
-      z . _SetVal (plain_val);
-      return z;
-    }
-}
+// actual definition of LatchZoft move hence to Zoft.js, to sooth JS's
+// pointy little head on the topic of circular dependencies.

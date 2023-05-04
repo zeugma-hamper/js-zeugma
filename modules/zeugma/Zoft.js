@@ -6,6 +6,8 @@
 
 import { Zeubject } from "./Zeubject.js"
 
+import { LatchZoftGuts } from "./LatchZoftGuts.js"
+
 
 export class Zoft  extends Zeubject
 { //
@@ -146,6 +148,23 @@ export class Zoft  extends Zeubject
       else
         v = aval . Sca (bval);
       return v;
+    }
+}
+
+
+//
+/// the following lately moved over here from LatchZoft.js, in expiation
+/// of an importish circular dependency problem...
+//
+
+export class LatchZoft  extends Zoft
+{ //
+  static NewWith (plain_val)
+    { const z = Zoft._PrivateNew ();
+      const g = new LatchZoftGuts (plain_val);
+      z . _SetGuts (g);
+      z . _SetVal (plain_val);
+      return z;
     }
 }
 
