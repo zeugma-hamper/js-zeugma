@@ -18,7 +18,10 @@ import { EventAqueduct } from "./EventAqueduct.js";
 
 export class Loopervisor  extends Zeubject
 { //
-  static momma_t = new MotherTime ();
+//  static momma_t = new MotherTime ();
+
+  static InitializeClassHaplessly ()
+    { this.momma_t = new MotherTime (); }
 
   //
   constructor ()
@@ -220,3 +223,10 @@ export class Loopervisor  extends Zeubject
   RemoveNthToiler (ind)
     { return ZeWeakColl.RemoveNth (this.active_toilers, ind); }
 }
+
+
+//
+///
+//
+
+Loopervisor.InitializeClassHaplessly ();

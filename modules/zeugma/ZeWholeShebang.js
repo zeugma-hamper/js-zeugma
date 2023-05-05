@@ -42,7 +42,9 @@ import { base_class } from "./interface-ersatzer.js";
 export class ZeWholeShebang  extends base_class (Zeubject)
                            . and_interfaces (ZESpatialPhagy, RecursiveLimner)
 { //
-  static canonical_instance = null;
+//  static canonical_instance = null;
+  static InitializeClassHaplessly ()
+    { this.canonical_instance = null; }
 
   //
   constructor ()
@@ -810,3 +812,10 @@ whin . addEventListener ('pointermove',
       return novo;
     }
 }
+
+
+//
+///
+//
+
+ZeWholeShebang.InitializeClassHaplessly ();

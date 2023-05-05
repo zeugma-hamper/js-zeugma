@@ -15,11 +15,16 @@ import { Vect } from "./Vect.js";
 
 export class Bolex  extends SpaceThing
 { //
-  static ProjType = { PERSPECTIVE: "perspective",
-                      ORTHOGRAPHIC: "orthographic"
-                    };
-  //
+  // static ProjType = { PERSPECTIVE: "perspective",
+  //                     ORTHOGRAPHIC: "orthographic"
+  //                   };
+  static InitializeClassHaplessly ()
+    { this.ProjType =  { PERSPECTIVE: "perspective",
+                         ORTHOGRAPHIC: "orthographic"
+                       };
+    }
 
+  //
   constructor ()
     { super ();
 
@@ -272,3 +277,9 @@ export class Bolex  extends SpaceThing
   VPMatrix ()
     { return this.ViewMatrix () . Mul (this.ProjectionMatrix ()); }
 }
+
+//
+///
+//
+
+Bolex.InitializeClassHaplessly ();

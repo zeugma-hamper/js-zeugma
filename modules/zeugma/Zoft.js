@@ -11,7 +11,10 @@ import { LatchZoftGuts } from "./LatchZoftGuts.js";
 
 export class Zoft  extends Zeubject
 { //
-  static default_lung = null;
+//  static default_lung = null;
+  static InitializeClassHaplessly ()
+    { this.default_lung = null; }
+
   static DefaultLung ()
     { return this.default_lung; }
   static SetDefaultLung (pulmo)
@@ -178,4 +181,8 @@ export class _EchtZoft  extends Zoft
 }
 
 
-//import { _EchtZoft } from "./_EchtZoft.js"
+//
+///
+//
+
+Zoft.InitializeClassHaplessly ();

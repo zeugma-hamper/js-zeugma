@@ -6,6 +6,14 @@
 
 export class ZeColor
 { //
+  static InitializeClassHaplessly ()
+    { this.white = new ZeColor ();
+      this.black = new ZeColor (0.0);
+      this.trnsp_wht = new ZeColor (1.0, 0.0);
+      this.trnsp_blk = new ZeColor (0.0, 0.0);
+    }
+
+  //
   constructor ()
     { switch (arguments.length)
         { case 1:
@@ -140,8 +148,14 @@ export class ZeColor
 ///
 //
 
-  static white = new ZeColor ();
-  static black = new ZeColor (0.0);
-  static trnsp_wht = new ZeColor (1.0, 0.0);
-  static trnsp_blk = new ZeColor (0.0, 0.0);
+  // static white = new ZeColor ();
+  // static black = new ZeColor (0.0);
+  // static trnsp_wht = new ZeColor (1.0, 0.0);
+  // static trnsp_blk = new ZeColor (0.0, 0.0);
 }
+
+//
+///
+//
+
+ZeColor.InitializeClassHaplessly ();

@@ -6,6 +6,20 @@
 
 export class Vect
 { //
+  static InitializeClassHaplessly ()
+    { this.zerov = new Vect (0.0, 0.0, 0.0);
+      this.onesv = new Vect (1.0, 1.0, 1.0);
+
+      this.xaxis = new Vect (1.0, 0.0, 0.0);
+      this.yaxis = new Vect (0.0, 1.0, 0.0);
+      this.zaxis = new Vect (0.0, 0.0, 1.0);
+
+      this.negxaxis = new Vect (-1.0, 0.0, 0.0);
+      this.negyaxis = new Vect (0.0, -1.0, 0.0);
+      this.negzaxis = new Vect (0.0, 0.0, -1.0);
+    }
+
+//
   constructor (eks, wye, zee)
     { this.x = eks;
       this.y = wye;
@@ -222,14 +236,21 @@ export class Vect
 //
 ///
 //
-  static zerov = new Vect (0.0, 0.0, 0.0);
-  static onesv = new Vect (1.0, 1.0, 1.0);
+  // static zerov = new Vect (0.0, 0.0, 0.0);
+  // static onesv = new Vect (1.0, 1.0, 1.0);
 
-  static xaxis = new Vect (1.0, 0.0, 0.0);
-  static yaxis = new Vect (0.0, 1.0, 0.0);
-  static zaxis = new Vect (0.0, 0.0, 1.0);
+  // static xaxis = new Vect (1.0, 0.0, 0.0);
+  // static yaxis = new Vect (0.0, 1.0, 0.0);
+  // static zaxis = new Vect (0.0, 0.0, 1.0);
 
-  static negxaxis = new Vect (-1.0, 0.0, 0.0);
-  static negyaxis = new Vect (0.0, -1.0, 0.0);
-  static negzaxis = new Vect (0.0, 0.0, -1.0);
+  // static negxaxis = new Vect (-1.0, 0.0, 0.0);
+  // static negyaxis = new Vect (0.0, -1.0, 0.0);
+  // static negzaxis = new Vect (0.0, 0.0, -1.0);
 }
+
+
+//
+///
+//
+
+Vect.InitializeClassHaplessly ();

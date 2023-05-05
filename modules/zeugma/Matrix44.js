@@ -8,10 +8,15 @@ import { Vect } from "./Vect.js";
 
 export class Matrix44
 { //
-  static i10 = 4;
+//  static i10 = 4;
+  static InitializeClassHaplessly ()
+    { this.idmat = new Matrix44 ();
+      this.zeromat = new Matrix44 () . LoadZero ();
+    }
 
+//
   constructor ()
-    { //super ();
+    { //
       this.LoadIdent ();
     }
 
@@ -412,6 +417,12 @@ export class Matrix44
 //
 ///
 //
-  static idmat = new Matrix44 ();
-  static zeromat = new Matrix44 () . LoadZero ();
+//  static idmat = new Matrix44 ();
+//  static zeromat = new Matrix44 () . LoadZero ();
 }
+
+//
+///
+//
+
+Matrix44.InitializeClassHaplessly ();

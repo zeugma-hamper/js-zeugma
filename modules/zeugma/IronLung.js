@@ -12,7 +12,11 @@ import { ZeWeakColl } from "./ZeWeakColl.js";
 
 export class IronLung  extends Zeubject
 { //
-  static global_iron_lungs = new Array ();
+//  static global_iron_lungs = new Array ();
+  static InitializeClassHaplessly ()
+    { //
+      this.global_iron_lungs = new Array ();
+    }
 
   //
   constructor ()
@@ -132,3 +136,10 @@ export class IronLung  extends Zeubject
 
 // probably wire in the omni-lung stuff once the obelisk's shadow portends...
 }
+
+
+//
+///
+//
+
+IronLung.InitializeClassHaplessly ();

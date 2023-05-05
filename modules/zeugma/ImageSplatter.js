@@ -13,7 +13,9 @@ import { ZeColor } from "./ZeColor.js";
 
 export class ImageSplatter  extends Alignifer
 { //
-  static default_back_color = new ZeColor (0.25, 0.0);
+//  static default_back_color = new ZeColor (0.25, 0.0);
+  static InitializeClassHaplessly ()
+    { this.default_back_color = new ZeColor (0.25, 0.0); }
 
   //
   constructor (im)
@@ -99,3 +101,10 @@ export class ImageSplatter  extends Alignifer
     }
 //
 }
+
+
+//
+///
+//
+
+ImageSplatter.InitializeClassHaplessly ();

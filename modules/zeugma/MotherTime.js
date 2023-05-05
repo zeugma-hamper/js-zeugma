@@ -6,7 +6,10 @@
 
 export class MotherTime
 { //
-  static OOAT = (1.0 / 1000.0);
+//  static OOAT = (1.0 / 1000.0);
+
+  static InitializeClassHaplessly ()
+    { this.OOAT = (1.0 / 1000.0); }
 
   static MILLISECS_OF_NOW ()
     { return Date.now (); }
@@ -14,6 +17,7 @@ export class MotherTime
   static AbsoluteTime ()
     { return this.OOAT * this.MILLISECS_OF_NOW (); }
 
+//
   constructor ()
     { this.secs_per_sec = 1.0;
       this.chrono_freeze = false;
@@ -116,3 +120,10 @@ export class MotherTime
         * (cur_msecs - this.prev_millisecs);
     }
 }
+
+
+//
+///
+//
+
+MotherTime.InitializeClassHaplessly ();

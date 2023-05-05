@@ -17,7 +17,10 @@ import { ZeColor } from "./ZeColor.js";
 export class LimnyThing
        extends base_class (PouchyThing) . and_interfaces (Limnable)
 { //
-  static breather_of_record = null;
+//  static breather_of_record = null;
+  static InitializeClassHaplessly ()
+    { this.breather_of_record = null; }
+
   static BreatherOfRecord ()
     { return this.breather_of_record; }
   static SetBreatherOfRecord (lung)
@@ -54,3 +57,10 @@ export class LimnyThing
 
 //  Pixler ()
 }
+
+
+//
+///
+//
+
+LimnyThing.InitializeClassHaplessly ();

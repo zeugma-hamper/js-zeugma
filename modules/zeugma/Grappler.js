@@ -10,8 +10,11 @@ import { Zeubject } from "./Zeubject.js";
 
 
 export class Grappler  extends Zeubject
-{ static ident_mat = Matrix44.idmat . Dup ();
+{ //static ident_mat = Matrix44.idmat . Dup ();
+  static InitializeClassHaplessly ()
+    { this.ident_mat = Matrix44.idmat . Dup (); }
 
+  //
   PntMat ()
     { return this.constructor.ident_mat; }
   NrmMat ()
@@ -21,3 +24,10 @@ export class Grappler  extends Zeubject
   InvNrmMat ()
     { return this.constructor.ident_mat; }
 }
+
+
+//
+///
+//
+
+Grappler.InitializeClassHaplessly ();
