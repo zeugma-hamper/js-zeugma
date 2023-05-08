@@ -1,11 +1,11 @@
 
-const fs = require ('fs');
-const http = require ('http');
-const path = require ('path');
+const FS = require ('fs');
+const HTTP = require ('http');
+const PATH = require ('path');
 
-const process = require ('process');
+const PROCESS = require ('process');
 
-const osc = require ('osc');
+const OSC = require ('osc');
 
 const { Server } = require ("socket.io");
 
@@ -25,44 +25,47 @@ const MIME_TYPES = {
 };
 
 
-const STATIC_PATH = path.join(process.cwd(), './');
+const STATIC_PATH = PATH.join(process.cwd(), './');
 
 const toBool = [() => true, () => false];
 
 
-const prepareFile = async (url) => {
-  const paths = [STATIC_PATH, url];
+const FileStreamFromURL = async function (url) {
+  const path_chunks = [STATIC_PATH, url];
   if (url.endsWith('/'))
-    paths . push ('index.html');
-  const filePath = path . join (...paths);
-  const pathTraversal = ! filePath . startsWith (STATIC_PATH);
-  const exists = await fs.promises . access (filePath) . then (...toBool);
-  const found = !pathTraversal && exists;
-  const streamPath = found ? filePath : STATIC_PATH + '/404.html';
-  const ext = path.extname (streamPath) . substring (1) . toLowerCase ();
-  const stream = fs.createReadStream (streamPath);
+    path_chunks . push ('index.html');
+  const file_path = PATH.join (...path_chunks);
+  const path_traversal = ! file_path . startsWith (STATIC_PATH);
+  const exists = await FS.promises . access (file_path) . then (...toBool);
+  const found = ! path_traversal  &&  exists;
+  const stream_path = found ? file_path : STATIC_PATH + '/404.html';
+  const ext = PATH.extname (stream_path) . substring (1) . toLowerCase ();
+  const stream = FS.createReadStream (stream_path);
   return { found, ext, stream };
 };
 
 
-const server_conf = http.createServer (async (req, res) => {
-  const file = await prepareFile (req.url);
-  const statusCode = file.found ? 200 : 404;
-  const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
-  res . writeHead (statusCode, { 'Content-Type': mimeType });
-  file . stream . pipe (res);
-  console.log (`${req.method} ${req.url} ${statusCode}`);
-}) . listen (PORT);
+const FulfillFileRequest = async function (request, rspns_obj) {
+  const strm_bndl = await FileStreamFromURL (request.url);
+  const status_code = strm_bndl.found ? 200 : 404;
+  const mime_type = MIME_TYPES[strm_bndl.ext] || MIME_TYPES.default;
+  rspns_obj . writeHead (status_code, { 'Content-Type': mime_type });
+  strm_bndl.stream . pipe (rspns_obj);
+  console.log (`${request.method} ${request.url} ${status_code}`);
+};
+
+const http_server = HTTP.createServer (FulfillFileRequest);
+http_server . listen (PORT);
 
 
-const io = new Server (server_conf);
+const io = new Server (http_server);
 
 io.on ("connect", () => console.log ("connected, in a way..."));
 
 let ootpootcoont = 0;
 let continuspew = false;
 
-const din = process.stdin;
+const din = PROCESS.stdin;
 din . setRawMode (true);
 din . on ('data', (patty) =>
                     { if (patty == '\033')
@@ -74,7 +77,7 @@ din . on ('data', (patty) =>
                         ootpootcoont = q;
                     });
 
-const osc_youdeepee = new osc.UDPPort ({ localAddress: "0.0.0.0",
+const osc_youdeepee = new OSC.UDPPort ({ localAddress: "0.0.0.0",
                                          localPort: 54345
                                        });
 
