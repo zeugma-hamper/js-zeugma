@@ -314,11 +314,10 @@ whin . addEventListener ('pointermove',
 
 
   _BurstFromTheGround (canvasslessly)
-    { if (globalThis.window == undefined)
-        return 0;
-      const winny = globalThis.window;
+    { const winny = globalThis.window;
       const ur_maes = this.NthMaes (0);
-      if (ur_maes == null)
+      if (winny === null  ||  winny === undefined
+          ||  ur_maes === null  ||  ur_maes === undefined)
         return null;
 
       this.AssociateWindowAndMaes (winny, ur_maes);
@@ -330,6 +329,8 @@ whin . addEventListener ('pointermove',
       for (let q = 1  ;  q < cnt  ;  ++q)
         if ((ma = this.NthMaes (q))  !=  null)
           { const parawin = winny . open ();
+            if (parawin === null  ||  parawin === undefined)
+              continue;
             this.AssociateWindowAndMaes (parawin, ma);
             if (! canvasslessly)
               this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
