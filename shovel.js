@@ -38,6 +38,8 @@ const FileStreamFromURL = async function (url) {
   const path_traversal = ! file_path . startsWith (STATIC_PATH);
   const exists = await FS.promises . access (file_path) . then (...toBool);
   const found = ! path_traversal  &&  exists;
+  if (! found)
+    console.log ("well... " + file_path + " seems to be, you know, absent.");
   const stream_path = found ? file_path : STATIC_PATH + '/404.html';
   const ext = PATH.extname (stream_path) . substring (1) . toLowerCase ();
   const stream = FS.createReadStream (stream_path);

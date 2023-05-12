@@ -4,6 +4,11 @@
 //
 
 
+import { SpaceThing, TrGrappler,
+         SinuZoft, Vect } from "/modules/zeugma/zeugma-lib.js";
+
+
+
 export class ShimmyCrate  extends SpaceThing
 { //
   constructor (wrds, sze, offset, shimax, freq)

@@ -4,6 +4,12 @@
 //
 
 
+import { base_class,
+         ImageSplatter, ZESpatialPhagy,
+         Vect, Geom, PlatonicMaes } from "/modules/zeugma/zeugma-lib.js";
+
+
+
 export class Schlepner
        extends base_class (ImageSplatter) . and_interfaces (ZESpatialPhagy)
 { //

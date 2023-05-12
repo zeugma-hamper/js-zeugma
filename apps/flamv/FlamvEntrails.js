@@ -4,17 +4,22 @@
 //
 
 
+import { ZeWholeShebang, SpaceThing,
+         RoGrappler, SinuZoft,
+         CheapOSCMessage, Vect, ZeColor } from "/modules/zeugma/zeugma-lib.js";
+
 import { Schlepner } from "/apps/flamv/Schlepner.js";
+
 import { ShimmyCrate } from "/apps/flamv/ShimmyCrate.js";
 
-globalThis.Schlepner = Schlepner;
-globalThis.ShimmyCrate = ShimmyCrate;
+import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+let socky = SOCKIO ();
 
 
-globalThis.forsty = new Image ();
+let forsty = new Image ();
 forsty.src = "/images/flamv/forster-fry-smaller.png";
 
-globalThis.steiny = new Image ();
+let steiny = new Image ();
 steiny.src = "/images/flamv/stein-picabia-smaller.png";
 
 
@@ -22,7 +27,7 @@ const horque = function ()
 { globalThis.sheb = ZeWholeShebang.CanonicalInstance ();
   sheb . BurstFromTheGround ();
 
-  globalThis.frma = sheb . FindMaes ('front');
+  let frma = sheb . FindMaes ('front');
   //frma . InsertLayer (new SpaceThing () . SetName ("omnibus"), 0)
   for (let ma  of  sheb . Maeses ())
     ma . InsertLayer (new SpaceThing () . SetName ("omnibus"), 0)
