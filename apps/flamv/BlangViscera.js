@@ -4,10 +4,18 @@
 //
 
 
-globalThis.forsty = new Image ();
+import { ZeWholeShebang,
+         SinuZoft, ZeColor,
+         CheapOSCMessage } from "/modules/zeugma/zeugma-lib.js";
+
+import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+let socky = SOCKIO ();
+
+
+let forsty = new Image ();
 forsty.src = "/images/flamv/forster-fry-smaller.png";
 
-globalThis.steiny = new Image ();
+let steiny = new Image ();
 steiny.src = "/images/flamv/stein-picabia-smaller.png";
 
 
@@ -25,13 +33,12 @@ const horque = function ()
 
   let tbma = sheb . FindMaes ("table");
   let sc = SinuZoft . NewWith (new ZeColor (0.0, 0.5, 0.5, 0.0),
-                               .666, new ZeColor (1.0, 0.5, 0.5));
+                               0.666, new ZeColor (1.0, 0.5, 0.5));
   if (tbma != null)
     tbma . InstallAdjColor (sc);
 
   let Ingressication = function (ev)
     { this.style.borderColor = "red";
-      this.style.borderWidth = "10px";
       globalThis.lastentr = ev;
     }
 
@@ -39,14 +46,12 @@ const horque = function ()
     { globalThis.lastmove = ev; }
 
   let Egressication = function (ev)
-    { this.style.borderColor = "red";
-      this.style.borderWidth = "0px";
+    { this.style.borderColor = "rgba(1,1,1,0.0)";
       globalThis.lastleav = ev;
     }
 
   let Stankication = function (ev)
     { this.style.borderColor = "blue";
-      this.style.borderWidth = "2px";
     }
 
   let Plodderizer  = function (ev)
@@ -66,6 +71,7 @@ const horque = function ()
       immy.style.width = "auto";
       immy.style.height = "400px";
       immy.style.borderStyle = "solid";
+      immy.style.borderWidth = "10px";
       immy . addEventListener ("mousemove", Jigglification);
       immy . addEventListener ("mouseenter", Ingressication);
       immy . addEventListener ("mouseleave", Egressication);
@@ -78,16 +84,13 @@ const horque = function ()
       strippy.style.top = "100px";
       bahdy . appendChild (strippy);
       Moundify (steiny);
-      steiny . addEventListener ("mousemove", Plodderizer);
-      steiny . addEventListener ("pointerleave", Stankication);
       Moundify (forsty);
       forsty . addEventListener ("mousedown", Stankication);
+      forsty . addEventListener ("mouseup", Ingressication);
     }
 
-  globalThis.window . addEventListener ("mousemove", (ev) =>
-    { let q = 1;
-      ++q;
-    } );
+  sheb . FlyOnTheirTerms ();
+  sheb . SetShouldDeployStandaloneHTMLCursors(true);
 
   console.log ("honk.");
 };
