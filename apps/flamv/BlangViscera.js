@@ -6,9 +6,10 @@
 
 import { ZeWholeShebang,
          SinuZoft, ZeColor,
-         CheapOSCMessage } from "/modules/zeugma/zeugma-lib.js";
+         CheapOSCMessage } from "/src/zeugma/zeugma-lib.js";
 
-import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+//import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+import { io as SOCKIO } from "/node_modules/socket.io/client-dist/socket.io.esm.min.js";
 let socky = SOCKIO ();
 
 

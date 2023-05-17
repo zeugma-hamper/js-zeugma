@@ -1,9 +1,9 @@
 {
-  "name": "js-zeugma",
+  "name": "zeugma",
   "version": "0.5.0",
   "description": "high-fiber zeugmatic profundities",
-  "main": "modules/zeugma/zeugma-lib.js",
-  "files": "modules/zeugma/",
+  "main": "src/zeugma/zeugma-lib.js",
+  "files": ["src/zeugma/"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

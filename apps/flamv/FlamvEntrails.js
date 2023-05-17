@@ -6,7 +6,7 @@
 
 import { ZeWholeShebang, SpaceThing,
          RoGrappler, SinuZoft,
-         CheapOSCMessage, Vect, ZeColor } from "/modules/zeugma/zeugma-lib.js";
+         CheapOSCMessage, Vect, ZeColor } from "/src/zeugma/zeugma-lib.js";
 
 import { Schlepner } from "/apps/flamv/Schlepner.js";
 
