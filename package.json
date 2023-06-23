@@ -1,6 +1,6 @@
 {
   "name": "zeugma",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "high-fiber zeugmatic profundities",
   "main": "zeugma-lib.js",
   "files": ["zeugma-lib", "src/zeugma/"],
