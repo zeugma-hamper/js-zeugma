@@ -77,6 +77,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.null_cumumats = new CumuMats ();
 
       this.html_target_by_prov_by_window = new Map ();
+
+      this.url_by_maes_name = new Map ();
     }
 
 
@@ -132,6 +134,27 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return ZeColl.FindByName (this.maeses, nm); }
   AppendMaes (ma)
     { return ZeColl.Append (this.maeses, ma); }
+
+
+  StartupURLByMaesMap ()
+    { return this.url_by_maes_name; }
+
+  MergeIntoStartupURLByMaesNameMap (ubmn_map_or_obj)
+    { if (! ubmn_map_or_obj)
+        return this;
+      const emm = (Object.getPrototypeOf (ubmn_map_or_obj) === Map.prototype)
+              ?  ubmn_map_or_obj  :  new Map (Object.entries (ubmn_map_or_obj));
+
+      emm . forEach ( (val, key) =>
+                        { this.url_by_maes_name . set (key, val); }
+                    );
+      return this;
+    }
+
+  ClearStartupURLByMaesNameMap ()
+    { this.url_by_maes_name . clear ();
+      return this;
+    }
 
 
   SetGraphicsCorrelateForMaes (m, g)
@@ -328,7 +351,11 @@ whin . addEventListener ('pointermove',
       const cnt = this.NumMaeses ();
       for (let q = 1  ;  q < cnt  ;  ++q)
         if ((ma = this.NthMaes (q))  !=  null)
-          { const parawin = winny . open ();
+          { const nm = ma . Name ();
+            let url = this.url_by_maes_name . get (nm);
+            if (! url)
+              url = "";
+            const parawin = winny . open (url, nm);
             if (parawin === null  ||  parawin === undefined)
               continue;
             this.AssociateWindowAndMaes (parawin, ma);

@@ -22,6 +22,7 @@ steiny.src = "/images/flamv/stein-picabia-smaller.png";
 
 const horque = function ()
 { globalThis.sheb = ZeWholeShebang.CanonicalInstance ();
+  sheb . MergeIntoStartupURLByMaesNameMap ( { "left" : "https://google.com" } );
   sheb . BurstFromTheGroundCanvasslessly ();
 
   console.log (socky);
