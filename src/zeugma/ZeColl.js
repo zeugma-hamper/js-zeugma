@@ -60,5 +60,12 @@ export class ZeColl
       coll . splice (ind, 1);
       return true;
     }
+
+  static RemoveAll (coll)
+    { if (coll == null)
+        return false;
+      coll.length = 0;
+      return true;
+    }
 //
 }

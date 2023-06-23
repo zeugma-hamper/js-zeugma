@@ -54,6 +54,15 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
       this.maeses = new Array ();
 
+      let mca = PlatonicMaes.SampleMaesConfigJSON ();
+      if (ZeWholeShebang . SingleShotDefaultMaesConfigArray ())
+        { mca = ZeWholeShebang . SingleShotDefaultMaesConfigArray ();
+          ZeWholeShebang . SetSingleShotDefaultMaesConfigArray (undefined);
+        }
+      else if (ZeWholeShebang . DefaultMaesConfigArray ())
+        mca = ZeWholeShebang . DefaultMaesConfigArray ();
+      this.maes_config_arr = mca;
+
       this.gcorr_by_maes = new Map ();
       this.winda_by_maes = new Map ();
       this.dcatcher_by_maes = new Map ();
@@ -123,6 +132,11 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
 
+  MaesConfigArray ()
+    { return this.maes_config_arr; }
+  SetMaesConfigArray (mc_arr)
+    { this.maes_config_arr = mc_arr;  return this; }
+
   Maeses ()
     { return this.maeses; }
 
@@ -134,6 +148,10 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return ZeColl.FindByName (this.maeses, nm); }
   AppendMaes (ma)
     { return ZeColl.Append (this.maeses, ma); }
+  RemoveNthMaes (ind)
+    { return ZeColl.RemoveNth (this.maeses, ind); }
+  RemoveAllMaeses ()
+    { return ZeColl.RemoveAll (this.maeses); }
 
 
   StartupURLByMaesMap ()
@@ -187,8 +205,9 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     }
 
 
-  PopulatefromMaesConfig (mconf)
-    { for (const descobj of mconf)
+  PopulateFromMaesConfig (mconf)
+    { this.RemoveAllMaeses ();
+      for (const descobj of mconf)
         { const ma = PlatonicMaes.NewFromJSON (descobj);
           if (ma != null)
             { this.AppendMaes (ma);
@@ -798,7 +817,7 @@ whin . addEventListener ('pointermove',
 //
   InstallSampleMaesConfig ()
     { const samp_maeses = PlatonicMaes.SampleMaesConfigJSON ();
-      return this.PopulatefromMaesConfig (samp_maeses);
+      return this.PopulateFromMaesConfig (samp_maeses);
     }
 //
 
@@ -806,13 +825,23 @@ whin . addEventListener ('pointermove',
 ///
 //
 
+  static DefaultMaesConfigArray (mca)
+    { return this.default_maes_config_arr; }
+  static SetDefaultMaesConfigArray (mca)
+    { this.default_maes_config_arr = mca; }
+
+  static SingleShotDefaultMaesConfigArray ()
+    { return this.single_shot_default_maes_config_arr; }
+  static SetSingleShotDefaultMaesConfigArray (ssmca)
+    { this.single_shot_default_maes_config_arr = ssmca; }
+
   static CanonicalInstance ()
     { if (this.canonical_instance == null)
         this.canonical_instance = this.NewDefaultInstance ();
       return this.canonical_instance;
     }
 
-  static NewDefaultInstance ()
+  static NewDefaultInstance (maes_config)
     { const novo = new ZeWholeShebang ();
 
       const loo = novo . Looper ();
@@ -820,7 +849,7 @@ whin . addEventListener ('pointermove',
       loo . AssuredDefaultLung ();  // for the glorious side effect of creation
       Zoft.SetDefaultLung (zolu);
 
-      novo . InstallSampleMaesConfig ();
+      novo . PopulateFromMaesConfig (novo . MaesConfigArray ());
 
       const spaq = new EventAqueduct ();
       spaq . SetName ("spatial-aqueduct");

@@ -6,6 +6,7 @@
 
 import { ZeWholeShebang,
          SinuZoft, ZeColor,
+         PlatonicMaes,
          CheapOSCMessage } from "/zeugma-lib.js";
 
 //import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
@@ -21,8 +22,13 @@ steiny.src = "/images/flamv/stein-picabia-smaller.png";
 
 
 const horque = function ()
-{ globalThis.sheb = ZeWholeShebang.CanonicalInstance ();
+{ const maes_conf = PlatonicMaes.SampleMaesConfigJSON ();
+  maes_conf . splice (2, 1);//maes_conf.length - 1);
+  //ZeWholeShebang . SetSingleShotDefaultMaesConfigArray (maes_conf);
+  ZeWholeShebang . SetDefaultMaesConfigArray (maes_conf);
+  globalThis.sheb = ZeWholeShebang.CanonicalInstance ();
   sheb . MergeIntoStartupURLByMaesNameMap ( { "left" : "https://google.com" } );
+  //sheb . PopulateFromMaesConfig (maes_conf);
   sheb . BurstFromTheGroundCanvasslessly ();
 
   console.log (socky);
