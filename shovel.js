@@ -1,13 +1,13 @@
 
-const FS = require ('fs');
-const HTTP = require ('http');
-const PATH = require ('path');
+import FS from "fs";
+import HTTP from "http";
+import PATH from "path";
 
-const PROCESS = require ('process');
+import PROCESS from "process";
 
-const OSC = require ('osc');
+import OSC from "osc";
 
-const { Server } = require ("socket.io");
+import { Server } from "socket.io";
 
 const PORT = 8000;
 
@@ -67,10 +67,12 @@ io.on ("connect", () => console.log ("connected, in a way..."));
 let ootpootcoont = 0;
 let continuspew = false;
 
+const esc_as_string = String.fromCharCode (27);
+
 const din = PROCESS.stdin;
 din . setRawMode (true);
 din . on ('data', (patty) =>
-                    { if (patty == '\033')
+                    { if (patty == esc_as_string)
                         process.exit ();
                       let q = Number.parseInt (patty);
                       if (patty == 's')
