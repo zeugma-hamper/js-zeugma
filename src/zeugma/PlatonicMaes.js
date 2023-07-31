@@ -34,6 +34,11 @@ export class PlatonicMaes  extends SpaceThing
       this.adj_iro = Zoft.NewWith (ZeColor.white);
 
       this.layers = new Array ();
+
+      this.resize_voyeurs = new Array ();
+      const rsz_fn = (ma, ...awgs) =>
+        { ma . BasicResizeCountenancer (...awgs); };
+      this.AppendResizeVoyeur (rsz_fn);
     }
 
 //
@@ -157,6 +162,39 @@ export class PlatonicMaes  extends SpaceThing
       return true;
     }
 
+  BasicResizeCountenancer (new_w, new_h, evt, win)
+    {
+    }
+
+  NumResizeVoyeurs ()
+    { return this.resize_voyeurs.length; }
+  NthResizeVoyeur (ind)
+    { if (ind < 0  ||  ind >= this.resize_voyeurs.length )
+        return null;
+      return this.resize_voyeurs[ind];
+    }
+  IndexOfResizeVoyeur (rv)
+    { return this.resize_voyeurs . indexOf (rv); }
+  AppendResizeVoyeur (rv)
+    { if (this.IndexOfResizeVoyeur (rv)  >=  0)
+        return this;
+      this.resize_voyeurs . push (rv);
+    }
+  RemoveResizeVoyeur (rv)
+    { const ind = this.IndexOfResizeVoyeur (rv);
+      if (ind >= 0)
+        this.resize_voyeurs . splice (ind, 1);
+      return this;
+    }
+
+
+  CountenanceResize (neww, newh, evt, win)
+    { const cnt = this.NumResizeVoyeurs ();
+      for (let q = 0  ;  q < cnt  ;  ++q)
+        this.NthResizeVoyeur (q) (this, neww, newh, evt, win);
+    }
+
+
   InstallCameraFromSelfGeom ()
     { this.eigen_cam = this.constructor.CameraFromMaes (this); }
 
@@ -164,6 +202,7 @@ export class PlatonicMaes  extends SpaceThing
     { return this.eigen_cam; }
   SetEigenCamera (ec)
     { this.eigen_cam = ec;  return this; }
+
 
 //
   static NewFromJSON (j)

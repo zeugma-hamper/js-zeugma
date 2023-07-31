@@ -65,6 +65,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
       this.gcorr_by_maes = new Map ();
       this.winda_by_maes = new Map ();
+      this.maes_by_winda = new Map ();
       this.dcatcher_by_maes = new Map ();
 
       this.auto_attend = true;
@@ -183,10 +184,16 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
 
   SetWindowForMaes (m, w)
-    { this.winda_by_maes . set (m, w);  return this; }
+    { this.winda_by_maes . set (m, w);
+      this.maes_by_winda . set (w, m);
+      return this;
+    }
 
   WindowForMaes (m)
     { return this.winda_by_maes . get (m); }
+
+  MaesForWindow (w)
+    { return this.maes_by_winda . get (w); }
 
 
   SetDialectCatcherForMaes (m, dc)
@@ -342,9 +349,13 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       if (gctx == null)
         console.warn ("Well, that simply won't do. We can't have a null gctx.");
 
-      whin . addEventListener ('resize', () => {
-          canv.width = whin.innerWidth;
-          canv.height = whin.innerHeight;
+      // one might argue that doing the following in thie function is an
+      // ill-considered placement; and one might sounds pretty good like that.
+      whin . addEventListener ('resize', (e) => {
+          const new_w = whin.innerWidth, new_h = whin.innerHeight
+          canv.width = new_w;
+          canv.height = new_h;
+          maes . CountenanceResize (new_w, new_h, e, whin);
       });
 
 whin . addEventListener ('pointermove',
