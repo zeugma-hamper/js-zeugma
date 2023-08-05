@@ -81,6 +81,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.html_pointer_id_by_prov = new Map ();
       this.global_html_pointer_id = 1088801;
 
+      this.explicit_html_target_by_prov = new Map ();
+
       this.should_deploy_stanalone_html_cursors = false;
       this.html_cursor_by_prov_by_window = new Map ();
       this.html_cursor_window_by_prov = new Map ();
@@ -122,6 +124,24 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return this.should_deploy_stanalone_html_cursors; }
   SetShouldDeployStandaloneHTMLCursors (dshc)
     { this.should_deploy_stanalone_html_cursors = dshc;  return this; }
+
+
+  HTMLTargetForProvenance (prv)
+    { return this.explicit_html_target_by_prov . get (prv); }
+
+  SetHTMLTargetForProvenance (prv, trg, optns)
+    { if (this.explicit_html_target_by_prov . has (prv))
+        return false;
+      this.explicit_html_target_by_prov . set (prv, [trg, optns]);
+      return true;
+    }
+  RemoveHTMLTargetForProvenance (prv)
+    { if (! this.explicit_html_target_by_prov . has (prv))
+        return false;
+      this.explicit_html_target_by_prov . delete (prv);
+      return true;
+    }
+
 
   HTMLPointerIDForProv (prv)
     { let pntr_id = this.html_pointer_id_by_prov . get (prv);
@@ -688,7 +708,9 @@ whin . addEventListener ('pointermove',
                    ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
             { const pntrid = this.HTMLPointerIDForProv (prv);
 
-              let tahgit = wnd.document . elementFromPoint (x, y);
+              let plic_tar = this.HTMLTargetForProvenance (prv);
+              let tahgit = plic_tar  ?  plic_tar  :
+                wnd.document . elementFromPoint (x, y);
               if (tahgit == null)
                 { console.warn ("in ZESpatialMove() -- tahgit is null, with "
                                 + "window = " + wnd + " at (x,y) = ("
@@ -707,20 +729,29 @@ whin . addEventListener ('pointermove',
                   let pevt = new MouseEvent ('mousemove', optns);
                   pevt['prov'] = prv;
                   pevt['zeugma_evt'] = e;
-                  tahgit . dispatchEvent (pevt);
+                  if (! plic_tar)
+                    tahgit . dispatchEvent (pevt);
+                  else
+                    if (tahgit.ExplicitizedMouseMove)
+                      tahgit . ExplicitizedMouseMove (pevt);
 
                   optns = { bubbles: true, view: wnd,
                             pointerId: pntrid, clientX: x, clientY: y };
                   pevt = new PointerEvent ('pointermove', optns);
                   pevt['prov'] = prv;
                   pevt['zeugma_evt'] = e;
-                  tahgit . dispatchEvent (pevt);
+                  if (! plic_tar)
+                    tahgit . dispatchEvent (pevt);
+                  else
+                    if (tahgit.ExplicitizedPointerMove)
+                      tahgit . ExplicitizedPointerMove (pevt);
                 }
             }
         }
 
       return 0;
     }
+
 
   ZESpatialHarden (e)
     { const prv = e . Provenance ();
@@ -752,14 +783,20 @@ whin . addEventListener ('pointermove',
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              let tahgit = wnd.document . elementFromPoint (x, y);
+              let plic_tar = this.HTMLTargetForProvenance (prv);
+              let tahgit = plic_tar  ?  plic_tar  :
+                wnd.document . elementFromPoint (x, y);
               if (tahgit == null)
                 { console.warn ("in ZESpatialHarden() -- tahgit is null, with "
                                 + "window = " + wnd + " at (x,y) = ("
                                 + x + ", " + y + ")...");
                   tahgit = wnd;
                 }
-              tahgit . dispatchEvent (pevt);
+              if (! plic_tar)
+                tahgit . dispatchEvent (pevt);
+              else
+                if (tahgit.ExplicitizedMouseDown)
+                  tahgit . ExplicitizedMouseDown (pevt);
 
               optns = { bubbles: true, view: wnd,
                         pointerId: pntrid, clientX: x, clientY: y,
@@ -768,12 +805,17 @@ whin . addEventListener ('pointermove',
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              tahgit . dispatchEvent (pevt);
+              if (! plic_tar)
+                tahgit . dispatchEvent (pevt);
+              else
+                if (tahgit.ExplicitizedPointerDown)
+                  tahgit . ExplicitizedPointerDown (pevt);
             }
         }
 
       return 0;
     }
+
 
   ZESpatialSoften (e)
     { const prv = e . Provenance ();
@@ -805,10 +847,16 @@ whin . addEventListener ('pointermove',
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              let tahgit = wnd.document . elementFromPoint (x, y);
+              let plic_tar = this.HTMLTargetForProvenance (prv);
+              let tahgit = plic_tar  ?  plic_tar  :
+                wnd.document . elementFromPoint (x, y);
               if (tahgit == null)
                 tahgit = wnd;
-              tahgit . dispatchEvent (pevt);
+              if (! plic_tar)
+                tahgit . dispatchEvent (pevt);
+              else
+                if (tahgit.ExplicitizedMouseUp)
+                  tahgit . ExplicitizedMouseUp (pevt);
 
               optns = { bubbles: true, view: wnd,
                         pointerId: pntrid, clientX: x, clientY: y,
@@ -817,7 +865,11 @@ whin . addEventListener ('pointermove',
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              tahgit . dispatchEvent (pevt);
+              if (! plic_tar)
+                tahgit . dispatchEvent (pevt);
+              else
+                if (tahgit.ExplicitizedPointerUp)
+                  tahgit . ExplicitizedPointerUp (pevt);
             }
         }
 
