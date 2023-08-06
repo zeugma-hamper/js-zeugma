@@ -709,8 +709,11 @@ whin . addEventListener ('pointermove',
             { const pntrid = this.HTMLPointerIDForProv (prv);
 
               let plic_tar = this.HTMLTargetForProvenance (prv);
+              if (plic_tar)
+                plic_tar = plic_tar[0];
               let tahgit = plic_tar  ?  plic_tar  :
                 wnd.document . elementFromPoint (x, y);
+
               if (tahgit == null)
                 { console.warn ("in ZESpatialMove() -- tahgit is null, with "
                                 + "window = " + wnd + " at (x,y) = ("
@@ -729,22 +732,14 @@ whin . addEventListener ('pointermove',
                   let pevt = new MouseEvent ('mousemove', optns);
                   pevt['prov'] = prv;
                   pevt['zeugma_evt'] = e;
-                  if (! plic_tar)
-                    tahgit . dispatchEvent (pevt);
-                  else
-                    if (tahgit.ExplicitizedMouseMove)
-                      tahgit . ExplicitizedMouseMove (pevt);
+                  tahgit . dispatchEvent (pevt);
 
                   optns = { bubbles: true, view: wnd,
                             pointerId: pntrid, clientX: x, clientY: y };
                   pevt = new PointerEvent ('pointermove', optns);
                   pevt['prov'] = prv;
                   pevt['zeugma_evt'] = e;
-                  if (! plic_tar)
-                    tahgit . dispatchEvent (pevt);
-                  else
-                    if (tahgit.ExplicitizedPointerMove)
-                      tahgit . ExplicitizedPointerMove (pevt);
+                  tahgit . dispatchEvent (pevt);
                 }
             }
         }
@@ -784,19 +779,18 @@ whin . addEventListener ('pointermove',
               pevt['zeugma_evt'] = e;
 
               let plic_tar = this.HTMLTargetForProvenance (prv);
+              if (plic_tar)
+                plic_tar = plic_tar[0];
               let tahgit = plic_tar  ?  plic_tar  :
                 wnd.document . elementFromPoint (x, y);
+
               if (tahgit == null)
                 { console.warn ("in ZESpatialHarden() -- tahgit is null, with "
                                 + "window = " + wnd + " at (x,y) = ("
                                 + x + ", " + y + ")...");
                   tahgit = wnd;
                 }
-              if (! plic_tar)
-                tahgit . dispatchEvent (pevt);
-              else
-                if (tahgit.ExplicitizedMouseDown)
-                  tahgit . ExplicitizedMouseDown (pevt);
+              tahgit . dispatchEvent (pevt);
 
               optns = { bubbles: true, view: wnd,
                         pointerId: pntrid, clientX: x, clientY: y,
@@ -805,11 +799,7 @@ whin . addEventListener ('pointermove',
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              if (! plic_tar)
-                tahgit . dispatchEvent (pevt);
-              else
-                if (tahgit.ExplicitizedPointerDown)
-                  tahgit . ExplicitizedPointerDown (pevt);
+              tahgit . dispatchEvent (pevt);
             }
         }
 
@@ -848,15 +838,14 @@ whin . addEventListener ('pointermove',
               pevt['zeugma_evt'] = e;
 
               let plic_tar = this.HTMLTargetForProvenance (prv);
+              if (plic_tar)
+                plic_tar = plic_tar[0];
               let tahgit = plic_tar  ?  plic_tar  :
                 wnd.document . elementFromPoint (x, y);
+
               if (tahgit == null)
                 tahgit = wnd;
-              if (! plic_tar)
-                tahgit . dispatchEvent (pevt);
-              else
-                if (tahgit.ExplicitizedMouseUp)
-                  tahgit . ExplicitizedMouseUp (pevt);
+              tahgit . dispatchEvent (pevt);
 
               optns = { bubbles: true, view: wnd,
                         pointerId: pntrid, clientX: x, clientY: y,
@@ -865,11 +854,7 @@ whin . addEventListener ('pointermove',
               pevt['prov'] = prv;
               pevt['zeugma_evt'] = e;
 
-              if (! plic_tar)
-                tahgit . dispatchEvent (pevt);
-              else
-                if (tahgit.ExplicitizedPointerUp)
-                  tahgit . ExplicitizedPointerUp (pevt);
+              tahgit . dispatchEvent (pevt);
             }
         }
 
