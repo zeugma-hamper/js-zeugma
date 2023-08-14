@@ -182,6 +182,8 @@ zeu.Bolex = Bolex;
 
 import { ZeEvent } from "./src/zeugma/ZeEvent.js";
 export { ZeEvent } from "./src/zeugma/ZeEvent.js";
+zeu.ZeEvent = ZeEvent;
+
 import { ZESpatialEvent } from "./src/zeugma/ZESpatialEvent.js";
 export { ZESpatialEvent } from "./src/zeugma/ZESpatialEvent.js";
 import { ZESpatialAppearEvent } from "./src/zeugma/ZESpatialAppearEvent.js";
@@ -198,7 +200,6 @@ import { ZESpatialHardenEvent } from "./src/zeugma/ZESpatialHardenEvent.js";
 export { ZESpatialHardenEvent } from "./src/zeugma/ZESpatialHardenEvent.js";
 import { ZESpatialSoftenEvent } from "./src/zeugma/ZESpatialSoftenEvent.js";
 export { ZESpatialSoftenEvent } from "./src/zeugma/ZESpatialSoftenEvent.js";
-zeu.ZeEvent = ZeEvent;
 zeu.ZESpatialEvent = ZESpatialEvent;
 zeu.ZESpatialAppearEvent = ZESpatialAppearEvent;
 zeu.ZESpatialVanishEvent = ZESpatialVanishEvent;
@@ -207,6 +208,25 @@ zeu.ZESpatialCaressEvent = ZESpatialCaressEvent;
 zeu.ZESpatialPressureEvent = ZESpatialPressureEvent;
 zeu.ZESpatialHardenEvent = ZESpatialHardenEvent;
 zeu.ZESpatialSoftenEvent = ZESpatialSoftenEvent;
+
+import { ZEDisplacementEvent } from "./src/zeugma/ZEDisplacementEvent.js";
+export { ZEDisplacementEvent } from "./src/zeugma/ZEDisplacementEvent.js";
+import { ZEDisplacementAppearEvent }
+  from "./src/zeugma/ZEDisplacementAppearEvent.js";
+export { ZEDisplacementAppearEvent }
+  from "./src/zeugma/ZEDisplacementAppearEvent.js";
+import { ZEDisplacementVanishEvent }
+  from "./src/zeugma/ZEDisplacementVanishEvent.js";
+export { ZEDisplacementVanishEvent }
+  from "./src/zeugma/ZEDisplacementVanishEvent.js";
+import { ZEDisplacementMoveEvent }
+  from "./src/zeugma/ZEDisplacementMoveEvent.js";
+export { ZEDisplacementMoveEvent }
+  from "./src/zeugma/ZEDisplacementMoveEvent.js";
+zeu.ZEDisplacementEvent = ZEDisplacementEvent;
+zeu.ZEDisplacementAppearEvent = ZEDisplacementAppearEvent;
+zeu.ZEDisplacementVanishEvent = ZEDisplacementVanishEvent;
+zeu.ZEDisplacementMoveEvent = ZEDisplacementMoveEvent;
 
 import { ZESpatialPhagy } from "./src/zeugma/ZESpatialPhagy.js";
 export { ZESpatialPhagy } from "./src/zeugma/ZESpatialPhagy.js";
