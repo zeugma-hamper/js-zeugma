@@ -6,7 +6,13 @@
 
 import { ZeWholeShebang, SpaceThing,
          RoGrappler, SinuZoft,
-         CheapOSCMessage, Vect, ZeColor } from "/zeugma-lib.js";
+         ZEDisplacementPhagy,
+         EventAqueduct,
+         CheapOSCMessage,
+         Vect, ZeColor,
+         Zeubject, base_class } from "/zeugma-lib.js";
+
+import { DisplacementStill } from "/apps/flamv/DisplacementStill.js";
 
 import { Schlepner } from "/apps/flamv/Schlepner.js";
 
@@ -21,6 +27,23 @@ forsty.src = "/images/flamv/forster-fry-smaller.png";
 
 let steiny = new Image ();
 steiny.src = "/images/flamv/stein-picabia-smaller.png";
+
+
+class Tattler
+  extends base_class (Zeubject) . and_interfaces (ZEDisplacementPhagy)
+{ constructor ()  { super (); }
+  ZEDisplacementAppear (e)
+    { console.log ("APPEAR! who? well, " + e . Provenance ()); }
+  ZEDisplacementVanish (e)
+    { console.log ("somebody VANISHed; probably " + e . Provenance ()); }
+  ZEDisplacementMove (e)
+    { const dsp = e . CurDisp ();
+      console.log (`MOVE -- yeah, like to (${dsp[0]}, ${dsp[1]}, ${dsp[2]})`);
+    }
+}
+
+
+const tat = new Tattler ();
 
 
 const horque = function ()
@@ -75,7 +98,16 @@ const horque = function ()
       ma . FindLayer ("omnibus") . AppendChild (foim);
     }
 
-  let spaq = sheb . Looper () . FindAqueduct ("spatial-aqueduct");
+  const distil = new DisplacementStill ();
+  distil . SetUniversalDetent (40.0);  // that's millimeters, darling.
+  const diaq = new EventAqueduct ();
+  diaq . SetName ("displacement-aqueduct");
+  distil . AppendAqueduct (diaq);
+  sheb . Looper () . AppendAqueduct (diaq);
+  diaq . AppendPhage (tat);
+
+  const spaq = sheb . Looper () . FindAqueduct ("spatial-aqueduct");
+  spaq . AppendPhage (distil);
   spaq . AppendPhage (stim);
   spaq . AppendPhage (foim);
 
