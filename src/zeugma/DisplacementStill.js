@@ -4,18 +4,19 @@
 //
 
 
-import { Zeubject } from "/zeugma-lib.js";
+import { Zeubject } from "./Zeubject.js";
 
-import { ZEDisplacementEvent,
-         ZEDisplacementAppearEvent,
-         ZEDisplacementVanishEvent,
-         ZEDisplacementMoveEvent } from "/zeugma-lib.js";
+import { ZEDisplacementEvent } from "./ZEDisplacementEvent.js";
+import { ZEDisplacementAppearEvent } from "./ZEDisplacementAppearEvent.js";
+import { ZEDisplacementVanishEvent } from "./ZEDisplacementVanishEvent.js";
+import { ZEDisplacementMoveEvent } from "./ZEDisplacementMoveEvent.js";
 
-import { ZESpatialPhagy } from "/zeugma-lib.js";
+import { ZESpatialPhagy } from "./ZESpatialPhagy.js"
 
-import { Vect, ZeColl } from "/zeugma-lib.js";
+import { Vect } from "./Vect.js";
+import { ZeColl } from "./ZeColl.js";
 
-import { base_class } from "/zeugma-lib.js";
+import { base_class } from "./interface-ersatzer.js";
 
 
 class DState

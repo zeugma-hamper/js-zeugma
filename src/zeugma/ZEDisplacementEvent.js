@@ -38,7 +38,7 @@ export class ZEDisplacementEvent  extends ZeEvent
 
   EstabLoc ()  { return this.estab_loc; }
   SetEstabLoc (loc_v)
-    { this.estab_disp = loc_v;  return this; }
+    { this.estab_loc = loc_v;  return this; }
 
   PrevDisp ()  { return this.prev_disp; }
   PrevDisp0 ()  { return this.prev_disp[0]; }

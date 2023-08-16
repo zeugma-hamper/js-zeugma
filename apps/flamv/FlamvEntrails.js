@@ -9,10 +9,9 @@ import { ZeWholeShebang, SpaceThing,
          ZEDisplacementPhagy,
          EventAqueduct,
          CheapOSCMessage,
+         DisplacementStill,
          Vect, ZeColor,
          Zeubject, base_class } from "/zeugma-lib.js";
-
-import { DisplacementStill } from "/apps/flamv/DisplacementStill.js";
 
 import { Schlepner } from "/apps/flamv/Schlepner.js";
 

@@ -81,6 +81,8 @@ import { OSCViveWandSump } from "./src/zeugma/OSCViveWandSump.js";
 export { OSCViveWandSump } from "./src/zeugma/OSCViveWandSump.js";
 import { ViveWandEventSynth } from "./src/zeugma/ViveWandEventSynth.js";
 export { ViveWandEventSynth } from "./src/zeugma/ViveWandEventSynth.js";
+import { DisplacementStill } from "./src/zeugma/DisplacementStill.js";
+export { DisplacementStill } from "./src/zeugma/DisplacementStill.js";
 import { EventAqueduct } from "./src/zeugma/EventAqueduct.js";
 export { EventAqueduct } from "./src/zeugma/EventAqueduct.js";
 zeu.IronLung = IronLung;
@@ -88,6 +90,7 @@ zeu.CommsSump = CommsSump;
 zeu.OSCSump = OSCSump;
 zeu.OSCViveWandSump = OSCViveWandSump;
 zeu.ViveWandEventSynth = ViveWandEventSynth;
+zeu.DisplacementStill = DisplacementStill;
 zeu.EventAqueduct = EventAqueduct;
 
 import { OSCFaker } from "./src/zeugma/OSCFaker.js";
