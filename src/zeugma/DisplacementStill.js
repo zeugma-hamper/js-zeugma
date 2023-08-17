@@ -26,8 +26,14 @@ class DState
       this.factual = false;
       //this.engaged = false;
       this.est_loc = null;
+      this.est_aim = null;
+      this.est_ovr = null;
+      this.est_nrm = null;
       this.prv_raw = null;
       this.prv_dsp = null;
+      this.prv_ovr = null;
+      this.accum_twst = 0.0;
+      this.prv_twst = 0.0;
     }
 }
 
@@ -54,6 +60,7 @@ export class DisplacementStill
       this.monaxial = false;
       this.dtnt_uni = -1.0;
       this.dtnt_0 = this.dtnt_1 = this.dtnt_2 = -1.0;
+      this.dtnt_ang = -1.0;
 
       this.ducts = new Array ();
     }
@@ -78,6 +85,15 @@ export class DisplacementStill
         this.dtnt_uni = -1.0;
       return this;
     }
+
+  AngularDetent ()
+    { return this.dtnt_ang; }
+  AngularDetentDeg ()
+    { return this.dtnt_ang * 180.0 / Math.PI; }
+  SetAngularDetent (ang)
+    { this.dtnt_ang = ang;  return this; }
+  SetAngularDetentDeg (ang)
+    { this.dtnt_ang = ang * Math.PI / 180.0;  return this; }
 
   AppendAqueduct (a)
     { return ZeColl.Append (this.ducts, a); }
@@ -134,9 +150,33 @@ export class DisplacementStill
       evt . SetRawDisp (raw_out);
       evt . SetCurDisp (dsp_out);
       evt . SetForebearEvent (e);
-
       sta.prv_dsp = dsp_out;
       sta.prv_raw = raw_out;
+
+      let ovr = e . Over ();
+      ovr = ovr . RejectFrom (sta.est_aim) . Norm ();
+      if (! ovr . IsZero ())
+        { const prvo = sta.prv_ovr;
+          const yish = sta.est_aim . Cross (prvo) . Norm ();
+          let dang = ovr . AngleWith (prvo);
+          let atw
+            = sta.accum_twst + ((ovr . Dot (yish)  >=  0.0)  ?  dang  :  -dang);
+          sgn = (atw < 0.0)  ?  -1.0  :  1.0;
+          let tw = atw;
+          thr = this.dtnt_ang;
+          if (thr  >  0.0)
+            tw = (tw * sgn  <  thr)  ?  0.0  :  (tw - sgn * thr);
+
+          evt . SetPrevTwist (sta.prv_twst);
+          evt . SetCurTwist (tw);
+          sta.accum_twst = atw;
+          sta.prv_ovr = ovr;
+          sta.prv_twst = tw;
+        }
+      else
+        { evt . SetPrevTwist (sta.prv_twst);
+          evt . SetCurTwist (sta.prv_twst);
+        }
 
       this . DispatchEvent (evt);
       return 1;
@@ -183,6 +223,9 @@ export class DisplacementStill
       sta.nascent = false;
       sta.factual = true;
       sta.est_loc = e . Loc ();
+      sta.est_aim = e . Aim ();
+      sta.est_ovr = sta.prv_ovr = e . Over ();
+      sta.est_nrm = sta.est_ovr . Cross (sta.est_aim);
 
       // emit ZEDisplacementAppearEvent
       const evt = new ZEDisplacementAppearEvent (prv);
@@ -193,6 +236,8 @@ export class DisplacementStill
       evt . SetPrevRaw (nooz);
       evt . SetRawDisp (nooz);
       evt . SetCurDisp (nooz);
+      evt . SetPrevTwist (sta.prv_twst);
+      evt . SetCurTwist (sta.prv_twst);
       evt . SetForebearEvent (e);
 
       sta.prv_dsp = nooz;
@@ -222,9 +267,13 @@ export class DisplacementStill
       evt . SetPrevRaw (sta.prv_raw);
       evt . SetRawDisp (sta.prv_raw);
       evt . SetCurDisp (sta.prv_dsp);
+      evt . SetPrevTwist (sta.prv_twst);
+      evt . SetCurTwist (sta.prv_twst);
       evt . SetForebearEvent (e);
 
       this . DispatchEvent (evt);
+
+      this.state_by_prov . delete (prv);
       return 1;
     }
 

@@ -18,10 +18,13 @@ export class ZEDisplacementEvent  extends ZeEvent
       this.axis_1 = Vect.yaxis . Dup ();
       this.axis_2 = Vect.zaxis . Dup ();
       this.estab_loc = Vect.zerov . Dup ();
+      this.estab_aim = Vect.zerov . Dup ();
       this.prev_disp = new Array (0.0, 0.0, 0.0);
       this.prev_raw = new Array (0.0, 0.0, 0.0);
       this.cur_disp = new Array (0.0, 0.0, 0.0);
       this.raw_disp = new Array (0.0, 0.0, 0.0);
+      this.prev_twst = 0.0;
+      this.cur_twst = 0.0;
     }
 
   EventIlk ()
@@ -79,6 +82,24 @@ export class ZEDisplacementEvent  extends ZeEvent
       else                           this.raw_disp = new Array (a0, a1, a2);
       return this;
     }
+
+  CurTwist ()
+    { return this.cur_twst; }
+  CurTwistDeg ()
+    { return this.cur_twst * 180.0 / Math.PI; }
+  SetCurTwist (twang)
+    { this.cur_twst = twang;  return this; }
+  SetCurTwistDeg (twang)
+    { this.cur_twst = twang / 180.0 * Math.PI;  return this; }
+
+  PrevTwist ()
+    { return this.prev_twst; }
+  PrevTwistDeg ()
+    { return this.prev_twst * 180.0 / Math.PI; }
+  SetPrevTwist (twang)
+    { this.prev_twst = twang;  return this; }
+  SetPrevTwistDeg (twang)
+    { this.prev_twst = twang / 180.0 * Math.PI;  return this; }
 
 
   ProfferAsQuaffTo (zbj)

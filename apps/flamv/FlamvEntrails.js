@@ -37,7 +37,9 @@ class Tattler
     { console.log ("somebody VANISHed; probably " + e . Provenance ()); }
   ZEDisplacementMove (e)
     { const dsp = e . CurDisp ();
-      console.log (`MOVE -- yeah, like to (${dsp[0]}, ${dsp[1]}, ${dsp[2]})`);
+      const tw = e . CurTwistDeg ();
+      //console.log (`MOVE -- yeah, like to (${dsp[0]}, ${dsp[1]}, ${dsp[2]})`);
+      console.log (`MOVE -- yeah, like to ` + tw);
     }
 }
 

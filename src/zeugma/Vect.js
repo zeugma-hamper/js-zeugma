@@ -21,10 +21,19 @@ export class Vect
 
 //
   constructor (eks, wye, zee)
-    { this.x = eks;
+    { if (eks == undefined)
+        { this.x = this.y = this.z = 0.0;  return; }
+      this.x = eks;
+      if (wye == undefined)
+        { this.y = this.z = eks;  return; }
       this.y = wye;
-      this.z = zee;
+      this.z = (zee != undefined)  ?  zee  :  0.0;
     }
+  // constructor (eks, wye, zee)
+  //   { this.x = eks;
+  //     this.y = wye;
+  //     this.z = zee;
+  //   }
 
   X ()  { return this.x; }
   Y ()  { return this.y; }
@@ -232,20 +241,7 @@ export class Vect
 //
   static NewFromArr (arr)
     { return new Vect (arr[0], arr[1], arr[2]); }
-
 //
-///
-//
-  // static zerov = new Vect (0.0, 0.0, 0.0);
-  // static onesv = new Vect (1.0, 1.0, 1.0);
-
-  // static xaxis = new Vect (1.0, 0.0, 0.0);
-  // static yaxis = new Vect (0.0, 1.0, 0.0);
-  // static zaxis = new Vect (0.0, 0.0, 1.0);
-
-  // static negxaxis = new Vect (-1.0, 0.0, 0.0);
-  // static negyaxis = new Vect (0.0, -1.0, 0.0);
-  // static negzaxis = new Vect (0.0, 0.0, -1.0);
 }
 
 
