@@ -83,7 +83,7 @@ export class ZEDisplacementEvent  extends ZeEvent
   CurRawDisp0 ()  { return this.cur_raw_disp[0]; }
   CurRawDisp1 ()  { return this.cur_raw_disp[1]; }
   CurRawDisp2 ()  { return this.cur_raw_disp[2]; }
-  CurSetRawDisp (a0, a1, a2)
+  SetCurRawDisp (a0, a1, a2)
     { if (a0.constructor === Array)  this.cur_raw_disp = a0;
       else                           this.cur_raw_disp = new Array (a0, a1, a2);
       return this;
