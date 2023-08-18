@@ -161,10 +161,10 @@ export class DisplacementStill
       nevt . SetPseudoMaesAndHit (mah);
       if (mah != null)
         { const [ma, ht] = mah;
-          const canv = msrc . GraphicsCorrelateForMaes (ma);
-          if (canv != null)
-            { const canvxy = msrc . CanvasXY (ht, ma, canv);
-              nevt . SetPseudoClientXY (canvxy);
+          const wind = msrc . WindowForMaes (ma);
+          if (wind != null)
+            { const windxy = msrc . WindowXY (ht, ma, wind);
+              nevt . SetPseudoClientXY (windxy);
             }
         }
     }

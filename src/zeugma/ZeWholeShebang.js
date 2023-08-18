@@ -541,6 +541,16 @@ whin . addEventListener ('pointermove',
       return [x, y];
     }
 
+  WindowXY (hit, emm, wind)
+    { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+      let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
+      x = 0.5  +  x / emm . Width ();
+      y = 0.5  -  y / emm . Height ();
+      if (wind != null)
+        { x *= (wind.innerWidth - 1.0);  y *= (wind.innerHeight - 1.0); }
+      return [x, y];
+    }
+
   CountenanceCursorVitality (zev)
     { const prv = zev . Provenance ();
       let cur = this.cursor_by_prov . get (prv);
