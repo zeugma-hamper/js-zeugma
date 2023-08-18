@@ -217,6 +217,10 @@ zeu.ZESpatialPhagy = ZESpatialPhagy;
 
 import { ZEDisplacementEvent } from "./src/zeugma/ZEDisplacementEvent.js";
 export { ZEDisplacementEvent } from "./src/zeugma/ZEDisplacementEvent.js";
+import { ZEDisplacementHeraldEvent }
+  from "./src/zeugma/ZEDisplacementHeraldEvent.js";
+export { ZEDisplacementHeraldEvent }
+  from "./src/zeugma/ZEDisplacementHeraldEvent.js";
 import { ZEDisplacementAppearEvent }
   from "./src/zeugma/ZEDisplacementAppearEvent.js";
 export { ZEDisplacementAppearEvent }
@@ -232,6 +236,7 @@ export { ZEDisplacementMoveEvent }
 import { ZEDisplacementPhagy } from "./src/zeugma/ZEDisplacementPhagy.js";
 export { ZEDisplacementPhagy } from "./src/zeugma/ZEDisplacementPhagy.js";
 zeu.ZEDisplacementEvent = ZEDisplacementEvent;
+zeu.ZEDisplacementHeraldEvent = ZEDisplacementHeraldEvent;
 zeu.ZEDisplacementAppearEvent = ZEDisplacementAppearEvent;
 zeu.ZEDisplacementVanishEvent = ZEDisplacementVanishEvent;
 zeu.ZEDisplacementMoveEvent = ZEDisplacementMoveEvent;

@@ -7,6 +7,7 @@
 import { Zeubject } from "./Zeubject.js";
 
 import { ZEDisplacementEvent } from "./ZEDisplacementEvent.js";
+import { ZEDisplacementHeraldEvent } from "./ZEDisplacementHeraldEvent.js";
 import { ZEDisplacementAppearEvent } from "./ZEDisplacementAppearEvent.js";
 import { ZEDisplacementVanishEvent } from "./ZEDisplacementVanishEvent.js";
 import { ZEDisplacementMoveEvent } from "./ZEDisplacementMoveEvent.js";
@@ -38,14 +39,18 @@ class DState
 }
 
 
-const THRESH = 0.7;
+function DEF_PSE_AIM_FUN (src_evt, dstill)
+{ const nrm = src_evt . Over () . Cross (src_evt . Aim ()) . Norm ();
+  return nrm . Neg ();
+}
 
 
 export class DisplacementStill
        extends base_class (Zeubject) . and_interfaces (ZESpatialPhagy)
 { //
   static InitializeClassHaplessly ()
-    {
+    { //
+      this.DEFAULT_PSEUDO_AIM_FUNC = DEF_PSE_AIM_FUN;
     }
 
 //
@@ -57,6 +62,12 @@ export class DisplacementStill
       this.axis_1 = Vect.yaxis . Dup ();
       this.axis_2 = Vect.zaxis . Dup ();
 
+      this.align_thresh = 0.7;
+
+      this.pseudo_loc_func = null;
+      this.pseudo_aim_func = this.constructor.DEFAULT_PSEUDO_AIM_FUNC;
+      this.maes_source = null;
+
       this.monaxial = false;
       this.dtnt_uni = -1.0;
       this.dtnt_0 = this.dtnt_1 = this.dtnt_2 = -1.0;
@@ -64,6 +75,11 @@ export class DisplacementStill
 
       this.ducts = new Array ();
     }
+
+  AlignmentThreshold ()
+    { return this.align_thresh; }
+  SetAlignmentThreshold (ath)
+    { this.align_thresh = ath;  return this; }
 
 
   UniversalDetent ()
@@ -95,6 +111,23 @@ export class DisplacementStill
   SetAngularDetentDeg (ang)
     { this.dtnt_ang = ang * Math.PI / 180.0;  return this; }
 
+
+  PseudoLocFunc ()
+    { return this.pseudo_loc_func; }
+  SetPseudoLocFunc (plf)
+    { this.pseudo_loc_func = plf;  return this; }
+
+  PseudoAimFunc ()
+    { return this.pseudo_aim_func; }
+  SetPseudoAimFunc (paf)
+    { this.pseudo_aim_func = paf;  return this; }
+
+  MaesSource ()
+    { return this.maes_source; }
+  SetMaesSource (msrc)
+    { this.maes_source = msrc;  return this; }
+
+
   AppendAqueduct (a)
     { return ZeColl.Append (this.ducts, a); }
   RemoveAqueduct (a)
@@ -108,7 +141,33 @@ export class DisplacementStill
   NthAqueduct (ind)
     { return ZeColl.Nth (this.ducts, ind); }
 
-  // just below, the wand button's already being held down.
+
+  SlatherPseudoPointingIcing (nevt, sevt)
+    { if (! nevt  ||  ! sevt)
+        return;
+      const frm = this.pseudo_loc_func
+        ?  this.pseudo_loc_func (sevt, this)  :  sevt . Loc ();
+      const aim = this.pseudo_aim_func
+        ?  this.pseudo_aim_func (sevt, this)  :  sevt . Aim ();
+      const msrc = this.maes_source
+        ?  this.maes_source  :  ZeWholeShebang.CanonicalInstance ();
+      if (! msrc)
+        return;  // well...
+      const mah = PlatonicMaes.ClosestAmong (maes_src . Maeses (),
+                                             p, a, true);
+      nevt . SetMaesAndHit (mah);
+      if (mah != null)
+        { const [ma, ht] = mah;
+          const canv = maes_src . GraphicsCorrelateForMaes (ma);
+          if (canv != null)
+            { const canvxy = maes_src . CanvasXY (ht, ma, canv);
+              smev.clientX = canvxy[0];
+              smev.clientY = canvxy[1];
+            }
+        }
+    }
+
+  // for when the wand button's already being held, you know, down.
   OngoingMotionAssistron (e, prv, sta)
     { const dlt = e . Loc () . Sub (sta.est_loc);
       const raw0 = dlt . Dot (this.axis_0);
@@ -145,9 +204,9 @@ export class DisplacementStill
       const evt = new ZEDisplacementMoveEvent (prv);
       evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
       evt . SetEstabLoc (sta.est_loc);
+      evt . SetPrevRawDisp (sta.prv_raw);
+      evt . SetCurRawDisp (raw_out);
       evt . SetPrevDisp (sta.prv_dsp);
-      evt . SetPrevRaw (sta.prv_raw);
-      evt . SetRawDisp (raw_out);
       evt . SetCurDisp (dsp_out);
       evt . SetForebearEvent (e);
       sta.prv_dsp = dsp_out;
@@ -177,8 +236,9 @@ export class DisplacementStill
         { evt . SetPrevTwist (sta.prv_twst);
           evt . SetCurTwist (sta.prv_twst);
         }
+      this.SlatherPseudoPointingIcing (evt, e);
 
-      this . DispatchEvent (evt);
+      this.DispatchEvent (evt);
       return 1;
     }
 
@@ -187,7 +247,7 @@ export class DisplacementStill
       let sta = this.state_by_prov . get (prv);
 
       if (! sta)
-        { if (Vect.yaxis . Dot (e . Aim ())  <  THRESH)
+        { if (Vect.yaxis . Dot (e . Aim ())  <  this.align_thresh)
             return 0;
           this.state_by_prov . set (prv, sta = new DState (prv));
           sta.nascent = true;
@@ -195,11 +255,16 @@ export class DisplacementStill
         }
 
       if (sta.nascent)
-        { if (Vect.yaxis . Dot (e . Aim ())  <  THRESH)
+        { if (Vect.yaxis . Dot (e . Aim ())  <  this.align_thresh)
             { // presumably emit a farewell event of some to-be-defined ilk
               this.state_by_prov . delete (prv);
+              return 0;
             }
-          return 0;
+          const evt = new ZEDisplacementHeraldEvent (prv);
+          evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
+          evt . SetForebearEvent (e);
+          this.SlatherPseudoPointingIcing (evt, e);
+          this.DispatchEvent (evt);
         }
 
       if (! sta.factual)
@@ -239,6 +304,7 @@ export class DisplacementStill
       evt . SetPrevTwist (sta.prv_twst);
       evt . SetCurTwist (sta.prv_twst);
       evt . SetForebearEvent (e);
+      this.SlatherPseudoPointingIcing (evt, e);
 
       sta.prv_dsp = nooz;
       sta.prv_raw = nooz;
@@ -264,12 +330,13 @@ export class DisplacementStill
       evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
       evt . SetEstabLoc (sta.est_loc);
       evt . SetPrevDisp (sta.prv_dsp);
-      evt . SetPrevRaw (sta.prv_raw);
-      evt . SetRawDisp (sta.prv_raw);
+      evt . SetPrevRawDisp (sta.prv_raw);
+      evt . SetCurRawDisp (sta.prv_raw);
       evt . SetCurDisp (sta.prv_dsp);
       evt . SetPrevTwist (sta.prv_twst);
       evt . SetCurTwist (sta.prv_twst);
       evt . SetForebearEvent (e);
+      this.SlatherPseudoPointingIcing (evt, e);
 
       this . DispatchEvent (evt);
 
