@@ -17,14 +17,20 @@ export class ZEDisplacementEvent  extends ZeEvent
       this.axis_0 = Vect.xaxis . Dup ();
       this.axis_1 = Vect.yaxis . Dup ();
       this.axis_2 = Vect.zaxis . Dup ();
+
       this.estab_loc = Vect.zerov . Dup ();
       this.estab_aim = Vect.zerov . Dup ();
+
       this.prev_disp = new Array (0.0, 0.0, 0.0);
-      this.prev_raw = new Array (0.0, 0.0, 0.0);
+      this.prev_raw_disp = new Array (0.0, 0.0, 0.0);
       this.cur_disp = new Array (0.0, 0.0, 0.0);
-      this.raw_disp = new Array (0.0, 0.0, 0.0);
+      this.cur_raw_disp = new Array (0.0, 0.0, 0.0);
+
       this.prev_twst = 0.0;
       this.cur_twst = 0.0;
+
+      this.pseudo_maes_and_hit = null;
+      this.pseudo_client_xy = null;
     }
 
   EventIlk ()
@@ -53,13 +59,13 @@ export class ZEDisplacementEvent  extends ZeEvent
       return this;
     }
 
-  PrevRaw ()  { return this.prev_raw; }
-  PrevRaw0 ()  { return this.prev_raw[0]; }
-  PrevRaw1 ()  { return this.prev_raw[1]; }
-  PrevRaw2 ()  { return this.prev_raw[2]; }
-  SetPrevRaw (a0, a1, a2)
-    { if (a0.constructor === Array)  this.prev_raw = a0;
-      else                           this.prev_raw = new Array (a0, a1, a2);
+  PrevRawDisp ()  { return this.prev_raw_disp; }
+  PrevRawDisp0 ()  { return this.prev_raw_disp[0]; }
+  PrevRawDisp1 ()  { return this.prev_raw_disp[1]; }
+  PrevRawDisp2 ()  { return this.prev_raw_disp[2]; }
+  SetPrevRawDisp (a0, a1, a2)
+    { if (a0.constructor === Array)  this.prev_raw_disp = a0;
+      else                           this.prev_raw_disp = new Array (a0, a1, a2);
       return this;
     }
 
@@ -73,13 +79,13 @@ export class ZEDisplacementEvent  extends ZeEvent
       return this;
     }
 
-  RawDisp ()  { return this.raw_disp; }
-  RawDisp0 ()  { return this.raw_disp[0]; }
-  RawDisp1 ()  { return this.raw_disp[1]; }
-  RawDisp2 ()  { return this.raw_disp[2]; }
-  SetRawDisp (a0, a1, a2)
-    { if (a0.constructor === Array)  this.raw_disp = a0;
-      else                           this.raw_disp = new Array (a0, a1, a2);
+  CurRawDisp ()  { return this.cur_raw_disp; }
+  CurRawDisp0 ()  { return this.cur_raw_disp[0]; }
+  CurRawDisp1 ()  { return this.cur_raw_disp[1]; }
+  CurRawDisp2 ()  { return this.cur_raw_disp[2]; }
+  CurSetRawDisp (a0, a1, a2)
+    { if (a0.constructor === Array)  this.cur_raw_disp = a0;
+      else                           this.cur_raw_disp = new Array (a0, a1, a2);
       return this;
     }
 
@@ -100,6 +106,17 @@ export class ZEDisplacementEvent  extends ZeEvent
     { this.prev_twst = twang;  return this; }
   SetPrevTwistDeg (twang)
     { this.prev_twst = twang / 180.0 * Math.PI;  return this; }
+
+
+  PseudoMaesAndHit ()
+    { return this.pseudo_maes_and_hit; }
+  SetPseudoMaesAndHit (mah)
+    { this.pseudo_maes_and_hit = mah;  return this;  }
+
+  PseudoClientXY ()
+    { return this.pseudo_client_xy; }
+  SetPseudoClientXY (xy)
+    { this.pseudo_client_xy = xy;  return this;  }
 
 
   ProfferAsQuaffTo (zbj)

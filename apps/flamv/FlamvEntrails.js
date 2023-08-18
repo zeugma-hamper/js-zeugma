@@ -41,6 +41,11 @@ class Tattler
       //console.log (`MOVE -- yeah, like to (${dsp[0]}, ${dsp[1]}, ${dsp[2]})`);
       console.log (`MOVE -- yeah, like to ` + tw);
     }
+  ZEDisplacementHerald (e)
+    { if (e.pseudo_maes_and_hit)
+        console.log (`PSEUD: maes ${e.pseudo_maes_and_hit[0] . Name ()} at `
+                     + `(${e.pseudo_client_xy[0]}, ${e.pseudo_client_xy[1]})`);
+    }
 }
 
 
