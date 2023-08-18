@@ -49,6 +49,10 @@ export class ZEDisplacementEvent  extends ZeEvent
   SetEstabLoc (loc_v)
     { this.estab_loc = loc_v;  return this; }
 
+  EstabAim ()  { return this.estab_aim; }
+  SetEstabAim (aim_v)
+    { this.estab_aim = aim_v;  return this; }
+
   PrevDisp ()  { return this.prev_disp; }
   PrevDisp0 ()  { return this.prev_disp[0]; }
   PrevDisp1 ()  { return this.prev_disp[1]; }
@@ -83,7 +87,7 @@ export class ZEDisplacementEvent  extends ZeEvent
   CurRawDisp0 ()  { return this.cur_raw_disp[0]; }
   CurRawDisp1 ()  { return this.cur_raw_disp[1]; }
   CurRawDisp2 ()  { return this.cur_raw_disp[2]; }
-  CurSetRawDisp (a0, a1, a2)
+  SetCurRawDisp (a0, a1, a2)
     { if (a0.constructor === Array)  this.cur_raw_disp = a0;
       else                           this.cur_raw_disp = new Array (a0, a1, a2);
       return this;

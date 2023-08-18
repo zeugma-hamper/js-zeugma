@@ -206,6 +206,7 @@ export class DisplacementStill
       const evt = new ZEDisplacementMoveEvent (prv);
       evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
       evt . SetEstabLoc (sta.est_loc);
+      evt . SetEstabAim (sta.est_aim);
       evt . SetPrevRawDisp (sta.prv_raw);
       evt . SetCurRawDisp (raw_out);
       evt . SetPrevDisp (sta.prv_dsp);
@@ -299,9 +300,10 @@ export class DisplacementStill
       const nooz = Vect.zerov . Dup ();
       evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
       evt . SetEstabLoc (sta.est_loc);
+      evt . SetEstabAim (sta.est_aim);
       evt . SetPrevDisp (nooz);
-      evt . SetPrevRaw (nooz);
-      evt . SetRawDisp (nooz);
+      evt . SetPrevRawDisp (nooz);
+      evt . SetCurRawDisp (nooz);
       evt . SetCurDisp (nooz);
       evt . SetPrevTwist (sta.prv_twst);
       evt . SetCurTwist (sta.prv_twst);
@@ -331,6 +333,7 @@ export class DisplacementStill
       const evt = new ZEDisplacementVanishEvent (prv);
       evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
       evt . SetEstabLoc (sta.est_loc);
+      evt . SetEstabAim (sta.est_aim);
       evt . SetPrevDisp (sta.prv_dsp);
       evt . SetPrevRawDisp (sta.prv_raw);
       evt . SetCurRawDisp (sta.prv_raw);
