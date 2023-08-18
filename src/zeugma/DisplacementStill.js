@@ -300,8 +300,8 @@ export class DisplacementStill
       evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
       evt . SetEstabLoc (sta.est_loc);
       evt . SetPrevDisp (nooz);
-      evt . SetPrevRaw (nooz);
-      evt . SetRawDisp (nooz);
+      evt . SetPrevRawDisp (nooz);
+      evt . SetCurRawDisp (nooz);
       evt . SetCurDisp (nooz);
       evt . SetPrevTwist (sta.prv_twst);
       evt . SetCurTwist (sta.prv_twst);
