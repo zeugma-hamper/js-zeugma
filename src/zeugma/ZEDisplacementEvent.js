@@ -49,6 +49,10 @@ export class ZEDisplacementEvent  extends ZeEvent
   SetEstabLoc (loc_v)
     { this.estab_loc = loc_v;  return this; }
 
+  EstabAim ()  { return this.estab_aim; }
+  SetEstabAim (aim_v)
+    { this.estab_aim = aim_v;  return this; }
+
   PrevDisp ()  { return this.prev_disp; }
   PrevDisp0 ()  { return this.prev_disp[0]; }
   PrevDisp1 ()  { return this.prev_disp[1]; }

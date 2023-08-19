@@ -39,7 +39,7 @@ class Tattler
     { const dsp = e . CurDisp ();
       const tw = e . CurTwistDeg ();
       //console.log (`MOVE -- yeah, like to (${dsp[0]}, ${dsp[1]}, ${dsp[2]})`);
-      console.log (`MOVE -- yeah, like to ` + tw);
+      console.log (`MOVE -- yeah, like to TW=${tw} and skeeved by (${dsp[0]}, ${dsp[1]}, ${dsp[2]})` + tw);
     }
   ZEDisplacementHerald (e)
     { if (e.pseudo_maes_and_hit)
@@ -106,6 +106,8 @@ const horque = function ()
 
   const distil = new DisplacementStill ();
   distil . SetUniversalDetent (40.0);  // that's millimeters, darling.
+  distil . SetAngularDetentDeg (20.0);  // degrees, don't you know.
+  distil . SetIsMonaxial (true);
   const diaq = new EventAqueduct ();
   diaq . SetName ("displacement-aqueduct");
   distil . AppendAqueduct (diaq);

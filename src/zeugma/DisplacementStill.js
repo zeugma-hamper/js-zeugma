@@ -30,6 +30,7 @@ class DState
       this.nascent = false;
       this.factual = false;
       //this.engaged = false;
+      this.use_ax0 = this.use_ax1 = this.use_ax2 = null;
       this.est_loc = null;
       this.est_aim = null;
       this.est_ovr = null;
@@ -37,6 +38,7 @@ class DState
       this.prv_raw = null;
       this.prv_dsp = null;
       this.prv_ovr = null;
+      this.twst_sca = 1.0;
       this.accum_twst = 0.0;
       this.prv_twst = 0.0;
     }
@@ -80,10 +82,21 @@ export class DisplacementStill
       this.ducts = new Array ();
     }
 
+
   AlignmentThreshold ()
     { return this.align_thresh; }
   SetAlignmentThreshold (ath)
     { this.align_thresh = ath;  return this; }
+
+
+  IsMonaxial ()
+    { return this.monaxial; }
+  SetIsMonaxial (mona)
+    { this.monaxial = mona;  return this; }
+  SetMonaxial ()
+    { this.monaxial = true;  return this; }
+  SetNotMonaxial ()
+    { this.monaxial = false;  return this; }
 
 
   UniversalDetent ()
@@ -172,39 +185,56 @@ export class DisplacementStill
   // for when the wand button's already being held, you know, down.
   OngoingMotionAssistron (e, prv, sta)
     { const dlt = e . Loc () . Sub (sta.est_loc);
-      const raw0 = dlt . Dot (this.axis_0);
-      const raw1 = dlt . Dot (this.axis_1);
-      const raw2 = dlt . Dot (this.axis_2);
+      const raw0 = dlt . Dot (sta.use_ax0);
+      const raw1 = dlt . Dot (sta.use_ax1);
+      const raw2 = dlt . Dot (sta.use_ax2);
+      let thr, u, sgn;
 
-      let thr = (this.dtnt_uni >= 0)  ?  this.dtnt_uni  :  this.dtnt_0;
-      let u = dlt . Dot (this.axis_0);
-      let sgn = (u < 0.0)  ?  -1.0  :  1.0;
+      const evt = new ZEDisplacementMoveEvent (prv);
+
+      thr = (this.dtnt_uni >= 0)  ?  this.dtnt_uni  :  this.dtnt_0;
+      u = dlt . Dot (sta.use_ax0);
+      sgn = (u < 0.0)  ?  -1.0  :  1.0;
       const r0 = u;
       if (thr  >  0.0)
-        u = (u * sgn  <  thr)  ?  0.0  :  (u - sgn * thr);
+        { u = (u * sgn  <  thr)  ?  0.0  :  (u - sgn * thr);
+          if (u != 0.0  &&  this.monaxial)
+            { sta.use_ax1 = sta.use_ax2 = Vect.zerov . Dup ();
+              sta.twst_sca = 0.0;
+            }
+        }
       const d0 = u;
 
       thr = (this.dtnt_uni >= 0)  ?  this.dtnt_uni  :  this.dtnt_1;
-      u = dlt . Dot (this.axis_1);
+      u = dlt . Dot (sta.use_ax1);
       sgn = (u < 0.0)  ?  -1.0  :  1.0;
       const r1 = u;
       if (thr  >  0.0)
-        u = (u * sgn  <  thr)  ?  0.0  :  (u - sgn * thr);
+        { u = (u * sgn  <  thr)  ?  0.0  :  (u - sgn * thr);
+          if (u != 0.0  &&  this.monaxial)
+            { sta.use_ax0 = sta.use_ax2 = Vect.zerov . Dup ();
+              sta.twst_sca = 0.0;
+            }
+        }
       const d1 = u;
 
       thr = (this.dtnt_uni >= 0)  ?  this.dtnt_uni  :  this.dtnt_2;
-      u = dlt . Dot (this.axis_2);
+      u = dlt . Dot (sta.use_ax2);
       sgn = (u < 0.0)  ?  -1.0  :  1.0;
       const r2 = u;
       if (thr  >  0.0)
-        u = (u * sgn  <  thr)  ?  0.0  :  (u - sgn * thr);
+        { u = (u * sgn  <  thr)  ?  0.0  :  (u - sgn * thr);
+          if (u != 0.0  &&  this.monaxial)
+            { sta.use_ax0 = sta.use_ax1 = Vect.zerov . Dup ();
+              sta.twst_sca = 0.0;
+            }
+        }
       const d2 = u;
 
       const raw_out = new Array (r0, r1, r2);
       const dsp_out = new Array (d0, d1, d2);
 
-      const evt = new ZEDisplacementMoveEvent (prv);
-      evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
+      evt . SetAxes (sta.use_ax0, sta.use_ax1, sta.use_ax2);
       evt . SetEstabLoc (sta.est_loc);
       evt . SetEstabAim (sta.est_aim);
       evt . SetPrevRawDisp (sta.prv_raw);
@@ -221,13 +251,19 @@ export class DisplacementStill
         { const prvo = sta.prv_ovr;
           const yish = sta.est_aim . Cross (prvo) . Norm ();
           let dang = ovr . AngleWith (prvo);
+          dang *= sta.twst_sca;
           let atw
             = sta.accum_twst + ((ovr . Dot (yish)  >=  0.0)  ?  dang  :  -dang);
           sgn = (atw < 0.0)  ?  -1.0  :  1.0;
           let tw = atw;
           thr = this.dtnt_ang;
           if (thr  >  0.0)
-            tw = (tw * sgn  <  thr)  ?  0.0  :  (tw - sgn * thr);
+            { tw = (tw * sgn  <  thr)  ?  0.0  :  (tw - sgn * thr);
+              if (tw != 0.0  &&  this.monaxial)
+                { sta.use_ax0 = sta.use_ax1 = sta.use_ax2 = Vect.zerov . Dup ();
+                  // sta.twst_sca = 0.0;
+                }
+            }
 
           evt . SetPrevTwist (sta.prv_twst);
           evt . SetCurTwist (tw);
@@ -264,7 +300,7 @@ export class DisplacementStill
               return 0;
             }
           const evt = new ZEDisplacementHeraldEvent (prv);
-          evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
+          evt . SetAxes (sta.use_ax0, sta.use_ax1, sta.use_ax2);
           evt . SetForebearEvent (e);
           this.SlatherPseudoPointingIcing (evt, e);
           this.DispatchEvent (evt);
@@ -290,6 +326,9 @@ export class DisplacementStill
 
       sta.nascent = false;
       sta.factual = true;
+      sta.use_ax0 = this.axis_0;
+      sta.use_ax1 = this.axis_1;
+      sta.use_ax2 = this.axis_2;
       sta.est_loc = e . Loc ();
       sta.est_aim = e . Aim ();
       sta.est_ovr = sta.prv_ovr = e . Over ();
@@ -298,7 +337,7 @@ export class DisplacementStill
       // emit ZEDisplacementAppearEvent
       const evt = new ZEDisplacementAppearEvent (prv);
       const nooz = Vect.zerov . Dup ();
-      evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
+      evt . SetAxes (sta.use_ax0, sta.use_ax1, sta.use_ax2);
       evt . SetEstabLoc (sta.est_loc);
       evt . SetEstabAim (sta.est_aim);
       evt . SetPrevDisp (nooz);
@@ -331,7 +370,7 @@ export class DisplacementStill
 
       // emit ZEDisplacementVanishEvent
       const evt = new ZEDisplacementVanishEvent (prv);
-      evt . SetAxes (this.axis_0, this.axis_1, this.axis_2);
+      evt . SetAxes (sta.use_ax0, sta.use_ax1, sta.use_ax2);
       evt . SetEstabLoc (sta.est_loc);
       evt . SetEstabAim (sta.est_aim);
       evt . SetPrevDisp (sta.prv_dsp);
