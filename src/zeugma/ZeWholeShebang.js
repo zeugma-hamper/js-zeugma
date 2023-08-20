@@ -386,7 +386,7 @@ whin . addEventListener ('pointermove',
     }
 
 
-  _BurstFromTheGround (canvasslessly)
+  _BurstFromTheGround (canvaslessly)
     { const winny = globalThis.window;
       const ur_maes = this.NthMaes (0);
       if (winny === null  ||  winny === undefined
@@ -394,7 +394,7 @@ whin . addEventListener ('pointermove',
         return null;
 
       this.AssociateWindowAndMaes (winny, ur_maes);
-      if (! canvasslessly)
+      if (! canvaslessly)
         this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
 
       let ma;
@@ -409,7 +409,7 @@ whin . addEventListener ('pointermove',
             if (parawin === null  ||  parawin === undefined)
               continue;
             this.AssociateWindowAndMaes (parawin, ma);
-            if (! canvasslessly)
+            if (! canvaslessly)
               this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
           }
       return this;
@@ -419,6 +419,8 @@ whin . addEventListener ('pointermove',
     { return this._BurstFromTheGround (false); }
 
   BurstFromTheGroundCanvasslessly ()
+    { return this._BurstFromTheGround (true); }
+  BurstFromTheGroundCanvaslessly ()
     { return this._BurstFromTheGround (true); }
 
 
@@ -709,7 +711,7 @@ whin . addEventListener ('pointermove',
           y = 0.5  -  y / emm . Height ();
           x *= (wnd.innerWidth - 1.0);
           y *= (wnd.innerHeight - 1.0);
-//x -= 75;  y -= 150;
+
           if (this.ShouldDeployStandaloneHTMLCursors ())
             this.CountenanceStandaloneHTMLCursorBrio (e, wnd, x, y);
 
