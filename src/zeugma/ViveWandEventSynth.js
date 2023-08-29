@@ -54,6 +54,12 @@ export class ViveWandEventSynth  extends Zeubject
                   smev.clientX = canvxy[0];
                   smev.clientY = canvxy[1];
                 }
+              const wind = maes_src . WindowForMaes (ma);
+              if (wind != null)
+                { const windxy = maes_src . WindowXY (ht, ma, wind);
+                  smev.windowX = windxy[0];
+                  smev.windowY = windxy[1];
+                }
             }
         }
 
@@ -73,9 +79,13 @@ export class ViveWandEventSynth  extends Zeubject
                                 :  new ZESpatialSoftenEvent (pntr_nm));
                   spev . AdoptParticulars (smev);
                   spev . SetPressorIDAndPressureValue (mask, 0.0 + curstate);
-                  if (smev.clientX != undefined)
+                  if (smev.clientX)
                     { spev.clientX = smev.clientX;
                       spev.clientY = smev.clientY;
+                    }
+                  if (smev.windowX)
+                    { spev.windowX = smev.windowX;
+                      spev.windowY = smev.windowY;
                     }
                   out_evs . push (spev);
 
