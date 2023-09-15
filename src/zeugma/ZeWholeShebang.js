@@ -78,6 +78,9 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.should_synthesize_html_pointer_events = false;
       this.should_synthesize_even_for_native_originated_events = false;
 
+      this.cursor_prefix_guestlist = null;
+      this.cursor_prefix_exilelist = null;
+
       this.html_pointer_id_by_prov = new Map ();
       this.global_html_pointer_id = 1088801;
 
@@ -124,6 +127,80 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return this.should_deploy_stanalone_html_cursors; }
   SetShouldDeployStandaloneHTMLCursors (dshc)
     { this.should_deploy_stanalone_html_cursors = dshc;  return this; }
+
+
+  CursorPrefixGuestlist ()
+    { return this.cursor_prefix_guestlist; }
+
+  AppendToCursorPrefixGuestlist (prv)
+    { if (! prv)
+        return;
+      if (! this.cursor_prefix_guestlist)
+        this.cursor_prefix_guestlist = new Array ();
+      if (! this.cursor_prefix_guestlist . includes (prv))
+        this.cursor_prefix_guestlist . push (prv);
+    }
+
+  RemoveFromCursorPrefixGuestlist (prv)
+    { if (! prv)
+        return;
+      if (! this.cursor_prefix_guestlist)
+        return;
+      const ind = this.cursor_prefix_guestlist . indexOf (prv);
+      if (ind  >=  0)
+        this.cursor_prefix_guestlist . splice (ind, 1);
+    }
+
+  CursorPrefixGuestlistAllowNone ()
+    { this.cursor_prefix_guestlist = new Array (); }
+
+  CursorPrefixGuestlistAllowAll ()
+    { this.cursor_prefix_guestlist = null; }
+
+
+  CursorPrefixExilelist ()
+    { return this.cursor_prefix_exilelist; }
+
+  AppendToCursorPrefixExilelist (prv)
+    { if (! prv)
+        return;
+      if (! this.cursor_prefix_exilelist)
+        this.cursor_prefix_exilelist = new Array ();
+      if (! this.cursor_prefix_exilelist . includes (prv))
+        this.cursor_prefix_exilelist . push (prv);
+    }
+
+  RemoveFromCursorPrefixExilelist (prv)
+    { if (! prv)
+        return;
+      if (! this.cursor_prefix_exilelist)
+        return;
+      const ind = this.cursor_prefix_exilelist . indexOf (prv);
+      if (ind  >=  0)
+        this.cursor_prefix_exilelist . splice (ind, 1);
+    }
+
+  CursorPrefixExilelistEmpty ()
+    { this.cursor_prefix_exilelist = null; }
+
+
+  ValidateCursorWorthiness (prv)
+    { if (! prv)
+        return false;
+
+      if (this.cursor_prefix_guestlist)
+        { for (const gst of this.cursor_prefix_guestlist)
+            if (prv . startsWith (gst))
+              return true;
+          return false;
+        }
+      if (this.cursor_prefix_exilelist)
+        { for (const exl of this.cursor_prefix_exilelist)
+            if (prv . startsWith (exl))
+              return false;
+        }
+      return true;
+    }
 
 
   HTMLTargetForProvenance (prv)
@@ -695,6 +772,9 @@ whin . addEventListener ('pointermove',
 
   ZESpatialMove (e)
     { const prv = e . Provenance ();
+      if (! this.ValidateCursorWorthiness (prv))
+        return;
+
       this.CountenanceCursorVitality (e);
 
       if (e.maes_and_hit == null)
@@ -760,6 +840,9 @@ whin . addEventListener ('pointermove',
 
   ZESpatialHarden (e)
     { const prv = e . Provenance ();
+      if (! this.ValidateCursorWorthiness (prv))
+        return;
+
       // this.CountenanceCursorVitality (e);
 
       if (e.maes_and_hit == null)
@@ -819,6 +902,9 @@ whin . addEventListener ('pointermove',
 
   ZESpatialSoften (e)
     { const prv = e . Provenance ();
+      if (! this.ValidateCursorWorthiness (prv))
+        return;
+
       // this.CountenanceCursorVitality (e);
 
       if (e.maes_and_hit == null)
