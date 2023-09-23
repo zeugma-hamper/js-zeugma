@@ -94,6 +94,9 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.html_target_by_prov_by_window = new Map ();
 
       this.url_by_maes_name = new Map ();
+
+      this.default_window_open_extras = undefined;
+      this.window_open_extras_by_maes = new Map ();
     }
 
 
@@ -127,6 +130,25 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return this.should_deploy_stanalone_html_cursors; }
   SetShouldDeployStandaloneHTMLCursors (dshc)
     { this.should_deploy_stanalone_html_cursors = dshc;  return this; }
+
+
+  DefaultWindowOpenExtraArguments ()
+    { return this.default_window_open_extras; }
+  SetDefaultWindowOpenExtraArguments (dwoea)
+    { this.default_window_open_extras = dwoea;
+      return this;
+    }
+
+  WindowOpenExtraArgumentsByMaesMap ()
+    { return this.window_open_extras_by_maes; }
+  WindowOpenExtraArgumentsForMaes (ma_nm)
+    { return this.window_open_extras_by_maes . get (ma_nm); }
+  SetWindowOpenExtraArgumentsForMaes (ma_nm, woea)
+    { this.window_open_extras_by_maes . set (ma_nm, woea);
+      return this;
+    }
+  ClearWindowOpenExtraArgumentsByMaes ()
+    { this.window_open_extras_by_maes = new Map (); }
 
 
   CursorPrefixGuestlist ()
@@ -463,7 +485,7 @@ whin . addEventListener ('pointermove',
     }
 
 
-  _BurstFromTheGround (canvasslessly)
+  _BurstFromTheGround (canvaslessly)
     { const winny = globalThis.window;
       const ur_maes = this.NthMaes (0);
       if (winny === null  ||  winny === undefined
@@ -471,7 +493,7 @@ whin . addEventListener ('pointermove',
         return null;
 
       this.AssociateWindowAndMaes (winny, ur_maes);
-      if (! canvasslessly)
+      if (! canvaslessly)
         this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
 
       let ma;
@@ -482,11 +504,16 @@ whin . addEventListener ('pointermove',
             let url = this.url_by_maes_name . get (nm);
             if (! url)
               url = "";
-            const parawin = winny . open (url, nm);
+
+            let extry = this.WindowOpenExtraArgumentsForMaes (nm);
+            if (! extry)
+              extry = this.DefaultWindowOpenExtraArguments ();
+
+            const parawin = winny . open (url, nm, extry);
             if (parawin === null  ||  parawin === undefined)
               continue;
             this.AssociateWindowAndMaes (parawin, ma);
-            if (! canvasslessly)
+            if (! canvaslessly)
               this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
           }
       return this;
@@ -495,7 +522,7 @@ whin . addEventListener ('pointermove',
   BurstFromTheGround ()
     { return this._BurstFromTheGround (false); }
 
-  BurstFromTheGroundCanvasslessly ()
+  BurstFromTheGroundCanvaslessly ()
     { return this._BurstFromTheGround (true); }
 
 
