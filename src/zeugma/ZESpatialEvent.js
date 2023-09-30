@@ -32,7 +32,7 @@ export class ZESpatialEvent  extends ZeEvent
         }
       this.pressures = new Map ();
       for (const p of sures . entries ())
-          this . SetPressureFor (p[0], p[1]);
+        this . SetPressureFor (p[0], p[1]);
       return this;
     }
 
@@ -44,7 +44,7 @@ export class ZESpatialEvent  extends ZeEvent
         }
       this.caresses = new Map ();
       for (const c of esses . entries ())
-          this . SetCaressFor (c[0], c[1]);
+        this . SetCaressFor (c[0], c[1]);
       return this;
     }
 

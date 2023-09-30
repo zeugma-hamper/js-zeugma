@@ -753,7 +753,7 @@ whin . addEventListener ('pointermove',
     }
 
 
-  WrestleWithDerivedSpatialEvents (prov, cur_trgt, wnd, opts, pntrid, zevt)
+  ElaborateOnDerivedSpatialEvents (prov, cur_trgt, wnd, opts, pntrid, zevt)
     { let tgt_by_prv = this.html_target_by_prov_by_window . get (wnd);
       if (tgt_by_prv == null)
         this.html_target_by_prov_by_window . set (wnd, tgt_by_prv = new Map ());
@@ -797,192 +797,93 @@ whin . addEventListener ('pointermove',
     }
 
 
-  ZESpatialMove (e)
+  LiveWithSpatialEventsInADOMWorld (ilk, e)
     { const prv = e . Provenance ();
       if (! this.ValidateCursorWorthiness (prv))
         return;
 
-      this.CountenanceCursorVitality (e);
-
       if (e.maes_and_hit == null)
         return 0;
       const [emm, hit] = e.maes_and_hit;
+
       const wnd = this.WindowForMaes (emm);
+      if (! wnd)
+        return;
 
-      if (wnd != null)
-        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
-          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
-          x = 0.5  +  x / emm . Width ();
-          y = 0.5  -  y / emm . Height ();
-          x *= (wnd.innerWidth - 1.0);
-          y *= (wnd.innerHeight - 1.0);
-//x -= 75;  y -= 150;
-          if (this.ShouldDeployStandaloneHTMLCursors ())
-            this.CountenanceStandaloneHTMLCursorBrio (e, wnd, x, y);
+      let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+      let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
+      x = 0.5  +  x / emm . Width ();
+      y = 0.5  -  y / emm . Height ();
+      x *= (wnd.innerWidth - 1.0);
+      y *= (wnd.innerHeight - 1.0);
 
-          if (this.ShouldSynthesizeHTMLPointerEvents ()
-              &&  (e . ForebearEvent ()  ==  null
-                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
-            { const pntrid = this.HTMLPointerIDForProv (prv);
-
-              let plic_tar = this.HTMLTargetForProvenance (prv);
-              if (plic_tar)
-                plic_tar = plic_tar[0];
-              let tahgit = plic_tar  ?  plic_tar  :
-                wnd.document . elementFromPoint (x, y);
-
-              if (tahgit == null)
-                { console.warn ("in ZESpatialMove() -- tahgit is null, with "
-                                + "window = " + wnd + " at (x,y) = ("
-                                + x + ", " + y + ")...");
-                  tahgit = wnd;
-                }
-              let optns = { view: wnd,
-                            clientX: x, clientY: y };
-              this.WrestleWithDerivedSpatialEvents (prv, tahgit, wnd, optns,
-                                                    pntrid, e);
-
-              if (tahgit != null)
-                { optns = { bubbles: true, view: wnd,
-                            clientX: x, clientY: y };
-
-                  let pevt = new MouseEvent ('mousemove', optns);
-                  pevt['prov'] = prv;
-                  pevt['zeugma_evt'] = e;
-                  tahgit . dispatchEvent (pevt);
-
-                  optns = { bubbles: true, view: wnd,
-                            pointerId: pntrid, clientX: x, clientY: y };
-                  pevt = new PointerEvent ('pointermove', optns);
-                  pevt['prov'] = prv;
-                  pevt['zeugma_evt'] = e;
-                  tahgit . dispatchEvent (pevt);
-                }
-            }
+      const movish = (ilk == "move");
+      if (movish  &&  this.ShouldDeployStandaloneHTMLCursors ())
+        { this.CountenanceCursorVitality (e);
+          this.CountenanceStandaloneHTMLCursorBrio (e, wnd, x, y);
         }
 
-      return 0;
+      if (! this.ShouldSynthesizeHTMLPointerEvents ()
+          ||  (e . ForebearEvent ()  !=  null
+               &&  ! this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+        return;
+
+      const mous_ilk = "mouse" + ilk;
+      const pntr_ilk = "pointer" + ilk;
+
+      const pntrid = this.HTMLPointerIDForProv (prv);
+
+      let plic_tar = this.HTMLTargetForProvenance (prv);
+      if (plic_tar)
+        plic_tar = plic_tar[0];
+      let tahgit = plic_tar  ?  plic_tar  :
+        wnd.document . elementFromPoint (x, y);
+
+      if (tahgit == null)
+        tahgit = wnd;
+
+      if (movish)
+        { let elab_opts = { view: wnd,
+                               clientX: x, clientY: y };
+          this.ElaborateOnDerivedSpatialEvents (prv, tahgit, wnd,
+                                                elab_opts, pntrid, e);
+        }
+
+      let optns = { bubbles: true, view: wnd,
+                    clientX: x, clientY: y };
+      if (! movish)
+        optns.button = e . WhichPressor ();
+
+      let pevt = new MouseEvent (mous_ilk, optns);
+      pevt['prov'] = prv;
+      pevt['zeugma_evt'] = e;
+
+      tahgit . dispatchEvent (pevt);
+
+      optns.pointerId = pntrid;
+      pevt = new PointerEvent (pntr_ilk, optns);
+      pevt['prov'] = prv;
+      pevt['zeugma_evt'] = e;
+
+      tahgit . dispatchEvent (pevt);
     }
 
+
+  ZESpatialMove (e)
+    { this.LiveWithSpatialEventsInADOMWorld ("move", e);
+      return 0;
+    }
 
   ZESpatialHarden (e)
-    { const prv = e . Provenance ();
-      if (! this.ValidateCursorWorthiness (prv))
-        return;
-
-      // this.CountenanceCursorVitality (e);
-
-      if (e.maes_and_hit == null)
-        return 0;
-      const [emm, hit] = e.maes_and_hit;
-      const wnd = this.WindowForMaes (emm);
-
-      if (wnd != null)
-        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
-          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
-          x = 0.5  +  x / emm . Width ();
-          y = 0.5  -  y / emm . Height ();
-          x *= (wnd.innerWidth - 1.0);
-          y *= (wnd.innerHeight - 1.0);
-
-          if (this.ShouldSynthesizeHTMLPointerEvents ()
-              &&  (e . ForebearEvent ()  ==  null
-                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
-            { const pntrid = this.HTMLPointerIDForProv (prv);
-
-              let optns = { bubbles: true, view: wnd,
-                            clientX: x, clientY: y,
-                            button: e . WhichPressor () };
-//              let pevt = new PointerEvent ('pointerdown', optns);
-              let pevt = new MouseEvent ('mousedown', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
-
-              let plic_tar = this.HTMLTargetForProvenance (prv);
-              if (plic_tar)
-                plic_tar = plic_tar[0];
-              let tahgit = plic_tar  ?  plic_tar  :
-                wnd.document . elementFromPoint (x, y);
-
-              if (tahgit == null)
-                { console.warn ("in ZESpatialHarden() -- tahgit is null, with "
-                                + "window = " + wnd + " at (x,y) = ("
-                                + x + ", " + y + ")...");
-                  tahgit = wnd;
-                }
-              tahgit . dispatchEvent (pevt);
-
-              optns = { bubbles: true, view: wnd,
-                        pointerId: pntrid, clientX: x, clientY: y,
-                        button: e . WhichPressor () };
-              pevt = new PointerEvent ('pointerdown', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
-
-              tahgit . dispatchEvent (pevt);
-            }
-        }
-
+    { this.LiveWithSpatialEventsInADOMWorld ("down", e);
       return 0;
     }
-
 
   ZESpatialSoften (e)
-    { const prv = e . Provenance ();
-      if (! this.ValidateCursorWorthiness (prv))
-        return;
-
-      // this.CountenanceCursorVitality (e);
-
-      if (e.maes_and_hit == null)
-        return 0;
-      const [emm, hit] = e.maes_and_hit;
-      const wnd = this.WindowForMaes (emm);
-
-      if (wnd != null)
-        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
-          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
-          x = 0.5  +  x / emm . Width ();
-          y = 0.5  -  y / emm . Height ();
-          x *= (wnd.innerWidth - 1.0);
-          y *= (wnd.innerHeight - 1.0);
-
-          if (this.ShouldSynthesizeHTMLPointerEvents ()
-              &&  (e . ForebearEvent ()  ==  null
-                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
-            { const pntrid = this.HTMLPointerIDForProv (prv);
-
-              let optns = { bubbles: true, view: wnd,
-                            clientX: x, clientY: y,
-                            button: e . WhichPressor () };
-//              let pevt = new PointerEvent ('pointerup', optns);
-              let pevt = new MouseEvent ('mouseup', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
-
-              let plic_tar = this.HTMLTargetForProvenance (prv);
-              if (plic_tar)
-                plic_tar = plic_tar[0];
-              let tahgit = plic_tar  ?  plic_tar  :
-                wnd.document . elementFromPoint (x, y);
-
-              if (tahgit == null)
-                tahgit = wnd;
-              tahgit . dispatchEvent (pevt);
-
-              optns = { bubbles: true, view: wnd,
-                        pointerId: pntrid, clientX: x, clientY: y,
-                        button: e . WhichPressor () };
-              pevt = new PointerEvent ('pointerup', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
-
-              tahgit . dispatchEvent (pevt);
-            }
-        }
-
+    { this.LiveWithSpatialEventsInADOMWorld ("up", e);
       return 0;
     }
+
 
 //
 //

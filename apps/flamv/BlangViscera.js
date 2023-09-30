@@ -29,10 +29,11 @@ const horque = function ()
   globalThis.sheb = ZeWholeShebang.CanonicalInstance ();
   sheb . MergeIntoStartupURLByMaesNameMap ( { "left" : "https://google.com" } );
   //sheb . PopulateFromMaesConfig (maes_conf);
-  sheb . BurstFromTheGroundCanvasslessly ();
+  sheb . BurstFromTheGroundCanvaslessly ();
 
   console.log (socky);
   let fake_osc = sheb . Looper () . FindSump ("wand-sump") . Oscerizer ();
+console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
   socky . on ("/zeugmatic-osc", function (m)
                   { fake_osc . AppendMessage (new CheapOSCMessage (m)); });
 
@@ -98,7 +99,8 @@ const horque = function ()
     }
 
   sheb . FlyOnTheirTerms ();
-  sheb . SetShouldDeployStandaloneHTMLCursors(true);
+  sheb . SetShouldDeployStandaloneHTMLCursors (true);
+  sheb . SetShouldSynthesizeHTMLPointerEvents (true);
 
   console.log ("honk.");
 };
