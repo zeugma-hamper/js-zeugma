@@ -797,6 +797,61 @@ whin . addEventListener ('pointermove',
     }
 
 
+  SynthAndDispatchHTMLEventsFromSpatial (ilk, e, prv, hit, wnd)
+    { if (! wnd)
+        return;
+
+      let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+      let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
+      x = 0.5  +  x / emm . Width ();
+      y = 0.5  -  y / emm . Height ();
+      x *= (wnd.innerWidth - 1.0);
+      y *= (wnd.innerHeight - 1.0);
+
+      if (movish  &&  this.ShouldDeployStandaloneHTMLCursors ())
+        this.CountenanceStandaloneHTMLCursorBrio (e, wnd, x, y);
+
+      const mous_ilk = "mouse" + ilk;
+      const pntr_ilk = "pointer" + ilk;
+      const movish = (ilk == "move");
+
+      const pntrid = this.HTMLPointerIDForProv (prv);
+
+      let plic_tar = this.HTMLTargetForProvenance (prv);
+      if (plic_tar)
+        plic_tar = plic_tar[0];
+      let tahgit = plic_tar  ?  plic_tar  :
+        wnd.document . elementFromPoint (x, y);
+
+      if (tahgit == null)
+        tahgit = wnd;
+
+      if (movish)
+        { let wrassle_opts = { view: wnd,
+                               clientX: x, clientY: y };
+          this.WrestleWithDerivedSpatialEvents (prv, tahgit, wnd,
+                                                wrassle_opts, pntrid, e);
+        }
+
+      let optns = { bubbles: true, view: wnd,
+                    clientX: x, clientY: y };
+      if (! movish)
+        optns.button = e . WhichPressor ();
+
+      let pevt = new MouseEvent (mous_ilk, optns);
+      pevt['prov'] = prv;
+      pevt['zeugma_evt'] = e;
+
+      tahgit . dispatchEvent (pevt);
+
+      optns.pointerId = pntrid;
+      pevt = new PointerEvent (pntr_ilk, optns);
+      pevt['prov'] = prv;
+      pevt['zeugma_evt'] = e;
+
+      tahgit . dispatchEvent (pevt);
+    }
+
   ZESpatialMove (e)
     { const prv = e . Provenance ();
       if (! this.ValidateCursorWorthiness (prv))
@@ -809,20 +864,11 @@ whin . addEventListener ('pointermove',
       const [emm, hit] = e.maes_and_hit;
       const wnd = this.WindowForMaes (emm);
 
-      if (wnd != null)
-        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
-          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
-          x = 0.5  +  x / emm . Width ();
-          y = 0.5  -  y / emm . Height ();
-          x *= (wnd.innerWidth - 1.0);
-          y *= (wnd.innerHeight - 1.0);
-//x -= 75;  y -= 150;
-          if (this.ShouldDeployStandaloneHTMLCursors ())
-            this.CountenanceStandaloneHTMLCursorBrio (e, wnd, x, y);
-
-          if (this.ShouldSynthesizeHTMLPointerEvents ()
-              &&  (e . ForebearEvent ()  ==  null
-                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+      if (this.ShouldSynthesizeHTMLPointerEvents ()
+          &&  (e . ForebearEvent ()  ==  null
+               ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+        this.SynthAndDispatchHTMLEventsFromSpatial ("move", e, prv, hit, wnd);
+/*
             { const pntrid = this.HTMLPointerIDForProv (prv);
 
               let plic_tar = this.HTMLTargetForProvenance (prv);
@@ -832,35 +878,34 @@ whin . addEventListener ('pointermove',
                 wnd.document . elementFromPoint (x, y);
 
               if (tahgit == null)
-                { console.warn ("in ZESpatialMove() -- tahgit is null, with "
-                                + "window = " + wnd + " at (x,y) = ("
-                                + x + ", " + y + ")...");
-                  tahgit = wnd;
-                }
+                tahgit = wnd;
+
               let optns = { view: wnd,
                             clientX: x, clientY: y };
               this.WrestleWithDerivedSpatialEvents (prv, tahgit, wnd, optns,
                                                     pntrid, e);
 
-              if (tahgit != null)
-                { optns = { bubbles: true, view: wnd,
-                            clientX: x, clientY: y };
+              optns = { bubbles: true, view: wnd,
+                        clientX: x, clientY: y };
+//                        button: e . WhichPressor () };
 
-                  let pevt = new MouseEvent ('mousemove', optns);
-                  pevt['prov'] = prv;
-                  pevt['zeugma_evt'] = e;
-                  tahgit . dispatchEvent (pevt);
+              let pevt = new MouseEvent ('mousemove', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
 
-                  optns = { bubbles: true, view: wnd,
-                            pointerId: pntrid, clientX: x, clientY: y };
-                  pevt = new PointerEvent ('pointermove', optns);
-                  pevt['prov'] = prv;
-                  pevt['zeugma_evt'] = e;
-                  tahgit . dispatchEvent (pevt);
-                }
+              tahgit . dispatchEvent (pevt);
+
+              optns = { bubbles: true, view: wnd,
+                        pointerId: pntrid, clientX: x, clientY: y };
+//                        button: e . WhichPressor () };
+              pevt = new PointerEvent ('pointermove', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+
+              tahgit . dispatchEvent (pevt);
             }
         }
-
+*/
       return 0;
     }
 
@@ -870,58 +915,15 @@ whin . addEventListener ('pointermove',
       if (! this.ValidateCursorWorthiness (prv))
         return;
 
-      // this.CountenanceCursorVitality (e);
-
       if (e.maes_and_hit == null)
         return 0;
       const [emm, hit] = e.maes_and_hit;
       const wnd = this.WindowForMaes (emm);
 
-      if (wnd != null)
-        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
-          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
-          x = 0.5  +  x / emm . Width ();
-          y = 0.5  -  y / emm . Height ();
-          x *= (wnd.innerWidth - 1.0);
-          y *= (wnd.innerHeight - 1.0);
-
-          if (this.ShouldSynthesizeHTMLPointerEvents ()
-              &&  (e . ForebearEvent ()  ==  null
-                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
-            { const pntrid = this.HTMLPointerIDForProv (prv);
-
-              let optns = { bubbles: true, view: wnd,
-                            clientX: x, clientY: y,
-                            button: e . WhichPressor () };
-//              let pevt = new PointerEvent ('pointerdown', optns);
-              let pevt = new MouseEvent ('mousedown', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
-
-              let plic_tar = this.HTMLTargetForProvenance (prv);
-              if (plic_tar)
-                plic_tar = plic_tar[0];
-              let tahgit = plic_tar  ?  plic_tar  :
-                wnd.document . elementFromPoint (x, y);
-
-              if (tahgit == null)
-                { console.warn ("in ZESpatialHarden() -- tahgit is null, with "
-                                + "window = " + wnd + " at (x,y) = ("
-                                + x + ", " + y + ")...");
-                  tahgit = wnd;
-                }
-              tahgit . dispatchEvent (pevt);
-
-              optns = { bubbles: true, view: wnd,
-                        pointerId: pntrid, clientX: x, clientY: y,
-                        button: e . WhichPressor () };
-              pevt = new PointerEvent ('pointerdown', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
-
-              tahgit . dispatchEvent (pevt);
-            }
-        }
+      if (this.ShouldSynthesizeHTMLPointerEvents ()
+          &&  (e . ForebearEvent ()  ==  null
+               ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+        this.SynthAndDispatchHTMLEventsFromSpatial ("down", e, prv, hit, wnd);
 
       return 0;
     }
@@ -932,33 +934,17 @@ whin . addEventListener ('pointermove',
       if (! this.ValidateCursorWorthiness (prv))
         return;
 
-      // this.CountenanceCursorVitality (e);
-
       if (e.maes_and_hit == null)
         return 0;
       const [emm, hit] = e.maes_and_hit;
       const wnd = this.WindowForMaes (emm);
 
-      if (wnd != null)
-        { let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
-          let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
-          x = 0.5  +  x / emm . Width ();
-          y = 0.5  -  y / emm . Height ();
-          x *= (wnd.innerWidth - 1.0);
-          y *= (wnd.innerHeight - 1.0);
-
-          if (this.ShouldSynthesizeHTMLPointerEvents ()
-              &&  (e . ForebearEvent ()  ==  null
-                   ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+      if (this.ShouldSynthesizeHTMLPointerEvents ()
+          &&  (e . ForebearEvent ()  ==  null
+               ||  this.ShouldSynthesizeEvenForNativeOriginatedEvents ()))
+        this.SynthAndDispatchHTMLEventsFromSpatial ("down", e, prv, hit, wnd);
+/*
             { const pntrid = this.HTMLPointerIDForProv (prv);
-
-              let optns = { bubbles: true, view: wnd,
-                            clientX: x, clientY: y,
-                            button: e . WhichPressor () };
-//              let pevt = new PointerEvent ('pointerup', optns);
-              let pevt = new MouseEvent ('mouseup', optns);
-              pevt['prov'] = prv;
-              pevt['zeugma_evt'] = e;
 
               let plic_tar = this.HTMLTargetForProvenance (prv);
               if (plic_tar)
@@ -968,6 +954,20 @@ whin . addEventListener ('pointermove',
 
               if (tahgit == null)
                 tahgit = wnd;
+
+              let optns; // = { view: wnd,
+//                            clientX: x, clientY: y };
+//              this.WrestleWithDerivedSpatialEvents (prv, tahgit, wnd, optns,
+//                                                    pntrid, e);
+
+              optns = { bubbles: true, view: wnd,
+                        clientX: x, clientY: y,
+                        button: e . WhichPressor () };
+
+              let pevt = new MouseEvent ('mouseup', optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+
               tahgit . dispatchEvent (pevt);
 
               optns = { bubbles: true, view: wnd,
@@ -980,7 +980,7 @@ whin . addEventListener ('pointermove',
               tahgit . dispatchEvent (pevt);
             }
         }
-
+*/
       return 0;
     }
 
