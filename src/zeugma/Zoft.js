@@ -21,7 +21,7 @@ export class Zoft  extends Zeubject
     { this.default_lung = pulmo; }
 
   static NewWith (zft_or_plainval)
-    { if (zft_or_plainval?.constructor?.name !== 'Zoft')
+    { if (zft_or_plainval?.constructor  !==  Zoft)
         return LatchZoft.NewWith (zft_or_plainval);
 
       return new _EchtZoft ()
@@ -37,7 +37,7 @@ export class Zoft  extends Zeubject
   //
   constructor ()
     { super ();
-      if (this.constructor.name !== '_EchtZoft')
+      if (this.constructor  !==  _EchtZoft)
         throw new Error ("Say now: ye cannot instantiate a "
                          + this.constructor.name
                          + " with 'new'; use 'NewWith()' instead. Won't you?");
