@@ -100,11 +100,22 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
       Moundify (forsty);
       forsty . addEventListener ("mousedown", Stankication);
       forsty . addEventListener ("mouseup", Ingressication);
+
+      document . getElementById ("thweldge")
+        . addEventListener ("click", (ev) =>
+            { console.log ("CLICKETY CLIKLIQ: ", ev);
+              const putty = document . getElementById ("slurp");
+              let stuffs = putty.value;
+              stuffs = stuffs + " zZ.";
+              putty.value = stuffs;
+            } );
     }
 
   sheb . FlyOnTheirTerms ();
   sheb . SetShouldDeployStandaloneHTMLCursors (true);
   sheb . SetShouldSynthesizeHTMLPointerEvents (true);
+  sheb . SetShouldSynthesizeClicks (true);
+  sheb . SetSyntheticClickMaxInterval (0.5);
 
   console.log ("honk.");
 };

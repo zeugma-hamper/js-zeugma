@@ -14,6 +14,8 @@ import { Cursoresque } from "./Cursoresque.js";
 
 import { LimnyThing } from "./LimnyThing.js";
 
+import { MotherTime } from "./MotherTime.js";
+
 import { Zoft } from "./Zoft.js";
 
 import { Geom } from "./Geom.js";
@@ -52,6 +54,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       //
       this.looper = new Loopervisor ();
 
+      this.general_zeit = new MotherTime ();
+
       this.maeses = new Array ();
 
       let mca = PlatonicMaes.SampleMaesConfigJSON ();
@@ -77,6 +81,10 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
       this.should_synthesize_html_pointer_events = false;
       this.should_synthesize_even_for_native_originated_events = false;
+
+      this.should_synthesize_clicks = false;
+      this.html_harden_event_by_prov = new Map ();
+      this.synthetic_click_max_interval = -1.0;
 
       this.cursor_prefix_guestlist = null;
       this.cursor_prefix_exilelist = null;
@@ -125,6 +133,16 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { this.should_synthesize_even_for_native_originated_events = sefnoe;
       return this;
     }
+
+  ShouldSynthesizeClicks ()
+    { return this.should_synthesize_clicks; }
+  SetShouldSynthesizeClicks (ssc)
+    { this.should_synthesize_clicks = ssc;  return this; }
+
+  SyntheticClickMaxInterval ()
+    { return this.synthetic_click_max_interval; }
+  SetSyntheticClickMaxInterval (scmi)
+    { this.synthetic_click_max_interval = scmi;  return this; }
 
   ShouldDeployStandaloneHTMLCursors ()
     { return this.should_deploy_stanalone_html_cursors; }
@@ -842,7 +860,7 @@ whin . addEventListener ('pointermove',
       if (plic_tar)
         plic_tar = plic_tar[0];
       let tahgit = plic_tar  ?  plic_tar  :
-        wnd.document . elementFromPoint (x, y);
+        (wnd.document  ?  wnd.document . elementFromPoint (x, y)  :  null);
 
       if (tahgit == null)
         tahgit = wnd;
@@ -878,14 +896,28 @@ if (ilk == "up")
       pevt['zeugma_evt'] = e;
 
       tahgit . dispatchEvent (pevt);
-/*
-if (ilk == "up")
-  { pevt = new PointerEvent ("click", optns);
-    pevt['prov'] = prv;
-    pevt['zeugma_evt'] = e;
-    tahgit . dispatchEvent (pevt);
-  }
-*/
+
+      if (ilk == "down"  &&  this.ShouldSynthesizeClicks ())
+        { this.html_harden_event_by_prov . set (prv, pevt);
+          pevt._maybe_click_onset_time = this.general_zeit . CurTime ();
+        }
+
+      if (ilk == "up"  &&  this.ShouldSynthesizeClicks ())
+        { const dn_ev = this.html_harden_event_by_prov . get (prv);
+          const scmi = this.synthetic_click_max_interval;
+          if (scmi  <  0.0
+              ||  (dn_ev  &&  ((this.general_zeit . CurTime ()
+                                -  dn_ev._maybe_click_onset_time)  <  scmi)))
+            { if (dn_ev)
+                { optns.clientX = dn_ev.clientX;
+                  optns.clientY = dn_ev.clientY;
+                }
+              pevt = new PointerEvent ("click", optns);
+              pevt['prov'] = prv;
+              pevt['zeugma_evt'] = e;
+              tahgit . dispatchEvent (pevt);
+            }
+        }
     }
 
 
