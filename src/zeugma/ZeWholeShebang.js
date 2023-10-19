@@ -688,7 +688,10 @@ whin . addEventListener ('pointermove',
 
 
   ExtrudeNewHTMLCursor (zev, wnd)
-    { const cusser = wnd.document . createElement ("div");
+    { if (! wnd  ||  ! wnd.document)
+        return null;
+
+      const cusser = wnd.document . createElement ("div");
       const canvoo = wnd.document . createElement ("canvas");
       cusser . appendChild (canvoo);
       cusser.canvoo = canvoo;
@@ -726,8 +729,9 @@ whin . addEventListener ('pointermove',
 
           cusser = crsr_by_prov . get (prv);
           if (cusser == null)
-            crsr_by_prov . set (prv,
-                                cusser = this.ExtrudeNewHTMLCursor (zev, w));
+            if ((cusser = this.ExtrudeNewHTMLCursor (zev, w))  ==  null)
+              return this;
+          crsr_by_prov . set (prv, cusser);
 
           if (w  !=  prev_win)
             w.document.body . appendChild (cusser);
@@ -797,7 +801,7 @@ whin . addEventListener ('pointermove',
     }
 
 
-  LiveWithSpatialEventsInADOMWorld (ilk, e)
+  TransmuteSpatialEventsIntoDOMTown (ilk, e)
     { const prv = e . Provenance ();
       if (! this.ValidateCursorWorthiness (prv))
         return;
@@ -818,10 +822,11 @@ whin . addEventListener ('pointermove',
       y *= (wnd.innerHeight - 1.0);
 
       const movish = (ilk == "move");
-      if (movish  &&  this.ShouldDeployStandaloneHTMLCursors ())
-        { this.CountenanceCursorVitality (e);
+      if (movish)
+        if (this.ShouldDeployStandaloneHTMLCursors ())
           this.CountenanceStandaloneHTMLCursorBrio (e, wnd, x, y);
-        }
+        else
+          this.CountenanceCursorVitality (e);
 
       if (! this.ShouldSynthesizeHTMLPointerEvents ()
           ||  (e . ForebearEvent ()  !=  null
@@ -859,28 +864,43 @@ whin . addEventListener ('pointermove',
       pevt['zeugma_evt'] = e;
 
       tahgit . dispatchEvent (pevt);
-
+/*
+if (ilk == "up")
+  { pevt = new MouseEvent ("click", optns);
+    pevt['prov'] = prv;
+    pevt['zeugma_evt'] = e;
+    tahgit . dispatchEvent (pevt);
+  }
+*/
       optns.pointerId = pntrid;
       pevt = new PointerEvent (pntr_ilk, optns);
       pevt['prov'] = prv;
       pevt['zeugma_evt'] = e;
 
       tahgit . dispatchEvent (pevt);
+/*
+if (ilk == "up")
+  { pevt = new PointerEvent ("click", optns);
+    pevt['prov'] = prv;
+    pevt['zeugma_evt'] = e;
+    tahgit . dispatchEvent (pevt);
+  }
+*/
     }
 
 
   ZESpatialMove (e)
-    { this.LiveWithSpatialEventsInADOMWorld ("move", e);
+    { this.TransmuteSpatialEventsIntoDOMTown ("move", e);
       return 0;
     }
 
   ZESpatialHarden (e)
-    { this.LiveWithSpatialEventsInADOMWorld ("down", e);
+    { this.TransmuteSpatialEventsIntoDOMTown ("down", e);
       return 0;
     }
 
   ZESpatialSoften (e)
-    { this.LiveWithSpatialEventsInADOMWorld ("up", e);
+    { this.TransmuteSpatialEventsIntoDOMTown ("up", e);
       return 0;
     }
 

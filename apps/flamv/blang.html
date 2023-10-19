@@ -1,16 +1,32 @@
 
-<!DOCTYPE html><html lang="en" dir="ltr">
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+<!DOCTYPE html>
 
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+    <title>~~ blangstrom ~~</title>
+  </head>
 
-<script type="module">
-  import "/apps/flamv/BlangViscera.js";
-</script>
+  <script type="module">
+    import "/apps/flamv/BlangViscera.js";
+  </script>
 
-
-<title>~~ blangstrom ~~</title>
-</head>
   <body>
+    <button id="thweldge">SMARM!</button>
+    <input type="text" id="slurp"/>
   </body>
+
+  <script type="module">
+    window . addEventListener ("load", () =>
+      { horque ();
+        document . getElementById ("thweldge")
+          . addEventListener ("click", (ev) =>
+              { console.log ("CLICKETY CLIKLIQ: ", ev);
+                const putty = document . getElementById ("slurp");
+                let stuffs = putty.value;
+                stuffs = stuffs + " zZ.";
+                putty.value = stuffs;
+              });
+      } );
+  </script>
 </html>

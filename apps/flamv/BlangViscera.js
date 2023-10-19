@@ -71,6 +71,9 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
       return this;
     }
 
+  let Desquamate = function (ev)
+    { console.log ("CLACK! yes? YES. CLACK!", ev); }
+
   let dawky = globalThis?.window?.document;
   let bahdy = dawky?.body;
   let strippy;
@@ -84,6 +87,7 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
       immy . addEventListener ("mousemove", Jigglification);
       immy . addEventListener ("mouseenter", Ingressication);
       immy . addEventListener ("mouseleave", Egressication);
+      immy . addEventListener ("click", Desquamate);
     }
 
   if (dawky != null)
@@ -109,4 +113,6 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
 /// now: do unto.
 //
 
-setTimeout (horque, 1000);
+//setTimeout (horque, 1000);
+
+globalThis.horque = horque;
