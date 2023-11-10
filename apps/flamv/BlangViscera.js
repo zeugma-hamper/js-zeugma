@@ -6,6 +6,7 @@
 
 import { ZeWholeShebang,
          SinuZoft, ZeColor,
+         Matrix44,
          PlatonicMaes,
          CheapOSCMessage } from "/zeugma-lib.js";
 
@@ -13,6 +14,8 @@ import { ZeWholeShebang,
 import { io as SOCKIO } from "/node_modules/socket.io/client-dist/socket.io.esm.min.js";
 let socky = SOCKIO ();
 
+
+let should_transform_wand_coords = false;
 
 let forsty = new Image ();
 forsty.src = "/images/flamv/forster-fry-smaller.png";
@@ -30,6 +33,13 @@ const horque = function ()
   sheb . MergeIntoStartupURLByMaesNameMap ( { "left" : "https://google.com" } );
   //sheb . PopulateFromMaesConfig (maes_conf);
   sheb . BurstFromTheGroundCanvaslessly ();
+  if (! should_transform_wand_coords)
+    { const owa = sheb . Looper () . FindSump ("wand-sump");
+      if (owa)
+        { owa . SetPointMat (new Matrix44 ());
+          owa . SetDirectionMat (new Matrix44 ());
+        }
+    }
 
   console.log (socky);
   let fake_osc = sheb . Looper () . FindSump ("wand-sump") . Oscerizer ();
@@ -63,7 +73,7 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
     { this.style.borderColor = "blue";
     }
 
-  let Plodderizer  = function (ev)
+  let Plodderizer = function (ev)
     { if (ev.zeugma_evt == undefined)
         return null;
       let q = 666;
@@ -108,6 +118,9 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
               let stuffs = putty.value;
               stuffs = stuffs + " zZ.";
               putty.value = stuffs;
+              putty . addEventListener ("focus", (e) =>
+                { console.log ("FO; FO CUS, right? ", e); }
+              );
             } );
     }
 

@@ -5,6 +5,7 @@
 
 
 import { ZeWholeShebang, SpaceThing,
+         Matrix44,
          RoGrappler, SinuZoft,
          ZEDisplacementPhagy,
          EventAqueduct,
@@ -20,6 +21,8 @@ import { ShimmyCrate } from "/apps/flamv/ShimmyCrate.js";
 import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 let socky = SOCKIO ();
 
+
+let should_transform_wand_coords = false;
 
 let forsty = new Image ();
 forsty.src = "/images/flamv/forster-fry-smaller.png";
@@ -55,6 +58,13 @@ const tat = new Tattler ();
 const horque = function ()
 { globalThis.sheb = ZeWholeShebang.CanonicalInstance ();
   sheb . BurstFromTheGround ();
+  if (! should_transform_wand_coords)
+    { const owa = sheb . Looper () . FindSump ("wand-sump");
+      if (owa)
+        { owa . SetPointMat (new Matrix44 ());
+          owa . SetDirectionMat (new Matrix44 ());
+        }
+    }
 
   let frma = sheb . FindMaes ('front');
   //frma . InsertLayer (new SpaceThing () . SetName ("omnibus"), 0)
