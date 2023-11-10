@@ -601,6 +601,17 @@ whin . addEventListener ('pointermove',
       smev . SetLoc (frm) . SetAim (aim) . SetOver (ovr);
       smev . SetMaesAndHit ([ma, hit]);
       smev . SetForebearEvent (e);
+      if (e.clientX)
+        { smev.clientX = e.clientX;
+          smev.windowX = e.clientX;
+          smev.clientY = e.clientY;
+          smev.windowY = e.clientY;
+        }
+      if (e.windowX)
+        { smev.windowX = e.windowX;
+          smev.windowY = e.windowY;
+        }
+
       const duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
       if (duct != null)
         duct . AppendDram (smev);
@@ -614,6 +625,10 @@ whin . addEventListener ('pointermove',
       if (smev != null)
         { smev . InjectParticularsInto (spev);
           spev . SetMaesAndHit (smev . MaesAndHit ());
+          spev.clientX = smev.clientX;
+          spev.clientY = smev.clientY;
+          spev.windowX = smev.windowX;
+          spev.windowY = smev.windowY;
         }
       spev . SetWhichPressor (butt);
       spev . SetForebearEvent (e);
