@@ -13,6 +13,12 @@ import { EventAqueduct } from "./EventAqueduct.js";
 import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 
 
+function Two_To_The (n)
+{ if (n  >=  0)
+    return (1 << n);
+  return n;
+}
+
 export class NativeEventDialectCatcher  extends Zeubject
 { //
   constructor (maes, conc)
@@ -20,8 +26,15 @@ export class NativeEventDialectCatcher  extends Zeubject
       this.helem = null;
       this.from_maes = maes;
       this.prov = "mouse-0";
+      this.butt_xfrm_func = Two_To_The;
       this.concentrator = conc;
     }
+
+
+  ButtonTransformFunc ()
+    { return this.butt_xfrm_func; }
+  SetButtonTransformFunc (bxf)
+    { this.butt_xfrm_func = bxf;  return this; }
 
   HooverNativeEventsFrom (html_elem)
     { const self = this;
@@ -53,7 +66,10 @@ export class NativeEventDialectCatcher  extends Zeubject
 
   NativeMouseDown (e)
     { const xy = this.constructor.PropoXY (e, this.helem);
-      const b = e.button;
+      let b = e.button;
+      if (this.butt_xfrm_func)
+        b = this.butt_xfrm_func (b);
+
       if (this.concentrator != null)
         this.concentrator . NativeMouseDownOnMaes (e, xy[0], xy[1], b, this.prov,
                                                    this.from_maes);
@@ -62,7 +78,10 @@ export class NativeEventDialectCatcher  extends Zeubject
 
   NativeMouseUp (e)
     { const xy = this.constructor.PropoXY (e, this.helem);
-      const b = e.button;
+      let b = e.button;
+      if (this.butt_xfrm_func)
+        b = this.butt_xfrm_func (b);
+
       if (this.concentrator != null)
         this.concentrator . NativeMouseUpOnMaes (e, xy[0], xy[1], b, this.prov,
                                                  this.from_maes);

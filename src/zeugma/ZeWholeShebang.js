@@ -874,15 +874,16 @@ whin . addEventListener ('pointermove',
       let plic_tar = this.HTMLTargetForProvenance (prv);
       if (plic_tar)
         plic_tar = plic_tar[0];
-      let tahgit = plic_tar  ?  plic_tar  :
-        (wnd.document  ?  wnd.document . elementFromPoint (x, y)  :  null);
+      let tahgit = plic_tar
+        ?  plic_tar
+        :  (wnd.document  ?  wnd.document . elementFromPoint (x, y)  :  null);
 
       if (tahgit == null)
         tahgit = wnd;
 
       if (movish)
         { let elab_opts = { view: wnd,
-                               clientX: x, clientY: y };
+                            clientX: x, clientY: y };
           this.ElaborateOnDerivedSpatialEvents (prv, tahgit, wnd,
                                                 elab_opts, pntrid, e);
         }
@@ -897,14 +898,7 @@ whin . addEventListener ('pointermove',
       pevt['zeugma_evt'] = e;
 
       tahgit . dispatchEvent (pevt);
-/*
-if (ilk == "up")
-  { pevt = new MouseEvent ("click", optns);
-    pevt['prov'] = prv;
-    pevt['zeugma_evt'] = e;
-    tahgit . dispatchEvent (pevt);
-  }
-*/
+
       optns.pointerId = pntrid;
       pevt = new PointerEvent (pntr_ilk, optns);
       pevt['prov'] = prv;
