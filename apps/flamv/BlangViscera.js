@@ -7,6 +7,7 @@
 import { ZeWholeShebang,
          SinuZoft, ZeColor,
          Matrix44,
+         MotherTime,
          PlatonicMaes,
          CheapOSCMessage } from "/zeugma-lib.js";
 
@@ -24,14 +25,69 @@ let steiny = new Image ();
 steiny.src = "/images/flamv/stein-picabia-smaller.png";
 
 
-const horque = function ()
+function EquipMaesWithNamedElementCanvas (ma, elnm, tmout = 60.0)
+{ let succy = null, faily = null;
+  const zeit = new MotherTime ();
+  const shebby = ZeWholeShebang . CanonicalInstance ();
+
+  function Writhe ()
+    { if (succy  &&  faily)
+        { if (! shebby)
+            { faily ("no zeugma, Chet.");  return; }
+          const win = shebby . WindowForMaes (ma);
+          if (win)
+            if (win.document)
+              { const canv_cntnr = win.document . getElementById (elnm);
+                if (canv_cntnr)
+                  { const canv = win.document . createElement ("canvas");
+                    canv.width = win.innerWidth;
+                    canv.height = win.innerHeight;
+                    canv_cntnr . appendChild (canv);
+                    canv_cntnr . addEventListener ("pointerdown",
+                                                   (e) => {
+                                                     console.log ("DAUOON!");
+                                                   } );
+                    win . addEventListener
+                      ("resize", (e) => { canv.width = win.innerWidth;
+                                          canv.height = win.innerHeight;
+                                        }
+                      );
+                    succy (canv);
+                    return;
+                  }
+              }
+          if (tmout > 0.0)
+            if (zeit . CurTime ()  >  tmout)
+              { faily ("timed out, like all the way out.");  return; }
+        }
+      setTimeout (Writhe, 20);
+    }
+
+  const prawm = new Promise ((s, f) => { succy = s;  faily = f; });
+  Writhe ();
+  return prawm;
+}
+
+
+const horque = async function ()
 { const maes_conf = PlatonicMaes.SampleMaesConfigJSON ();
-  maes_conf . splice (2, 1);//maes_conf.length - 1);
+  //maes_conf . splice (2, 1);//maes_conf.length - 1);
   //ZeWholeShebang . SetSingleShotDefaultMaesConfigArray (maes_conf);
   ZeWholeShebang . SetDefaultMaesConfigArray (maes_conf);
   globalThis.sheb = ZeWholeShebang.CanonicalInstance ();
-  sheb . MergeIntoStartupURLByMaesNameMap ( { "left" : "https://google.com" } );
+  //sheb . MergeIntoStartupURLByMaesNameMap ( { "left" : "https://google.com" } );
   //sheb . PopulateFromMaesConfig (maes_conf);
+
+  const subm_map = sheb . StartupURLByMaesMap ();
+  const promarr = new Array ();
+  for (const ma of sheb . Maeses ())
+    if (ma)
+      { const prom = EquipMaesWithNamedElementCanvas (ma, "windshield");
+        promarr . push (prom);
+        if (ma  &&  ma . Name ()  !=  "front")
+          subm_map . set (ma . Name (), "./otha-zones.html");
+      }
+
   sheb . BurstFromTheGroundCanvaslessly ();
   if (! should_transform_wand_coords)
     { const owa = sheb . Looper () . FindSump ("wand-sump");
@@ -40,6 +96,10 @@ const horque = function ()
           owa . SetDirectionMat (new Matrix44 ());
         }
     }
+
+  await Promise.allSettled (promarr);
+  sheb . SetShouldHoardNativeMouseEvents (true);
+  sheb . SetShouldSynthesizeEvenForNativeOriginatedEvents (true);
 
   console.log (socky);
   let fake_osc = sheb . Looper () . FindSump ("wand-sump") . Oscerizer ();
@@ -88,15 +148,17 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
   let bahdy = dawky?.body;
   let strippy;
 
+  let windsh = dawky . getElementById ("windshield");
+
   let Moundify = function (immy)
     { strippy.appendChild (immy);
       immy.style.width = "auto";
       immy.style.height = "400px";
       immy.style.borderStyle = "solid";
       immy.style.borderWidth = "10px";
-      immy . addEventListener ("mousemove", Jigglification);
-      immy . addEventListener ("mouseenter", Ingressication);
-      immy . addEventListener ("mouseleave", Egressication);
+      immy . addEventListener ("pointermove", Jigglification);
+      immy . addEventListener ("pointerenter", Ingressication);
+      immy . addEventListener ("pointerleave", Egressication);
       immy . addEventListener ("click", Desquamate);
     }
 
@@ -105,11 +167,12 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
       strippy.style.position = "absolute";
       strippy.style.left = "50px";
       strippy.style.top = "100px";
-      bahdy . appendChild (strippy);
+      //bahdy . appendChild (strippy);
+      windsh . before (strippy);
       Moundify (steiny);
       Moundify (forsty);
-      forsty . addEventListener ("mousedown", Stankication);
-      forsty . addEventListener ("mouseup", Ingressication);
+      forsty . addEventListener ("pointerdown", Stankication);
+      forsty . addEventListener ("pointerup", Ingressication);
 
       document . getElementById ("thweldge")
         . addEventListener ("click", (ev) =>
