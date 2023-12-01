@@ -19,6 +19,29 @@ function Two_To_The (n)
   return n;
 }
 
+function AdjudicatePropagation (e, decidotron)
+{ if (typeof decidotron  ===  "boolean")
+    { if (decidotron === false)
+        return;
+    }
+  else if (typeof decidotron  ===  "function")
+    { const wellthen = decidotron (e);
+      if (wellthen === false)
+        return;
+    }
+  else if (typeof decidotron  ===  "object"
+           &&  decidotron.ShouldHoardNativeMouseEvents)
+    { const wellthen = decidotron.ShouldHoardNativeMouseEvents (e);
+      if (wellthen === false)
+        return;
+    }
+  else
+    return;
+  e . stopPropagation ();
+  e . stopImmediatePropagation ();
+}
+
+
 export class NativeEventDialectCatcher  extends Zeubject
 { //
   constructor (maes, conc)
@@ -36,15 +59,30 @@ export class NativeEventDialectCatcher  extends Zeubject
   SetButtonTransformFunc (bxf)
     { this.butt_xfrm_func = bxf;  return this; }
 
-  HooverNativeEventsFrom (html_elem)
+  HooverNativeEventsFrom (html_elem, hog_evts = false)
     { const self = this;
       this.helem = html_elem;
-      html_elem . addEventListener ("mousemove",
-                                    (e) => { self . NativeMouseMove (e); });
-      html_elem . addEventListener ("mousedown",
-                                    (e) => { self . NativeMouseDown (e); });
-      html_elem . addEventListener ("mouseup",
-                                    (e) => { self . NativeMouseUp (e); });
+      html_elem . addEventListener ("pointermove",
+                                    (e) => {
+                                      if (e.zeugma_evt)  return;
+                                      self . NativeMouseMove (e);
+                                      AdjudicatePropagation (e, hog_evts);
+                                    },
+                                    true);
+      html_elem . addEventListener ("pointerdown",
+                                    (e) => {
+                                      if (e.zeugma_evt)  return;
+                                      self . NativeMouseDown (e);
+                                      AdjudicatePropagation (e, hog_evts);
+                                    },
+                                    true);
+      html_elem . addEventListener ("pointerup",
+                                    (e) => {
+                                      if (e.zeugma_evt)  return;
+                                      self . NativeMouseUp (e);
+                                      AdjudicatePropagation (e, hog_evts);
+                                    },
+                                    true);
     }
 
   static PropoXY (e, hel)
@@ -73,7 +111,7 @@ export class NativeEventDialectCatcher  extends Zeubject
       if (this.concentrator != null)
         this.concentrator . NativeMouseDownOnMaes (e, xy[0], xy[1], b, this.prov,
                                                    this.from_maes);
-        return this;
+      return this;
     }
 
   NativeMouseUp (e)

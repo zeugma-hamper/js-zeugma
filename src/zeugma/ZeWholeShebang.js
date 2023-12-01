@@ -77,6 +77,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.cursor_by_prov = new Map ();
 
       this.should_generate_ze_events_from_mouse = true;
+      this.should_hoard_native_mouse_events = false;
       this.recentest_synth_spat_evt_by_prov = new Map ();
 
       this.should_synthesize_html_pointer_events = false;
@@ -121,6 +122,11 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return this.should_generate_ze_events_from_mouse; }
   SetShouldGenerateZeEventsFromNativeMouse (nera)
     { this.should_generate_ze_events_from_mouse = nera;  return this; }
+
+  ShouldHoardNativeMouseEvents ()
+    { return this.should_hoard_native_mouse_events; }
+  SetShouldHoardNativeMouseEvents (hnme)
+    { this.should_hoard_native_mouse_events = hnme;  return this; }
 
   ShouldSynthesizeHTMLPointerEvents ()
     { return this.should_synthesize_html_pointer_events; }
@@ -468,7 +474,10 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { this.SetWindowForMaes (maes, whin);
       const dcat = this.AssuredDialectCatcherForMaes (maes);
       if (dcat != null)
-        dcat . HooverNativeEventsFrom (whin);
+        dcat . HooverNativeEventsFrom (whin, this);
+        // second arg above is the object to query about hoarding events...
+        // [see NativeEventDialectCatcher's Hoover...(),
+        //  and also Adjudicate..() for details]
     }
 
   ProvisionWindowAndMaesWithCanvas (whin, maes)
