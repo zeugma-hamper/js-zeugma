@@ -19,24 +19,23 @@ function Two_To_The (n)
   return n;
 }
 
+
 function AdjudicatePropagation (e, decidotron)
-{ if (typeof decidotron  ===  "boolean")
+{ let wellthen = true;  // true: keep propagatin', you know?
+
+  if (typeof decidotron  ===  "boolean")
     { if (decidotron === false)
-        return;
+        wellthen = false;
     }
   else if (typeof decidotron  ===  "function")
-    { const wellthen = decidotron (e);
-      if (wellthen === false)
-        return;
-    }
+    wellthen = decidotron (e);
   else if (typeof decidotron  ===  "object"
            &&  decidotron.ShouldHoardNativeMouseEvents)
-    { const wellthen = decidotron.ShouldHoardNativeMouseEvents (e);
-      if (wellthen === false)
-        return;
-    }
-  else
+    wellthen = decidotron.ShouldHoardNativeMouseEvents ()  &&  ! e.zeugma_evt;
+
+  if (! wellthen)
     return;
+
   e . stopPropagation ();
   e . stopImmediatePropagation ();
 }
@@ -82,6 +81,9 @@ export class NativeEventDialectCatcher  extends Zeubject
                                       self . NativeMouseUp (e);
                                       AdjudicatePropagation (e, hog_evts);
                                     },
+                                    true);
+      html_elem . addEventListener ("click", (e) =>
+                                      { AdjudicatePropagation (e, hog_evts); },
                                     true);
     }
 

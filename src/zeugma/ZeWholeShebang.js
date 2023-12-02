@@ -920,7 +920,7 @@ whin . addEventListener ('pointermove',
           pevt._maybe_click_onset_time = this.general_zeit . CurTime ();
         }
 
-      if (ilk == "up"  &&  this.ShouldSynthesizeClicks ())
+      else if (ilk == "up"  &&  this.ShouldSynthesizeClicks ())
         { const dn_ev = this.html_harden_event_by_prov . get (prv);
           const scmi = this.synthetic_click_max_interval;
           if (scmi  <  0.0
