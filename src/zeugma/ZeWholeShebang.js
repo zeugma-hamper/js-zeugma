@@ -87,6 +87,11 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.html_harden_event_by_prov = new Map ();
       this.synthetic_click_max_interval = -1.0;
 
+      this.should_synthesize_scroll = false;
+      this.synth_scroll_detent = 0.1;
+      this.synth_scroll_scaler = 50.0;
+      this.synth_scroll_estab_pt_by_pad_by_prov = new Map ();
+
       this.cursor_prefix_guestlist = null;
       this.cursor_prefix_exilelist = null;
 
@@ -149,6 +154,23 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return this.synthetic_click_max_interval; }
   SetSyntheticClickMaxInterval (scmi)
     { this.synthetic_click_max_interval = scmi;  return this; }
+
+
+  ShouldSynthesizeScroll ()
+    { return this.should_synthesize_scroll; }
+  SetShouldSynthesizeScroll (sss)
+    { this.should_synthesize_scroll = sss;  return this; }
+
+  SyntheticScrollDetent ()
+    { return this.synth_scroll_detent; }
+  SetSyntheticScrollDetent (ssd)
+    { this.synth_scroll_detent = ssd;  return this; }
+
+  SyntheticScrollScaler ()
+    { return this.synth_scroll_scaler; }
+  SetSyntheticScrollScaler (sss)
+    { this.synth_scroll_scaler = sss;  return this; }
+
 
   ShouldDeployStandaloneHTMLCursors ()
     { return this.should_deploy_stanalone_html_cursors; }
@@ -843,6 +865,25 @@ whin . addEventListener ('pointermove',
     }
 
 
+  _DeduceWindowXY (e)
+    { if (e == null  ||  e.maes_and_hit == null)
+        return null;
+
+      const [emm, hit] = e.maes_and_hit;
+      const wnd = this.WindowForMaes (emm);
+      if (! wnd)
+        return null;
+
+      let x = hit . Sub (emm . Loc ()) . Dot (emm . Over () . Norm ());
+      let y = hit . Sub (emm . Loc ()) . Dot (emm . Up () . Norm ());
+      x = 0.5  +  x / emm . Width ();
+      y = 0.5  -  y / emm . Height ();
+      x *= (wnd.innerWidth - 1.0);
+      y *= (wnd.innerHeight - 1.0);
+
+      return { wnd, x, y };
+    }
+
   TransmuteSpatialEventsIntoDOMTown (ilk, e)
     { const prv = e . Provenance ();
       if (! this.ValidateCursorWorthiness (prv))
@@ -889,7 +930,8 @@ whin . addEventListener ('pointermove',
 
       if (tahgit == null)
         tahgit = wnd;
-
+if (ilk == "down")
+ console.log("POINT tahgit: ", tahgit);
       if (movish)
         { let elab_opts = { view: wnd,
                             clientX: x, clientY: y };
@@ -903,15 +945,15 @@ whin . addEventListener ('pointermove',
         optns.button = e . WhichPressor ();
 
       let pevt = new MouseEvent (mous_ilk, optns);
-      pevt['prov'] = prv;
-      pevt['zeugma_evt'] = e;
+      pevt["prov"] = prv;
+      pevt["zeugma_evt"] = e;
 
       tahgit . dispatchEvent (pevt);
 
       optns.pointerId = pntrid;
       pevt = new PointerEvent (pntr_ilk, optns);
-      pevt['prov'] = prv;
-      pevt['zeugma_evt'] = e;
+      pevt["prov"] = prv;
+      pevt["zeugma_evt"] = e;
 
       tahgit . dispatchEvent (pevt);
 
@@ -951,6 +993,86 @@ whin . addEventListener ('pointermove',
 
   ZESpatialSoften (e)
     { this.TransmuteSpatialEventsIntoDOMTown ("up", e);
+      return 0;
+    }
+
+
+  ZESpatialCaress (e)
+    { const prv = e . Provenance ();
+      const padid = e . WhichCaressor ();
+
+      const est_pt_by_pad
+        = this.synth_scroll_estab_pt_by_pad_by_prov . get (prv);
+      if (! est_pt_by_pad)
+        return 0;
+      const est_pt = est_pt_by_pad . get (padid);
+      if (! est_pt)
+        return;   // or... make do with bupkes?
+
+      const p = e . CaressValue ();
+      let dx = p.x - est_pt.x;
+      let dy = p.y - est_pt.y;
+
+      const dtnt = this.synth_scroll_detent;
+      if (dtnt  >  0.0)
+        { if (dx > dtnt)            dx -= dtnt;
+          else if (dx < -dtnt)      dx += dtnt;
+          else                      dx = 0.0;
+
+          if (dy > dtnt)            dy -= dtnt;
+          else if (dy < -dtnt)      dy += dtnt;
+          else                      dy = 0.0;
+        }
+
+      if (dx == 0.0  &&  dy == 0.0)
+        return 0;
+
+      dx *= this.synth_scroll_scaler;
+      dy *= this.synth_scroll_scaler;
+      const wevt = new WheelEvent ("wheel", { deltaX: dx, deltaY: dy });
+      wevt["prov"] = prv;
+      wevt["zeugma_evt"] = e;
+
+      let tahgit = this.HTMLTargetForProvenance (prv);
+      if (tahgit)
+        tahgit = tahgit[0];
+      const pev = e . AssociatedPointingEvent ();
+
+      const wxy = this._DeduceWindowXY (pev);
+      if (! tahgit  &&  wxy)
+        { const { wnd, x, y } = wxy;
+          tahgit = wnd.document . elementFromPoint (x, y);
+          if (! tahgit)
+            tahgit = wnd;
+        }
+console.log("CARESS tahgit: ", tahgit);
+      if (tahgit)
+        tahgit . dispatchEvent (wevt);
+
+      return 0;
+    }
+
+  ZESpatialCaressAppear (e)
+    { const prv = e . Provenance ();
+      const padid = e . WhichCaressor ();
+
+      let est_pt_by_pad = this.synth_scroll_estab_pt_by_pad_by_prov . get (prv);
+      if (! est_pt_by_pad)
+        this.synth_scroll_estab_pt_by_pad_by_prov
+          . set (prv, est_pt_by_pad = new Map ());
+
+      est_pt_by_pad . set (padid, e . CaressValue ());
+      return 0;
+    }
+
+  ZESpatialCaressVanish (e)
+    { const prv = e . Provenance ();
+      const padid = e . WhichCaressor ();
+
+      let est_pt_by_pad = this.synth_scroll_estab_pt_by_pad_by_prov . get (prv);
+      if (est_pt_by_pad)
+        est_pt_by_pad . delete (padid);
+
       return 0;
     }
 
