@@ -30,10 +30,10 @@ export class OSCViveWandSump  extends OSCSump
 
       this.ForAddressAppendSynthFunc
         ("/events/spatial",
-         (args) => { return (self.synth_obj . InterpretRawWandishWithMaesArray
-                               (args[0], args[1], args[2],
-                                args[3], args[4], args[5],
-                                maes_source));
+         (args) => { return (self.synth_obj . InterpretRawWandishWithMaesSource
+                               (maes_source,
+                                args[0], args[1], args[2],
+                                args[3], args[4], args[5]));
                    }
         );
     }
@@ -49,7 +49,7 @@ export class OSCViveWandSump  extends OSCSump
     { this.direc_mat = dm;  return this; }
 
   OSCToWandArgs (oscarr)
-    { if (oscarr.length != 11)
+    { if (oscarr.length  <  12)
         return null;
       const prv = oscarr[0];
       const butts = oscarr[1].low;   // good god...
@@ -63,7 +63,23 @@ export class OSCViveWandSump  extends OSCSump
           this.direc_mat . TransformVectInPlace (ovr);
         }
 
-      const retarr = [prv, butts, null,  // that'd be the caresses, Irv.
+      const crs_cnt = oscarr[11];
+      const crsarr = new Array ();
+      if (crs_cnt  &&  typeof (crs_cnt) === "number")  // here come the caresses
+        { let ind = 12;
+          for (let q = 0  ;  q < crs_cnt  ;  ++q)
+            { const crsid = oscarr[ind++];
+              const crsx = oscarr[ind++];
+              const crsy = oscarr[ind++];
+              if (crsid == null
+                  ||  crsx == null
+                  ||  crsy == null)
+                break;   // malformed input, so abandon post
+              crsarr . push ( [crsid, new Vect (crsx, crsy, 0.0)] );
+            }
+        }
+
+      const retarr = [prv, butts, crsarr,
                       pos, aim, ovr];
       return retarr;
     }

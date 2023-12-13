@@ -7,6 +7,7 @@
 import { ZeWholeShebang, SpaceThing,
          Matrix44,
          RoGrappler, SinuZoft,
+         ZESpatialPhagy,
          ZEDisplacementPhagy,
          EventAqueduct,
          CheapOSCMessage,
@@ -31,8 +32,8 @@ let steiny = new Image ();
 steiny.src = "/images/flamv/stein-picabia-smaller.png";
 
 
-class Tattler
-  extends base_class (Zeubject) . and_interfaces (ZEDisplacementPhagy)
+class Tattler  extends base_class (Zeubject)
+             . and_interfaces (ZEDisplacementPhagy, ZESpatialPhagy)
 { constructor ()  { super (); }
   ZEDisplacementAppear (e)
     { console.log ("APPEAR! who? well, " + e . Provenance ()); }
@@ -48,6 +49,16 @@ class Tattler
     { if (e.pseudo_maes_and_hit)
         console.log (`PSEUD: maes ${e.pseudo_maes_and_hit[0] . Name ()} at `
                      + `(${e.pseudo_client_xy[0]}, ${e.pseudo_client_xy[1]})`);
+    }
+
+  ZESpatialCaress (e)
+    { console.log (`CARESS! from ${e.Provenance()}, axis ${e.WhichCaressor()}, val (${e.CaressValue().X()} ${e.CaressValue().Y()})`);
+    }
+  ZESpatialCaressAppear (e)
+    { console.log (`CRS-APPEAR! ${e.Provenance()}, axis ${e.WhichCaressor()}`);
+    }
+  ZESpatialCaressVanish (e)
+    { console.log (`CRS-VANISH! ${e.Provenance()}, axis ${e.WhichCaressor()}`);
     }
 }
 
@@ -128,6 +139,7 @@ const horque = function ()
   spaq . AppendPhage (distil);
   spaq . AppendPhage (stim);
   spaq . AppendPhage (foim);
+  spaq . AppendPhage (tat);
 
   let tbma = sheb . FindMaes ("table");
   let sc = SinuZoft . NewWith (new ZeColor (0.0, 0.5, 0.5, 0.0),

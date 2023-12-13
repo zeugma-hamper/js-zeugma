@@ -11,10 +11,12 @@ import { ZESpatialEvent } from "./ZESpatialEvent.js";
 import { ZESpatialAppearEvent } from "./ZESpatialAppearEvent.js";
 import { ZESpatialVanishEvent } from "./ZESpatialVanishEvent.js";
 import { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";
-import { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
 import { ZESpatialPressureEvent } from "./ZESpatialPressureEvent.js";
 import { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
 import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
+import { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
+import { ZESpatialCaressAppearEvent } from "./ZESpatialCaressAppearEvent.js";
+import { ZESpatialCaressVanishEvent } from "./ZESpatialCaressVanishEvent.js";
 
 
 export const ZESpatialPhagy
@@ -27,5 +29,8 @@ export const ZESpatialPhagy
                          ZESpatialCaressEvent.Phage,
                          ZESpatialPressureEvent.Phage,
                          ZESpatialHardenEvent.Phage,
-                         ZESpatialSoftenEvent.Phage)
+                         ZESpatialSoftenEvent.Phage,
+                         ZESpatialCaressEvent.Phage,
+                         ZESpatialCaressAppearEvent.Phage,
+                         ZESpatialCaressVanishEvent.Phage)
     );

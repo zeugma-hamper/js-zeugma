@@ -12,6 +12,10 @@ import { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";
 import { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
 import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
 
+import { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
+import { ZESpatialCaressAppearEvent } from "./ZESpatialCaressAppearEvent.js";
+import { ZESpatialCaressVanishEvent } from "./ZESpatialCaressVanishEvent.js";
+
 
 export class ViveWandEventSynth  extends Zeubject
 { //
@@ -20,16 +24,21 @@ export class ViveWandEventSynth  extends Zeubject
       this.state_by_prov = new Map ();
     }
 
-  InterpretRawWandishWithMaesGeom (pntr_nm, bbits, crsdct,
+  InterpretRawWandishWithMaesGeom (pntr_nm, bbits, crsarr,
                                    p, a, o,
                                    maes, cam, hit)
     { }
 
-  InterpretRawWandishWithMaesArray (pntr_nm, bbits, crsdct,
-                                    p, a, o, maes_src)
-    { let spatst = this.state_by_prov . get (pntr_nm);
+  InterpretRawWandishWithMaesSource (maes_src,
+                                     pntr_nm, bbits, crsarr,
+                                     p, a, o)
+    { let crs_sta;
+      let spatst = this.state_by_prov . get (pntr_nm);
       if (spatst == undefined)
-        this.state_by_prov . set (pntr_nm, spatst = [ 0x00, false ]);
+        this.state_by_prov . set (pntr_nm, spatst = [ 0x00, false,
+                                                      crs_sta = new Set () ]);
+      else
+        crs_sta = spatst[2];
 
       const smev = new ZESpatialMoveEvent (pntr_nm);
       smev . SetLoc (p) . SetAim (a) . SetOver (o);
@@ -97,13 +106,43 @@ export class ViveWandEventSynth  extends Zeubject
         }
 
       // hey! what about caresses?
+      let crsid;
+      const novo_crs_sta = new Set ();
+      if (crsarr)
+        { const cnt = crsarr.length;
+          for (let q = 0  ;  q < cnt  ;  ++q)
+            { const cent = crsarr . at (q);
+              if (cent)
+                { const scev = new ZESpatialCaressEvent (pntr_nm);
+                  scev . SetWhichCaressor (crsid = cent[0]);
+                  scev . SetCaressValue (cent[1]);
 
-      this.state_by_prov . set (pntr_nm, [ bbits, true ]);
+                  if (! crs_sta . has (crsid))
+                    { const scaev = new ZESpatialCaressAppearEvent (pntr_nm);
+                      scaev . AdoptParticulars (scev);
+                      out_evs . push (scaev);
+                    }
+                  else
+                    crs_sta . delete (crsid);
+                  novo_crs_sta . add (crsid);
+
+                  out_evs . push (scev);
+                }
+            }
+        }
+
+      for (const van  of  crs_sta . values ())
+        { const scvev = new ZESpatialCaressVanishEvent (pntr_nm);
+          scvev . SetWhichCaressor (van);
+          out_evs . push (scvev);
+        }
+
+      this.state_by_prov . set (pntr_nm, [ bbits, true, novo_crs_sta ]);
       return out_evs;
     }
 
-  InterpretRawWandish (pntr_nm, bbits, crsdct, pnt, aim, ovr)
-    { return this.InterpretRawWandishWithMaesGeom (pntr_nm, bbits, crsdct,
+  InterpretRawWandish (pntr_nm, bbits, crsarr, pnt, aim, ovr)
+    { return this.InterpretRawWandishWithMaesGeom (pntr_nm, bbits, crsarr,
                                                    pnt, aim, ovr,
                                                    null, null, null);
     }
