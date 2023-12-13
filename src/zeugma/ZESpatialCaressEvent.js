@@ -15,6 +15,7 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
     { super (pr);
       this.crs_id = -1;
       this.crs_val = Vect.zerov;
+      this.assoc_pntg_evt = null;
     }
 
   EventIlk ()
@@ -24,6 +25,7 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
     { super.AdoptParticulars (sce);
       this.SetWhichCaressor (sce.crs_id);
       this.SetCaressValue (sce.crs_val);
+      this.SetAssociatedPointingEvent (sce.assoc_pntg_evt);
       return this;
     }
 
@@ -31,6 +33,7 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
     { super.InjectParticularsInto (sce);
       sce.SetWhichCaressor (this.crs_id);
       sce.SetCaressValue (this.crs_val);
+      sce.SetAssociatedPointingEvent (this.assoc_pntg_evt);
       return this;
     }
 
@@ -43,6 +46,12 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
     { return this.crs_val; }
   SetCaressValue (cvl)  // a Vect, if you please.
     { this.crs_val = cvl;  return this; }
+
+  AssociatedPointingEvent ()
+    { return this.assoc_pntg_evt; }
+  SetAssociatedPointingEvent (ape)
+    { this.assoc_pntg_evt = ape;  return this; }
+
 
   ProfferAsQuaffTo (zbj)
     { return zbj . ZESpatialCaress (this); }
