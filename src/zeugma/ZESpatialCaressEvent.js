@@ -14,6 +14,7 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
   constructor (pr)
     { super (pr);
       this.crs_id = -1;
+      this.crs_devilk = "unknown";
       this.crs_val = Vect.zerov;
       this.assoc_pntg_evt = null;
     }
@@ -24,6 +25,7 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
   AdoptParticulars (sce)
     { super.AdoptParticulars (sce);
       this.SetWhichCaressor (sce.crs_id);
+      this.SetCaressDeviceIlk (sce.crs_devilk);
       this.SetCaressValue (sce.crs_val);
       this.SetAssociatedPointingEvent (sce.assoc_pntg_evt);
       return this;
@@ -31,9 +33,10 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
 
   InjectParticularsInto (sce)
     { super.InjectParticularsInto (sce);
-      sce.SetWhichCaressor (this.crs_id);
-      sce.SetCaressValue (this.crs_val);
-      sce.SetAssociatedPointingEvent (this.assoc_pntg_evt);
+      sce . SetWhichCaressor (this.crs_id);
+      sce . SetCaressDeviceIlk (this.crs_devilk);
+      sce . SetCaressValue (this.crs_val);
+      sce . SetAssociatedPointingEvent (this.assoc_pntg_evt);
       return this;
     }
 
@@ -41,6 +44,11 @@ export class ZESpatialCaressEvent  extends ZESpatialEvent
     { return this.crs_id; }
   SetWhichCaressor (cid)
     { this.crs_id = cid;  return this; }
+
+  CaressDeviceIlk ()
+    { return this.crs_devilk; }
+  SetCaressDeviceIlk (cdi)
+    { this.crs_devilk = cdi;  return this; }
 
   CaressValue ()
     { return this.crs_val; }

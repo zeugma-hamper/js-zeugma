@@ -89,7 +89,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
 
       this.should_synthesize_scroll = false;
       this.synth_scroll_detent = 0.1;
-      this.synth_scroll_scaler = 50.0;
+      this.synth_scroll_scaler = 10.0;
       this.synth_scroll_estab_pt_by_pad_by_prov = new Map ();
 
       this.cursor_prefix_guestlist = null;
@@ -998,7 +998,9 @@ if (ilk == "down")
 
 
   ZESpatialCaress (e)
-    { const prv = e . Provenance ();
+    { if (! this.ShouldSynthesizeScroll ())
+        return 0;
+      const prv = e . Provenance ();
       const padid = e . WhichCaressor ();
 
       const est_pt_by_pad
@@ -1029,14 +1031,14 @@ if (ilk == "down")
 
       dx *= this.synth_scroll_scaler;
       dy *= this.synth_scroll_scaler;
-      const wevt = new WheelEvent ("wheel", { deltaX: dx, deltaY: dy });
-      wevt["prov"] = prv;
-      wevt["zeugma_evt"] = e;
 
       let tahgit = this.HTMLTargetForProvenance (prv);
       if (tahgit)
         tahgit = tahgit[0];
       const pev = e . AssociatedPointingEvent ();
+
+      let optns = { bubbles: true,
+                    deltaX: dx, deltaY: dy, deltaMode: 0x00 };
 
       const wxy = this._DeduceWindowXY (pev);
       if (! tahgit  &&  wxy)
@@ -1044,8 +1046,17 @@ if (ilk == "down")
           tahgit = wnd.document . elementFromPoint (x, y);
           if (! tahgit)
             tahgit = wnd;
+          optns = { bubbles: true,
+                    view: wnd,
+                    clientX: x, clientY: y,
+                    deltaX: dx, deltaY: dy, deltaMode: 0x00 };
         }
-console.log("CARESS tahgit: ", tahgit);
+
+      const wevt = new WheelEvent ("wheel", optns);
+      wevt["prov"] = prv;
+      wevt["zeugma_evt"] = e;
+
+console.log("CARESS tahgit: ", wevt, tahgit);
       if (tahgit)
         tahgit . dispatchEvent (wevt);
 
@@ -1053,7 +1064,11 @@ console.log("CARESS tahgit: ", tahgit);
     }
 
   ZESpatialCaressAppear (e)
-    { const prv = e . Provenance ();
+    { if (! this.ShouldSynthesizeScroll ())
+        return 0;
+      if (e . CaressDeviceIlk ()  !=  "pad")
+        return 0;
+      const prv = e . Provenance ();
       const padid = e . WhichCaressor ();
 
       let est_pt_by_pad = this.synth_scroll_estab_pt_by_pad_by_prov . get (prv);
@@ -1066,7 +1081,9 @@ console.log("CARESS tahgit: ", tahgit);
     }
 
   ZESpatialCaressVanish (e)
-    { const prv = e . Provenance ();
+    { if (! this.ShouldSynthesizeScroll ())
+        return 0;
+      const prv = e . Provenance ();
       const padid = e . WhichCaressor ();
 
       let est_pt_by_pad = this.synth_scroll_estab_pt_by_pad_by_prov . get (prv);

@@ -115,7 +115,8 @@ export class ViveWandEventSynth  extends Zeubject
               if (cent)
                 { const scev = new ZESpatialCaressEvent (pntr_nm);
                   scev . SetWhichCaressor (crsid = cent[0]);
-                  scev . SetCaressValue (cent[1]);
+                  scev . SetCaressDeviceIlk (cent[1]);
+                  scev . SetCaressValue (cent[2]);
                   scev . SetAssociatedPointingEvent (smev);
 
                   if (! crs_sta . has (crsid))

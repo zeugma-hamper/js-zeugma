@@ -69,13 +69,15 @@ export class OSCViveWandSump  extends OSCSump
         { let ind = 12;
           for (let q = 0  ;  q < crs_cnt  ;  ++q)
             { const crsid = oscarr[ind++];
+              const crsdilk = oscarr[ind++];
               const crsx = oscarr[ind++];
               const crsy = oscarr[ind++];
               if (crsid == null
+                  ||  crsdilk == null
                   ||  crsx == null
                   ||  crsy == null)
                 break;   // malformed input, so abandon post
-              crsarr . push ( [crsid, new Vect (crsx, crsy, 0.0)] );
+              crsarr . push ( [crsid, crsdilk, new Vect (crsx, crsy, 0.0)] );
             }
         }
 
