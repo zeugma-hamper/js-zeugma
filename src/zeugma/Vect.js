@@ -20,9 +20,15 @@ export class Vect
     }
 
 //
-  constructor (eks, wye, zee)
-    { if (eks == undefined)
+  constructor (v_or_eks, wye, zee)
+    { if (v_or_eks == undefined)
         { this.x = this.y = this.z = 0.0;  return; }
+      if (v_or_eks.constructor == Vect)
+          { const v = v_or_eks;
+            this.x = v.x;  this.y = v.y;  this.z = v.z;
+            return;
+          }
+      const eks = v_or_eks;
       this.x = eks;
       if (wye == undefined)
         { this.y = this.z = eks;  return; }
@@ -45,8 +51,13 @@ export class Vect
   Dup ()
     { return new Vect (this.x, this.y, this.z); }
 
-  Set (eks, wye, zee)
-    { this.x = eks;  this.y = wye;  this.z = zee;  return this; }
+  Set (v_or_eks, wye, zee)
+    { if (v_or_eks.constructor == Vect)
+        { const v = v_or_eks;  this.x = v.x;  this.y = v.y;  this.z = v.z; }
+      else
+        { this.x = v_or_eks;  this.y = wye;  this.z = zee; }
+      return this;
+    }
 
   Dot (v)
     { return v.x * this.x  +  v.y * this.y  +  v.z * this.z; }
@@ -208,7 +219,7 @@ export class Vect
       t2       = m01 * this.x  +  m11 * this.y  +  m21 * this.z;
       const t3 = m02 * this.x  +  m12 * this.y  +  m22 * this.z;
 
-      return Set (t1, t2, t3);
+      return this.Set (t1, t2, t3);
     }
   RotateSelf (axis, rad_ang)
     { return this.RotateSelfPreNormed (axis . Norm (), rad_ang); }
