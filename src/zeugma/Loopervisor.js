@@ -21,7 +21,21 @@ export class Loopervisor  extends Zeubject
 //  static momma_t = new MotherTime ();
 
   static InitializeClassHaplessly ()
-    { this.momma_t = new MotherTime (); }
+    { this.momma_t = new MotherTime ();
+      this.first_born = new Loopervisor ();
+      this.first_born_claimed = false;
+    }
+
+  static FirstBorn ()
+    { return this.first_born; }
+
+  static ClaimFistBorn ()
+    { this.first_born_claimed = true;
+      return this.first_born;
+    }
+
+  static FirstBornAlreadyClaimed ()
+    { return this.first_born_claimed; }
 
   //
   constructor ()

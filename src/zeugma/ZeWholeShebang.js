@@ -52,7 +52,10 @@ export class ZeWholeShebang  extends base_class (Zeubject)
   constructor ()
     { super ();
       //
-      this.looper = new Loopervisor ();
+      if (! Loopervisor.FirstBornAlreadyClaimed ())
+        this.looper = Loopervisor.ClaimFistBorn ();
+      else
+        this.looper = new Loopervisor ();
 
       this.general_zeit = new MotherTime ();
 
