@@ -24,7 +24,7 @@ export class PouchyThing  extends base_class (Zeubject)
     { return true; }
 
   Children ()
-    { return this.chirrens; }
+    { return (this.chirrens  ??  []); }
 
   NumChildren ()
     { return (this.chirrens == null)  ?  0  :  this.chirrens.length; }
