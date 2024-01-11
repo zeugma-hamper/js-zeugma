@@ -99,8 +99,8 @@ export class NativeEventDialectCatcher  extends Zeubject
   NativeMouseMove (e)
     { const xy = this.constructor.PropoXY (e, this.helem);
       if (this.concentrator != null)
-        this.concentrator . NativeMouseMoveOnMaes (e, xy[0], xy[1], this.prov,
-                                                   this.from_maes);
+        this.concentrator . NativeMouseMoveOnMaes (e, this.prov,
+                                                   this.from_maes, xy[0], xy[1]);
       return this;
     }
 
@@ -111,8 +111,8 @@ export class NativeEventDialectCatcher  extends Zeubject
         b = this.butt_xfrm_func (b);
 
       if (this.concentrator != null)
-        this.concentrator . NativeMouseDownOnMaes (e, xy[0], xy[1], b, this.prov,
-                                                   this.from_maes);
+        this.concentrator . NativeMouseDownOnMaes (e, this.prov, b,
+                                                   this.from_maes, xy[0], xy[1]);
       return this;
     }
 
@@ -123,8 +123,8 @@ export class NativeEventDialectCatcher  extends Zeubject
         b = this.butt_xfrm_func (b);
 
       if (this.concentrator != null)
-        this.concentrator . NativeMouseUpOnMaes (e, xy[0], xy[1], b, this.prov,
-                                                 this.from_maes);
+        this.concentrator . NativeMouseUpOnMaes (e, this.prov, b,
+                                                 this.from_maes, xy[0], xy[1]);
       return this;
     }
 }

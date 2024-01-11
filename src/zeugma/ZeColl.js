@@ -26,6 +26,11 @@ export class ZeColl
   static IndexOf (coll, z)
     { return (coll == null  ||  z == null)  ?  -1  :  coll . indexOf (z); }
 
+  static IndexByMatcher (coll, mat)
+    { return (coll == null  ||  mat == null)
+        ?  -1  :  coll . findIndex ((el) => mat (el));
+    }
+
   static Append (coll, z)
     { if (coll == null  ||  z == null)
         return false;

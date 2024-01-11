@@ -83,6 +83,14 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.should_hoard_native_mouse_events = false;
       this.recentest_synth_spat_evt_by_prov = new Map ();
 
+      this.dibs_mouse_move_funcs = new Array ();
+      this.dibs_mouse_down_funcs = new Array ();
+      this.dibs_mouse_up_funcs = new Array ();
+
+      this.dibs_mmf_curid = 100;
+      this.dibs_mdf_curid = 100;
+      this.dibs_muf_curid = 100;
+
       this.should_synthesize_html_pointer_events = false;
       this.should_synthesize_even_for_native_originated_events = false;
 
@@ -617,16 +625,33 @@ whin . addEventListener ('pointermove',
         }
     }
 
+  AppendDibsMouseMoveFunc (fn)
+    { if (typeof fn  !=  'function')
+        return null;
+      const funbun = { id: (++this.dibs_mmf_curid), func: fn };
+      ZeColl.Append (this.dibs_mouse_move_funcs, funbun);
+      return funbun;
+    }
+  RemoveDibsMouseMoveFuncById (iddy)
+    { const ind = ZeColl.IndexByMatcher (this.dibs_mouse_move_funcs,
+                                         (el) => el ?. id == iddy);
+      return ZeColl.RemoveNth (this.dibs_mouse_move_funcs, ind);
+    }
+  RemoveDibsMouseMoveFuncByFunbun (fb)
+    { return ZeColl.Remove (this.dibs_mouse_move_funcs, fb); }
 
-  NativeMouseMoveOnMaes (e, x, y, prv, ma)
-    { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
+  NativeMouseMoveOnMaes (e, prv, ma, x, y)
+    { for (const funbun  of  this.dibs_mouse_move_funcs)
+        funbun.func (e, prv, ma, x, y);
+
+      if (! this.ShouldGenerateZeEventsFromNativeMouse ())
         return 0;
 
       if (e.zeugma_evt != undefined)
         return 0;
 
-      const hit = ma . Loc () . Add (ma . Over () . Sca (x * ma . Width ())) .
-        Add (ma . Up () . Sca (y * ma . Height ()));
+      const hit = ma . Loc () . Add (ma . Over () . Sca (x * ma . Width ()))
+        . Add (ma . Up () . Sca (y * ma . Height ()));
       const frm = hit . Add (ma . Norm () . Sca (0.8 * ma . Width ()));
       const aim = ma . Norm () . Neg ();
       const ovr = aim . Cross (ma . Up ()) . Norm ();
@@ -672,8 +697,26 @@ whin . addEventListener ('pointermove',
       return 0;
     }
 
-  NativeMouseDownOnMaes (e, x, y, butt, prv, ma)
-    { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
+  AppendDibsMouseDownFunc (fn)
+    { if (typeof fn  !=  'function')
+        return null;
+      const funbun = { id: (++this.dibs_mdf_curid), func: fn };
+      ZeColl.Append (this.dibs_mouse_down_funcs, funbun);
+      return funbun;
+    }
+  RemoveDibsMouseDownFuncById (iddy)
+    { const ind = ZeColl.IndexByMatcher (this.dibs_mouse_down_funcs,
+                                         (el) => el ?. id == iddy);
+      return ZeColl.RemoveNth (this.dibs_mouse_down_funcs, ind);
+    }
+  RemoveDibsMouseDownFuncByFunbun (fb)
+    { return ZeColl.Remove (this.dibs_mouse_down_funcs, fb); }
+
+  NativeMouseDownOnMaes (e, prv, butt, ma, x, y)
+    { for (const funbun  of  this.dibs_mouse_down_funcs)
+        funbun.func (e, prv, ma, x, y);
+
+      if (! this.ShouldGenerateZeEventsFromNativeMouse ())
         return 0;
       if (e.zeugma_evt != undefined)
         return 0;
@@ -681,8 +724,26 @@ whin . addEventListener ('pointermove',
                                               ZESpatialHardenEvent);
     }
 
-  NativeMouseUpOnMaes (e, x, y, butt, prv, ma)
-    { if (! this.ShouldGenerateZeEventsFromNativeMouse ())
+  AppendDibsMouseUpFunc (fn)
+    { if (typeof fn  !=  'function')
+        return null;
+      const funbun = { id: (++this.dibs_muf_curid), func: fn };
+      ZeColl.Append (this.dibs_mouse_up_funcs, funbun);
+      return funbun;
+    }
+  RemoveDibsMouseUpFuncById (iddy)
+    { const ind = ZeColl.IndexByMatcher (this.dibs_mouse_up_funcs,
+                                         (el) => el ?. id == iddy);
+      return ZeColl.RemoveNth (this.dibs_mouse_up_funcs, ind);
+    }
+  RemoveDibsMouseUpFuncByFunbun (fb)
+    { return ZeColl.Remove (this.dibs_mouse_up_funcs, fb); }
+
+  NativeMouseUpOnMaes (e, prv, butt, ma, x, y)
+    { for (const funbun  of  this.dibs_mouse_up_funcs)
+        funbun.func (e, prv, ma, x, y);
+
+      if (! this.ShouldGenerateZeEventsFromNativeMouse ())
         return 0;
       if (e.zeugma_evt != undefined)
         return 0;

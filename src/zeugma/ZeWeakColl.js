@@ -34,6 +34,12 @@ export class ZeWeakColl
                                         return (el != null  &&  el == z); } );
     }
 
+  static IndexByMatcher (coll, mat)
+    { return (coll == null  ||  mat == null)  ?  -1
+        :  coll . findIndex ( (el) => { el = el . deref ();
+                                        return (el != null  &&  mat (el)); } );
+    }
+
   static Append (coll, z)
     { if (coll == null  ||  z == null)
         return false;
