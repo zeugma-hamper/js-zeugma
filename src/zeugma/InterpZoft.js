@@ -15,7 +15,7 @@ export class InterpZoft  extends Zoft
     { const z = Zoft._PrivateNew ();
       const g = new InterpZoftGuts ();
       g . _InstallPointAZoft (Zoft.NewWith (a));
-      g . _InstallPointBZoft (Zoft.NewWith (b));
+      g . _InstallPointBZoft (Zoft.NewWith (b != null  ?  b  :  a));
       z . _SetGuts (g);
       return z;
     }
