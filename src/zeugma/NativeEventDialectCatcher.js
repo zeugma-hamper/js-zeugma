@@ -13,6 +13,15 @@ import { EventAqueduct } from "./EventAqueduct.js";
 import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 
 
+
+
+//
+// so very much many badnesses. surely almost anything would be better?
+//
+const MOUSPRV = "mouse-0";
+
+
+
 function Two_To_The (n)
 { if (n  >=  0)
     return (1 << n);
@@ -98,6 +107,7 @@ export class NativeEventDialectCatcher  extends Zeubject
 
   NativeMouseMove (e)
     { const xy = this.constructor.PropoXY (e, this.helem);
+      e._provenance = MOUSPRV;
       if (this.concentrator != null)
         this.concentrator . NativeMouseMoveOnMaes (e, this.prov,
                                                    this.from_maes, xy[0], xy[1]);
@@ -106,6 +116,7 @@ export class NativeEventDialectCatcher  extends Zeubject
 
   NativeMouseDown (e)
     { const xy = this.constructor.PropoXY (e, this.helem);
+      e._provenance = MOUSPRV;
       let b = e.button;
       if (this.butt_xfrm_func)
         b = this.butt_xfrm_func (b);
@@ -118,6 +129,7 @@ export class NativeEventDialectCatcher  extends Zeubject
 
   NativeMouseUp (e)
     { const xy = this.constructor.PropoXY (e, this.helem);
+      e._provenance = MOUSPRV;
       let b = e.button;
       if (this.butt_xfrm_func)
         b = this.butt_xfrm_func (b);
