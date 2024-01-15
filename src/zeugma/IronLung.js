@@ -48,8 +48,14 @@ export class IronLung  extends Zeubject
         else
           z . Inhale (ratch, thyme);
 
-      if (ded_cnt  >  this.NumBreathees () / 5)
-        { }  // COMPACT!
+      if (ded_cnt  >  0.2 * this.NumBreathees ())
+        { const compacted = new Array ();
+          const N = this.breathees.length;
+          for (let q = 0  ;  q < N  ;  ++q)
+            if (z = ZeWeakColl.Nth (this.breathees, q))
+              ZeWeakColl.Append (compacted, z);
+          this.breathees = compacted;
+        }
 
       if (this.expirees.length  >  0)
         { for (const z of this.expirees)
