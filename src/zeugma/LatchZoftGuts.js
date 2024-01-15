@@ -23,6 +23,9 @@ export class LatchZoftGuts  extends ZoftGuts
   Set (v)
     { return this.SetLatchVal (v); }
 
+  SetHard (v)
+    { return this.SetLatchVal (v); }
+
   Inhale (ratch, thyme)
     { if (this.IsFreshFor (ratch))
         return 0;

@@ -96,6 +96,13 @@ export class Zoft  extends Zeubject
       return this;
     }
 
+  SetHard (v)
+    { if (this.guts == null)
+        return this._SetVal (v);
+      this.guts . SetHard (v);
+      return this;
+    }
+
   Guts ()
     { return this.guts; }
   _SetGuts (g)

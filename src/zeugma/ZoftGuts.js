@@ -21,6 +21,11 @@ export class ZoftGuts
                        this.constructor.name + "...");
     }
 
+  SetHard (v)
+    { throw new Error ("for shame: SetHard() cannot be used for guts of type " +
+                       this.constructor.name + "...");
+    }
+
   AppendHost (zft)
     { return ZeWeakColl.Append (this.zt_hosts, zft); }
 

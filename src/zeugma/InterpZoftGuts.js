@@ -88,6 +88,12 @@ export class InterpZoftGuts  extends ZoftGuts
   Set (goal_zoft_or_val)
     { return this.SetGoal (goal_zoft_or_val); }
 
+  SetHard (val)
+    { this.z_pnt_a . SetHard (val);
+      this.z_pnt_b . SetHard (val);
+      this.Finish ();
+    }
+
 
   Inhale (ratch, thyme)
     { if (this.IsFreshFor (ratch))
