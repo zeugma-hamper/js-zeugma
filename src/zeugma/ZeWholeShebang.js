@@ -372,6 +372,35 @@ export class ZeWholeShebang  extends base_class (Zeubject)
     { return this.maes_by_winda . get (w); }
 
 
+
+  DoForEachMaes (func)
+    { const res_arr = new Array ();
+      const cnt = this.NumMaeses ();
+      for (let q = 0  ;  q < cnt  ;  ++q)
+        { const ma = this.NthMaes (q);
+          if (! ma)
+            continue;
+          const res = func (ma);
+          res_arr . push (res);
+        }
+      return res_arr;
+    }
+
+  DoForEachWindow (func)
+    { const res_arr = new Array ();
+      const cnt = this.NumMaeses ();
+      for (let q = 0  ;  q < cnt  ;  ++q)
+        { const ma = this.NthMaes (q);
+          const win = this.WindowForMaes (ma);
+          if (! win)
+              continue;
+          const res = func (win, ma);
+          res_arr . push (res);
+        }
+      return res_arr;
+    }
+
+
   SetDialectCatcherForMaes (m, dc)
     { this.dcatcher_by_maes . set (m, dc);  return this; }
 
