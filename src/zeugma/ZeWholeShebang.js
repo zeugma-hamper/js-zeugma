@@ -812,6 +812,22 @@ whin . addEventListener ('pointermove',
       return [x, y];
     }
 
+  WorldLocFromWindowXY (wind, x, y)
+    { const emm = this.MaesForWindow (wind);
+      if (! emm)
+        { console.warn ("ZeWholeShebang::WorldLocFromWindowXY -- no maes.");
+          return new Vect ();
+        }
+      x /= (wind.innerWidth - 1.0);
+      y /= (wind.innerHeight - 1.0);
+      x = emm . Width () * (x - 0.5);
+      y = emm . Height () * (0.5 - y);
+      const loc = emm . Over () . Norm () . Sca (x);
+      loc . AddAcc (emm . Up () . Norm () . Sca (y));
+      loc . AddAcc (emm . Loc ());
+      return loc;
+    }
+
   CountenanceCursorVitality (zev)
     { const prv = zev . Provenance ();
       let cur = this.cursor_by_prov . get (prv);

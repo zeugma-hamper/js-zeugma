@@ -176,6 +176,22 @@ export class Vect
       return n . Sca (n . Dot (this));
     }
 
+  ProjectOntoPlane (p, pl_nrm, pl_pnt)
+    { if (! p  ||  ! pl_nrm  ||  ! pl_pnt)
+        return undefined;
+      const prj = p . Sub (pl_nrm . Sca (pl_nrm . Dot (p . Sub (pl_pnt))));
+      return prj;
+    }
+
+  ProjectOntoPlaneUnnormed (p, pl_unnrm, pl_pnt)
+    { if (! p  ||  ! pl_unnrm  ||  ! pl_pnt)
+        return undefined;
+      const pl_nrm = pl_unnrm . Norm ();
+      const prj = p . Sub (pl_nrm . Sca (pl_nrm . Dot (p . Sub (pl_pnt))));
+      return prj;
+    }
+
+
   RejectFrom (n)
     { return this . Sub (n . Sca (n . Dot (this))); }
   RejectFromUnnormed (nun)
