@@ -9,20 +9,20 @@ import { ZeWholeShebang,
          Matrix44,
          MotherTime,
          PlatonicMaes,
-         CheapOSCMessage } from "/zeugma-lib.js";
+         CheapOSCMessage } from "zeugma/zeugma-lib.js";
 
-//import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-import { io as SOCKIO } from "/node_modules/socket.io/client-dist/socket.io.esm.min.js";
+import { io as SOCKIO }
+       from "socket.io-client";
 let socky = SOCKIO ();
 
 
 let should_transform_wand_coords = false;
 
 let forsty = new Image ();
-forsty.src = "/images/flamv/forster-fry-smaller.png";
+forsty.src = "./images/flamv/forster-fry-smaller.png";
 
 let steiny = new Image ();
-steiny.src = "/images/flamv/stein-picabia-smaller.png";
+steiny.src = "./images/flamv/stein-picabia-smaller.png";
 
 
 function EquipMaesWithNamedElementCanvas (ma, elnm, tmout = 60.0)
@@ -116,33 +116,33 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
   if (tbma != null)
     tbma . InstallAdjColor (sc);
 
-  let Ingressication = function (ev)
+  const Ingressication = function (ev)
     { this.style.borderColor = "red";
       globalThis.lastentr = ev;
-    }
+    };
 
-  let Jigglification = function (ev)
-    { globalThis.lastmove = ev; }
+  const Jigglification = function (ev)
+    { globalThis.lastmove = ev; };
 
-  let Egressication = function (ev)
+  const Egressication = function (ev)
     { this.style.borderColor = "rgba(1,1,1,0.0)";
       globalThis.lastleav = ev;
-    }
+    };
 
-  let Stankication = function (ev)
+  const Stankication = function (ev)
     { this.style.borderColor = "blue";
-    }
+    };
 
-  let Plodderizer = function (ev)
+  const Plodderizer = function (ev)
     { if (ev.zeugma_evt == undefined)
         return null;
       let q = 666;
       ++q;
       return this;
-    }
+    };
 
-  let Desquamate = function (ev)
-    { console.log ("CLACK! yes? YES. CLACK!", ev); }
+  const Desquamate = function (ev)
+    { console.log ("CLACK! yes? YES. CLACK!", ev); };
 
   let dawky = globalThis?.window?.document;
   let bahdy = dawky?.body;
@@ -150,7 +150,7 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
 
   let windsh = dawky . getElementById ("windshield");
 
-  let Moundify = function (immy)
+  const Moundify = function (immy)
     { strippy.appendChild (immy);
       immy.style.width = "auto";
       immy.style.height = "400px";
@@ -160,7 +160,7 @@ console.log("fake_osc: ", fake_osc, "  ... and socky: ", socky);
       immy . addEventListener ("pointerenter", Ingressication);
       immy . addEventListener ("pointerleave", Egressication);
       immy . addEventListener ("click", Desquamate);
-    }
+    };
 
   if (dawky != null)
     { strippy = dawky . createElement ('div');

@@ -6,7 +6,7 @@
 
 import { base_class,
          ImageSplatter, ZESpatialPhagy,
-         Vect, Geom, PlatonicMaes } from "/zeugma-lib.js";
+         Vect, Geom, PlatonicMaes } from "zeugma/zeugma-lib.js";
 
 
 

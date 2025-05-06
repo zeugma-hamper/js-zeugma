@@ -13,11 +13,11 @@ import { ZeWholeShebang, SpaceThing,
          CheapOSCMessage,
          DisplacementStill,
          Vect, ZeColor,
-         Zeubject, base_class } from "/zeugma-lib.js";
+         Zeubject, base_class } from "zeugma/zeugma-lib.js";
 
-import { Schlepner } from "/apps/flamv/Schlepner.js";
+import { Schlepner } from "./Schlepner.js";
 
-import { ShimmyCrate } from "/apps/flamv/ShimmyCrate.js";
+import { ShimmyCrate } from "./ShimmyCrate.js";
 
 import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 let socky = SOCKIO ();
@@ -26,10 +26,10 @@ let socky = SOCKIO ();
 let should_transform_wand_coords = false;
 
 let forsty = new Image ();
-forsty.src = "/images/flamv/forster-fry-smaller.png";
+forsty.src = "./images/flamv/forster-fry-smaller.png";
 
 let steiny = new Image ();
-steiny.src = "/images/flamv/stein-picabia-smaller.png";
+steiny.src = "./images/flamv/stein-picabia-smaller.png";
 
 
 class Tattler  extends base_class (Zeubject)
@@ -43,7 +43,8 @@ class Tattler  extends base_class (Zeubject)
     { const dsp = e . CurDisp ();
       const tw = e . CurTwistDeg ();
       //console.log (`MOVE -- yeah, like to (${dsp[0]}, ${dsp[1]}, ${dsp[2]})`);
-      console.log (`MOVE -- yeah, like to TW=${tw} and skeeved by (${dsp[0]}, ${dsp[1]}, ${dsp[2]})` + tw);
+      console.log (`MOVE -- yeah, like to TW=${tw} and skeeved by `
+                   + `(${dsp[0]}, ${dsp[1]}, ${dsp[2]})` + tw);
     }
   ZEDisplacementHerald (e)
     { if (e.pseudo_maes_and_hit)
@@ -52,7 +53,8 @@ class Tattler  extends base_class (Zeubject)
     }
 
   ZESpatialCaress (e)
-    { console.log (`CARESS! from ${e.Provenance()}, axis ${e.WhichCaressor()}, val (${e.CaressValue().X()} ${e.CaressValue().Y()})`);
+    { console.log (`CARESS! from ${e.Provenance()}, axis ${e.WhichCaressor()},`
+                   + `val (${e.CaressValue().X()} ${e.CaressValue().Y()})`);
     }
   ZESpatialCaressAppear (e)
     { console.log (`CRS-APPEAR! ${e.Provenance()}, axis ${e.WhichCaressor()}`);
@@ -80,7 +82,7 @@ const horque = function ()
   let frma = sheb . FindMaes ('front');
   //frma . InsertLayer (new SpaceThing () . SetName ("omnibus"), 0)
   for (let ma  of  sheb . Maeses ())
-    ma . InsertLayer (new SpaceThing () . SetName ("omnibus"), 0)
+    ma . InsertLayer (new SpaceThing () . SetName ("omnibus"), 0);
 
   console.log (socky);
   let fake_osc = sheb . Looper () . FindSump ("wand-sump") . Oscerizer ();

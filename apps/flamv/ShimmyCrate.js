@@ -5,7 +5,7 @@
 
 
 import { SpaceThing, TrGrappler,
-         SinuZoft, Vect } from "/zeugma-lib.js";
+         SinuZoft, Vect } from "zeugma/zeugma-lib.js";
 
 
 
