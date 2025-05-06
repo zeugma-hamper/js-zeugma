@@ -907,7 +907,7 @@ whin . addEventListener ('pointermove',
           crsr_by_prov . set (prv, cusser);
 
           if (w  !=  prev_win)
-            w.document.body . appendChild (cusser);
+            w ?. document ?. body ?. appendChild (cusser);  // once disexisted...
 
           cusser.style.left = "" + (x - cusser.halfWid) + "px";
           cusser.style.top = "" + (y - cusser.halfHei) + "px";
