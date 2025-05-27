@@ -1,13 +1,28 @@
-# js-zeugma-diaper
+# js-zeugma
 
 ### Hearken unto the reading of this, that thou shalt have read:
 
 in the root directory, run `npm install`
 
-also just there, start the server: `node shovel.js`
+if in addition to merely gazing in wonder at the installed library you'd like to play with a living example, continue on thus:
 
+-- venture into the wee demos directory: `cd apps/flamv`
 
-Now, friend, all will be in readiness. Direct thy blessed webwagon to [**http://localhost:8000/apps/flamv/flamv.html**](http://localhost:8000/apps/flamv/flamv.html).
+-- install dependencies: `npm install`
+
+-- link zeugma into place: `cd node_modules  &&  ln -s ../../../../js-zeugma ./zeugma  &&  cd ..`
+
+-- goad the local web server into action: `npm run dev`
+
+-- ... and now, friend, all is now in readiness. Direct thy blessed webwagon to [**http://localhost:5173/flamv.html**](http://localhost:5173/flamv.html)
+
+~ ~ ~ ~
+
+if your local system is equipped with wands and you've got [**vivebilk**](https://github.com/zeugma-hamper/vivebilk) running, you may introduce spatial control via the following, ideally undertaken as an earlier step:
+
+-- descend from the root of this repository: `cd src/sputils`
+
+-- run the waifish server that converts inbound wand events from OSC to websocket transport: `node serve-wands.js`
 
 ---
 
@@ -25,7 +40,7 @@ in the room).
 - ideally the browser will have been pre-resized to a rough 16x9 aspect ratio before Zeugma starts up;
 its geometric configuration will assume this irrespective of the actual aspect ratio, which can lead
 to unsightly squeezings and stretchings.
-- if you'd like to send the soothing motions of the system into a comalike stasis, open the browser's
+- if you'd like to send the soothing motions of the system into comalike stasis, open the browser's
 debugger console and issue `sheb . SkidToAHalt ()` ; you can restart same with `sheb . FlyOnTheirTerms ()`
 - the global `sheb` object is the pseudo-psingleton instance of class `ZeWholeShebang` and is the
 supervisory structure and access object for Zeugma.
