@@ -20,7 +20,13 @@ import { Schlepner } from "./Schlepner.js";
 import { ShimmyCrate } from "./ShimmyCrate.js";
 
 import { io as SOCKIO } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-let socky = SOCKIO ();
+
+
+const WANDSOCK_PORT = 8008;
+
+//
+
+let wand_sock = SOCKIO ("ws://localhost:" + WANDSOCK_PORT);
 
 
 let should_transform_wand_coords = false;
@@ -84,9 +90,9 @@ const horque = function ()
   for (let ma  of  sheb . Maeses ())
     ma . InsertLayer (new SpaceThing () . SetName ("omnibus"), 0);
 
-  console.log (socky);
+  console.log (wand_sock);
   let fake_osc = sheb . Looper () . FindSump ("wand-sump") . Oscerizer ();
-  socky . on ("/zeugmatic-osc", function (m)
+  wand_sock . on ("/zeugmatic-osc", function (m)
                   { fake_osc . AppendMessage (new CheapOSCMessage (m)); });
 
   let topshim
