@@ -11,8 +11,16 @@
 class _ClassInheritochainer
 { constructor (sclass)
     { this.supah = sclass; }
-  and_interfaces (...terfs)
-    { return terfs . reduce ((c, erf) => erf (c), this.supah); }
+  and_interfaces (...faces)
+    { let chain = this.supah;
+      for (const f  of  faces)
+        chain = f (chain);
+      return chain;
+    }
+/*
+  // the short form of the 'and_interfaces()' method'd be something like this:
+    { return faces . reduce ((c, erf) => erf (c), this.supah); }
+*/
 }
 
 // the pointy end of the stick follows, down at the bottom.
@@ -22,12 +30,17 @@ class _ClassInheritochainer
 //   class Shosty extends base_class (Mahler) . and_interfaces (Soviet, Grumpy)
 //     { ... }
 //
-// while defining an interface follows a slightly wacky pattern, e.g.
+// while defining an interface must uemploy a specific (admittedly wacky) idiom:
 //
 //   let Soviet = (supcls) => class extends supcls
 //     { photo_posing_face ()  { return "scowl"; }
 //       gesture_to_stalin ()  { throw new Error ("nope; inheritor's job."); }
 //     }
 //
+// note, won't you please, that the idiom foregoing works because in JS
+// 'class' can be used in declaration mode (the usual syntactic form) or,
+// excitingly, as an expression.
+//
 
-export const base_class = (supah) => new _ClassInheritochainer (supah);
+export function base_class (supah)
+{ return new _ClassInheritochainer (supah); }
