@@ -110,8 +110,8 @@ export class GrapplerPile  extends Grappler
           g . Inhale (ratch, thyme);
           this.pnt_mat . MulSelfBy (g . PntMat ());
           this.nrm_mat . MulSelfBy (g . NrmMat ());
-          this.inv_pnt_mat . MulSelfBy (g . InvPntMat ());
-          this.inv_nrm_mat . MulSelfBy (g . InvNrmMat ());
+          this.inv_pnt_mat . PreMulSelfBy (g . InvPntMat ());
+          this.inv_nrm_mat . PreMulSelfBy (g . InvNrmMat ());
         }
       return 0;
     }
