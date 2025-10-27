@@ -27,6 +27,13 @@ export class ImageSplatter  extends Alignifer
     }
 
 
+  LocalFlatExtent ()
+    { const hw = (this.asp_rat > 1.0)  ?  0.5 / this.asp_rat  :  0.5;
+      const hh = (this.asp_rat > 1.0)  ?  0.5  :  this.asp_rat * 0.5;
+      return [ [-hw, hw], [-hh, hh] ];
+    }
+
+
   BackgroundColor ()
     { return this.back_iro . Val (); }
   SetBackgroundColor (bc)
@@ -57,11 +64,7 @@ export class ImageSplatter  extends Alignifer
       if (ctx == null)
         return 0;
 
-      let hw, hh;
-      if (this.asp_rat  >  1.0)
-        { hh = 0.5;  hw = 0.5 / this.asp_rat; }
-      else
-        { hw = 0.5;  hh = this.asp_rat; }
+      const [[_smorf, hw], [_smarf, hh]] = this.LocalFlatExtent ();
       const tl = new Vect (-hw, hh, 0.0);
       const br = tl . Neg ();
       const tr = new Vect (hw, hh, 0.0);

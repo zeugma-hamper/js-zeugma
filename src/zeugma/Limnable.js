@@ -106,7 +106,12 @@ export const Limnable = (supah) => class extends supah
       return (proj_xax . Y ()  >  0.0)  ?  ang  :  -ang;
     }
 
-
+/**
+   the `bonus` argument is an array (Array) whose elements are
+   0: the 'graphics correlate'; in the browser context this is the HTML5 canvas
+   1: the 'graphics context', the object that can execute draw commands
+   2: the view-projection matrix
+*/
   DrawSelf (ratch, cm, adjc, bonus)
     { return 0; }
 };

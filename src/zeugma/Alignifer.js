@@ -110,6 +110,10 @@ export class Alignifer  extends SpaceThing
     { return this.nrm; }
 
 
+  LocalFlatExtent ()
+    { return [ [-0.5, 0.5], [-0.5, 0.5] ]; }
+
+
   AlignOverUp (ov, up)
     { const o = ov . Norm (),  u = up . Norm ();
       const n = o . Cross (u);
@@ -122,15 +126,16 @@ export class Alignifer  extends SpaceThing
       return this;
     }
 
-  AlignToOther (afer)
-    { if (afer != null)
-        this.AlignOverUp (afer . CurOver (), afer . CurUp ());
+  AlignToOther (otha)
+    { if (otha != null)
+        this.AlignOverUp (otha . CurOver (), otha . CurUp ());
       return this;
     }
 
   AlignToMaes (maes)
     { if (maes != null)
         this.AlignOverUp (maes . Over (), maes . Up ());
+      return this;
     }
 //
 }
