@@ -12,6 +12,7 @@ import { TrGrappler } from "./TrGrappler.js";
 
 import { Zoft } from "./Zoft.js";
 
+import { Geom } from "./Geom.js";
 import { Vect } from "./Vect.js";
 
 
@@ -112,6 +113,37 @@ export class Alignifer  extends SpaceThing
 
   LocalFlatExtent ()
     { return [ [-0.5, 0.5], [-0.5, 0.5] ]; }
+
+
+  RayIntersectSelfRect (ray_frm, ray_aim)
+    { let cm = this.CurrentCumuMats ();
+      if (cm == null)
+        return null;
+
+      const cnt = cm.pmat . TransformVect (Vect.zerov);
+      const o = cm.nmat . TransformVect (Vect.xaxis);
+      const u = cm.nmat . TransformVect (Vect.yaxis);
+      const [[l, r], [b, t]] = this.LocalFlatExtent ();
+      let w = r - l;
+      let h = t - b;
+      w = cm.pmat . TransformVect (Vect.xaxis . Sca (w)) . Sub (cnt) . Mag ();
+      h = cm.pmat . TransformVect (Vect.yaxis . Sca (h)) . Sub (cnt) . Mag ();
+      let hit = Geom.RayRectIntersection (ray_frm, ray_aim, cnt, o, u, w, h);
+
+      return hit;
+    }
+
+  RayIntersectSelfPlane (ray_frm, ray_aim)
+    { let cm = this.CurrentCumuMats ();
+      if (cm == null)
+        return null;
+
+      const cnt = cm.pmat . TransformVect (Vect.zerov);
+      const n = cm.nmat . TransformVect (Vect.zaxis);
+      let hit = Geom.RayPlaneIntersection (ray_frm, ray_aim, cnt, n);
+
+      return hit;
+    }
 
 
   AlignOverUp (ov, up)
