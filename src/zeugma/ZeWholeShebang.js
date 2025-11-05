@@ -1248,7 +1248,11 @@ console.log("CARESS tahgit: ", wevt, tahgit);
 
       const owa = new OSCViveWandSump (novo);
       owa . SetName ("wand-sump");
-      owa . InstallSampleViveWandTransform ();
+
+      // this next rose from its wormy grave to bite us with Shane McGowan
+      // teeth; now we send it packing to the semipermanent beyond
+//      owa . InstallSampleViveWandTransform ();
+
       // owa . ForAddressAppendRawExtractor ("/events/spatial");
       // the foregoing and its kin already happen in owa's constructor...
       owa . ForAddressAppendAqueduct ("/events/spatial", spaq);
