@@ -4,6 +4,8 @@
 //
 
 
+import { Vect } from "./Vect.js";
+
 import { Zeubject } from "./Zeubject.js";
 
 import { Loopervisor } from "./Loopervisor.js";
@@ -58,6 +60,7 @@ export class NativeEventDialectCatcher  extends Zeubject
       this.from_maes = maes;
       this.prov = "mouse-0";
       this.butt_xfrm_func = Two_To_The;
+      this.whee_xfrm_func = null;
       this.concentrator = conc;
     }
 
@@ -73,21 +76,29 @@ export class NativeEventDialectCatcher  extends Zeubject
       html_elem . addEventListener ("pointermove",
                                     (e) => {
                                       if (e.zeugma_evt)  return;
-                                      self . NativeMouseMove (e);
+                                      self . CatchNativeMouseMove (e);
                                       AdjudicatePropagation (e, hog_evts);
                                     },
                                     true);
       html_elem . addEventListener ("pointerdown",
                                     (e) => {
                                       if (e.zeugma_evt)  return;
-                                      self . NativeMouseDown (e);
+                                      self . CatchNativeMouseDown (e);
                                       AdjudicatePropagation (e, hog_evts);
                                     },
                                     true);
       html_elem . addEventListener ("pointerup",
                                     (e) => {
                                       if (e.zeugma_evt)  return;
-                                      self . NativeMouseUp (e);
+                                      self . CatchNativeMouseUp (e);
+                                      AdjudicatePropagation (e, hog_evts);
+                                    },
+                                    true);
+      html_elem . addEventListener ("wheel",
+                                    (e) => {
+                                      if (e.zeugma_evt)  return;
+                                      console.log ("wheelishly: ", e);
+                                      self . CatchNativeWheeling (e);
                                       AdjudicatePropagation (e, hog_evts);
                                     },
                                     true);
@@ -98,24 +109,26 @@ export class NativeEventDialectCatcher  extends Zeubject
 
   static PropoXY (e, hel)
     { if (hel.innerWidth != undefined)  // if hel's the window itself...
-        return [ -0.5 + e.clientX / (hel.innerWidth - 1.0),
-                  0.5 - e.clientY / (hel.innerHeight - 1.0) ];
+        return new Vect (-0.5 + e.clientX / (hel.innerWidth - 1.0),
+                         0.5 - e.clientY / (hel.innerHeight - 1.0),
+                         0.0);
       else  // otherwise it'd damn well better be a canvas.
-        return [ -0.5 + e.clientX / (hel.width - 1.0),
-                  0.5 - e.clientY / (hel.height - 1.0) ];
+        return new Vect (-0.5 + e.clientX / (hel.width - 1.0),
+                         0.5 - e.clientY / (hel.height - 1.0),
+                         0.0);
     }
 
-  NativeMouseMove (e)
-    { const xy = this.constructor.PropoXY (e, this.helem);
+  CatchNativeMouseMove (e)
+    { const loc_v = this.constructor.PropoXY (e, this.helem);
       e._provenance = MOUSPRV;
       if (this.concentrator != null)
         this.concentrator . NativeMouseMoveOnMaes (e, this.prov,
-                                                   this.from_maes, xy[0], xy[1]);
+                                                   this.from_maes, loc_v);
       return this;
     }
 
-  NativeMouseDown (e)
-    { const xy = this.constructor.PropoXY (e, this.helem);
+  CatchNativeMouseDown (e)
+    { const loc_v = this.constructor.PropoXY (e, this.helem);
       e._provenance = MOUSPRV;
       let b = e.button;
       if (this.butt_xfrm_func)
@@ -123,12 +136,12 @@ export class NativeEventDialectCatcher  extends Zeubject
 
       if (this.concentrator != null)
         this.concentrator . NativeMouseDownOnMaes (e, this.prov, b,
-                                                   this.from_maes, xy[0], xy[1]);
+                                                   this.from_maes, loc_v);
       return this;
     }
 
-  NativeMouseUp (e)
-    { const xy = this.constructor.PropoXY (e, this.helem);
+  CatchNativeMouseUp (e)
+    { const loc_v = this.constructor.PropoXY (e, this.helem);
       e._provenance = MOUSPRV;
       let b = e.button;
       if (this.butt_xfrm_func)
@@ -136,7 +149,21 @@ export class NativeEventDialectCatcher  extends Zeubject
 
       if (this.concentrator != null)
         this.concentrator . NativeMouseUpOnMaes (e, this.prov, b,
-                                                 this.from_maes, xy[0], xy[1]);
+                                                 this.from_maes, loc_v);
+      return this;
+    }
+
+  CatchNativeWheeling (e)
+    { const loc_v = this.constructor.PropoXY (e, this.helem);
+      let rub_v = new Vect (e.deltaX, e.deltaY, e.deltaZ);
+      e._provenance = MOUSPRV;
+console.log("WHEELIE: (" + e.clientX + ", " + e.clientY + ")");
+      if (this.whee_xfrm_func)
+        rub_v = this.whee_xfrm_func (rub_v);
+
+      if (this.concentrator != null)
+        this.concentrator . NativeWheelingOnMaes (e, this.prov,
+                                                  this.from_maes, rub_v, loc_v);
       return this;
     }
 }

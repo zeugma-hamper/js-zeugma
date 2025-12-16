@@ -87,6 +87,8 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       this.dibs_mouse_down_funcs = new Array ();
       this.dibs_mouse_up_funcs = new Array ();
 
+      this.dibs_mouse_wheel_funcs = new Array ();
+
       this.dibs_mmf_curid = 100;
       this.dibs_mdf_curid = 100;
       this.dibs_muf_curid = 100;
@@ -560,7 +562,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
       // one might argue that doing the following in thie function is an
       // ill-considered placement; and one might sounds pretty good like that.
       whin . addEventListener ('resize', (e) => {
-          const new_w = whin.innerWidth, new_h = whin.innerHeight
+          const new_w = whin.innerWidth, new_h = whin.innerHeight;
           canv.width = new_w;
           canv.height = new_h;
           maes . CountenanceResize (new_w, new_h, e, whin);
@@ -669,8 +671,9 @@ whin . addEventListener ('pointermove',
   RemoveDibsMouseMoveFuncByFunbun (fb)
     { return ZeColl.Remove (this.dibs_mouse_move_funcs, fb); }
 
-  NativeMouseMoveOnMaes (e, prv, ma, x, y)
-    { for (const funbun  of  this.dibs_mouse_move_funcs)
+  NativeMouseMoveOnMaes (e, prv, ma, loc_v)
+    { const { x, y } = loc_v;
+      for (const funbun  of  this.dibs_mouse_move_funcs)
         funbun.func (e, prv, ma, x, y);
 
       if (! this.ShouldGenerateZeEventsFromNativeMouse ())
@@ -741,8 +744,9 @@ whin . addEventListener ('pointermove',
   RemoveDibsMouseDownFuncByFunbun (fb)
     { return ZeColl.Remove (this.dibs_mouse_down_funcs, fb); }
 
-  NativeMouseDownOnMaes (e, prv, butt, ma, x, y)
-    { for (const funbun  of  this.dibs_mouse_down_funcs)
+  NativeMouseDownOnMaes (e, prv, butt, ma, loc_v)
+    { const { x, y } = loc_v;
+      for (const funbun  of  this.dibs_mouse_down_funcs)
         funbun.func (e, prv, ma, x, y);
 
       if (! this.ShouldGenerateZeEventsFromNativeMouse ())
@@ -768,8 +772,9 @@ whin . addEventListener ('pointermove',
   RemoveDibsMouseUpFuncByFunbun (fb)
     { return ZeColl.Remove (this.dibs_mouse_up_funcs, fb); }
 
-  NativeMouseUpOnMaes (e, prv, butt, ma, x, y)
-    { for (const funbun  of  this.dibs_mouse_up_funcs)
+  NativeMouseUpOnMaes (e, prv, butt, ma, loc_v)
+    { const { x, y } = loc_v;
+      for (const funbun  of  this.dibs_mouse_up_funcs)
         funbun.func (e, prv, ma, x, y);
 
       if (! this.ShouldGenerateZeEventsFromNativeMouse ())
@@ -781,6 +786,18 @@ whin . addEventListener ('pointermove',
     }
 
 
+  NativeWheelingOnMaes (e, prv, ma, rub_v)
+    { for (const fn_bndl  of  this.dibs_mouse_wheel_funcs)
+        fn_bndl.func (e, prv, ma, rub_v);
+
+      if (! this.ShouldGenerateZeEventsFromNativeMouse ())
+        return 0;
+
+      if (e.zeugma_evt  !=  undefined)
+        return 0;
+
+      return 1;
+    }
 //
 //
   PassTheBuckUpPhageHierarchy ()
