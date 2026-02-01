@@ -622,9 +622,7 @@ whin . addEventListener ('pointermove',
 ///
 //
   Travail (ratch, thyme)
-    { // let self = this;
-      // globalThis.requestAnimationFrame (() =>
-      //   { self.DrawMaesLayers (ratch, thyme); });
+    { //
       this.DrawMaesLayers (ratch, thyme);
       return 0;
     }
@@ -1135,7 +1133,7 @@ if (ilk == "down")
         return 0;
       const est_pt = est_pt_by_pad . get (padid);
       if (! est_pt)
-        return;   // or... make do with bupkes?
+        return -1;   // or... make do with bupkes?
 
       const p = e . CaressValue ();
       let dx = p.x - est_pt.x;

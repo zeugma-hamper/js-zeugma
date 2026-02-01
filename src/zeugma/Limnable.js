@@ -51,11 +51,16 @@ export const Limnable = (supah) => class extends supah
     { return false; }
 
 
-  CanvasProjectVertex (cm, vp_mat, corr, vtx)
-    { const hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
-      const hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
+  _CanvProjBundle (cm, vp_mat, canv)
+    { const hlfw = (canv == null)  ?  0.5  :  0.5 * canv.width;
+      const hlfh = (canv == null)  ?  0.5  :  0.5 * canv.height;
       const cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
       const mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
+      return { mat, hlfw, hlfh };
+    }
+
+  CanvasProjectVertex (cm, vp_mat, canv, vtx)
+    { const { mat, hlfw, hlfh } = this._CanvProjBundle (cm, vp_mat, canv);
       const vec = mat . TransformVect (vtx);
       if (vec.z != 0.0)
         { vec.x = hlfw * (1.0 + vec.x / vec.z);
@@ -64,11 +69,8 @@ export const Limnable = (supah) => class extends supah
       return vec;
     }
 
-  CanvasProjectVertexArray (cm, vp_mat, corr, varr)
-    { const hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
-      const hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
-      const cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
-      const mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
+  CanvasProjectVertexArray (cm, vp_mat, canv, varr)
+    { const { mat, hlfw, hlfh } = this._CanvProjBundle (cm, vp_mat, canv);
       const outarr = mat . TransformVectArray (varr);
       for (const vec of outarr)
         if (vec.z != 0.0)
@@ -78,12 +80,9 @@ export const Limnable = (supah) => class extends supah
       return outarr;
     }
 
-  CanvasProjectVertexArrays (cm, vp_mat, corr, varrs)
-    { const outarr = new Array ();
-      const hlfw = (corr == null)  ?  0.5  :  0.5 * corr.width;
-      const hlfh = (corr == null)  ?  0.5  :  0.5 * corr.height;
-      const cyoom = cm.pmat == null  ?  Matrix44.idmat  :  cm.pmat;
-      const mat = vp_mat == null  ?  cyoom  :  cyoom . Mul (vp_mat);
+  CanvasProjectVertexArrays (cm, vp_mat, canv, varrs)
+    { const { mat, hlfw, hlfh } = this._CanvProjBundle (cm, vp_mat, canv);
+      const outarr = new Array ();
       for (const verts of varrs)
         { const vecarr = mat . TransformVectArray (verts);
           for (const vec of vecarr)
@@ -96,8 +95,8 @@ export const Limnable = (supah) => class extends supah
       return outarr;
     }
 
-  CanvasProjectSixDOFRotationAngle (cm, vp_mat, corr)
-    { const pr = this.CanvasProjectVertexArray (cm, vp_mat, corr,
+  CanvasProjectSixDOFRotationAngle (cm, vp_mat, canv)
+    { const pr = this.CanvasProjectVertexArray (cm, vp_mat, canv,
                                                 [Vect.zerov, Vect.xaxis]);
       const proj_xax = pr[1] . Sub (pr[0]);
       if (proj_xax . IsZero ())
@@ -106,12 +105,14 @@ export const Limnable = (supah) => class extends supah
       return (proj_xax . Y ()  >  0.0)  ?  ang  :  -ang;
     }
 
+
 /**
    the `bonus` argument is an array (Array) whose elements are
-   0: the 'graphics correlate'; in the browser context this is the HTML5 canvas
+   0: the 'graphics correlate'; in the browser this is the HTML5 canvas
    1: the 'graphics context', the object that can execute draw commands
    2: the view-projection matrix
 */
+
   DrawSelf (ratch, cm, adjc, bonus)
     { return 0; }
 };
