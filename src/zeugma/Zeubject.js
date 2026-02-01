@@ -35,7 +35,9 @@ export class Zeubject
 
 
   OughtToInhale (ratch)
-    { if (ratch < 0)
+    { if (ratch == null  ||  ratch < 0)
+        return false;
+      if (ratch == 0)
         return true;
       if (this.rat_fresh >= ratch)
         return false;
@@ -45,6 +47,12 @@ export class Zeubject
 
   Inhale (ratch, thyme)
     { return 0; }
+
+  InhaleIfNeeded (ratch, thyme)
+    { if (this.OughtToInhale (ratch))
+        return this.Inhale (ratch, thyme);
+      return 0;
+    }
 
   Travail (ratch, thyme)
     { return 0; }

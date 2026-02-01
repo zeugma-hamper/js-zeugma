@@ -24,6 +24,7 @@ export class Loopervisor  extends Zeubject
     { this.momma_t = new MotherTime ();
       this.first_born = new Loopervisor ();
       this.first_born_claimed = false;
+      this.dflt_ratch_inc = 8;
     }
 
   static FirstBorn ()
@@ -37,11 +38,18 @@ export class Loopervisor  extends Zeubject
   static FirstBornAlreadyClaimed ()
     { return this.first_born_claimed; }
 
+  static DefaultRatchetIncrement ()
+    { return this.dflt_ratch_inc; }
+  static SetDefaultRatchetIncrement (dri)
+    { this.dflt_ratch_inc = dri;  return this; }
+
   //
   constructor ()
     { super ();
 
-      this.grand_ratchet = 0;
+      this.ratch_inc = this.constructor.DefaultRatchetIncrement ();
+
+      this.grand_ratchet = this.ratch_inc;
       this.recentest_time = -1.0;
 
       this.active_sumps = new Array ();
@@ -57,6 +65,12 @@ export class Loopervisor  extends Zeubject
     { return this.grand_ratchet; }
   RecentestTime ()
     { return this.recentest_time; }
+
+  RatchetIncrement ()
+    { return this.ratch_inc; }
+  SetRatchetIncrement (dri)
+    { this.ratch_inc = dri;  return this; }
+
 
   ElapsedTime ()
     { return this.constructor.momma_t . CurTime (); }

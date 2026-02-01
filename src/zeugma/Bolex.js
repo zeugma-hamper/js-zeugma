@@ -47,16 +47,34 @@ export class Bolex  extends SpaceThing
     }
 
 
-  ViewLoc ()
+  LocalViewLoc ()
     { return this.z_view_loc . Val (); }
-  ViewAim ()
+  LocalViewAim ()
     { return this.z_view_aim . Val (); }
-  ViewUp ()
+  LocalViewUp ()
     { return this.z_view_upp . Val (); }
-  ViewCOI ()
+  LocalViewCOI ()
     { return this.z_view_loc . Val ()
                . Add (this.z_view_aim . Val ()
-               . Mul (this.z_view_dist . Val ()));
+                      . Sca (this.z_view_dist . Val ()));
+    }
+
+  ViewLoc (ratch = null)
+    { let v = this.LocalViewLoc ();
+      return v;
+    }
+  ViewAim (ratch = null)
+    { let v = this.LocalViewAim ();
+      return v;
+    }
+  ViewUp (ratch = null)
+    { let v = this.LocalViewUp ();
+      return v;
+    }
+  ViewCOI (ratch = null)
+    { let v = this.ViewLoc (ratch)
+                . Add (this.ViewAim (ratch) . Sca (this.ViewDist (ratch)));
+      return v;
     }
 
   ViewDist ()
@@ -276,6 +294,61 @@ export class Bolex  extends SpaceThing
 
   VPMatrix ()
     { return this.ViewMatrix () . Mul (this.ProjectionMatrix ()); }
+
+//
+//
+
+
+  // returns [ tl, bl, br, tr ], see.
+  //
+  ProjectionCornerRays (ratch = null)
+    { const loc = this.ViewLoc (ratch);
+      const aim = this.ViewAim (ratch);
+      let upp = this.ViewUp (ratch);
+      const ovr = aim . Cross (upp) . Norm ();
+      upp = ovr . Cross (aim) . Norm ();
+
+      const poff = this.ViewPlaneOffset ();
+      const vdst = this.ViewDist (ratch);
+
+      const out_arr = new Array ();
+      if (this.ProjectionTypeIsOrthographic ())
+        { const wid = ovr . Sca (this.ViewOrthoWid ());
+          const hei = upp . Sca (this.ViewOrthoHei ());
+          const longaim = aim . Sca (vdst);
+          let vtx = loc
+            . Sub (wid . Sca (0.5) . Add (ovr . Sca (poff . X ())))
+            . Add (hei . Sca (0.5) . Add (upp . Sca (poff . Y ())));
+
+          out_arr . push ( [vtx, aim, vtx . Add (longaim)] );
+          vtx = vtx . Sub (hei);
+          out_arr . push ( [vtx, aim, vtx . Add (longaim)] );
+          vtx = vtx . Add (wid);
+          out_arr . push ( [vtx, aim, vtx . Add (longaim)] );
+          vtx = vtx . Add (hei);
+          out_arr . push ( [vtx, aim, vtx . Add (longaim)] );
+        }
+      else  // oh Susanna. it's perspective, don't you know.
+        { const coi = loc . Add (aim . Sca (vdst));
+          let wid = 2.0 * vdst * Math.tan (0.5 * this.ViewHorizAngle (ratch));
+          let hei = 2.0 * vdst * Math.tan (0.5 * this.ViewVertAngle (ratch));
+          wid = ovr . Sca (wid);
+          hei = upp . Sca (hei);
+          let vtx = coi
+            . Sub (wid . Sca (0.5) . Add (ovr . Sca (poff . X ())))
+            . Add (hei . Sca (0.5) . Add (upp . Sca (poff . Y ())));
+
+          out_arr . push ( [loc, vtx . Sub (loc) . Norm (), vtx] );
+          vtx = vtx . Sub (hei);
+          out_arr . push ( [loc, vtx . Sub (loc) . Norm (), vtx] );
+          vtx = vtx . Add (wid);
+          out_arr . push ( [loc, vtx . Sub (loc) . Norm (), vtx] );
+          vtx = vtx . Add (hei);
+          out_arr . push ( [loc, vtx . Sub (loc) . Norm (), vtx] );
+        }
+
+      return out_arr;
+    }
 }
 
 //
