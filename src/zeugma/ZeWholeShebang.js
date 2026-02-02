@@ -448,10 +448,11 @@ export class ZeWholeShebang  extends base_class (Zeubject)
               continue;
 
             const cam = ma . EigenCamera ();
-            const vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
+            const vpmat = (cam == null)
+              ?  new Matrix44 ()  :  cam . VPMatrix ();
             const adjc = ma . AdjColor ();
-            const bonus = { canv: corr,  gctx,  vpm,  cam };
-            bonus[0] = corr;  bonus[1] = gctx;  bonus[2] = vpm;
+            const geombndl = { canv: corr,  gctx,  vpmat,  cam };
+            geombndl[0] = corr;  geombndl[1] = gctx;  geombndl[2] = vpmat;
 
             gctx . fillStyle = ma . BackgroundColor () . AsCSSString ();
             gctx . fillRect (0, 0, corr.width, corr.height);
@@ -459,7 +460,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             const cnt = ma . NumLayers ();
             for (let q = 0  ;  q < cnt  ;  ++q)
               if ((lay = ma . NthLayer (q))  !=  null)
-                this.RecursivelyDraw (lay, ratch, thyme, cm, adjc, bonus);
+                this.RecursivelyDraw (lay, ratch, thyme, cm, adjc, geombndl);
             gctx . restore ();
           }
       return this;

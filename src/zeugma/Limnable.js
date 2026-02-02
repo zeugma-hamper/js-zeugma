@@ -107,12 +107,13 @@ export const Limnable = (supah) => class extends supah
 
 
 /**
-   the `bonus` argument is an array (Array) whose elements are
-   0: the 'graphics correlate'; in the browser this is the HTML5 canvas
-   1: the 'graphics context', the object that can execute draw commands
-   2: the view-projection matrix
+   the `geombndl` argument is an object (Object) whose elements are
+   "canv" | 0: the 'graphics correlate'; in the browser this is the HTML5 canvas
+   "gctx" | 1: the 'graphics context', the object that can execute draw commands
+   "vpmat" | 2: the view-projection matrix
+   "cam": the camera (Bolex instance) object
 */
 
-  DrawSelf (ratch, cm, adjc, bonus)
+  DrawSelf (ratch, cm, adjc, geombndl)
     { return 0; }
 };

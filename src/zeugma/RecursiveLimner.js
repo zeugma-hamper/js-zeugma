@@ -9,7 +9,7 @@ import { base_class } from "./interface-ersatzer.js";
 
 export const RecursiveLimner = (supcls) => class extends supcls
 { //
-  RecursivelyDraw (zeub, ratch, thyme, cm_above, adjc_above, bonus)
+  RecursivelyDraw (zeub, ratch, thyme, cm_above, adjc_above, geombndl)
     { if (zeub == null)
         return this;
 
@@ -19,21 +19,21 @@ export const RecursiveLimner = (supcls) => class extends supcls
         zeub . Inhale (ratch, thyme);
 
       if (zeub . IsZeugmallyLimnable ())
-        { const ctx = bonus[1];
-          if (ctx != null)
-            ctx . save ();
+        { const { gctx } = geombndl;
+          if (gctx != null)
+            gctx . save ();
 
           cm = zeub . DependCumuMatsFrom (cm_above);
           adjc = adjc . Dup () . MulSelfBy (zeub . AdjColor ());
-          zeub . DrawSelf (ratch, cm, adjc, bonus);
+          zeub . DrawSelf (ratch, cm, adjc, geombndl);
 
-          if (ctx != null)
-            ctx . restore ();
+          if (gctx != null)
+            gctx . restore ();
         }
 
       if (zeub . IsZeugmallyPouchful ())
         { const cnt = zeub . NumChildren ();
-          const bon_inc = this.AdvanceLimnRecursionBonus (bonus);
+          const bon_inc = this.AdvanceLimnRecursionGeomBundle (geombndl);
           for (let q = 0  ;  q < cnt  ;  ++q)
             this.RecursivelyDraw (zeub . NthChild (q), ratch, thyme,
                                   cm, adjc, bon_inc);
@@ -41,6 +41,6 @@ export const RecursiveLimner = (supcls) => class extends supcls
       return this;
     }
 
-  AdvanceLimnRecursionBonus (bon)
+  AdvanceLimnRecursionGeomBundle (bon)
     { return bon; }
 };
