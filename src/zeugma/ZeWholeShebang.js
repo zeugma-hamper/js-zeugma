@@ -443,23 +443,24 @@ export class ZeWholeShebang  extends base_class (Zeubject)
           { const corr = this.GraphicsCorrelateForMaes (ma);
             if (corr == null)
               continue;
-            const ctx = corr . getContext ("2d");
-            if (ctx == null)
+            const gctx = corr . getContext ("2d");
+            if (gctx == null)
               continue;
 
             const cam = ma . EigenCamera ();
             const vpm = (cam == null )  ?  new Matrix44 ()  :  cam . VPMatrix ();
-            const bonus = [ corr, ctx, vpm ];
             const adjc = ma . AdjColor ();
+            const bonus = { canv: corr,  gctx,  vpm,  cam };
+            bonus[0] = corr;  bonus[1] = gctx;  bonus[2] = vpm;
 
-            ctx . fillStyle = ma . BackgroundColor () . AsCSSString ();
-            ctx . fillRect (0, 0, corr.width, corr.height);
-            ctx . save ();
+            gctx . fillStyle = ma . BackgroundColor () . AsCSSString ();
+            gctx . fillRect (0, 0, corr.width, corr.height);
+            gctx . save ();
             const cnt = ma . NumLayers ();
             for (let q = 0  ;  q < cnt  ;  ++q)
               if ((lay = ma . NthLayer (q))  !=  null)
                 this.RecursivelyDraw (lay, ratch, thyme, cm, adjc, bonus);
-            ctx . restore ();
+            gctx . restore ();
           }
       return this;
     }
