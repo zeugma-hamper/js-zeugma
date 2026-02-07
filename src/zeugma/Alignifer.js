@@ -26,18 +26,25 @@ export class Alignifer  extends SpaceThing
       this.upp = Vect.yaxis;
       this.nrm = Vect.zaxis;
 
-      const cog = new CoGrappler ();
-      cog . SetName ("alignment");
-      this.AppendGrappler (cog);
-
       const scg = new ScGrappler () . InstallScale (this.z_sca);
       scg . SetName ("scale");
       this.AppendGrappler (scg);
+
+      const cog = new CoGrappler ();
+      cog . SetName ("alignment");
+      this.AppendGrappler (cog);
 
       const trg = new TrGrappler () . InstallTranslation (this.z_loc);
       trg . SetName ("loc");
       this.AppendGrappler (trg);
     }
+
+// note on the order of transformations foregoing -- which used to be C-S-T,
+// but is now S-C-T -- we want to scale (if at all) before the orientation,
+// so that, if [a] the self-object has any geometry of its own (it's an image,
+// for example) and [b] the scaling is anisotropic, the resulting dilations
+// or contractions are aligned with the object's "local" axes.
+
 
   AlignmentGrappler ()
     { return this.FindGrappler ("alignment"); }
