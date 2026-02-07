@@ -127,15 +127,18 @@ export class Alignifer  extends SpaceThing
       if (cm == null)
         return null;
 
-      const cnt = cm.pmat . TransformVect (Vect.zerov);
-      const o = cm.nmat . TransformVect (Vect.xaxis);
-      const u = cm.nmat . TransformVect (Vect.yaxis);
+      const c = cm . LocalToWorldXformPoint (Vect.zerov);
+      const o = cm . LocalToWorldXformDirec (Vect.xaxis);
+      const u = cm . LocalToWorldXformDirec (Vect.yaxis);
       const [[l, r], [b, t]] = this.LocalFlatExtent ();
       let w = r - l;
       let h = t - b;
-      w = cm.pmat . TransformVect (Vect.xaxis . Sca (w)) . Sub (cnt) . Mag ();
-      h = cm.pmat . TransformVect (Vect.yaxis . Sca (h)) . Sub (cnt) . Mag ();
-      let hit = Geom.RayRectIntersection (ray_frm, ray_aim, cnt, o, u, w, h);
+      w = cm . LocalToWorldXformPoint (Vect.xaxis . Sca (w)) . Sub (c) . Mag ();
+      h = cm . LocalToWorldXformPoint (Vect.yaxis . Sca (h)) . Sub (c) . Mag ();
+      let hit = Geom.RayRectIntersection (ray_frm, ray_aim, c, o, u, w, h);
+
+      // if (hit)
+      //   hit = cm . WorldToLocalXformPoint (hit);
 
       return hit;
     }
@@ -145,9 +148,12 @@ export class Alignifer  extends SpaceThing
       if (cm == null)
         return null;
 
-      const cnt = cm.pmat . TransformVect (Vect.zerov);
-      const n = cm.nmat . TransformVect (Vect.zaxis);
-      let hit = Geom.RayPlaneIntersection (ray_frm, ray_aim, cnt, n);
+      const c = cm . LocalToWorldXformPoint (Vect.zerov);
+      const n = cm . LocalToWorldXformDirec (Vect.zaxis);
+      let hit = Geom.RayPlaneIntersection (ray_frm, ray_aim, c, n);
+
+      // if (hit)
+      //   hit = cm . WorldToLocalXformPoint (hit);
 
       return hit;
     }
