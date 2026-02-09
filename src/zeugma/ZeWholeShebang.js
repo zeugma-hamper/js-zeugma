@@ -451,7 +451,12 @@ export class ZeWholeShebang  extends base_class (Zeubject)
             const vpmat = (cam == null)
               ?  new Matrix44 ()  :  cam . VPMatrix ();
             const adjc = ma . AdjColor ();
-            const geombndl = { canv: corr,  gctx,  vpmat,  cam };
+            const geombndl = { canv: corr,
+                               gctx,
+                               vpmat,
+                               cam,
+                               maes: ma
+                             };
             geombndl[0] = corr;  geombndl[1] = gctx;  geombndl[2] = vpmat;
 
             gctx . fillStyle = ma . BackgroundColor () . AsCSSString ();

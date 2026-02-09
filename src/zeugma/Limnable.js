@@ -112,6 +112,7 @@ export const Limnable = (supah) => class extends supah
    "gctx" | 1: the 'graphics context', the object that can execute draw commands
    "vpmat" | 2: the view-projection matrix
    "cam": the camera (Bolex instance) object
+   "maes": the maes presently being rendered
 */
 
   DrawSelf (ratch, cm, adjc, geombndl)
