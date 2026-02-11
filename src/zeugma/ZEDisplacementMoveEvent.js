@@ -18,7 +18,7 @@ export class ZEDisplacementMoveEvent  extends ZEDisplacementEvent
     { return "ZEDisplacementMoveEvent"; }
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZEDisplacementMove (this); }
+    { return (zbj ?. ZEDisplacementMove ?. (this))  ??  0; }
 }
 
 // lip-smacking faux-interface delight

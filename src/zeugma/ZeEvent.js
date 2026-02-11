@@ -71,7 +71,7 @@ export class ZeEvent  extends NonEvent
 
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . Ze (this); }
+    { return (zbj ?. Ze ?. (this))  ??  0; }
 }
 
 

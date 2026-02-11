@@ -121,7 +121,7 @@ export class ZESpatialEvent  extends ZeEvent
     { this.maes_and_hit = mah;  return this; }
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZESpatial (this); }
+    { return (zbj ?. ZESpatial ?. (this))  ??  0; }
 }
 
 

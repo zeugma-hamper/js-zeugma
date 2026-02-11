@@ -49,7 +49,7 @@ export class ZESpatialPressureEvent  extends ZESpatialEvent
     }
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZESpatialPressure (this); }
+    { return (zbj ?. ZESpatialPressure ?. (this))  ??  0; }
 }
 
 

@@ -17,7 +17,7 @@ export class ZESpatialCaressAppearEvent  extends ZESpatialCaressEvent
 
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZESpatialCaressAppear (this); }
+    { return (zbj ?. ZESpatialCaressAppear ?. (this))  ??  0; }
 }
 
 

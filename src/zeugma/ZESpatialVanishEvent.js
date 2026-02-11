@@ -17,7 +17,7 @@ export class ZESpatialVanishEvent  extends ZESpatialEvent
 
 
   ProfferAsQuaffTo (zbj)
-    { return zbj . ZESpatialVanish (this); }
+    { return (zbj ?. ZESpatialVanish ?. (this))  ??  0; }
 }
 
 
