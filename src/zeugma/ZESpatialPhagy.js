@@ -14,6 +14,7 @@ import { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";
 import { ZESpatialPressureEvent } from "./ZESpatialPressureEvent.js";
 import { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
 import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
+import { ZESpatialCaressBaseEvent } from "./ZESpatialCaressBaseEvent.js";
 import { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
 import { ZESpatialCaressAppearEvent } from "./ZESpatialCaressAppearEvent.js";
 import { ZESpatialCaressVanishEvent } from "./ZESpatialCaressVanishEvent.js";
@@ -30,6 +31,7 @@ export const ZESpatialPhagy
                          ZESpatialPressureEvent.Phage,
                          ZESpatialHardenEvent.Phage,
                          ZESpatialSoftenEvent.Phage,
+                         ZESpatialCaressBaseEvent.Phage,
                          ZESpatialCaressEvent.Phage,
                          ZESpatialCaressAppearEvent.Phage,
                          ZESpatialCaressVanishEvent.Phage)

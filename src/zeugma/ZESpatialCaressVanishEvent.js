@@ -4,10 +4,10 @@
 //
 
 
-import { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
+import { ZESpatialCaressBaseEvent } from "./ZESpatialCaressBaseEvent.js";
 
 
-export class ZESpatialCaressVanishEvent  extends ZESpatialCaressEvent
+export class ZESpatialCaressVanishEvent  extends ZESpatialCaressBaseEvent
 { //
   constructor (pr)
     { super (pr); }
@@ -25,7 +25,7 @@ export class ZESpatialCaressVanishEvent  extends ZESpatialCaressEvent
 ZESpatialCaressVanishEvent.Phage = (supah) => class extends supah
 { ZESpatialCaressVanish (e)  // arg's an event
     { if (this.PassTheBuckUpPhageHierarchy ())
-        return this.ZESpatial (e);
+        return this.ZESpatialCaressBase (e);
       return -1;
     }
 };

@@ -31,6 +31,7 @@ import { OSCViveWandSump } from "./OSCViveWandSump.js";
 import { ZESpatialMoveEvent } from "./ZESpatialMoveEvent.js";
 import { ZESpatialHardenEvent } from "./ZESpatialHardenEvent.js";
 import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
+import { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
 import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 
 import { NativeEventDialectCatcher } from "./NativeEventDialectCatcher.js";
@@ -711,6 +712,7 @@ whin . addEventListener ('pointermove',
       const duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
       if (duct != null)
         duct . AppendDram (smev);
+
       this.recentest_synth_spat_evt_by_prov . set (prv, smev);
       return 0;
     }
@@ -800,6 +802,17 @@ whin . addEventListener ('pointermove',
 
       if (e.zeugma_evt  !=  undefined)
         return 0;
+
+      const scev = new ZESpatialCaressEvent (prv);
+      scev . SetCaressValue (rub_v);
+      scev . SetCaressDeviceIlk ("mouse-or-touchpad");
+      scev . SetWhichCaressor (0);
+      const smev = this.recentest_synth_spat_evt_by_prov . get (prv);
+      scev . SetAssociatedPointingEvent (smev);
+
+      const duct = this . Looper () . FindAqueduct ("spatial-aqueduct");
+      if (duct != null)
+        duct . AppendDram (scev);
 
       return 1;
     }
