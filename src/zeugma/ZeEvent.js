@@ -70,6 +70,27 @@ export class ZeEvent  extends NonEvent
     { return super . EventIlk (); }
 
 
+  DepthFirstDispatch (curz, offer_also_to_first_arg = false)
+    { let z, ult;
+      if (! curz)
+        return -1;
+      if (curz . IsZeugmallyPouchful ())
+        { const cnt = curz . NumChildren ();
+          for (let q = cnt - 1  ;  q >= 0  ;  --q)
+            if ((z = curz . NthChild (q)))
+              { ult = this.DepthFirstDispatch (z, true);
+                if (ult  >  0)
+                  return ult;
+              }
+        }
+      if (offer_also_to_first_arg  &&
+         ! (curz.ZEVT_ShouldIgnoreEvent  &&  curz.ZEVT_ShouldIgnoreEvent (this)))
+        if ((ult = this.ProfferAsQuaffTo (curz))  >  0)
+          return ult;
+// something here just a little special when ult negative, i.e. on error?
+      return 0;
+    }
+
   ProfferAsQuaffTo (zbj)
     { return (zbj ?. Ze ?. (this))  ??  0; }
 }
