@@ -34,6 +34,9 @@ import { ZESpatialSoftenEvent } from "./ZESpatialSoftenEvent.js";
 import { ZESpatialCaressEvent } from "./ZESpatialCaressEvent.js";
 import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 
+import { ZEYowlPhagy } from "./ZEYowlPhagy.js";
+
+
 import { NativeEventDialectCatcher } from "./NativeEventDialectCatcher.js";
 
 import { RecursiveLimner } from "./RecursiveLimner.js";
@@ -43,7 +46,9 @@ import { base_class } from "./interface-ersatzer.js";
 
 
 export class ZeWholeShebang  extends base_class (Zeubject)
-                           . and_interfaces (ZESpatialPhagy, RecursiveLimner)
+                           . and_interfaces (ZESpatialPhagy,
+                                             ZEYowlPhagy,
+                                             RecursiveLimner)
 { //
 //  static canonical_instance = null;
   static InitializeClassHaplessly ()
@@ -793,6 +798,15 @@ whin . addEventListener ('pointermove',
     }
 
 
+  NativeKeyDownOnMaes (e, prv, k, ma)
+    { console.log ("KEEdown: ", k);
+    }
+
+  NativeKeyUpOnMaes (e, prv, k, ma)
+    { console.log ("keeUPPP: ", k);
+    }
+
+
   NativeWheelingOnMaes (e, prv, ma, rub_v)
     { for (const fn_bndl  of  this.dibs_mouse_wheel_funcs)
         fn_bndl.func (e, prv, ma, rub_v);
@@ -1280,6 +1294,11 @@ console.log("CARESS tahgit: ", wevt, tahgit);
       spaq . SetName ("spatial-aqueduct");
       spaq . AppendPhage (novo);
       loo . AppendAqueduct (spaq);
+
+      const yoaq = new EventAqueduct ();
+      yoaq . SetName ("yowl-aqueduct");
+      yoaq . AppendPhage (novo);
+      loo . AppendAqueduct (yoaq);
 
       const owa = new OSCViveWandSump (novo);
       owa . SetName ("wand-sump");

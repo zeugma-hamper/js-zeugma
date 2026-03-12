@@ -21,6 +21,7 @@ import { ZESpatialPhagy } from "./ZESpatialPhagy.js";
 // so very much many badnesses. surely almost anything would be better?
 //
 const MOUSPRV = "mouse-0";
+const KEYBPRV = "keyboard-0";
 
 
 
@@ -58,9 +59,9 @@ export class NativeEventDialectCatcher  extends Zeubject
     { super ();
       this.helem = null;
       this.from_maes = maes;
-      this.prov = "mouse-0";
       this.butt_xfrm_func = Two_To_The;
       this.whee_xfrm_func = null;
+      this.key_xfrm_func = null;
       this.concentrator = conc;
     }
 
@@ -70,8 +71,9 @@ export class NativeEventDialectCatcher  extends Zeubject
   SetButtonTransformFunc (bxf)
     { this.butt_xfrm_func = bxf;  return this; }
 
-  HooverNativeEventsFrom (html_elem, hog_evts = false)
+  HooverNativeEventsFrom (html_elem, hog_evts_consultant = false)
     { const self = this;
+      const hog_evts = hog_evts_consultant;
       this.helem = html_elem;
       html_elem . addEventListener ("pointermove",
                                     (e) => {
@@ -91,6 +93,20 @@ export class NativeEventDialectCatcher  extends Zeubject
                                     (e) => {
                                       if (e.zeugma_evt)  return;
                                       self . CatchNativeMouseUp (e);
+                                      AdjudicatePropagation (e, hog_evts);
+                                    },
+                                    true);
+      html_elem . addEventListener ("keydown",
+                                    (e) => {
+                                      if (e.zeugma_evt)  return;
+                                      self . CatchNativeKeyDown (e);
+                                      AdjudicatePropagation (e, hog_evts);
+                                    },
+                                    true);
+      html_elem . addEventListener ("keyup",
+                                    (e) => {
+                                      if (e.zeugma_evt)  return;
+                                      self . CatchNativeKeyUp (e);
                                       AdjudicatePropagation (e, hog_evts);
                                     },
                                     true);
@@ -120,49 +136,73 @@ export class NativeEventDialectCatcher  extends Zeubject
 
   CatchNativeMouseMove (e)
     { const loc_v = this.constructor.PropoXY (e, this.helem);
-      e._provenance = MOUSPRV;
+      const prv = (e._provenance = MOUSPRV);
       if (this.concentrator != null)
-        this.concentrator . NativeMouseMoveOnMaes (e, this.prov,
+        this.concentrator . NativeMouseMoveOnMaes (e, prv,
                                                    this.from_maes, loc_v);
       return this;
     }
 
   CatchNativeMouseDown (e)
     { const loc_v = this.constructor.PropoXY (e, this.helem);
-      e._provenance = MOUSPRV;
+      const prv = (e._provenance = MOUSPRV);
       let b = e.button;
       if (this.butt_xfrm_func)
         b = this.butt_xfrm_func (b);
 
       if (this.concentrator != null)
-        this.concentrator . NativeMouseDownOnMaes (e, this.prov, b,
+        this.concentrator . NativeMouseDownOnMaes (e, prv, b,
                                                    this.from_maes, loc_v);
       return this;
     }
 
   CatchNativeMouseUp (e)
     { const loc_v = this.constructor.PropoXY (e, this.helem);
-      e._provenance = MOUSPRV;
+      const prv = (e._provenance = MOUSPRV);
       let b = e.button;
       if (this.butt_xfrm_func)
         b = this.butt_xfrm_func (b);
 
       if (this.concentrator != null)
-        this.concentrator . NativeMouseUpOnMaes (e, this.prov, b,
+        this.concentrator . NativeMouseUpOnMaes (e, prv, b,
                                                  this.from_maes, loc_v);
+      return this;
+    }
+
+  CatchNativeKeyDown (e)
+    { const prv = (e._provenance = KEYBPRV);
+      let k = e.key;
+      if (this.key_xfrm_func)
+        k = this.key_xfrm_func (k);
+
+      if (this.concentrator != null)
+        this.concentrator . NativeKeyDownOnMaes (e, prv, k,
+                                                 this.from_maes);
+      return this;
+    }
+
+  CatchNativeKeyUp (e)
+    { const prv = (e._provenance = KEYBPRV);
+      let k = e.key;
+      if (this.key_xfrm_func)
+        k = this.key_xfrm_func (k);
+
+      if (this.concentrator != null)
+        this.concentrator . NativeKeyUpOnMaes (e, prv, k,
+                                               this.from_maes);
       return this;
     }
 
   CatchNativeWheeling (e)
     { const loc_v = this.constructor.PropoXY (e, this.helem);
       let rub_v = new Vect (e.deltaX, e.deltaY, e.deltaZ);
-      e._provenance = MOUSPRV;
+      const prv = (e._provenance = MOUSPRV);
 console.log("WHEELIE: (" + e.clientX + ", " + e.clientY + ")");
       if (this.whee_xfrm_func)
         rub_v = this.whee_xfrm_func (rub_v);
 
       if (this.concentrator != null)
-        this.concentrator . NativeWheelingOnMaes (e, this.prov,
+        this.concentrator . NativeWheelingOnMaes (e, prv,
                                                   this.from_maes, rub_v, loc_v);
       return this;
     }
