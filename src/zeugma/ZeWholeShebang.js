@@ -593,26 +593,40 @@ whin . addEventListener ('pointermove',
   _PromiseWrappedSubwinFinisher (whin, maes, canvasfully)
     { let succy = null, faily = null;
       let self = this;
+/*
+      whin._z_z_z_zeguma_window_ready = false;
+      whin . addEventListener
+        ("load",
+         () => { whin._z_z_z_zeguma_window_ready = true;
+                 console.log(`GLEEFULLY TOGGLING ${maes.Name()}`);
+               },
+//         { once: true }
+        );
+console.log(`having just set up ${maes.Name()} for... something.`);
+*/
       function Writhe ()
-        { if (! succy  ||  ! faily)
-            setTimeout (Writhe, 10);
-          whin . addEventListener ("pageshow",
-                                   () =>
-            { //
-              self.AssociateWindowAndMaes (whin, maes);
-              if (canvasfully)
-                self.ProvisionWindowAndMaesWithCanvas (whin, maes);
+        { if (succy  &&  faily)
+            { if (whin._z_z_z_zeguma_window_ready)
+                { //
+                  whin._z_z_z_zeguma_window_ready = false;
+                  self.AssociateWindowAndMaes (whin, maes);
+                  if (canvasfully)
+                    self.ProvisionWindowAndMaesWithCanvas (whin, maes);
 
-              succy (whin);
-console.log(`surely now ${whin.name} has excitingly page-loaded...`);
-                                         },
-                                   { once: true }
-                                  );
+                  succy (whin);
+console.log(`surely now ${maes.Name()} has excitingly page-loaded...`);
+                  return;
+                }
+            }
+//console.log(`waiting on ${maes.Name()}, dammit...`);
+          setTimeout (Writhe, 10);
         };
+
       const prawm = new Promise ((s, f) => { succy = s;  faily = f; });
       Writhe ();
       return prawm;
     }
+
 
   _BurstFromTheGround (canvaslessly)
     { const winny = globalThis.window;
@@ -631,7 +645,7 @@ console.log(`surely now ${whin.name} has excitingly page-loaded...`);
       if (! canvaslessly)
         this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
 
-      prom_arr . push (Promise.resolve (winny));
+//      prom_arr . push (Promise.resolve (winny));
 
       let ma;
       const cnt = this.NumMaeses ();
@@ -651,6 +665,14 @@ console.log(`surely now ${whin.name} has excitingly page-loaded...`);
               { prom_arr . push (Promise.reject ("win.open() fffailed."));
                 continue;
               }
+//             parawin._z_z_z_zeguma_window_ready = false;
+//             parawin . addEventListener
+//               ("pageshow",
+//                () => { parawin._z_z_z_zeguma_window_ready = true;
+//                        console.log(`GLEEFULLY TOGGLING ${ma.Name()}`);
+//                      },
+//                { once: true });
+// console.log(`having just set up ${ma.Name()} for... something.`);
             const pee = this._PromiseWrappedSubwinFinisher (parawin, ma,
                                                             ! canvaslessly);
             prom_arr . push (pee);
