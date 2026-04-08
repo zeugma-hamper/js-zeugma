@@ -550,6 +550,7 @@ export class ZeWholeShebang  extends base_class (Zeubject)
         // second arg above is the object to query about hoarding events...
         // [see NativeEventDialectCatcher's Hoover...(),
         //  and also Adjudicate..() for details]
+console.log(`after which (for ${whin.name}) we're loaded with `);
     }
 
   ProvisionWindowAndMaesWithCanvas (whin, maes)
@@ -584,16 +585,52 @@ whin . addEventListener ('pointermove',
     }
 
 
+  _PromiseWrappedSubwinFinisher (whin, maes, canvasfully)
+    { let succy = null, faily = null;
+      let self = this;
+      function Writhe ()
+        { if (succy  &&  faily)
+            { if (whin._z_z_z_zeguma_window_ready)
+                { //
+                  whin._z_z_z_zeguma_window_ready = false;
+                  self.AssociateWindowAndMaes (whin, maes);
+                  if (canvasfully)
+                    self.ProvisionWindowAndMaesWithCanvas (whin, maes);
+
+                  succy (whin);
+console.log(`Yes, well, seems ${maes.Name()} has excitingly page-loaded...`);
+                  return;
+                }
+            }
+//console.log(`waiting on ${maes.Name()}, dammit...`);
+          setTimeout (Writhe, 10);
+        };
+
+      const prawm = new Promise ((s, f) => { succy = s;  faily = f; });
+      Writhe ();
+      return prawm;
+    }
+
+
   _BurstFromTheGround (canvaslessly)
     { const winny = globalThis.window;
       const ur_maes = this.NthMaes (0);
+
+      const prom_arr = new Array ();
+
       if (winny === null  ||  winny === undefined
           ||  ur_maes === null  ||  ur_maes === undefined)
-        return null;
+        return prom_arr;
+
+// here we're assuming that, by the time execution has entered this routine,
+// the main window is fully birthed. Boy do we hope so.
 
       this.AssociateWindowAndMaes (winny, ur_maes);
       if (! canvaslessly)
         this.ProvisionWindowAndMaesWithCanvas (winny, ur_maes);
+
+// turns out (re: next line) that waiting on the main win causes Schmerz.
+      // prom_arr . push (Promise.resolve (winny));
 
       let ma;
       const cnt = this.NumMaeses ();
@@ -610,12 +647,27 @@ whin . addEventListener ('pointermove',
 
             const parawin = winny . open (url, nm, extry);
             if (parawin === null  ||  parawin === undefined)
-              continue;
-            this.AssociateWindowAndMaes (parawin, ma);
-            if (! canvaslessly)
-              this.ProvisionWindowAndMaesWithCanvas (parawin, ma);
+              { prom_arr . push (Promise.reject ("win.open() fffailed."));
+                continue;
+              }
+
+// for the next chunk: we'd love to do this here, in code, but the timing
+// won't work; has to live instead in a <script> section in the HTML file.
+// Blech, to say the least.
+            // parawin._z_z_z_zeguma_window_ready = false;
+            // parawin . addEventListener
+            //   ("pageshow",
+            //    () => { parawin._z_z_z_zeguma_window_ready = true;
+            //            console.log(`GLEEFULLY TOGGLING ${ma.Name()}`);
+            //          },
+            //    { once: true });
+//console.log(`having just set up ${ma.Name()} for... something.`);
+
+            const pee = this._PromiseWrappedSubwinFinisher (parawin, ma,
+                                                            ! canvaslessly);
+            prom_arr . push (pee);
           }
-      return this;
+      return prom_arr;
     }
 
   BurstFromTheGround ()
