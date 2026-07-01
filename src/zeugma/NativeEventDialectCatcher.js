@@ -97,7 +97,6 @@ export class NativeEventDialectCatcher  extends Zeubject
       html_elem . addEventListener ("wheel",
                                     (e) => {
                                       if (e.zeugma_evt)  return;
-                                      console.log ("wheelishly: ", e);
                                       self . CatchNativeWheeling (e);
                                       AdjudicatePropagation (e, hog_evts);
                                     },
@@ -157,7 +156,7 @@ export class NativeEventDialectCatcher  extends Zeubject
     { const loc_v = this.constructor.PropoXY (e, this.helem);
       let rub_v = new Vect (e.deltaX, e.deltaY, e.deltaZ);
       e._provenance = MOUSPRV;
-console.log("WHEELIE: (" + e.clientX + ", " + e.clientY + ")");
+
       if (this.whee_xfrm_func)
         rub_v = this.whee_xfrm_func (rub_v);
 
